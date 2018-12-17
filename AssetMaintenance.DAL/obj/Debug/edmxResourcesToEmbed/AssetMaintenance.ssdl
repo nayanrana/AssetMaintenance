@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AssetMaintenanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="GFI_AMM_AssetExtProVehicles">
+    <Key>
+      <PropertyRef Name="AssetId" />
+    </Key>
+    <Property Name="AssetId" Type="int" Nullable="false" />
+    <Property Name="VIN" Type="nvarchar" MaxLength="120" />
+    <Property Name="Description" Type="nvarchar" MaxLength="120" />
+    <Property Name="Make" Type="nvarchar" MaxLength="120" />
+    <Property Name="Model" Type="nvarchar" MaxLength="120" />
+    <Property Name="VehicleTypeId_cbo" Type="int" />
+    <Property Name="Manufacturer" Type="nvarchar" MaxLength="120" />
+    <Property Name="YearManufactured" Type="int" />
+    <Property Name="PurchasedDate" Type="datetime" />
+    <Property Name="PurchasedValue" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="PORef" Type="nvarchar" MaxLength="120" />
+    <Property Name="ExpectedLifetime" Type="int" />
+    <Property Name="ResidualValue" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="EngineSerialNumber" Type="nvarchar" MaxLength="120" />
+    <Property Name="EngineType" Type="nvarchar" MaxLength="120" />
+    <Property Name="EngineCapacity" Type="int" />
+    <Property Name="EnginePower" Type="int" />
+    <Property Name="FuelType" Type="nvarchar" MaxLength="120" />
+    <Property Name="StdConsumption" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="ExternalReference" Type="nvarchar" MaxLength="120" />
+    <Property Name="InService_b" Type="char" MaxLength="1" />
+    <Property Name="AdditionalInfo" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="Field1Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field2Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field3Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field4Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field5Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field6Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field1Id" Type="int" />
+    <Property Name="Field2Id" Type="int" />
+    <Property Name="Field3Id" Type="int" />
+    <Property Name="Field4Id" Type="int" />
+    <Property Name="Field5Id" Type="int" />
+    <Property Name="Field6Id" Type="int" />
+  </EntityType>
+  <EntityType Name="GFI_AMM_MaintenanceTrip">
+    <Key>
+      <PropertyRef Name="Uid" />
+    </Key>
+    <Property Name="Uid" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaintID" Type="int" Nullable="false" />
+    <Property Name="CustomTripID" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="GFI_AMM_VehicleMaintCat">
+    <Key>
+      <PropertyRef Name="MaintCatId" />
+    </Key>
+    <Property Name="MaintCatId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="120" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="GFI_AMM_VehicleMaintenance">
+    <Key>
+      <PropertyRef Name="URI" />
+    </Key>
+    <Property Name="URI" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssetId" Type="int" />
+    <Property Name="MaintTypeId_cbo" Type="int" />
+    <Property Name="ContactDetails" Type="nvarchar" MaxLength="120" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="255" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="120" />
+    <Property Name="CompanyRef" Type="nvarchar" MaxLength="120" />
+    <Property Name="CompanyRef2" Type="nvarchar" MaxLength="120" />
+    <Property Name="MaintDescription" Type="nvarchar" MaxLength="512" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="MaintStatusId_cbo" Type="int" />
+    <Property Name="EstimatedValue" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="VATInclInItemsAmt" Type="nchar" MaxLength="1" />
+    <Property Name="VATAmount" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="TotalCost" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="CoverTypeId_cbo" Type="int" />
+    <Property Name="CalculatedOdometer" Type="int" />
+    <Property Name="ActualOdometer" Type="int" />
+    <Property Name="CalculatedEngineHrs" Type="int" />
+    <Property Name="ActualEngineHrs" Type="int" />
+    <Property Name="AdditionalInfo" Type="nvarchar(max)" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="AssetStatus" Type="nvarchar" MaxLength="20" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="12" />
+  </EntityType>
+  <EntityType Name="GFI_AMM_VehicleMaintItems">
+    <Key>
+      <PropertyRef Name="URI" />
+    </Key>
+    <Property Name="URI" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaintURI" Type="int" Nullable="false" />
+    <Property Name="ItemCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="120" />
+    <Property Name="Quantity" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="UnitCost" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="GFI_AMM_VehicleMaintStatus">
+    <Key>
+      <PropertyRef Name="MaintStatusId" />
+    </Key>
+    <Property Name="MaintStatusId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="120" />
+    <Property Name="SortOrder" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="GFI_AMM_VehicleMaintTypes">
+    <Key>
+      <PropertyRef Name="MaintTypeId" />
+    </Key>
+    <Property Name="MaintTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaintCatId_cbo" Type="int" />
+    <Property Name="Description" Type="nvarchar" MaxLength="120" />
+    <Property Name="OccurrenceType" Type="int" />
+    <Property Name="OccurrenceFixedDate" Type="datetime" />
+    <Property Name="OccurrenceFixedDateTh" Type="int" />
+    <Property Name="OccurrenceDuration" Type="int" />
+    <Property Name="OccurrenceDurationTh" Type="int" />
+    <Property Name="OccurrencePeriod_cbo" Type="nvarchar" MaxLength="30" />
+    <Property Name="OccurrenceKM" Type="int" />
+    <Property Name="OccurrenceKMTh" Type="int" />
+    <Property Name="OccurrenceEngineHrs" Type="int" />
+    <Property Name="OccurrenceEngineHrsTh" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="GFI_AMM_VehicleMaintTypesLink">
+    <Key>
+      <PropertyRef Name="URI" />
+    </Key>
+    <Property Name="URI" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaintURI" Type="int" />
+    <Property Name="AssetId" Type="int" />
+    <Property Name="MaintTypeId" Type="int" />
+    <Property Name="NextMaintDate" Type="datetime" />
+    <Property Name="NextMaintDateTG" Type="datetime" />
+    <Property Name="CurrentOdometer" Type="int" />
+    <Property Name="NextMaintOdometer" Type="int" />
+    <Property Name="NextMaintOdometerTG" Type="int" />
+    <Property Name="CurrentEngHrs" Type="int" />
+    <Property Name="NextMaintEngHrs" Type="int" />
+    <Property Name="NextMaintEngHrsTG" Type="int" />
+    <Property Name="Status" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="GFI_AMM_VehicleTypes">
+    <Key>
+      <PropertyRef Name="VehicleTypeId" />
+    </Key>
+    <Property Name="VehicleTypeId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="120" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="GFI_FLT_Asset">
+    <Key>
+      <PropertyRef Name="AssetID" />
+    </Key>
+    <Property Name="AssetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssetNumber" Type="nvarchar(max)" />
+    <Property Name="Status_b" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="TimeZoneID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Odometer" Type="int" Nullable="false" />
+    <Property Name="AssetName" Type="nvarchar" MaxLength="120" />
+    <Property Name="AssetType" Type="int" Nullable="false" />
+    <Property Name="VehicleTypeId" Type="int" />
+    <Property Name="ColorID" Type="int" />
+    <Property Name="RoadSpeedType" Type="int" />
+  </EntityType>
+  <EntityType Name="GFI_FLT_AssetDataType">
+    <Key>
+      <PropertyRef Name="iID" />
+    </Key>
+    <Property Name="iID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Field1Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Field1Label" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Field1Type" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="sDataSource" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="GFI_FLT_AssetDeviceMap">
+    <Key>
+      <PropertyRef Name="MapID" />
+    </Key>
+    <Property Name="MapID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssetID" Type="int" />
+    <Property Name="DeviceID" Type="nvarchar" MaxLength="50" />
+    <Property Name="SerialNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status_b" Type="nvarchar" MaxLength="2" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="MaxNoLogDays" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GFI_FLT_AssetExt">
+    <Key>
+      <PropertyRef Name="AssetId" />
+    </Key>
+    <Property Name="AssetId" Type="int" Nullable="false" />
+    <Property Name="MakeID" Type="int" />
+    <Property Name="ModelID" Type="int" />
+    <Property Name="ColorID" Type="int" />
+    <Property Name="YearManufactured" Type="int" />
+    <Property Name="PurchasedDate" Type="datetime" />
+    <Property Name="PurchasedValue" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="RefA" Type="nvarchar" MaxLength="120" />
+    <Property Name="RefB" Type="nvarchar" MaxLength="120" />
+    <Property Name="RefC" Type="nvarchar" MaxLength="120" />
+    <Property Name="RefD" Type="nvarchar" MaxLength="120" />
+    <Property Name="ExternalRef" Type="nvarchar" MaxLength="120" />
+    <Property Name="EngineSerialNumber" Type="nvarchar" MaxLength="120" />
+    <Property Name="EngineCapacity" Type="int" />
+    <Property Name="EnginePower" Type="int" />
+  </EntityType>
+  <EntityType Name="GFI_FLT_AssetTypeMapping">
+    <Key>
+      <PropertyRef Name="IID" />
+    </Key>
+    <Property Name="IID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="MappingId" Type="int" Nullable="false" />
+    <Property Name="AssetTypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GFI_FLT_AssetUOM">
+    <Key>
+      <PropertyRef Name="iID" />
+    </Key>
+    <Property Name="iID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssetID" Type="int" Nullable="false" />
+    <Property Name="UOM" Type="int" Nullable="false" />
+    <Property Name="Capacity" Type="int" />
+  </EntityType>
+  <EntityType Name="GFI_FLT_ExtTripInfo">
+    <Key>
+      <PropertyRef Name="IID" />
+    </Key>
+    <Property Name="IID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExtTripID" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field1Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field2Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field3Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="UpdatedDate" Type="date" />
+    <Property Name="AssetName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field4Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field5Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field6Value" Type="nvarchar" MaxLength="50" />
+    <Property Name="AdditionalField1" Type="nvarchar" MaxLength="50" />
+    <Property Name="AdditionalField2" Type="nvarchar" MaxLength="50" />
+    <Property Name="AdditionalValue1" Type="nvarchar" MaxLength="50" />
+    <Property Name="AdditionalValue2" Type="nvarchar" MaxLength="50" />
+    <Property Name="Field1Name" Type="int" />
+    <Property Name="Field2Name" Type="int" />
+    <Property Name="Field3Name" Type="int" />
+    <Property Name="Field4Name" Type="int" />
+    <Property Name="Field5Name" Type="int" />
+    <Property Name="Field6Name" Type="int" />
+    <Property Name="Consumption" Type="float" />
+    <Property Name="Timediff" Type="float" />
+    <Property Name="DateTimeGPSStart_UTC" Type="datetime" />
+    <Property Name="DateTimeGPSStop_UTC" Type="datetime" />
+    <Property Name="TripDistance" Type="float" />
+  </EntityType>
+  <EntityType Name="GFI_FLT_RoadSpeedType">
+    <Key>
+      <PropertyRef Name="iID" />
+    </Key>
+    <Property Name="iID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VehicleType" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="MotorWay" Type="int" />
+    <Property Name="RoadA" Type="int" />
+    <Property Name="RoadB" Type="int" />
+    <Property Name="RoadC" Type="int" />
+    <Property Name="RoadD" Type="int" />
+    <Property Name="RoadE" Type="int" />
+    <Property Name="RoadF" Type="int" />
+    <Property Name="RoadG" Type="int" />
+    <Property Name="RoadH" Type="int" />
+  </EntityType>
+  <EntityType Name="GFI_SYS_LookUpTypes">
+    <Key>
+      <PropertyRef Name="TID" />
+    </Key>
+    <Property Name="TID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="200" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="GFI_SYS_LookUpValues">
+    <Key>
+      <PropertyRef Name="VID" />
+    </Key>
+    <Property Name="VID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="Value" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="RootMatrixID" Type="int" />
+  </EntityType>
+  <EntityType Name="GFI_SYS_User">
+    <Key>
+      <PropertyRef Name="UID" />
+    </Key>
+    <Property Name="UID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="100" />
+    <Property Name="Names" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Tel" Type="nvarchar" MaxLength="15" />
+    <Property Name="MobileNo" Type="nvarchar" MaxLength="15" />
+    <Property Name="DateJoined" Type="datetime" />
+    <Property Name="Status_b" Type="nvarchar" MaxLength="2" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="AccessList" Type="nvarchar(max)" />
+    <Property Name="StoreUnit_b" Type="nvarchar" MaxLength="2" />
+    <Property Name="UType_cbo" Type="nvarchar" MaxLength="20" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="Dummy1" Type="nvarchar" MaxLength="50" />
+    <Property Name="LoginCount" Type="int" Nullable="false" />
+    <Property Name="AccessTemplateId" Type="int" />
+    <Property Name="LoginAttempt" Type="int" Nullable="false" />
+    <Property Name="PreviousPassword" Type="nvarchar" MaxLength="50" />
+    <Property Name="PasswordUpdateddate" Type="datetime" />
+    <Property Name="MaxDayMail" Type="int" Nullable="false" />
+    <Property Name="UsrTypeID" Type="int" Nullable="false" />
+    <Property Name="UsrTypeDesc" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ZoneID" Type="int" />
+    <Property Name="PlnLkpVal" Type="int" />
+    <Property Name="MobileAccess" Type="int" />
+    <Property Name="ExternalAccess" Type="int" />
+    <Property Name="TwoStepVerif" Type="nvarchar" MaxLength="10" />
+    <Property Name="TwoStepAttempts" Type="int" />
+    <Property Name="UserToken" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PswdExpiryDate" Type="datetime" />
+    <Property Name="PswdExpiryWarnDate" Type="datetime" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK__GFI_AMM_A__Field__32E0915F">
+    <End Role="GFI_FLT_AssetDataType" Type="Self.GFI_FLT_AssetDataType" Multiplicity="0..1" />
+    <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GFI_FLT_AssetDataType">
+        <PropertyRef Name="iID" />
+      </Principal>
+      <Dependent Role="GFI_AMM_AssetExtProVehicles">
+        <PropertyRef Name="Field2Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GFI_AMM_A__Field__33D4B598">
+    <End Role="GFI_FLT_AssetDataType" Type="Self.GFI_FLT_AssetDataType" Multiplicity="0..1" />
+    <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GFI_FLT_AssetDataType">
+        <PropertyRef Name="iID" />
+      </Principal>
+      <Dependent Role="GFI_AMM_AssetExtProVehicles">
+        <PropertyRef Name="Field3Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GFI_AMM_A__Field__34C8D9D1">
+    <End Role="GFI_FLT_AssetDataType" Type="Self.GFI_FLT_AssetDataType" Multiplicity="0..1" />
+    <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GFI_FLT_AssetDataType">
+        <PropertyRef Name="iID" />
+      </Principal>
+      <Dependent Role="GFI_AMM_AssetExtProVehicles">
+        <PropertyRef Name="Field4Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GFI_AMM_A__Field__35BCFE0A">
+    <End Role="GFI_FLT_AssetDataType" Type="Self.GFI_FLT_AssetDataType" Multiplicity="0..1" />
+    <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GFI_FLT_AssetDataType">
+        <PropertyRef Name="iID" />
+      </Principal>
+      <Dependent Role="GFI_AMM_AssetExtProVehicles">
+        <PropertyRef Name="Field5Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GFI_AMM_A__Field__36B12243">
+    <End Role="GFI_FLT_AssetDataType" Type="Self.GFI_FLT_AssetDataType" Multiplicity="0..1" />
+    <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GFI_FLT_AssetDataType">
+        <PropertyRef Name="iID" />
+      </Principal>
+      <Dependent Role="GFI_AMM_AssetExtProVehicles">
+        <PropertyRef Name="Field6Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_Asset">
+    <End Role="GFI_FLT_Asset" Type="Self.GFI_FLT_Asset" Multiplicity="1" />
+    <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GFI_FLT_Asset">
+        <PropertyRef Name="AssetID" />
+      </Principal>
+      <Dependent Role="GFI_AMM_AssetExtProVehicles">
+        <PropertyRef Name="AssetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_AssetDataType">
+    <End Role="GFI_FLT_AssetDataType" Type="Self.GFI_FLT_AssetDataType" Multiplicity="0..1" />
+    <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GFI_FLT_AssetDataType">
+        <PropertyRef Name="iID" />
+      </Principal>
+      <Dependent Role="GFI_AMM_AssetExtProVehicles">
+        <PropertyRef Name="Field1Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AssetMaintenanceModelStoreContainer">
+    <EntitySet Name="GFI_AMM_AssetExtProVehicles" EntityType="Self.GFI_AMM_AssetExtProVehicles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_AMM_MaintenanceTrip" EntityType="Self.GFI_AMM_MaintenanceTrip" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_AMM_VehicleMaintCat" EntityType="Self.GFI_AMM_VehicleMaintCat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_AMM_VehicleMaintenance" EntityType="Self.GFI_AMM_VehicleMaintenance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_AMM_VehicleMaintItems" EntityType="Self.GFI_AMM_VehicleMaintItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_AMM_VehicleMaintStatus" EntityType="Self.GFI_AMM_VehicleMaintStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_AMM_VehicleMaintTypes" EntityType="Self.GFI_AMM_VehicleMaintTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_AMM_VehicleMaintTypesLink" EntityType="Self.GFI_AMM_VehicleMaintTypesLink" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_AMM_VehicleTypes" EntityType="Self.GFI_AMM_VehicleTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_FLT_Asset" EntityType="Self.GFI_FLT_Asset" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_FLT_AssetDataType" EntityType="Self.GFI_FLT_AssetDataType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_FLT_AssetDeviceMap" EntityType="Self.GFI_FLT_AssetDeviceMap" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_FLT_AssetExt" EntityType="Self.GFI_FLT_AssetExt" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_FLT_AssetTypeMapping" EntityType="Self.GFI_FLT_AssetTypeMapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_FLT_AssetUOM" EntityType="Self.GFI_FLT_AssetUOM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_FLT_ExtTripInfo" EntityType="Self.GFI_FLT_ExtTripInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_FLT_RoadSpeedType" EntityType="Self.GFI_FLT_RoadSpeedType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_SYS_LookUpTypes" EntityType="Self.GFI_SYS_LookUpTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_SYS_LookUpValues" EntityType="Self.GFI_SYS_LookUpValues" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GFI_SYS_User" EntityType="Self.GFI_SYS_User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__GFI_AMM_A__Field__32E0915F" Association="Self.FK__GFI_AMM_A__Field__32E0915F">
+      <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
+      <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GFI_AMM_A__Field__33D4B598" Association="Self.FK__GFI_AMM_A__Field__33D4B598">
+      <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
+      <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GFI_AMM_A__Field__34C8D9D1" Association="Self.FK__GFI_AMM_A__Field__34C8D9D1">
+      <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
+      <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GFI_AMM_A__Field__35BCFE0A" Association="Self.FK__GFI_AMM_A__Field__35BCFE0A">
+      <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
+      <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GFI_AMM_A__Field__36B12243" Association="Self.FK__GFI_AMM_A__Field__36B12243">
+      <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
+      <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_Asset" Association="Self.FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_Asset">
+      <End Role="GFI_FLT_Asset" EntitySet="GFI_FLT_Asset" />
+      <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_AssetDataType" Association="Self.FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_AssetDataType">
+      <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
+      <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

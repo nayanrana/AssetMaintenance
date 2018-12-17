@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AssetMaintenanceModelStoreContainer" CdmEntityContainer="AssetMaintenanceEntities">
+    <EntitySetMapping Name="GFI_AMM_AssetExtProVehicles">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_AMM_AssetExtProVehicles">
+        <MappingFragment StoreEntitySet="GFI_AMM_AssetExtProVehicles">
+          <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+          <ScalarProperty Name="VIN" ColumnName="VIN" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Make" ColumnName="Make" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="VehicleTypeId_cbo" ColumnName="VehicleTypeId_cbo" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="YearManufactured" ColumnName="YearManufactured" />
+          <ScalarProperty Name="PurchasedDate" ColumnName="PurchasedDate" />
+          <ScalarProperty Name="PurchasedValue" ColumnName="PurchasedValue" />
+          <ScalarProperty Name="PORef" ColumnName="PORef" />
+          <ScalarProperty Name="ExpectedLifetime" ColumnName="ExpectedLifetime" />
+          <ScalarProperty Name="ResidualValue" ColumnName="ResidualValue" />
+          <ScalarProperty Name="EngineSerialNumber" ColumnName="EngineSerialNumber" />
+          <ScalarProperty Name="EngineType" ColumnName="EngineType" />
+          <ScalarProperty Name="EngineCapacity" ColumnName="EngineCapacity" />
+          <ScalarProperty Name="EnginePower" ColumnName="EnginePower" />
+          <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+          <ScalarProperty Name="StdConsumption" ColumnName="StdConsumption" />
+          <ScalarProperty Name="ExternalReference" ColumnName="ExternalReference" />
+          <ScalarProperty Name="InService_b" ColumnName="InService_b" />
+          <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="Field1Value" ColumnName="Field1Value" />
+          <ScalarProperty Name="Field2Value" ColumnName="Field2Value" />
+          <ScalarProperty Name="Field3Value" ColumnName="Field3Value" />
+          <ScalarProperty Name="Field4Value" ColumnName="Field4Value" />
+          <ScalarProperty Name="Field5Value" ColumnName="Field5Value" />
+          <ScalarProperty Name="Field6Value" ColumnName="Field6Value" />
+          <ScalarProperty Name="Field1Id" ColumnName="Field1Id" />
+          <ScalarProperty Name="Field2Id" ColumnName="Field2Id" />
+          <ScalarProperty Name="Field3Id" ColumnName="Field3Id" />
+          <ScalarProperty Name="Field4Id" ColumnName="Field4Id" />
+          <ScalarProperty Name="Field5Id" ColumnName="Field5Id" />
+          <ScalarProperty Name="Field6Id" ColumnName="Field6Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_AMM_MaintenanceTrip">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_AMM_MaintenanceTrip">
+        <MappingFragment StoreEntitySet="GFI_AMM_MaintenanceTrip">
+          <ScalarProperty Name="Uid" ColumnName="Uid" />
+          <ScalarProperty Name="MaintID" ColumnName="MaintID" />
+          <ScalarProperty Name="CustomTripID" ColumnName="CustomTripID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_AMM_VehicleMaintCat">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_AMM_VehicleMaintCat">
+        <MappingFragment StoreEntitySet="GFI_AMM_VehicleMaintCat">
+          <ScalarProperty Name="MaintCatId" ColumnName="MaintCatId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_AMM_VehicleMaintenance">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_AMM_VehicleMaintenance">
+        <MappingFragment StoreEntitySet="GFI_AMM_VehicleMaintenance">
+          <ScalarProperty Name="URI" ColumnName="URI" />
+          <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+          <ScalarProperty Name="MaintTypeId_cbo" ColumnName="MaintTypeId_cbo" />
+          <ScalarProperty Name="ContactDetails" ColumnName="ContactDetails" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="CompanyRef" ColumnName="CompanyRef" />
+          <ScalarProperty Name="CompanyRef2" ColumnName="CompanyRef2" />
+          <ScalarProperty Name="MaintDescription" ColumnName="MaintDescription" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="MaintStatusId_cbo" ColumnName="MaintStatusId_cbo" />
+          <ScalarProperty Name="EstimatedValue" ColumnName="EstimatedValue" />
+          <ScalarProperty Name="VATInclInItemsAmt" ColumnName="VATInclInItemsAmt" />
+          <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+          <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+          <ScalarProperty Name="CoverTypeId_cbo" ColumnName="CoverTypeId_cbo" />
+          <ScalarProperty Name="CalculatedOdometer" ColumnName="CalculatedOdometer" />
+          <ScalarProperty Name="ActualOdometer" ColumnName="ActualOdometer" />
+          <ScalarProperty Name="CalculatedEngineHrs" ColumnName="CalculatedEngineHrs" />
+          <ScalarProperty Name="ActualEngineHrs" ColumnName="ActualEngineHrs" />
+          <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="AssetStatus" ColumnName="AssetStatus" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_AMM_VehicleMaintItems">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_AMM_VehicleMaintItems">
+        <MappingFragment StoreEntitySet="GFI_AMM_VehicleMaintItems">
+          <ScalarProperty Name="URI" ColumnName="URI" />
+          <ScalarProperty Name="MaintURI" ColumnName="MaintURI" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_AMM_VehicleMaintStatus">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_AMM_VehicleMaintStatus">
+        <MappingFragment StoreEntitySet="GFI_AMM_VehicleMaintStatus">
+          <ScalarProperty Name="MaintStatusId" ColumnName="MaintStatusId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_AMM_VehicleMaintTypes">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_AMM_VehicleMaintTypes">
+        <MappingFragment StoreEntitySet="GFI_AMM_VehicleMaintTypes">
+          <ScalarProperty Name="MaintTypeId" ColumnName="MaintTypeId" />
+          <ScalarProperty Name="MaintCatId_cbo" ColumnName="MaintCatId_cbo" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="OccurrenceType" ColumnName="OccurrenceType" />
+          <ScalarProperty Name="OccurrenceFixedDate" ColumnName="OccurrenceFixedDate" />
+          <ScalarProperty Name="OccurrenceFixedDateTh" ColumnName="OccurrenceFixedDateTh" />
+          <ScalarProperty Name="OccurrenceDuration" ColumnName="OccurrenceDuration" />
+          <ScalarProperty Name="OccurrenceDurationTh" ColumnName="OccurrenceDurationTh" />
+          <ScalarProperty Name="OccurrencePeriod_cbo" ColumnName="OccurrencePeriod_cbo" />
+          <ScalarProperty Name="OccurrenceKM" ColumnName="OccurrenceKM" />
+          <ScalarProperty Name="OccurrenceKMTh" ColumnName="OccurrenceKMTh" />
+          <ScalarProperty Name="OccurrenceEngineHrs" ColumnName="OccurrenceEngineHrs" />
+          <ScalarProperty Name="OccurrenceEngineHrsTh" ColumnName="OccurrenceEngineHrsTh" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_AMM_VehicleMaintTypesLink">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_AMM_VehicleMaintTypesLink">
+        <MappingFragment StoreEntitySet="GFI_AMM_VehicleMaintTypesLink">
+          <ScalarProperty Name="URI" ColumnName="URI" />
+          <ScalarProperty Name="MaintURI" ColumnName="MaintURI" />
+          <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+          <ScalarProperty Name="MaintTypeId" ColumnName="MaintTypeId" />
+          <ScalarProperty Name="NextMaintDate" ColumnName="NextMaintDate" />
+          <ScalarProperty Name="NextMaintDateTG" ColumnName="NextMaintDateTG" />
+          <ScalarProperty Name="CurrentOdometer" ColumnName="CurrentOdometer" />
+          <ScalarProperty Name="NextMaintOdometer" ColumnName="NextMaintOdometer" />
+          <ScalarProperty Name="NextMaintOdometerTG" ColumnName="NextMaintOdometerTG" />
+          <ScalarProperty Name="CurrentEngHrs" ColumnName="CurrentEngHrs" />
+          <ScalarProperty Name="NextMaintEngHrs" ColumnName="NextMaintEngHrs" />
+          <ScalarProperty Name="NextMaintEngHrsTG" ColumnName="NextMaintEngHrsTG" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_AMM_VehicleTypes">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_AMM_VehicleTypes">
+        <MappingFragment StoreEntitySet="GFI_AMM_VehicleTypes">
+          <ScalarProperty Name="VehicleTypeId" ColumnName="VehicleTypeId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_FLT_Asset">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FLT_Asset">
+        <MappingFragment StoreEntitySet="GFI_FLT_Asset">
+          <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+          <ScalarProperty Name="AssetNumber" ColumnName="AssetNumber" />
+          <ScalarProperty Name="Status_b" ColumnName="Status_b" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="TimeZoneID" ColumnName="TimeZoneID" />
+          <ScalarProperty Name="Odometer" ColumnName="Odometer" />
+          <ScalarProperty Name="AssetName" ColumnName="AssetName" />
+          <ScalarProperty Name="AssetType" ColumnName="AssetType" />
+          <ScalarProperty Name="VehicleTypeId" ColumnName="VehicleTypeId" />
+          <ScalarProperty Name="ColorID" ColumnName="ColorID" />
+          <ScalarProperty Name="RoadSpeedType" ColumnName="RoadSpeedType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_FLT_AssetDataType">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FLT_AssetDataType">
+        <MappingFragment StoreEntitySet="GFI_FLT_AssetDataType">
+          <ScalarProperty Name="iID" ColumnName="iID" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="Field1Name" ColumnName="Field1Name" />
+          <ScalarProperty Name="Field1Label" ColumnName="Field1Label" />
+          <ScalarProperty Name="Field1Type" ColumnName="Field1Type" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="sDataSource" ColumnName="sDataSource" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_FLT_AssetDeviceMap">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FLT_AssetDeviceMap">
+        <MappingFragment StoreEntitySet="GFI_FLT_AssetDeviceMap">
+          <ScalarProperty Name="MapID" ColumnName="MapID" />
+          <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+          <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+          <ScalarProperty Name="Status_b" ColumnName="Status_b" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="MaxNoLogDays" ColumnName="MaxNoLogDays" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_FLT_AssetExt">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FLT_AssetExt">
+        <MappingFragment StoreEntitySet="GFI_FLT_AssetExt">
+          <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+          <ScalarProperty Name="MakeID" ColumnName="MakeID" />
+          <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+          <ScalarProperty Name="ColorID" ColumnName="ColorID" />
+          <ScalarProperty Name="YearManufactured" ColumnName="YearManufactured" />
+          <ScalarProperty Name="PurchasedDate" ColumnName="PurchasedDate" />
+          <ScalarProperty Name="PurchasedValue" ColumnName="PurchasedValue" />
+          <ScalarProperty Name="RefA" ColumnName="RefA" />
+          <ScalarProperty Name="RefB" ColumnName="RefB" />
+          <ScalarProperty Name="RefC" ColumnName="RefC" />
+          <ScalarProperty Name="RefD" ColumnName="RefD" />
+          <ScalarProperty Name="ExternalRef" ColumnName="ExternalRef" />
+          <ScalarProperty Name="EngineSerialNumber" ColumnName="EngineSerialNumber" />
+          <ScalarProperty Name="EngineCapacity" ColumnName="EngineCapacity" />
+          <ScalarProperty Name="EnginePower" ColumnName="EnginePower" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_FLT_AssetTypeMapping">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FLT_AssetTypeMapping">
+        <MappingFragment StoreEntitySet="GFI_FLT_AssetTypeMapping">
+          <ScalarProperty Name="IID" ColumnName="IID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="MappingId" ColumnName="MappingId" />
+          <ScalarProperty Name="AssetTypeId" ColumnName="AssetTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_FLT_AssetUOM">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FLT_AssetUOM">
+        <MappingFragment StoreEntitySet="GFI_FLT_AssetUOM">
+          <ScalarProperty Name="iID" ColumnName="iID" />
+          <ScalarProperty Name="AssetID" ColumnName="AssetID" />
+          <ScalarProperty Name="UOM" ColumnName="UOM" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_FLT_ExtTripInfo">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FLT_ExtTripInfo">
+        <MappingFragment StoreEntitySet="GFI_FLT_ExtTripInfo">
+          <ScalarProperty Name="IID" ColumnName="IID" />
+          <ScalarProperty Name="ExtTripID" ColumnName="ExtTripID" />
+          <ScalarProperty Name="Field1Value" ColumnName="Field1Value" />
+          <ScalarProperty Name="Field2Value" ColumnName="Field2Value" />
+          <ScalarProperty Name="Field3Value" ColumnName="Field3Value" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="AssetName" ColumnName="AssetName" />
+          <ScalarProperty Name="Field4Value" ColumnName="Field4Value" />
+          <ScalarProperty Name="Field5Value" ColumnName="Field5Value" />
+          <ScalarProperty Name="Field6Value" ColumnName="Field6Value" />
+          <ScalarProperty Name="AdditionalField1" ColumnName="AdditionalField1" />
+          <ScalarProperty Name="AdditionalField2" ColumnName="AdditionalField2" />
+          <ScalarProperty Name="AdditionalValue1" ColumnName="AdditionalValue1" />
+          <ScalarProperty Name="AdditionalValue2" ColumnName="AdditionalValue2" />
+          <ScalarProperty Name="Field1Name" ColumnName="Field1Name" />
+          <ScalarProperty Name="Field2Name" ColumnName="Field2Name" />
+          <ScalarProperty Name="Field3Name" ColumnName="Field3Name" />
+          <ScalarProperty Name="Field4Name" ColumnName="Field4Name" />
+          <ScalarProperty Name="Field5Name" ColumnName="Field5Name" />
+          <ScalarProperty Name="Field6Name" ColumnName="Field6Name" />
+          <ScalarProperty Name="Consumption" ColumnName="Consumption" />
+          <ScalarProperty Name="Timediff" ColumnName="Timediff" />
+          <ScalarProperty Name="DateTimeGPSStart_UTC" ColumnName="DateTimeGPSStart_UTC" />
+          <ScalarProperty Name="DateTimeGPSStop_UTC" ColumnName="DateTimeGPSStop_UTC" />
+          <ScalarProperty Name="TripDistance" ColumnName="TripDistance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_FLT_RoadSpeedType">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FLT_RoadSpeedType">
+        <MappingFragment StoreEntitySet="GFI_FLT_RoadSpeedType">
+          <ScalarProperty Name="iID" ColumnName="iID" />
+          <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
+          <ScalarProperty Name="MotorWay" ColumnName="MotorWay" />
+          <ScalarProperty Name="RoadA" ColumnName="RoadA" />
+          <ScalarProperty Name="RoadB" ColumnName="RoadB" />
+          <ScalarProperty Name="RoadC" ColumnName="RoadC" />
+          <ScalarProperty Name="RoadD" ColumnName="RoadD" />
+          <ScalarProperty Name="RoadE" ColumnName="RoadE" />
+          <ScalarProperty Name="RoadF" ColumnName="RoadF" />
+          <ScalarProperty Name="RoadG" ColumnName="RoadG" />
+          <ScalarProperty Name="RoadH" ColumnName="RoadH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_SYS_LookUpTypes">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_SYS_LookUpTypes">
+        <MappingFragment StoreEntitySet="GFI_SYS_LookUpTypes">
+          <ScalarProperty Name="TID" ColumnName="TID" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_SYS_LookUpValues">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_SYS_LookUpValues">
+        <MappingFragment StoreEntitySet="GFI_SYS_LookUpValues">
+          <ScalarProperty Name="VID" ColumnName="VID" />
+          <ScalarProperty Name="TID" ColumnName="TID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="RootMatrixID" ColumnName="RootMatrixID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GFI_SYS_User">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_SYS_User">
+        <MappingFragment StoreEntitySet="GFI_SYS_User">
+          <ScalarProperty Name="UID" ColumnName="UID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Names" ColumnName="Names" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Tel" ColumnName="Tel" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="DateJoined" ColumnName="DateJoined" />
+          <ScalarProperty Name="Status_b" ColumnName="Status_b" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="AccessList" ColumnName="AccessList" />
+          <ScalarProperty Name="StoreUnit_b" ColumnName="StoreUnit_b" />
+          <ScalarProperty Name="UType_cbo" ColumnName="UType_cbo" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="Dummy1" ColumnName="Dummy1" />
+          <ScalarProperty Name="LoginCount" ColumnName="LoginCount" />
+          <ScalarProperty Name="AccessTemplateId" ColumnName="AccessTemplateId" />
+          <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
+          <ScalarProperty Name="PreviousPassword" ColumnName="PreviousPassword" />
+          <ScalarProperty Name="PasswordUpdateddate" ColumnName="PasswordUpdateddate" />
+          <ScalarProperty Name="MaxDayMail" ColumnName="MaxDayMail" />
+          <ScalarProperty Name="UsrTypeID" ColumnName="UsrTypeID" />
+          <ScalarProperty Name="UsrTypeDesc" ColumnName="UsrTypeDesc" />
+          <ScalarProperty Name="ZoneID" ColumnName="ZoneID" />
+          <ScalarProperty Name="PlnLkpVal" ColumnName="PlnLkpVal" />
+          <ScalarProperty Name="MobileAccess" ColumnName="MobileAccess" />
+          <ScalarProperty Name="ExternalAccess" ColumnName="ExternalAccess" />
+          <ScalarProperty Name="TwoStepVerif" ColumnName="TwoStepVerif" />
+          <ScalarProperty Name="TwoStepAttempts" ColumnName="TwoStepAttempts" />
+          <ScalarProperty Name="UserToken" ColumnName="UserToken" />
+          <ScalarProperty Name="PswdExpiryDate" ColumnName="PswdExpiryDate" />
+          <ScalarProperty Name="PswdExpiryWarnDate" ColumnName="PswdExpiryWarnDate" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

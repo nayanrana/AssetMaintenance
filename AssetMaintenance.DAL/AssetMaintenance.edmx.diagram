@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4241579121ad4ee495b03e4325b7add0" Name="Diagram1">
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_AMM_AssetExtProVehicles" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_AMM_MaintenanceTrip" Width="1.5" PointX="5.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_AMM_VehicleMaintCat" Width="1.5" PointX="5.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_AMM_VehicleMaintenance" Width="1.5" PointX="7.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_AMM_VehicleMaintItems" Width="1.5" PointX="5.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_AMM_VehicleMaintStatus" Width="1.5" PointX="7.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_AMM_VehicleMaintTypes" Width="1.5" PointX="9.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_AMM_VehicleMaintTypesLink" Width="1.5" PointX="9.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_AMM_VehicleTypes" Width="1.5" PointX="11.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_FLT_Asset" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_FLT_AssetDataType" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_FLT_AssetDeviceMap" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_FLT_AssetExt" Width="1.5" PointX="2.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_FLT_AssetTypeMapping" Width="1.5" PointX="11.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_FLT_AssetUOM" Width="1.5" PointX="11.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_FLT_ExtTripInfo" Width="1.5" PointX="11.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_FLT_RoadSpeedType" Width="1.5" PointX="4.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_SYS_LookUpTypes" Width="1.5" PointX="6.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_SYS_LookUpValues" Width="1.5" PointX="8.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_SYS_User" Width="1.5" PointX="13.75" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="AssetMaintenanceModel.FK__GFI_AMM_A__Field__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="AssetMaintenanceModel.FK__GFI_AMM_A__Field__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="AssetMaintenanceModel.FK__GFI_AMM_A__Field__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="AssetMaintenanceModel.FK__GFI_AMM_A__Field__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="AssetMaintenanceModel.FK__GFI_AMM_A__Field__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="AssetMaintenanceModel.FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_Asset" ManuallyRouted="false" />
+        <AssociationConnector Association="AssetMaintenanceModel.FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_AssetDataType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

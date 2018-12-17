@@ -1,0 +1,12 @@
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\AssetMaintenance.DAL.dll.config
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\AssetMaintenance.DAL.dll
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\AssetMaintenance.DAL.pdb
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\EntityFramework.dll
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\EntityFramework.SqlServer.dll
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\EntityFramework.xml
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\EntityFramework.SqlServer.xml
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.csprojAssemblyReference.cache
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.csproj.CoreCompileInputs.cache
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.csproj.CopyComplete
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.dll
+E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.pdb
