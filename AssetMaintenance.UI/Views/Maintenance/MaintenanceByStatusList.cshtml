@@ -15,13 +15,13 @@
                         <button class="btn btn-info btn-xs pull-right" type="button"><i class="fa fa-arrow-circle-left"></i> <span class="bold" style="padding-left:5px;">Maintenance</span></button>
                     </li>
                     <li class="active">
-                        <span>Maintenance By Status</span>
+                        <span>Maintenance By Status </span>
                     </li>
                 </ol>
             </div>
 
             <h2 class="font-light m-b-xs">
-                Maintenance By Status
+                Maintenance By Status  <label id="lblString">@(Request.QueryString["maintenanceType"] == "1" ? "OVERDUE" : (Request.QueryString["maintenanceType"] == "2" ? "TO SCHEDULE" : (Request.QueryString["maintenanceType"] == "3" ? "SCHEDULED" : (Request.QueryString["maintenanceType"] == "4" ? "IN PROGRESS" : (Request.QueryString["maintenanceType"] == "5" ? "COMPLETED" : (Request.QueryString["maintenanceType"] == "6" ? "VALID" : "EXPIRED"))))))</label>
             </h2>
             @*<small>Create, manage, and if applicable, delete a deal</small>*@
         </div>
@@ -68,7 +68,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="hpanel blog-box text-center" id="SearchedUserProfile">
-                        INFORMATION NEEDED FROM CLIENT
+                        @*<partial name="_ViewMaintanence" />*@
                     </div>
                 </div>
             </div>
@@ -97,6 +97,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
             getMaintenanceByStatusList();
 
             $("#btnCloseModal").click(function () {
@@ -105,9 +106,11 @@
         });
 
         function getMaintenanceByStatusList() {
+            var str = window.location.href.split('?')[1].split('=')[1];
+            
                     $.ajax({
                         type: 'Post',
-                        data: JSON.stringify({ maintenanceStatus:'@MaintenanceStatus.OverDue'}),
+                        data: JSON.stringify({ maintenanceType: str }),///'@MaintenanceStatus.OverDue'}),
                         url: '@Url.Action("MaintenanceByStatusList", "Maintenance")',
                         dataType: 'json',
                         contentType: "application/json; charset=utf-8",
@@ -115,14 +118,14 @@
                         {
                             $.each(data, function (i, item) {
                                 var tr;
-                                tr = $('<tr />');                                
+                                tr = $('<tr />');
                                 tr.append("<td class='text-center' data-title='Asset'>" + item.Asset + "</td>");
                                 tr.append("<td class='text-center' data-title='AssetNo'>" + item.AssetNo + "</td>");
                                 tr.append("<td class='text-center' data-title='Maintenance'>" + item.Maintenance + "</td>");
                                 tr.append("<td class='text-center' data-title='Reminder'>" + getFormattedDate(item.Reminder) + "</td>");
                                 tr.append("<td class='text-center' data-title='NextMaintenance'>" + getFormattedDate(item.NextMaintenance) + "</td>");
                                 tr.append("<td class='text-center' data-title='History'> " +
-                                    "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this)' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
+                                    "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.URI+")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
                                     "</td>");
                                 $("#MaintenanceList tbody").append(tr);
                             });
@@ -141,11 +144,22 @@
             );
         }
 
-        function maintenanceHistory(a) {
+        function maintenanceHistory(a,id) {
             var assetName = $(a).attr("data-asset");
-
+            
             $("#modalTitle").text("Maintenance History for " + assetName);
             $("#MaintenanceHistoryModal").modal('show');
+
+            $.ajax({
+                type: "GET",
+                url: '_ViewMaintanence',
+                datatype: "json",
+                data: { id: id },
+                success: function (data) { 
+                    $('#SearchedUserProfile').html(data); 
+                }
+            }); 
+            
         }
 
 

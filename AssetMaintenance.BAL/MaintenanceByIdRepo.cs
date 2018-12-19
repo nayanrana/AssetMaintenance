@@ -7,20 +7,22 @@ using System.Linq;
 
 namespace AssetMaintenance.BAL
 {
-    public class MaintenanceByStatusListRepo
+    public class MaintenanceByIdRepo
     {
         AssetMaintenanceEntities dbCon = new AssetMaintenanceEntities();
-        public List<MaintenanceByStatusListDto> getMaintenanceByStatusList(int maintenanceStatus)
+        public AssetMaintenanceDetailDto getAssetMaintenanceDetail(int id)
         {
             // Will query Database once we have structure ready
-            var result = dbCon.GFI_AMM_VehicleMaintTypesLink.Where(c => c.Status == maintenanceStatus).Select(c=> new MaintenanceByStatusListDto {
+            var result = dbCon.GFI_AMM_VehicleMaintTypesLink.Where(c => c.URI == id).Select(c=> new AssetMaintenanceDetailDto
+            {
                 URI=c.URI,
                 Asset =  dbCon.GFI_FLT_Asset.FirstOrDefault(d=> d.AssetID == c.AssetId).AssetName,
                 Maintenance = dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d=> d.MaintTypeId== c.MaintTypeId).Description,
                 AssetNo= dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == c.AssetId).AssetNumber,
                 Reminder= (DateTime)dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d=> d.MaintTypeId == c.Status).OccurrenceFixedDate,
-                NextMaintenance=(DateTime)c.NextMaintDate
-            }).ToList();
+                NextMaintenance=(DateTime)c.NextMaintDate,
+                Category= dbCon.GFI_AMM_VehicleMaintCat.FirstOrDefault(d=> d.MaintCatId == dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(s=> s.MaintTypeId==c.MaintTypeId).MaintCatId_cbo).Description
+            }).SingleOrDefault();
             ///List<GFI_AMM_VehicleMaintenance> lst= new MaintenanceListByStatus().getMaintenanceListByStatus(5);            
             //var result = new List<MaintenanceByStatusListDto> {
             //    new MaintenanceByStatusListDto {

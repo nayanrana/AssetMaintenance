@@ -1,4 +1,4 @@
-﻿@model AssetMaintenance.BAL.DTO.MaintenanceByStatusDto
+﻿@model List<AssetMaintenance.BAL.DTO.MaintenanceByStatusDto>
 @using AssetMaintenance.Helper
 
 @{
@@ -41,7 +41,7 @@
                     </div>
                     Maintenance By Status
                 </div>
-                <div class="panel-body">
+                <div class="panel-body"> 
                     <div>
                         <div id="ct-chart5" class="ct-perfect-fourth"></div>
                     </div>
@@ -58,28 +58,35 @@
 @section Scripts {
     @Scripts.Render("~/bundles/chartist/js")
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
         $(function () {
 
             // Simple pie chart
+            var myArray = []; var lstData = [];
+            @foreach (var item in Model)
+            {
+                @:myArray.push('@item.NoofStatus');
+                @:lstData.push({value: '@item.MaintStatusId',meta: '@item.MaintStatusId'});
+            }
 
             var data = {
-                //series: [@Model.Completed, @Model.OverDue, @Model.Scheduled,@Model.ToSchedule],                                
-                labels: [@Model.Completed, @Model.OverDue, @Model.Scheduled,@Model.ToSchedule],
-                series: [{
+                labels: myArray,
+                series: lstData,
+                 
+                @*series: [{
                     value: @Model.Completed,
                     meta: 'Completed'
                 }, {
                     value: @Model.OverDue,
-                        meta: 'Completed'
+                        meta: 'OverDue'
                 }, {
                     value: @Model.Scheduled,
-                        meta: 'Completed'
+                        meta: 'Scheduled'
                 }, {
                     value: @Model.ToSchedule,
-                        meta: 'Completed'
-                }]
+                        meta: 'ToSchedule'
+                }]*@
             };
 
             var sum = function (a, b) { return a + b };
@@ -97,7 +104,7 @@
             debugger;
             //alert(Chartist.deserialize(this.getAttribute('ct:meta')));
             var stat = Chartist.deserialize(this.getAttribute('ct:meta'));
-            location.href = "/Maintenance/MaintenanceByStatusList?status="+stat;             
+            location.href = "/Maintenance/MaintenanceByStatusList?maintenanceType="+stat;
         });
-    </script>
+</script>
 }

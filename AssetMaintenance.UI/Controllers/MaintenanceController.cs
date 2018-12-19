@@ -13,7 +13,7 @@ namespace AssetMaintenance.UI.Controllers
         public ActionResult MaintenanceByStatus()
         {
             var obj = new MaintenanceByStatusRepo();
-            MaintenanceByStatusDto model= obj.getMaintenanceByStatusCount();
+            List<MaintenanceByStatusDto> model= obj.getMaintenanceByStatusCount();
 
             return View(model);
         }
@@ -25,10 +25,26 @@ namespace AssetMaintenance.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult MaintenanceByStatusList(string maintenanceType)
+        public ActionResult MaintenanceByStatusList(int maintenanceType)
         {
             var obj = new MaintenanceByStatusListRepo();
             List<MaintenanceByStatusListDto> model = obj.getMaintenanceByStatusList(maintenanceType);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public PartialViewResult _ViewMaintanence(int id)
+        {
+            var obj = new MaintenanceByIdRepo();
+            AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetail(id);
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        public JsonResult BindMaintenanceByStatus(int id)
+        {
+            var obj = new MaintenanceByIdRepo();
+            AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetail(id);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
