@@ -72,11 +72,13 @@
                         <table id="MaintenanceDataList" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
                             <thead>
                                 <tr>
-                                    <th class="text-center" width="15%">Asset</th>
-                                    <th class="text-center" width="5%">Asset No</th>
-                                    <th class="text-center" width="15%">Maintenance</th>
-                                    <th class="text-center" width="10%">Reminder</th>
-                                    <th class="text-center" width="8%">Next Maintenance</th>
+                                    <th class="text-center" >Asset</th>
+                                    <th class="text-center" >Maintenance</th>
+                                    <th class="text-center" >Actual Odometer</th>
+                                    <th class="text-center" >Actual EngineHrs</th>
+                                    <th class="text-center" >Start Date</th>
+                                    <th class="text-center" >End Date</th>
+                                    <th class="text-center" >Amount</th>
                                     @*<th class="text-center" width="8%">History</th>*@
                                 </tr>
                             </thead>
@@ -139,10 +141,10 @@
                                 tr.append("<td class='text-center' data-title='Reminder'>" + getFormattedDate(item.Reminder) + "</td>");
                                 tr.append("<td class='text-center' data-title='NextMaintenance'>" + getFormattedDate(item.NextMaintenance) + "</td>");
                                 tr.append("<td class='text-center' data-title='History'> " +
-                                    "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.URI+")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
+                                    "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.URI + "," + item.MaintenanceID+")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
                                     "</td>");
                                 tr.append("<td class='text-center' data-title='Edit'> " +
-                                    "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +
+                                    "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "&mainId=" + item.MaintenanceID+"'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +
                                     "</td>");
                                 $("#MaintenanceList tbody").append(tr);
                             });
@@ -161,7 +163,7 @@
             );
         }
 
-        function maintenanceHistory(a,id) {
+        function maintenanceHistory(a,id,mainteId) {
             var assetName = $(a).attr("data-asset");
             $("#MaintenanceDataList tbody").html('');
             $("#modalTitle").text("Maintenance History for " + assetName);
@@ -172,17 +174,19 @@
                 ///url: '_ViewMaintanence',
                 url: '@Url.Action("ViewMaintanenceList", "Maintenance")',
                 datatype: "json",
-                data: { id: id },
+                data: { id: id, maintId: mainteId },
                 success: function (data) { 
                     debugger;
                     $.each(data, function (i, item) {
                         var tr;                       
                         tr = $('<tr />');
-                        tr.append("<td class='text-center' data-title='Asset'>" + item.Asset + "</td>");
-                        tr.append("<td class='text-center' data-title='AssetNo'>" + item.AssetNo + "</td>");
+                        tr.append("<td class='text-center' data-title='Asset'>" + item.Asset + "</td>");                        
                         tr.append("<td class='text-center' data-title='Maintenance'>" + item.Maintenance + "</td>");
-                        tr.append("<td class='text-center' data-title='Reminder'>" + getFormattedDate(item.Reminder) + "</td>");
-                        tr.append("<td class='text-center' data-title='NextMaintenance'>" + getFormattedDate(item.NextMaintenance) + "</td>");
+                        tr.append("<td class='text-center' data-title='ActualOdometer'>" + (item.ActualOdometer == null ? 0 : item.ActualOdometer) + "</td>");
+                        tr.append("<td class='text-center' data-title='ActualEngineHrs'>" + (item.ActualEngineHrs == null ? 0 : item.ActualEngineHrs) + "</td>");
+                        tr.append("<td class='text-center' data-title='StartDate'>" + getFormattedDate(item.StartDate) + "</td>");
+                        tr.append("<td class='text-center' data-title='EndDate'>" + getFormattedDate(item.EndDate) + "</td>");
+                        tr.append("<td class='text-center' data-title='Amount'>" + (item.Amount == null ? 0 : item.Amount) + "</td>");
                         //tr.append("<td class='text-center' data-title='History'> " +
                         //    "<div> <a href='javascript:void(0)' onclick='maintenanceDetail(this," + item.URI + ")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> Edit</span></a></div>" +
                         //    "</td>");

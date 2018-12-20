@@ -12,6 +12,7 @@ namespace AssetMaintenance.BAL
         public List<MaintenanceByStatusDto> getMaintenanceByStatusCount()
         {
             var model = dbCon.GFI_AMM_VehicleMaintStatus.AsEnumerable()
+                .Where(c=> c.Description.ToLower()== "completed" || c.Description.ToLower() == "overdue" || c.Description.ToLower() == "scheduled" || c.Description.ToLower() == "to schedule")
             .Select(x => new MaintenanceByStatusDto
             {
                 Description =x.Description, ///dbCon.GFI_AMM_VehicleMaintStatus.FirstOrDefault(c => c.MaintStatusId == x.MaintStatusId).Description,

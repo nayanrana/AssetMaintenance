@@ -15,6 +15,7 @@ namespace AssetMaintenance.BAL
             // Will query Database once we have structure ready
             var result = dbCon.GFI_AMM_VehicleMaintTypesLink
                     .Where(c=> c.Status==maintenanceStatus)
+                    .OrderByDescending(c => c.URI)
                    .GroupBy(p => p.AssetId)
                    .Select(g => 
                    new MaintenanceByStatusListDto {
@@ -23,6 +24,7 @@ namespace AssetMaintenance.BAL
                        AssetNo = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.Key).AssetNumber,
                        NextMaintenance = (DateTime)g.FirstOrDefault(c=> c.AssetId ==g.Key).NextMaintDate,
                        Maintenance = dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.FirstOrDefault(c => c.AssetId == g.Key).MaintTypeId).Description,
+                       MaintenanceID=(int)g.FirstOrDefault(c=> c.AssetId==g.Key).MaintTypeId,
                        Reminder = (DateTime)dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.FirstOrDefault(c => c.AssetId == g.Key).MaintTypeId).OccurrenceFixedDate,
                    }).ToList();
 
