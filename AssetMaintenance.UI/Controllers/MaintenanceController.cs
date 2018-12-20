@@ -36,16 +36,22 @@ namespace AssetMaintenance.UI.Controllers
         public PartialViewResult _ViewMaintanence(int id)
         {
             var obj = new MaintenanceByIdRepo();
-            AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetail(id);
+            List<AssetMaintenanceDetailDto> model = obj.getAssetMaintenanceDetail(id);
             return PartialView(model);
         }
-
-        [HttpPost]
-        public JsonResult BindMaintenanceByStatus(int id)
+        [HttpGet]
+        public JsonResult ViewMaintanenceList(int id)
         {
             var obj = new MaintenanceByIdRepo();
-            AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetail(id);
+            List<AssetMaintenanceDetailDto> model = obj.getAssetMaintenanceDetail(id);
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult BindMaintenanceDetail(int id)
+        {
+            var obj = new MaintenanceByIdRepo();
+            List<AssetMaintenanceDetailDto> model = obj.getAssetMaintenanceDetail(id);
+            return View(model.FirstOrDefault());
         }
     }
 }

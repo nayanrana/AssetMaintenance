@@ -46,6 +46,7 @@
                                     <th class="text-center" width="10%">Reminder</th>
                                     <th class="text-center" width="8%">Next Maintenance</th>
                                     <th class="text-center" width="8%">History</th>
+                                    <th class="text-center" width="8%">Edit</th>
                                 </tr>
                             </thead>
                             <tbody id="myBody"></tbody>
@@ -68,6 +69,19 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="hpanel blog-box text-center" id="SearchedUserProfile">
+                        <table id="MaintenanceDataList" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" width="15%">Asset</th>
+                                    <th class="text-center" width="5%">Asset No</th>
+                                    <th class="text-center" width="15%">Maintenance</th>
+                                    <th class="text-center" width="10%">Reminder</th>
+                                    <th class="text-center" width="8%">Next Maintenance</th>
+                                    @*<th class="text-center" width="8%">History</th>*@
+                                </tr>
+                            </thead>
+                            <tbody id="myMaintBody"></tbody>
+                        </table>
                         @*<partial name="_ViewMaintanence" />*@
                     </div>
                 </div>
@@ -127,6 +141,9 @@
                                 tr.append("<td class='text-center' data-title='History'> " +
                                     "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.URI+")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
                                     "</td>");
+                                tr.append("<td class='text-center' data-title='Edit'> " +
+                                    "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +
+                                    "</td>");
                                 $("#MaintenanceList tbody").append(tr);
                             });
                             htmlToDataTable();
@@ -146,22 +163,40 @@
 
         function maintenanceHistory(a,id) {
             var assetName = $(a).attr("data-asset");
-            
+            $("#MaintenanceDataList tbody").html('');
             $("#modalTitle").text("Maintenance History for " + assetName);
             $("#MaintenanceHistoryModal").modal('show');
 
             $.ajax({
                 type: "GET",
-                url: '_ViewMaintanence',
+                ///url: '_ViewMaintanence',
+                url: '@Url.Action("ViewMaintanenceList", "Maintenance")',
                 datatype: "json",
                 data: { id: id },
                 success: function (data) { 
-                    $('#SearchedUserProfile').html(data); 
+                    debugger;
+                    $.each(data, function (i, item) {
+                        var tr;                       
+                        tr = $('<tr />');
+                        tr.append("<td class='text-center' data-title='Asset'>" + item.Asset + "</td>");
+                        tr.append("<td class='text-center' data-title='AssetNo'>" + item.AssetNo + "</td>");
+                        tr.append("<td class='text-center' data-title='Maintenance'>" + item.Maintenance + "</td>");
+                        tr.append("<td class='text-center' data-title='Reminder'>" + getFormattedDate(item.Reminder) + "</td>");
+                        tr.append("<td class='text-center' data-title='NextMaintenance'>" + getFormattedDate(item.NextMaintenance) + "</td>");
+                        //tr.append("<td class='text-center' data-title='History'> " +
+                        //    "<div> <a href='javascript:void(0)' onclick='maintenanceDetail(this," + item.URI + ")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> Edit</span></a></div>" +
+                        //    "</td>");
+                        $("#MaintenanceDataList tbody").append(tr);
+                    });
+                    debugger;
+                    htmlToDataTable();
+                    ///$('#myMaintBody').html(tr); 
                 }
             }); 
             
         }
 
+        
 
     </script>
 }
