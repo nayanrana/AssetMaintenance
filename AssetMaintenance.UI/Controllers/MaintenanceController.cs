@@ -50,8 +50,18 @@ namespace AssetMaintenance.UI.Controllers
         public ActionResult BindMaintenanceDetail(int id,int mainId)
         {
             var obj = new MaintenanceByIdRepo();
+            var statusLst =  new MaintenanceByStatusRepo().getMaintenanceByStatusCount();
+            ViewBag.lstStatus = statusLst;
             AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetailbyID(id,mainId);
             return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult InsertMaintenance(AssetMaintenanceDetailDto asstMaint)
+        {
+            var obj = new MaintenanceByIdRepo();
+            var statusLst = obj.insertMaintenance(asstMaint);
+            return Json("Record Addedd successfully.");
         }
     }
 }

@@ -12,8 +12,7 @@ namespace AssetMaintenance.BAL
         AssetMaintenanceEntities dbCon = new AssetMaintenanceEntities();
         public List<AssetMaintenanceDetailDto> getAssetMaintenanceDetail(int id, int maintId)
         {
-            // Will query Database once we have structure ready
-            var result = dbCon.GFI_AMM_VehicleMaintenance.Where(c => c.AssetId == id && c.MaintTypeId_cbo == maintId).OrderByDescending(c => c.URI).Take(5).Select(c => new AssetMaintenanceDetailDto
+            var result = dbCon.GFI_AMM_VehicleMaintenance.Where(c => c.AssetId == id && c.MaintStatusId_cbo == maintId).OrderByDescending(c => c.URI).Take(5).Select(c => new AssetMaintenanceDetailDto
             {
                 URI = c.URI,
                 Asset = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == c.AssetId).AssetName,
@@ -33,11 +32,11 @@ namespace AssetMaintenance.BAL
         }
 
         public AssetMaintenanceDetailDto getAssetMaintenanceDetailbyID(int id, int maintId)
-        {
-            // Will query Database once we have structure ready
-            var result = dbCon.GFI_AMM_VehicleMaintenance.Where(c => c.AssetId == id && c.MaintTypeId_cbo == maintId).OrderByDescending(c=> c.URI).Take(1).Select(c => new AssetMaintenanceDetailDto
+        {            
+            var result = dbCon.GFI_AMM_VehicleMaintenance.Where(c => c.AssetId == id && c.MaintStatusId_cbo == maintId).OrderByDescending(c=> c.URI).Take(1).Select(c => new AssetMaintenanceDetailDto
             {
                 URI = c.URI,
+                AssetId=c.AssetId,
                 Asset = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == c.AssetId).AssetName,
                 Maintenance = dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == c.MaintTypeId_cbo).Description,
                 ActualOdometer = c.ActualOdometer,
@@ -53,12 +52,56 @@ namespace AssetMaintenance.BAL
                 CompanyName=c.CompanyName,
                 PhoneNumber=c.PhoneNumber,
                 CompanyRef=c.CompanyRef,
-
+                MaintStatusId_cbo=c.MaintStatusId_cbo,
+                AssetStatus=c.AssetStatus,
+                CalculatedEngineHrs=c.CalculatedEngineHrs,
+                CalculatedOdometer=c.CalculatedOdometer,
+                Comment=c.Comment,
+                CompanyRef2=c.CompanyRef2,
+                CoverTypeId_cbo=c.CoverTypeId_cbo,
+                EstimatedValue=c.EstimatedValue,
+                MaintDescription=c.MaintDescription,
+                TotalCost=c.TotalCost,
+                VATAmount=c.VATAmount,
+                VATInclInItemsAmt=c.VATInclInItemsAmt,
+                MaintTypeId_cbo=c.MaintTypeId_cbo,
            
                           
             }).SingleOrDefault();
 
             return result;
+        }
+
+        public string insertMaintenance(AssetMaintenanceDetailDto assetMaintenance)
+        {
+            GFI_AMM_VehicleMaintenance maint = new GFI_AMM_VehicleMaintenance();
+            maint.ActualEngineHrs = assetMaintenance.ActualEngineHrs;
+            maint.ActualOdometer = assetMaintenance.ActualOdometer;
+            maint.AdditionalInfo = assetMaintenance.AdditionalInfo== "undefined"?null: assetMaintenance.AdditionalInfo;
+            maint.AssetId = assetMaintenance.AssetId;
+            maint.AssetStatus = assetMaintenance.AssetStatus;
+            maint.CalculatedEngineHrs = assetMaintenance.CalculatedEngineHrs;
+            maint.CalculatedOdometer = assetMaintenance.CalculatedOdometer;
+            maint.Comment = assetMaintenance.Comment;
+            maint.CompanyName = assetMaintenance.CompanyName;
+            maint.CompanyRef = assetMaintenance.CompanyRef;
+            maint.ContactDetails = assetMaintenance.ContactDetails;
+            maint.CoverTypeId_cbo = assetMaintenance.CoverTypeId_cbo;
+            maint.EndDate = assetMaintenance.EndDate;
+            maint.EstimatedValue = assetMaintenance.EstimatedValue;
+            maint.MaintDescription = assetMaintenance.MaintDescription;
+            maint.MaintStatusId_cbo = assetMaintenance.MaintStatusId_cbo;
+            maint.MaintTypeId_cbo = assetMaintenance.MaintTypeId_cbo;
+            maint.PhoneNumber = assetMaintenance.PhoneNumber;
+            maint.StartDate = assetMaintenance.StartDate;
+            maint.TotalCost = assetMaintenance.TotalCost;
+            maint.VATAmount = assetMaintenance.VATAmount;
+            maint.VATInclInItemsAmt = assetMaintenance.VATInclInItemsAmt== "undefined"?null: assetMaintenance.VATInclInItemsAmt;
+            maint.CreatedDate = DateTime.Now;
+            maint.UpdatedDate = DateTime.Now;
+            dbCon.GFI_AMM_VehicleMaintenance.Add(maint);
+            dbCon.SaveChanges();
+            return "";
         }
     }
 }

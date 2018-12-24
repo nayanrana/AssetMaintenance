@@ -24,7 +24,7 @@ namespace AssetMaintenance.BAL
                        AssetNo = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.Key).AssetNumber,
                        NextMaintenance = (DateTime)g.FirstOrDefault(c=> c.AssetId ==g.Key).NextMaintDate,
                        Maintenance = dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.FirstOrDefault(c => c.AssetId == g.Key).MaintTypeId).Description,
-                       MaintenanceID=(int)g.FirstOrDefault(c=> c.AssetId==g.Key).MaintTypeId,
+                       MaintenanceID=(int)g.FirstOrDefault(c=> c.AssetId==g.Key).Status,
                        Reminder = (DateTime)dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.FirstOrDefault(c => c.AssetId == g.Key).MaintTypeId).OccurrenceFixedDate,
                    }).ToList();
 

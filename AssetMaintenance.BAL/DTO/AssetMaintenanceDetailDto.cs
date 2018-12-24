@@ -41,6 +41,8 @@ namespace AssetMaintenance.BAL.DTO
         public string UpdatedBy { get; set; }
         public string AssetStatus { get; set; }
         public string Comment { get; set; }
+        public Nullable<int> AssetId { get; set; }
+        public Nullable<int> MaintTypeId_cbo { get; set; }
 
 
     }
