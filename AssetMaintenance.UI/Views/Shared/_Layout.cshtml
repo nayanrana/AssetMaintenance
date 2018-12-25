@@ -16,6 +16,7 @@
     @Styles.Render("~/bundles/animate/css")
     @Styles.Render("~/bundles/bootstrap/css")
     @Styles.Render("~/bundles/peicon7stroke/css")
+    @Styles.Render("~/bundles/toastr/css")
 
     <!-- Add local styles, mostly for plugins css file -->
     @if (IsSectionDefined("Styles"))
@@ -56,6 +57,9 @@
     @Scripts.Render("~/bundles/jquery/js")
     @Scripts.Render("~/bundles/bootstrap/js")
     @Scripts.Render("~/bundles/homer/js")
+    @Scripts.Render("~/bundles/validation/js")
+    @Scripts.Render("~/bundles/toastr/js")
+
     <script src="~/Scripts/Custom/Common.js"></script>
     <!-- Handler for local scripts -->
     @RenderSection("scripts", required: false)

@@ -43,7 +43,21 @@ namespace AssetMaintenance.BAL.DTO
         public string Comment { get; set; }
         public Nullable<int> AssetId { get; set; }
         public Nullable<int> MaintTypeId_cbo { get; set; }
+        public List<lstPartDetails> lstParts { get; set; }
+        public string Parts { get; set; }
 
+    }
 
+    public class lstPartDetails
+    {
+        public int MaintURI { get; set; }
+        public string ItemCode { get; set; }
+        public string Description { get; set; }
+        public Nullable<decimal> Quantity { get; set; }
+        public Nullable<decimal> UnitCost { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string UpdatedBy { get; set; }
     }
 }

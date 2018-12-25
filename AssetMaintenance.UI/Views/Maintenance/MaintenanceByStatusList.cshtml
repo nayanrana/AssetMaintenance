@@ -19,11 +19,9 @@
                     </li>
                 </ol>
             </div>
-
             <h2 class="font-light m-b-xs">
                 Maintenance By Status  <label id="lblString">@(Request.QueryString["maintenanceType"] == "1" ? "OVERDUE" : (Request.QueryString["maintenanceType"] == "2" ? "TO SCHEDULE" : (Request.QueryString["maintenanceType"] == "3" ? "SCHEDULED" : (Request.QueryString["maintenanceType"] == "4" ? "IN PROGRESS" : (Request.QueryString["maintenanceType"] == "5" ? "COMPLETED" : (Request.QueryString["maintenanceType"] == "6" ? "VALID" : "EXPIRED"))))))</label>
-            </h2>
-            @*<small>Create, manage, and if applicable, delete a deal</small>*@
+            </h2>            
         </div>
     </div>
 </div>
@@ -126,7 +124,8 @@
             
                     $.ajax({
                         type: 'Post',
-                        data: JSON.stringify({ maintenanceType: str }),///'@MaintenanceStatus.OverDue'}),
+                        data: JSON.stringify({ maintenanceType: str }),
+                        @*'@MaintenanceStatus.OverDue'}),*@
                         url: '@Url.Action("MaintenanceByStatusList", "Maintenance")',
                         dataType: 'json',
                         contentType: "application/json; charset=utf-8",
@@ -144,7 +143,7 @@
                                     "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.URI + "," + item.MaintenanceID+")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
                                     "</td>");
                                 tr.append("<td class='text-center' data-title='Edit'> " +
-                                    "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "&mainId=" + item.MaintenanceID+"'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +
+                                    "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "&mainId=" + item.MaintenanceID + "&statusId=" + '@Request.QueryString["maintenanceType"]'+"'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +
                                     "</td>");
                                 $("#MaintenanceList tbody").append(tr);
                             });
@@ -175,8 +174,7 @@
                 url: '@Url.Action("ViewMaintanenceList", "Maintenance")',
                 datatype: "json",
                 data: { id: id, maintId: mainteId },
-                success: function (data) { 
-                    debugger;
+                success: function (data) {                     
                     $.each(data, function (i, item) {
                         var tr;                       
                         tr = $('<tr />');

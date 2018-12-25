@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using AssetMaintenance.DAL;
 using System.Linq;
+using System.Web.Script.Serialization;
 
 namespace AssetMaintenance.BAL
 {
@@ -74,6 +75,11 @@ namespace AssetMaintenance.BAL
 
         public string insertMaintenance(AssetMaintenanceDetailDto assetMaintenance)
         {
+
+            //JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+            var json_serializer = new JavaScriptSerializer();
+            List<lstPartDetails> routes_list = json_serializer.Deserialize<List<lstPartDetails>>(assetMaintenance.Parts);
+            
             GFI_AMM_VehicleMaintenance maint = new GFI_AMM_VehicleMaintenance();
             maint.ActualEngineHrs = assetMaintenance.ActualEngineHrs;
             maint.ActualOdometer = assetMaintenance.ActualOdometer;
@@ -99,8 +105,24 @@ namespace AssetMaintenance.BAL
             maint.VATInclInItemsAmt = assetMaintenance.VATInclInItemsAmt== "undefined"?null: assetMaintenance.VATInclInItemsAmt;
             maint.CreatedDate = DateTime.Now;
             maint.UpdatedDate = DateTime.Now;
-            dbCon.GFI_AMM_VehicleMaintenance.Add(maint);
+            var mainten= dbCon.GFI_AMM_VehicleMaintenance.Add(maint);
             dbCon.SaveChanges();
+            foreach (var item in routes_list)
+            //for (int i = 0; i < length; i++)            
+            {
+                GFI_AMM_VehicleMaintItems mainItems = new GFI_AMM_VehicleMaintItems();
+                mainItems.CreatedDate = DateTime.Now;
+                mainItems.Description = item.Description;
+                mainItems.ItemCode = item.ItemCode;
+                mainItems.MaintURI = mainten.URI;
+                mainItems.Quantity = item.Quantity;
+                mainItems.UnitCost = item.UnitCost;
+                mainItems.UpdatedDate = item.UpdatedDate;
+                
+                dbCon.GFI_AMM_VehicleMaintItems.Add(mainItems);
+                dbCon.SaveChanges();
+            }
+            
             return "";
         }
     }

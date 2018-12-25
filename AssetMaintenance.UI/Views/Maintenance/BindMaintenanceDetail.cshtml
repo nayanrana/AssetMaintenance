@@ -35,7 +35,7 @@
                     </div>*@
                 <div class="hpanel">
                     <div class="panel-body">
-                        <form action="/Maintenance/InsertMaintenance" enctype="multipart/form-data" id="companyForm" method="post" role="form">
+                        <form  enctype="multipart/form-data" id="companyForm" method="post" role="form">
                             <input name="__RequestVerificationToken" type="hidden" value="z1F7bd3lMKGEYG84of1CVWnD60ZkkZAeCZD96ZK0Gr-1WrCra-BV-iM3tTXiZnK9FR3IZk3fUZR_b9vXmvP0MhimEE4vFY5U0s_-OyUPQ91PyV1QuoM18AKTZF0o1yEAKI3lLZZjQ7LKzgFqx2er9w2">
                             <div class="row">
                                 @Html.HiddenFor(model => model.AssetId)
@@ -102,7 +102,7 @@
                                 <div class="form-group col-lg-12">
                                     <div class="form-group col-lg-6">
                                         <label class="control-label" for="AnnualRevenue">Phone Number</label>
-                                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control",type="phone" })
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label>Reference</label>
@@ -112,32 +112,32 @@
                                 <div class="form-group col-lg-12">
                                     <div class="form-group col-lg-6">
                                         <label class="control-label" for="AnnualRevenue">Start Date</label>
-                                        @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control datepicker" })
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label>End Date</label>
-                                        @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control datepicker" })
                                     </div>
                                 </div>
 
                                 <div class="form-group col-lg-12">
                                     <div class="form-group col-lg-6">
                                         <label class="control-label" for="AnnualRevenue">Calculated Odometer</label>
-                                        @Html.TextBoxFor(model => model.CalculatedOdometer, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.CalculatedOdometer, new { @class = "form-control", type = "number",min = "0" })
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label>Calculated Enginee Hrs.</label>
-                                        @Html.TextBoxFor(model => model.CalculatedEngineHrs, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.CalculatedEngineHrs, new { @class = "form-control", type = "number", min = "0" })
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12">
                                     <div class="form-group col-lg-6">
                                         <label class="control-label" for="AnnualRevenue">Actual Odometer</label>
-                                        @Html.TextBoxFor(model => model.ActualOdometer, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.ActualOdometer, new { @class = "form-control", type = "number", min = "0" })
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label>Actual Enginee Hrs.</label>
-                                        @Html.TextBoxFor(model => model.ActualEngineHrs, new { @class = "form-control" })
+                                        @Html.TextBoxFor(model => model.ActualEngineHrs, new { @class = "form-control", type = "number", min = "0" })
                                     </div>
                                 </div>
                             </div>
@@ -155,15 +155,15 @@
                                             <div class="form-group col-lg-12">
                                                 <div class="form-group col-lg-6">
                                                     <label class="control-label" for="AnnualRevenue">VAT Amount</label>
-                                                    @Html.TextBoxFor(model => model.VATAmount, new { @class = "form-control" })
+                                                    @Html.TextBoxFor(model => model.VATAmount, new { @class = "form-control", type = "number", min = "0" })
                                                 </div>
                                                 <div class="form-group col-lg-6">
                                                     <label>Total Amount</label>
-                                                    @Html.TextBoxFor(model => model.TotalCost, new { @class = "form-control" })
+                                                    @Html.TextBoxFor(model => model.TotalCost, new { @class = "form-control", type = "number", min = "0" })
                                                 </div>
                                                 <div class="form-group col-lg-12">
                                                     <label>VAT Amount included in total cost</label>
-                                                    <input type="checkbox" name="name" value="" />
+                                                    <input type="checkbox" name="name" value="" id="chkAmount" checked="@Model.VATInclInItemsAmt=='1'?'checked':''"/>
                                                 </div>
 
                                             </div>
@@ -177,14 +177,14 @@
                                                             <td>Description</td>
                                                             <td>Qty.</td>
                                                             <td>Cost</td>
-                                                            <td>Add</td>
+                                                            <td>Action</td>
                                                         </tr>
                                                         <tr>
-                                                            <td><input type="text" name="code" value="" class="form-control" id="txtCode" /></td>
-                                                            <td><input type="text" name="description" value="" class="form-control" id="txtDesc" /></td>
-                                                            <td><input type="text" name="qty" value="" class="form-control" id="txtQty" /></td>
-                                                            <td><input type="text" name="cost" value="" class="form-control" id="txtCost" /></td>
-                                                            <td><input type="button" name="name" value="Add new record" onclick="insertItem()" /></td>
+                                                            <td><input type="text" name="code" value="" class="form-control" id="txtCode" style="border-left: 3px solid #e41a16 !important;"/></td>
+                                                            <td><input type="text" name="description" value="" class="form-control" id="txtDesc" style="border-left: 3px solid #e41a16 !important;"/></td>
+                                                            <td><input type="number" name="qty" value="" class="form-control" id="txtQty"  min="0" style="border-left: 3px solid #e41a16 !important;"/></td>
+                                                            <td><input type="number" name="cost" value="" class="form-control" id="txtCost" min="0" style="border-left: 3px solid #e41a16 !important;"/></td>
+                                                            <td><input type="button" name="name" class="btn btn-success" value="Add" onclick="insertItem()" /></td>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="MaintItemBody"></tbody>
@@ -223,8 +223,18 @@
     @Scripts.Render("~/bundles/datepicker/js")
     @Scripts.Render("~/bundles/datatablesBootstrap/js")
     @Scripts.Render("~/bundles/datatablesPlugins/js")
-}
+
 <script type="text/javascript">
+    $(function () {
+        if ($("#MaintStatusId_cbo").val() == "5") {
+            validationAdvertiseMasterFormComplete();
+        } else if ($("#MaintStatusId_cbo").val() == "6") {
+            validationAdvertiseMasterFormValid();
+        }else {
+            validationAdvertiseMasterFormCommon();
+        }        
+        $('.datepicker').datepicker({ autoclose: true })
+    });
     function maintenanceHistory(a, id) {
         var assetName = $(a).attr("data-asset");
 
@@ -243,18 +253,29 @@
 
     }
 
-    //$(function () {
-    //    $('#datapicker2').datepicker();
-    //});
+    
     var lstItems = []; var tr;
     function insertItem() {
         debugger;
+
         var code = $("#txtCode").val();
         var desc = $("#txtDesc").val();
         var qty = $("#txtQty").val();
         var cost = $("#txtCost").val();
-
-        lstItems.push({ "code": code, "desc": desc, "qty": qty, "cost": cost });
+        if (!code && !desc && !qty && !cost) {
+            toastr.error("Fill required data.");
+            return;
+        }
+        if (!code) {
+            toastr.error("Item code is required."); return;
+        } if (!desc) {
+            toastr.error("Description is required"); return;
+        } if (!qty) {
+            toastr.error("Quantity is required."); return;
+        } if (!cost) {
+            toastr.error("Cost is required."); return;
+        }
+        lstItems.push({ "ItemCode": code, "Description": desc, "Quantity": qty, "UnitCost": cost });
         
         //for (var i = 0; i < lstItems.length; i++) {
             tr = $('<tr >');
@@ -272,44 +293,188 @@
         //htmlToDataTable();
     }
     function addMaintenance() {
-        var formData = new FormData();
-        formData.append('ActualEngineHrs', $("#ActualEngineHrs").val());
-        formData.append('ActualOdometer', $("#ActualOdometer").val());
-        formData.append('AdditionalInfo', $("#AdditionalInfo").val());
-        formData.append('AssetId', $("#AssetId").val());
-        formData.append('AssetStatus', $("#AssetStatus").val());
-        formData.append('CalculatedEngineHrs', $("#CalculatedEngineHrs").val());
-        formData.append('CalculatedOdometer', $("#CalculatedOdometer").val());
-        formData.append('Comment', $("#Comment").val());
-        formData.append('CompanyName', $("#CompanyName").val());
-        formData.append('CompanyRef', $("#CompanyRef").val());
-        formData.append('ContactDetails', $("#ContactDetails").val());
-        formData.append('CoverTypeId_cbo', $("#CoverTypeId_cbo").val());
-        formData.append('EndDate', $("#EndDate").val());
-        formData.append('EstimatedValue', $("#EstimatedValue").val());
-        formData.append('MaintDescription', $("#MaintDescription").val());
-        formData.append('MaintStatusId_cbo', $("#MaintStatusId_cbo").val());
-        formData.append('MaintTypeId_cbo', $("#MaintTypeId_cbo").val());
-        formData.append('PhoneNumber', $("#PhoneNumber").val());
-        formData.append('StartDate', $("#StartDate").val());
-        formData.append('TotalCost', $("#TotalCost").val());
-        formData.append('VATAmount', $("#VATAmount").val());
-        formData.append('VATInclInItemsAmt', $("#VATInclInItemsAmt").val());
-        formData.append('CreatedDate', $("#CreatedDate").val());
-        formData.append('UpdatedDate', $("#UpdatedDate").val());
-        debugger;
-                $.ajax({
-                    type: 'Post',
-                    dataType: 'json',
-                    data: formData,
-                    url: '@Url.Action("InsertMaintenance", "Maintenance")',                                        
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (data)
-                        {
-                        alert(data);
-                        }
-                });
+                
+        if ($("#companyForm").valid()) {
+            if ($("#MaintStatusId_cbo").val() == "5") {                
+                if (lstItems.length <= 0) {
+                    toastr.error("Add Cost/Part details.");
+                    return;
+                }
+            }    
+            var formData = new FormData();
+            formData.append('ActualEngineHrs', $("#ActualEngineHrs").val());
+            formData.append('ActualOdometer', $("#ActualOdometer").val());
+            formData.append('AdditionalInfo', $("#AdditionalInfo").val());
+            formData.append('AssetId', $("#AssetId").val());
+            formData.append('AssetStatus', $("#AssetStatus").val());
+            formData.append('CalculatedEngineHrs', $("#CalculatedEngineHrs").val());
+            formData.append('CalculatedOdometer', $("#CalculatedOdometer").val());
+            formData.append('Comment', $("#Comment").val());
+            formData.append('CompanyName', $("#CompanyName").val());
+            formData.append('CompanyRef', $("#CompanyRef").val());
+            formData.append('ContactDetails', $("#ContactDetails").val());
+            formData.append('CoverTypeId_cbo', $("#CoverTypeId_cbo").val());
+            formData.append('EndDate', $("#EndDate").val());
+            formData.append('EstimatedValue', $("#EstimatedValue").val());
+            formData.append('MaintDescription', $("#MaintDescription").val());
+            formData.append('MaintStatusId_cbo', $("#MaintStatusId_cbo").val());
+            formData.append('MaintTypeId_cbo', $("#MaintTypeId_cbo").val());
+            formData.append('PhoneNumber', $("#PhoneNumber").val());
+            formData.append('StartDate', $("#StartDate").val());
+            formData.append('TotalCost', $("#TotalCost").val());
+            formData.append('VATAmount', $("#VATAmount").val());
+            formData.append('VATInclInItemsAmt', $("#VATInclInItemsAmt").val());
+            formData.append('CreatedDate', $("#CreatedDate").val());
+            formData.append('UpdatedDate', $("#UpdatedDate").val());
+            formData.append('VATInclInItemsAmt', $("#chkAmount").is(':checked')==true?1:0);
+            formData.append('Parts', JSON.stringify(lstItems));
+            $.ajax({
+                type: 'Post',
+                dataType: 'json',
+                data: formData,
+                url: '@Url.Action("InsertMaintenance", "Maintenance")',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    lstItems = [];
+                    toastr.success(data);
+                    //alert(data);
+                }
+            });
+        }
     }
+
+    function validationAdvertiseMasterFormCommon() {
+        $("#companyForm").validate({
+            rules: {
+                MaintStatusId_cbo: {
+                    required: true
+                },
+                AssetStatus: {
+                    required: true
+                },
+                StartDate: {
+                    required: true
+                },
+                EndDate: {
+                    required: true
+                }
+            },
+            messages: {
+                MaintStatusId_cbo: {
+                    required: "Please enter status"
+                },
+                AssetStatus: {
+                    required: "Please enter available status"
+                },
+                StartDate: {
+                    required: "Please enter Start Date"
+                },
+                EndDate: {
+                    required: "Please enter End Date"
+                }
+            },
+            errorPlacement: function (error, element) {
+                if ($(element).hasClass('dtp')) {
+                    error.addClass('errormessage').insertAfter(element.parent());
+                } else {
+                    error.addClass('errormessage').insertAfter(element);
+                }
+            }
+        });
+    }
+    function validationAdvertiseMasterFormComplete() {
+        $("#companyForm").validate({
+            rules: {
+                MaintStatusId_cbo: {
+                    required: true
+                },
+                AssetStatus: {
+                    required: true
+                },
+                StartDate: {
+                    required: true                    
+                },
+                EndDate: {
+                    required: true
+                },
+                VATAmount: {
+                    required: true,
+                },
+                TotalCost: {
+                    required: true
+                },
+                Comment: {
+                    required: true
+                }
+            },
+            messages: {
+                MaintStatusId_cbo: {
+                    required: "Please enter status"
+                },
+                AssetStatus: {
+                    required: "Please enter available status"
+                },
+                StartDate: {
+                    required: "Please enter Start Date"
+                },
+                EndDate: {
+                    required: "Please enter End Date"
+                },
+                VATAmount: {
+                    required: "Please enter VAT Amount"
+                },
+                TotalCost: {
+                    required: "Please enter Total Amount"
+                },
+                Comment: {
+                    required: "Please enter Note"
+                }
+            },
+            errorPlacement: function (error, element) {
+                if ($(element).hasClass('dtp')) {
+                    error.addClass('errormessage').insertAfter(element.parent());
+                } else {
+                    error.addClass('errormessage').insertAfter(element);
+                }
+            }
+        });
+    }
+    function validationAdvertiseMasterFormValid() {
+        $("#companyForm").validate({
+            rules: {
+                MaintStatusId_cbo: {
+                    required: true
+                },
+                AssetStatus: {
+                    required: true
+                },
+                TotalCost: {
+                    required: true
+                }
+            },
+            messages: {
+                MaintStatusId_cbo: {
+                    required: "Please enter status"
+                },
+                AssetStatus: {
+                    required: "Please enter available status"
+                },
+                TotalCost: {
+                    required: "Please enter Total Amount"
+                }
+            },
+            errorPlacement: function (error, element) {
+                if ($(element).hasClass('dtp')) {
+                    error.addClass('errormessage').insertAfter(element.parent());
+                } else {
+                    error.addClass('errormessage').insertAfter(element);
+                }
+            }
+        });
+    }
+
+    
 </script>
+}

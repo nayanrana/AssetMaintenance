@@ -1,8 +1,16 @@
 ﻿@model List<AssetMaintenance.BAL.DTO.MaintenanceByStatusDto>
-@using AssetMaintenance.Helper
 
 @{
-    ViewBag.Title = "Chartist";
+    ViewBag.Title = "Maintenance By Status";
+    var overdueText = Model.Where(x => x.MaintStatusId == 1 && x.MaintStatusId !=5).FirstOrDefault().Description;
+    var overdueCount = Model.Where(x => x.MaintStatusId == 1 && x.MaintStatusId != 5).FirstOrDefault().NoofStatus;
+    var toShceduleText = Model.Where(x => x.MaintStatusId == 2 && x.MaintStatusId != 5).FirstOrDefault().Description;
+    var toShceduleCount = Model.Where(x => x.MaintStatusId == 2 && x.MaintStatusId != 5).FirstOrDefault().NoofStatus;
+    var scheduledText = Model.Where(x => x.MaintStatusId == 3 && x.MaintStatusId != 5).FirstOrDefault().Description;
+    var scheduledCount = Model.Where(x => x.MaintStatusId == 3 && x.MaintStatusId != 5).FirstOrDefault().NoofStatus;
+    var expiredText = Model.Where(x => x.MaintStatusId == 7 && x.MaintStatusId != 5).FirstOrDefault().Description;
+    var expiredCount = Model.Where(x => x.MaintStatusId == 7 && x.MaintStatusId != 5).FirstOrDefault().NoofStatus;
+
 }
 
 <div class="normalheader ">
@@ -41,9 +49,9 @@
                     </div>
                     Maintenance By Status
                 </div>
-                <div class="panel-body"> 
+                <div class="panel-body">
                     <div>
-                        <div id="ct-chart5" class="ct-perfect-fourth"></div>
+                        <div id="ct-chart5" class="ct-perfect-fourth" style="cursor:pointer;"></div>
                     </div>
                 </div>
             </div>
@@ -58,35 +66,32 @@
 @section Scripts {
     @Scripts.Render("~/bundles/chartist/js")
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
         $(function () {
 
-            // Simple pie chart
-            var myArray = []; var lstData = [];
-            @foreach (var item in Model)
-            {
-                @:myArray.push('@item.NoofStatus'+'-' +'@item.Description');
-                @:lstData.push({value: '@item.MaintStatusId',meta: '@item.MaintStatusId'});
-            }
-
             var data = {
-                labels: myArray,
-                series: lstData,
-                 
-                @*series: [{
-                    value: @Model.Completed,
-                    meta: 'Completed'
-                }, {
-                    value: @Model.OverDue,
-                        meta: 'OverDue'
-                }, {
-                    value: @Model.Scheduled,
-                        meta: 'Scheduled'
-                }, {
-                    value: @Model.ToSchedule,
-                        meta: 'ToSchedule'
-                }]*@
+                labels: ['@overdueText - ' + '@overdueCount', '@toShceduleText - ' + '@toShceduleCount', '@scheduledText - ' + '@scheduledCount', '@expiredText - ' + '@expiredCount'],
+                series: [  
+                    {
+                        value: @overdueCount,
+                        name: 'Series 1',                        
+                        meta: 1
+                    }, {
+                        value: @toShceduleCount,
+                        name: 'Series 2',                        
+                        meta: 2
+                    }, {
+                        value:@scheduledCount,
+                        name: 'Series 3',                        
+                        meta: 3
+                    }
+                    , {
+                        value:@expiredCount,
+                        name: 'Series 4',                        
+                        meta: 7
+                    }
+                ]                
             };
 
             var sum = function (a, b) { return a + b };
@@ -97,14 +102,43 @@
                         //return Math.round(value / data.series.reduce(sum) * 100) + '%';
                         return value;
                     }
-                });
+                }, {
+                    chartPadding: 30,
+                    labelOffset: 50,
+                    labelDirection: 'explode'
+                }
+
+            );
+
+
+            // Simple pie chart
+            @*var myArray = []; var lstData = [];
+            @foreach (var item in Model)
+            {
+                @:myArray.push('@item.NoofStatus'+'-' +'@item.Description');
+                @:lstData.push({value: '@item.MaintStatusId',meta: '@item.MaintStatusId'});
+            }
+
+            var data = {
+                labels: myArray,
+                series: lstData,
+            };
+
+            var sum = function (a, b) { return a + b };
+
+            new Chartist.Pie('#ct-chart5', data,
+                {
+                    labelInterpolationFnc: function (value) {
+                        //return Math.round(value / data.series.reduce(sum) * 100) + '%';
+                        return value;
+                    }
+                });*@
 
         });
-        $('.ct-perfect-fourth').on('click', '.ct-slice-pie', function () {
-            debugger;
-            //alert(Chartist.deserialize(this.getAttribute('ct:meta')));
+
+        $('.ct-perfect-fourth').on('click', '.ct-slice-pie', function () {          
             var stat = Chartist.deserialize(this.getAttribute('ct:meta'));
             location.href = "/Maintenance/MaintenanceByStatusList?maintenanceType="+stat;
         });
-</script>
+    </script>
 }
