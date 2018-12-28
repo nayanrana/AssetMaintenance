@@ -1,0 +1,162 @@
+﻿@model  AssetMaintenance.BAL.DTO.MaintenanceTypeDto
+
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="index.html">Maintenance</a></li>
+
+                    <li class="active">
+                        <span>All Maintenance Types</span>
+                    </li>
+                </ol>
+            </div>
+            <h3 class="font-light m-b-xs">
+                All Maintenance Types
+            </h3>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="dropdown">
+                        <div class="form-group">
+                            <label class="control-label" for="Relation">Category</label>
+                            @Html.DropDownList("CategoryId", new SelectList(Model.CategoryList.Select(x => new { Value = x.CategoryId, Text = x.Description }), "Value", "Text"), new { @class = "form-control m-b" })
+                        </div>
+                        <div class="form-group m-t">
+                            <label class="control-label" for="Email">Description</label>
+                            @*<input type="text" placeholder="Description" name="Description" id="Description" class="form-control">*@
+                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Description", id = "Description" })
+                        </div>
+                    </div>
+                    @*<button class="btn w-xs btn-success pull-right btn-block" data-style="expand-right" id="AddCollaborator"><span class="ladda-label">Add</span><span class="ladda-spinner"></span></button>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="hpanel">
+                <div class="panel-body">
+                    <div class="dropdown">
+                        <div class="form-group">
+                            <label>Fixed Date : </label>
+                            <input type="checkbox" name="name" value="" id="chkFixedDate" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Occurence Fixed Date</label>
+                            @Html.TextBoxFor(m => m.OccurenceFixedDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "OccurenceFixedDate" })
+                        </div>
+                        <div class="form-group m-t">
+                            <label class="control-label">Occurence Fixed Date Threshold</label>
+                            @Html.TextBoxFor(m => m.OccurenceFixedDateThreshold, new { @class = "form-control", placeholder = "OccurenceFixedDateThreshold", id = "OccurenceFixedDateThreshold" })
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="form-group">
+                            <label>Recurring : </label>
+                            <input type="checkbox" name="name" value="" id="chkRecurring" />
+                        </div>
+                        <table class="table table-responsive">
+                            <tr>
+                                <td></td>
+                                <td>Maintenance Due</td>
+                                <td>Alert Threshhold</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Time Based</td>
+                                <td>@Html.TextBoxFor(m => m.TimeBasedMaintenanceDue, new { @class = "form-control", placeholder = "TimeBasedMaintenanceDue" })</td>
+                                <td>@Html.TextBoxFor(m => m.TimeBasedAlertThreshold, new { @class = "form-control", placeholder = "TimeBasedAlertThreshold" })</td>
+                                <td>
+                                    @Html.DropDownListFor(m => m.TimeBasedPeriod,
+                                    new SelectList(new List<SelectListItem> {
+                                                new SelectListItem { Text = "Days", Value = "1"},
+                                                new SelectListItem { Text = "Months", Value = "0"}
+                                            }, "Value", "Text"),
+                                    "- Select Period -",
+                                    new { @class = "form-control" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>KM Based</td>
+                                <td>@Html.TextBoxFor(m => m.KMBasedMaintenanceDue, new { @class = "form-control", placeholder = "KMBasedMaintenanceDue" })</td>
+                                <td>@Html.TextBoxFor(m => m.KMBasedAlertThreshold, new { @class = "form-control", placeholder = "KMBasedAlertThreshold" })</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Engine Hrs Based</td>
+                                <td>@Html.TextBoxFor(m => m.EngineHrsBasedMaintenanceDue, new { @class = "form-control", placeholder = "EngineHrsBasedMaintenanceDue" })</td>
+                                <td>@Html.TextBoxFor(m => m.EngineHrsBasedAlertThreshold, new { @class = "form-control", placeholder = "EngineHrsBasedAlertThreshold" })</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <button onclick="addMaintenanceType();" class="btn w-xs btn-success pull-right btn-block" data-style="expand-right" id="AddCollaborator"><span class="ladda-label">Add</span><span class="ladda-spinner"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/bundles/datepicker/css")
+}
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/datepicker/js")
+    <script type="text/javascript">
+        $(function () {
+            $('.datepicker').datepicker({ autoclose: true, format: 'dd/mm/yyyy'});
+            $('#OccurenceFixedDate').val();
+            $('#OccurenceFixedDate').datepicker({ 'setDate': new Date() });
+            
+        });
+        function addMaintenanceType() {
+            var formData = new FormData();
+            formData.append('CategoryId', $("#CategoryId").val());
+            formData.append('Description', $("#Description").val());
+            formData.append('EngineHrsBasedAlertThreshold', $("#EngineHrsBasedAlertThreshold").val());
+            formData.append('EngineHrsBasedMaintenanceDue', $("#EngineHrsBasedMaintenanceDue").val());
+            formData.append('OccurrenceDuration', $("#OccurrenceDuration").val());
+            formData.append('OccurenceFixedDateThreshold', $("#OccurenceFixedDateThreshold").val());
+            formData.append('OccurenceFixedDate', $("#OccurenceFixedDate").val());
+            formData.append('TimeBasedAlertThreshold', $("#TimeBasedAlertThreshold").val());
+            formData.append('KMBasedMaintenanceDue', $("#KMBasedMaintenanceDue").val());
+            formData.append('KMBasedAlertThreshold', $("#KMBasedAlertThreshold").val());
+            formData.append('TimeBasedPeriod', $("#TimeBasedPeriod").val());
+            formData.append('IsFixedDateChecked', $("#chkFixedDate").is(':checked')==true ? 1 : 0);
+
+                $.ajax({
+                    type: 'Post',
+                    dataType: 'json',
+                    data: formData,
+                    url: '@Url.Action("CreateMaintenanceType", "MaintenanceType")',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+
+                        toastr.success(data);
+                        
+                        //alert(data);
+                    }
+                });
+
+        }
+    </script>
+}

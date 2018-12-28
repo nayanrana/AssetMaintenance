@@ -35,7 +35,7 @@
                     </div>*@
                 <div class="hpanel">
                     <div class="panel-body">
-                        <form  enctype="multipart/form-data" id="companyForm" method="post" role="form">
+                        <form enctype="multipart/form-data" id="companyForm" method="post" role="form">
                             <input name="__RequestVerificationToken" type="hidden" value="z1F7bd3lMKGEYG84of1CVWnD60ZkkZAeCZD96ZK0Gr-1WrCra-BV-iM3tTXiZnK9FR3IZk3fUZR_b9vXmvP0MhimEE4vFY5U0s_-OyUPQ91PyV1QuoM18AKTZF0o1yEAKI3lLZZjQ7LKzgFqx2er9w2">
                             <div class="row">
                                 @Html.HiddenFor(model => model.AssetId)
@@ -73,18 +73,18 @@
                                 </div>
                                 <div class="form-group col-lg-12">
                                     <div class="form-group col-lg-6">
-                                        <label class="control-label" for="AnnualRevenue">Status</label>
+                                        <label class="control-label" for="AnnualRevenue">Status <span class="req">*</span> </label>
                                         @Html.DropDownList("MaintStatusId_cbo", new SelectList(ViewBag.lstStatus, "MaintStatusId", "Description"), new { @Class = "form-control" })
 
                                     </div>
                                     <div class="form-group col-lg-6">
-                                        <label>Avail. Status</label>
+                                        <label>Avail. Status <span class="req">*</span></label>
                                         @Html.DropDownListFor(m => m.AssetStatus,
                                                 new SelectList(new List<SelectListItem> {
                                                          new SelectListItem { Text = "Available", Value = "1"},
                                                          new SelectListItem { Text = "Not Available", Value = "0"}
                                                      }, "Value", "Text"),
-                                                "Select status",
+                                                "- Select Avail. status -",
                                                  new { @class = "form-control" })
                                         @*@Html.TextBoxFor(model => model.MaintStatusId_cbo, new { @class = "form-control" })*@
                                     </div>
@@ -102,7 +102,7 @@
                                 <div class="form-group col-lg-12">
                                     <div class="form-group col-lg-6">
                                         <label class="control-label" for="AnnualRevenue">Phone Number</label>
-                                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control",type="phone" })
+                                        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", type = "phone", placeholder = "(xxx)xxx-xxxx" })
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label>Reference</label>
@@ -111,38 +111,36 @@
                                 </div>
                                 <div class="form-group col-lg-12">
                                     <div class="form-group col-lg-6">
-                                        <label class="control-label" for="AnnualRevenue">Start Date</label>
-                                        @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control datepicker" })
+                                        <label class="control-label" for="AnnualRevenue">Start Date <span class="req">*</span></label>
+                                        @Html.TextBoxFor(model => model.StartDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
                                     </div>
                                     <div class="form-group col-lg-6">
-                                        <label>End Date</label>
-                                        @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control datepicker" })
+                                        <label>End Date <span class="req">*</span></label>
+                                        @Html.TextBoxFor(model => model.EndDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
                                     </div>
                                 </div>
 
                                 <div class="form-group col-lg-12">
                                     <div class="form-group col-lg-6">
                                         <label class="control-label" for="AnnualRevenue">Calculated Odometer</label>
-                                        @Html.TextBoxFor(model => model.CalculatedOdometer, new { @class = "form-control", type = "number",min = "0" })
+                                        @Html.TextBoxFor(model => model.CalculatedOdometer, new { @class = "form-control allownumericwithoutdecimal" })
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label>Calculated Enginee Hrs.</label>
-                                        @Html.TextBoxFor(model => model.CalculatedEngineHrs, new { @class = "form-control", type = "number", min = "0" })
+                                        @Html.TextBoxFor(model => model.CalculatedEngineHrs, new { @class = "form-control allownumericwithoutdecimal" })
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-12">
                                     <div class="form-group col-lg-6">
                                         <label class="control-label" for="AnnualRevenue">Actual Odometer</label>
-                                        @Html.TextBoxFor(model => model.ActualOdometer, new { @class = "form-control", type = "number", min = "0" })
+                                        @Html.TextBoxFor(model => model.ActualOdometer, new { @class = "form-control allownumericwithoutdecimal" })
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label>Actual Enginee Hrs.</label>
-                                        @Html.TextBoxFor(model => model.ActualEngineHrs, new { @class = "form-control", type = "number", min = "0" })
+                                        @Html.TextBoxFor(model => model.ActualEngineHrs, new { @class = "form-control allownumericwithoutdecimal" })
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="col-lg-12">
                                 <div class="hpanel">
                                     <ul class="nav nav-tabs">
@@ -154,16 +152,16 @@
                                         <div id="tab-1" class="tab-pane active">
                                             <div class="form-group col-lg-12">
                                                 <div class="form-group col-lg-6">
-                                                    <label class="control-label" for="AnnualRevenue">VAT Amount</label>
-                                                    @Html.TextBoxFor(model => model.VATAmount, new { @class = "form-control", type = "number", min = "0" })
+                                                    <label class="control-label" for="AnnualRevenue">VAT Amount <span class="req">*</span></label>
+                                                    @Html.TextBoxFor(model => model.VATAmount, new { @class = "form-control allownumericwithoutdecimal",readOnly="true"})
                                                 </div>
                                                 <div class="form-group col-lg-6">
-                                                    <label>Total Amount</label>
-                                                    @Html.TextBoxFor(model => model.TotalCost, new { @class = "form-control", type = "number", min = "0" })
+                                                    <label>Total Amount <span class="req">*</span></label>
+                                                    @Html.TextBoxFor(model => model.TotalCost, new { @class = "form-control allownumericwithdecimal" })
                                                 </div>
                                                 <div class="form-group col-lg-12">
                                                     <label>VAT Amount included in total cost</label>
-                                                    <input type="checkbox" name="name" value="" id="chkAmount" checked="@Model.VATInclInItemsAmt=='1'?'checked':''"/>
+                                                    <input type="checkbox" name="name" value="" id="chkAmount" checked="@Model.VATInclInItemsAmt=='1'?'checked':''" />
                                                 </div>
 
                                             </div>
@@ -173,20 +171,35 @@
                                                 <table id="MaintenanceList" class="table table-striped table-bordered table-hover dataTable no-footer">
                                                     <thead>
                                                         <tr>
-                                                            <td>Code</td>
-                                                            <td>Description</td>
-                                                            <td>Qty.</td>
-                                                            <td>Cost</td>
+                                                            <td>Code<span class="req">*</span></td>
+                                                            <td>Description<span class="req">*</span></td>
+                                                            <td>Qty.<span class="req">*</span></td>
+                                                            <td>Cost<span class="req">*</span></td>
                                                             <td>Action</td>
                                                         </tr>
                                                         <tr>
-                                                            <td><input type="text" name="code" value="" class="form-control" id="txtCode" style="border-left: 3px solid #e41a16 !important;"/></td>
-                                                            <td><input type="text" name="description" value="" class="form-control" id="txtDesc" style="border-left: 3px solid #e41a16 !important;"/></td>
-                                                            <td><input type="number" name="qty" value="" class="form-control" id="txtQty"  min="0" style="border-left: 3px solid #e41a16 !important;"/></td>
-                                                            <td><input type="number" name="cost" value="" class="form-control" id="txtCost" min="0" style="border-left: 3px solid #e41a16 !important;"/></td>
+                                                            <td><input type="text" name="code" value="" class="form-control" id="txtCode"  /></td>
+                                                            <td><input type="text" name="description" value="" class="form-control" id="txtDesc"  /></td>
+                                                            <td><input type="number" name="qty" value="" class="form-control allownumericwithoutdecimal" id="txtQty" min="0" /></td>
+                                                            <td><input type="number" name="cost" value="" class="form-control allownumericwithdecimal" id="txtCost" min="0"  /></td>
                                                             <td><input type="button" name="name" class="btn btn-success" value="Add" onclick="insertItem()" /></td>
                                                         </tr>
                                                     </thead>
+                                                    @if(Model.lstParts.Count > 0)
+                                                    {
+                                                        <tbody>
+                                                            @foreach (var item in Model.lstParts)
+	                                                        {
+                                                                <tr>
+                                                                    <td>@item.ItemCode</td>
+                                                                    <td>@item.Description</td>
+                                                                    <td>@item.Quantity</td>
+                                                                    <td>@item.UnitCost</td>
+                                                                    <td></td>
+                                                                </tr>
+	                                                        }
+                                                        </tbody>
+                                                    }
                                                     <tbody id="MaintItemBody"></tbody>
                                                 </table>
                                             </div>
@@ -216,6 +229,11 @@
 
 @section Styles {
     @Styles.Render("~/bundles/datepicker/css")
+    <style>
+        .req {
+            color: red;
+        }
+    </style>
 }
 
 @section Scripts {
@@ -223,17 +241,39 @@
     @Scripts.Render("~/bundles/datepicker/js")
     @Scripts.Render("~/bundles/datatablesBootstrap/js")
     @Scripts.Render("~/bundles/datatablesPlugins/js")
+    <script src="~/Scripts/Custom/jquery.mask.js"></script>
+    <script type="text/javascript">
+        $(function () {            
 
-<script type="text/javascript">
-    $(function () {
+        //$("#StartDate").val();
         if ($("#MaintStatusId_cbo").val() == "5") {
             validationAdvertiseMasterFormComplete();
         } else if ($("#MaintStatusId_cbo").val() == "6") {
             validationAdvertiseMasterFormValid();
         }else {
             validationAdvertiseMasterFormCommon();
-        }        
-        $('.datepicker').datepicker({ autoclose: true })
+        }
+        $('.datepicker').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+        
+        $('#PhoneNumber').mask('(000) 000-0000');
+        $('#StartDate').mask('00/00/0000');
+        $('#EndDate').mask('00/00/0000');
+
+        $(".allownumericwithoutdecimal").on("keypress keyup blur", function (event) {
+            $(this).val($(this).val().replace(/[^\d].+/, ""));
+            if ((event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
+        });
+
+        $(".allownumericwithdecimal").on("keypress keyup blur", function (event) {
+            //this.value = this.value.replace(/[^0-9\.]/g,'');
+            $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+            if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
+        });
+
     });
     function maintenanceHistory(a, id) {
         var assetName = $(a).attr("data-asset");
@@ -253,15 +293,23 @@
 
     }
 
-    
-    var lstItems = []; var tr;
+
+    var lstItems = []; var tr; var totalCost = 0;
     function insertItem() {
         debugger;
-
         var code = $("#txtCode").val();
         var desc = $("#txtDesc").val();
         var qty = $("#txtQty").val();
         var cost = $("#txtCost").val();
+        var tcost = $("#TotalCost").val();
+
+        totalCost = parseFloat(totalCost) + (parseFloat(cost) * parseFloat(qty));
+        $("#VATAmount").val((totalCost*15)/100);
+        if (parseFloat(tcost)>0 && totalCost > parseFloat(tcost)) {
+            toastr.error("Total cost exceed total amount.");
+            totalCost = parseFloat(totalCost) - (parseFloat(cost) * parseFloat(qty));
+            return;
+        }
         if (!code && !desc && !qty && !cost) {
             toastr.error("Fill required data.");
             return;
@@ -276,7 +324,7 @@
             toastr.error("Cost is required."); return;
         }
         lstItems.push({ "ItemCode": code, "Description": desc, "Quantity": qty, "UnitCost": cost });
-        
+
         //for (var i = 0; i < lstItems.length; i++) {
             tr = $('<tr >');
             tr.append("<td class='text-center' data-title='Asset'>" + code + "</td>");
@@ -285,7 +333,7 @@
             tr.append("<td class='text-center' data-title='Asset'>" + cost + "</td><td></td></tr>");
             $("#MaintItemBody").append(tr);
         //}
-        
+
         $("#txtCode").val('');
         $("#txtDesc").val('');
         $("#txtQty").val('');
@@ -293,16 +341,17 @@
         //htmlToDataTable();
     }
     function addMaintenance() {
-                
+
         if ($("#companyForm").valid()) {
-            if ($("#MaintStatusId_cbo").val() == "5") {                
+            if ($("#MaintStatusId_cbo").val() == "5") {
                 if (lstItems.length <= 0) {
                     toastr.error("Add Cost/Part details.");
                     return;
                 }
-            }    
+            }
             var formData = new FormData();
             formData.append('ActualEngineHrs', $("#ActualEngineHrs").val());
+            formData.append('URI', $("#URI").val());
             formData.append('ActualOdometer', $("#ActualOdometer").val());
             formData.append('AdditionalInfo', $("#AdditionalInfo").val());
             formData.append('AssetId', $("#AssetId").val());
@@ -339,6 +388,9 @@
                 success: function (data) {
                     lstItems = [];
                     toastr.success(data);
+                    if (window.location.href.split('&')[2] != undefined)
+                        str = window.location.href.split('&')[2].split('=')[1];
+                    location.href = '/Maintenance/MaintenanceByStatusList?maintenanceType=' + str;
                     //alert(data);
                 }
             });
@@ -394,7 +446,7 @@
                     required: true
                 },
                 StartDate: {
-                    required: true                    
+                    required: true
                 },
                 EndDate: {
                     required: true
@@ -456,7 +508,7 @@
             },
             messages: {
                 MaintStatusId_cbo: {
-                    required: "Please enter status"
+                    required: "Please select status"
                 },
                 AssetStatus: {
                     required: "Please enter available status"
@@ -475,6 +527,6 @@
         });
     }
 
-    
-</script>
+
+    </script>
 }

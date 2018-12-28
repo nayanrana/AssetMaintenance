@@ -31,13 +31,16 @@
     </div>
 
     <ul class="nav metismenu" id="side-menu">
-        <li class="@Html.IsSelected(controller: "Dashboard")">
-            <a href="@Url.Action("Index", "Dashboard")"> <span class="nav-label">Dashboard</span> <span class="label label-success pull-right">v.1</span> </a>
+        <li class="@Html.IsSelected(controller: "Maintenance")">
+            <a href="@Url.Action("MaintenanceByStatus", "Maintenance")"> <span class="nav-label">Dashboard</span> @*<span class="label label-success pull-right">v.1</span>*@ </a>
         </li>
-        <li class="@Html.IsSelected(controller: "Analytics")">
-            <a href="@Url.Action("Index", "Analytics")"> <span class="nav-label">Analytics</span><span class="label label-warning pull-right">NEW</span> </a>
+        <li class="@Html.IsSelected(controller: "Maintenance")">
+            <a href="@Url.Action("MaintenanceByStatusList", "Maintenance",0)"> <span class="nav-label">Maintenance By Status</span>@*<span class="label label-warning pull-right">NEW</span>*@ </a>
         </li>
-        <li class="@Html.IsSelected(controller: "Interface")">
+        <li class="@Html.IsSelected(controller: "MaintenanceType")">
+            <a href="@Url.Action("Index", "MaintenanceType")"> <span class="nav-label">Maintenance Type</span>@*<span class="label label-warning pull-right">NEW</span>*@ </a>
+        </li>
+        @*<li class="@Html.IsSelected(controller: "Interface")">
             <a href="#"><span class="nav-label">Interface</span><span class="fa arrow"></span> </a>
             <ul class="nav nav-second-level">
                 <li class="@Html.IsSelected(action: "PanelsDesign")"><a href="@Url.Action("PanelsDesign", "Interface")">Panels design</a></li>
@@ -143,6 +146,6 @@
         </li>
         <li class="@Html.IsSelected(controller: "LandingPage")">
             <a href="@Url.Action("Index", "LandingPage")"> <span class="nav-label">Landing page</span></a>
-        </li>
+        </li>*@
     </ul>
 </div>

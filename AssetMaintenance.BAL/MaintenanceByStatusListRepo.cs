@@ -12,9 +12,15 @@ namespace AssetMaintenance.BAL
         AssetMaintenanceEntities dbCon = new AssetMaintenanceEntities();
         public List<MaintenanceByStatusListDto> getMaintenanceByStatusList(int maintenanceStatus)
         {
+            int[] statuslst = new int[4];
+            if (maintenanceStatus == 0)
+            {
+                statuslst[0] = 1; statuslst[1] = 2; statuslst[2] = 3; statuslst[3] = 7;
+            }
+            else { statuslst[0] = maintenanceStatus; }
             // Will query Database once we have structure ready
             var result = dbCon.GFI_AMM_VehicleMaintTypesLink
-                    .Where(c=> c.Status==maintenanceStatus)
+                    .Where(c=> statuslst.Contains((int)c.Status))
                     .OrderByDescending(c => c.URI)
                    .GroupBy(p => p.AssetId)
                    .Select(g => 

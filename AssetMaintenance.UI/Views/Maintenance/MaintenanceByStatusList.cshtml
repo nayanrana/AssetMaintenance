@@ -20,8 +20,8 @@
                 </ol>
             </div>
             <h2 class="font-light m-b-xs">
-                Maintenance By Status  <label id="lblString">@(Request.QueryString["maintenanceType"] == "1" ? "OVERDUE" : (Request.QueryString["maintenanceType"] == "2" ? "TO SCHEDULE" : (Request.QueryString["maintenanceType"] == "3" ? "SCHEDULED" : (Request.QueryString["maintenanceType"] == "4" ? "IN PROGRESS" : (Request.QueryString["maintenanceType"] == "5" ? "COMPLETED" : (Request.QueryString["maintenanceType"] == "6" ? "VALID" : "EXPIRED"))))))</label>
-            </h2>            
+                Maintenance By Status  <label id="lblString">@(Request.QueryString["maintenanceType"] == "1" ? "OVERDUE" : (Request.QueryString["maintenanceType"] == "2" ? "TO SCHEDULE" : (Request.QueryString["maintenanceType"] == "3" ? "SCHEDULED" : (Request.QueryString["maintenanceType"] == "4" ? "IN PROGRESS" : (Request.QueryString["maintenanceType"] == "5" ? "COMPLETED" : (Request.QueryString["maintenanceType"] == "6" ? "VALID" : (Request.QueryString["maintenanceType"] == "7" ? "EXPIRED" : "")))))))</label>
+            </h2>
         </div>
     </div>
 </div>
@@ -67,16 +67,16 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="hpanel blog-box text-center" id="SearchedUserProfile">
-                        <table id="MaintenanceDataList" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
+                        <table id="MaintenanceDataList" class="table table-striped table-bordered table-hover dataTable no-footer">
                             <thead>
                                 <tr>
-                                    <th class="text-center" >Asset</th>
-                                    <th class="text-center" >Maintenance</th>
-                                    <th class="text-center" >Actual Odometer</th>
-                                    <th class="text-center" >Actual EngineHrs</th>
-                                    <th class="text-center" >Start Date</th>
-                                    <th class="text-center" >End Date</th>
-                                    <th class="text-center" >Amount</th>
+                                    <th class="text-center">Asset</th>
+                                    <th class="text-center">Maintenance</th>
+                                    <th class="text-center">Actual Odometer</th>
+                                    <th class="text-center">Actual EngineHrs</th>
+                                    <th class="text-center">Start Date</th>
+                                    <th class="text-center">End Date</th>
+                                    <th class="text-center">Amount</th>
                                     @*<th class="text-center" width="8%">History</th>*@
                                 </tr>
                             </thead>
@@ -100,6 +100,9 @@
             background-repeat: no-repeat;
             background-position: right;
         }
+        .modal-content{
+            width:700px !important;
+        }
     </style>
     @Styles.Render("~/bundles/datatables/css")
 
@@ -120,8 +123,9 @@
         });
 
         function getMaintenanceByStatusList() {
-            var str = window.location.href.split('?')[1].split('=')[1];
-            
+            var str = 0;
+            if (window.location.href.split('?')[1] != undefined)
+                str = window.location.href.split('?')[1].split('=')[1];
                     $.ajax({
                         type: 'Post',
                         data: JSON.stringify({ maintenanceType: str }),
@@ -174,11 +178,11 @@
                 url: '@Url.Action("ViewMaintanenceList", "Maintenance")',
                 datatype: "json",
                 data: { id: id, maintId: mainteId },
-                success: function (data) {                     
+                success: function (data) {
                     $.each(data, function (i, item) {
-                        var tr;                       
+                        var tr;
                         tr = $('<tr />');
-                        tr.append("<td class='text-center' data-title='Asset'>" + item.Asset + "</td>");                        
+                        tr.append("<td class='text-center' data-title='Asset'>" + item.Asset + "</td>");
                         tr.append("<td class='text-center' data-title='Maintenance'>" + item.Maintenance + "</td>");
                         tr.append("<td class='text-center' data-title='ActualOdometer'>" + (item.ActualOdometer == null ? 0 : item.ActualOdometer) + "</td>");
                         tr.append("<td class='text-center' data-title='ActualEngineHrs'>" + (item.ActualEngineHrs == null ? 0 : item.ActualEngineHrs) + "</td>");
@@ -192,13 +196,13 @@
                     });
                     debugger;
                     htmlToDataTable();
-                    ///$('#myMaintBody').html(tr); 
+                    ///$('#myMaintBody').html(tr);
                 }
-            }); 
-            
+            });
+
         }
 
-        
+
 
     </script>
 }

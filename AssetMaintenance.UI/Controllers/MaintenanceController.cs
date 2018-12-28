@@ -66,6 +66,7 @@ namespace AssetMaintenance.UI.Controllers
                 ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId == 6);
             }
             AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetailbyID(id, mainId);
+            
             return View(model);
         }
 
