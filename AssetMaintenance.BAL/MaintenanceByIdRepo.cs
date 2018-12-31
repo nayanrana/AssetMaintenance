@@ -67,7 +67,10 @@ namespace AssetMaintenance.BAL
                 VATInclInItemsAmt = c.VATInclInItemsAmt,
                 MaintTypeId_cbo = c.MaintTypeId_cbo,
             }).SingleOrDefault();
-            result.lstParts = dbCon.GFI_AMM_VehicleMaintItems.Where(s => s.MaintURI == result.URI).Select(s => new lstPartDetails { ItemCode = s.ItemCode, Description = s.Description, Quantity = s.Quantity, UnitCost = s.UnitCost, MaintURI = s.MaintURI }).ToList();
+            if (result != null)
+                result.lstParts = dbCon.GFI_AMM_VehicleMaintItems.Where(s => s.MaintURI == result.URI).Select(s => new lstPartDetails { ItemCode = s.ItemCode, Description = s.Description, Quantity = s.Quantity, UnitCost = s.UnitCost, MaintURI = s.MaintURI }).ToList();
+            else
+                result = new AssetMaintenanceDetailDto();
             return result;
         }
 

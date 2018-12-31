@@ -17,21 +17,17 @@ namespace AssetMaintenance.BAL
             {
                 //statuslst[0] = 1; statuslst[1] = 2; statuslst[2] = 3; statuslst[3] = 7;
                 var result = dbCon.GFI_AMM_VehicleMaintTypesLink
-                    ///.Where(c=> statuslst.Contains((int)c.Status))
-                    .Where(c => c.Status == 1 || c.Status == 2 || c.Status == 3 || c.Status == 7)
-                    .OrderByDescending(c => c.URI)
-                   .GroupBy(p => p.AssetId)
                    .Select(g =>
                    new MaintenanceByStatusListDto
                    {
-                       URI = (int)g.Key,
-                       Asset = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.Key).AssetName,
-                       AssetNo = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.Key).AssetNumber,
-                       NextMaintenance = (DateTime)g.FirstOrDefault(c => c.AssetId == g.Key).NextMaintDate,
-                       Maintenance = dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.FirstOrDefault(c => c.AssetId == g.Key).MaintTypeId).Description,
-                       MaintenanceStatus = dbCon.GFI_AMM_VehicleMaintStatus.FirstOrDefault(d => d.MaintStatusId == g.FirstOrDefault(c => c.AssetId == g.Key).Status).Description,
-                       MaintenanceID = (int)g.FirstOrDefault(c => c.AssetId == g.Key).Status,
-                       Reminder = (DateTime)dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.FirstOrDefault(c => c.AssetId == g.Key).MaintTypeId).OccurrenceFixedDate,
+                       URI = (int)g.URI,
+                       Asset = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.AssetId).AssetName,
+                       AssetNo = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.AssetId).AssetNumber,
+                       NextMaintenance = (DateTime)g.NextMaintDate,
+                       Maintenance = dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.MaintTypeId).Description,
+                       MaintenanceStatus = dbCon.GFI_AMM_VehicleMaintStatus.FirstOrDefault(d => d.MaintStatusId == g.Status).Description,
+                       MaintenanceID = (int)g.Status,
+                       Reminder = (DateTime)dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.MaintTypeId).OccurrenceFixedDate,
                    }).ToList();
                 return result;
             }

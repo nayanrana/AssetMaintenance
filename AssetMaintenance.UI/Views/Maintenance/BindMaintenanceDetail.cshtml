@@ -185,7 +185,7 @@
                                                             <td><input type="button" name="name" class="btn btn-success" value="Add" onclick="insertItem()" /></td>
                                                         </tr>
                                                     </thead>
-                                                    @if(Model.lstParts.Count > 0)
+                                                    @if(Model.lstParts!= null && Model.lstParts.Count > 0)
                                                     {
                                                         <tbody>
                                                             @foreach (var item in Model.lstParts)

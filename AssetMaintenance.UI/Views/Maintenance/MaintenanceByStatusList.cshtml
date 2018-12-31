@@ -127,11 +127,12 @@
 
         function getMaintenanceByStatusList() {
             var str = 0;
+            
             if (window.location.href.split('?')[1] != undefined)
                 str = window.location.href.split('?')[1].split('=')[1];
             if (str == 0)
                 str = $("#MaintStatusId").val();
-            
+            debugger;
                     $.ajax({
                         type: 'Post',
                         data: JSON.stringify({ maintenanceType: str }),
@@ -158,7 +159,7 @@
                                     "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.URI + "," + item.MaintenanceID+")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
                                     "</td>");
                                     tr.append("<td class='text-center' data-title='Edit'> " +
-                                        "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "&mainId=" + item.MaintenanceID + "&statusId=" + str + "'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +
+                                        "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "&mainId=" + item.MaintenanceID + "&statusId=" + (str == 0 ? item.MaintenanceID:str) + "'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +
                                     "</td>");
                                 $("#MaintenanceList tbody").append(tr);
                             });
