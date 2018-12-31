@@ -23,6 +23,7 @@ namespace AssetMaintenance.UI.Controllers
         public ActionResult MaintenanceByStatusList()
         {
             var statusLst = new MaintenanceByStatusRepo().getMaintenanceByStatusCount().Where(x => x.MaintStatusId == 1 || x.MaintStatusId == 2 || x.MaintStatusId == 3 || x.MaintStatusId == 7).ToList();            
+            statusLst.Insert(0, new MaintenanceByStatusDto() { Description = "-All-", MaintStatusId = 0});
             ViewBag.Organisations = new SelectList(statusLst, "MaintStatusId", "Description");
             return View();
         }
