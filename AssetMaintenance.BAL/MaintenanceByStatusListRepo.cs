@@ -15,38 +15,62 @@ namespace AssetMaintenance.BAL
             int[] statuslst = new int[4];
             if (maintenanceStatus == 0)
             {
-                statuslst[0] = 1; statuslst[1] = 2; statuslst[2] = 3; statuslst[3] = 7;
-            }
-            else { statuslst[0] = maintenanceStatus; }
-            // Will query Database once we have structure ready
-            var result = dbCon.GFI_AMM_VehicleMaintTypesLink
-                    .Where(c=> statuslst.Contains((int)c.Status))
+                //statuslst[0] = 1; statuslst[1] = 2; statuslst[2] = 3; statuslst[3] = 7;
+                var result = dbCon.GFI_AMM_VehicleMaintTypesLink
+                    ///.Where(c=> statuslst.Contains((int)c.Status))
+                    .Where(c => c.Status == 1 || c.Status == 2 || c.Status == 3 || c.Status == 7)
                     .OrderByDescending(c => c.URI)
                    .GroupBy(p => p.AssetId)
-                   .Select(g => 
-                   new MaintenanceByStatusListDto {
-                       URI=(int)g.Key,
+                   .Select(g =>
+                   new MaintenanceByStatusListDto
+                   {
+                       URI = (int)g.Key,
                        Asset = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.Key).AssetName,
                        AssetNo = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.Key).AssetNumber,
-                       NextMaintenance = (DateTime)g.FirstOrDefault(c=> c.AssetId ==g.Key).NextMaintDate,
+                       NextMaintenance = (DateTime)g.FirstOrDefault(c => c.AssetId == g.Key).NextMaintDate,
                        Maintenance = dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.FirstOrDefault(c => c.AssetId == g.Key).MaintTypeId).Description,
-                       MaintenanceID=(int)g.FirstOrDefault(c=> c.AssetId==g.Key).Status,
+                       MaintenanceStatus = dbCon.GFI_AMM_VehicleMaintStatus.FirstOrDefault(d => d.MaintStatusId == g.FirstOrDefault(c => c.AssetId == g.Key).Status).Description,
+                       MaintenanceID = (int)g.FirstOrDefault(c => c.AssetId == g.Key).Status,
                        Reminder = (DateTime)dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.FirstOrDefault(c => c.AssetId == g.Key).MaintTypeId).OccurrenceFixedDate,
                    }).ToList();
+                return result;
+            }
+            else
+            {
+                //statuslst[0] = maintenanceStatus; }
+                var result = dbCon.GFI_AMM_VehicleMaintTypesLink
+                    ///.Where(c=> statuslst.Contains((int)c.Status))
+                    .Where(c => c.Status == maintenanceStatus)
+                    .OrderByDescending(c => c.URI)
+                   .GroupBy(p => p.AssetId)
+                   .Select(g =>
+                   new MaintenanceByStatusListDto
+                   {
+                       URI = (int)g.Key,
+                       Asset = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.Key).AssetName,
+                       AssetNo = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.Key).AssetNumber,
+                       NextMaintenance = (DateTime)g.FirstOrDefault(c => c.AssetId == g.Key).NextMaintDate,
+                       Maintenance = dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.FirstOrDefault(c => c.AssetId == g.Key).MaintTypeId).Description,
+                       MaintenanceStatus = dbCon.GFI_AMM_VehicleMaintStatus.FirstOrDefault(d => d.MaintStatusId == g.FirstOrDefault(c => c.AssetId == g.Key).Status).Description,
+                       MaintenanceID = (int)g.FirstOrDefault(c => c.AssetId == g.Key).Status,
+                       Reminder = (DateTime)dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.FirstOrDefault(c => c.AssetId == g.Key).MaintTypeId).OccurrenceFixedDate,
+                   }).ToList();
+                // Will query Database once we have structure ready
+                return result;
 
 
 
-            //var result = dbCon.GFI_AMM_VehicleMaintTypesLink.Where(c => c.Status == maintenanceStatus).Select(c=> new MaintenanceByStatusListDto {
-            //    URI=0,
-            //    Asset =  dbCon.GFI_FLT_Asset.FirstOrDefault(d=> d.AssetID == c.AssetId).AssetName,
-            //    Maintenance = dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d=> d.MaintTypeId== c.MaintTypeId).Description,
-            //    AssetNo= dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == c.AssetId).AssetNumber,
-            //    Reminder= (DateTime)dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d=> d.MaintTypeId == c.Status).OccurrenceFixedDate,
-            //    NextMaintenance=(DateTime)c.NextMaintDate
-            //}).ToList();
-             
-            return result;
+                //var result = dbCon.GFI_AMM_VehicleMaintTypesLink.Where(c => c.Status == maintenanceStatus).Select(c=> new MaintenanceByStatusListDto {
+                //    URI=0,
+                //    Asset =  dbCon.GFI_FLT_Asset.FirstOrDefault(d=> d.AssetID == c.AssetId).AssetName,
+                //    Maintenance = dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d=> d.MaintTypeId== c.MaintTypeId).Description,
+                //    AssetNo= dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == c.AssetId).AssetNumber,
+                //    Reminder= (DateTime)dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d=> d.MaintTypeId == c.Status).OccurrenceFixedDate,
+                //    NextMaintenance=(DateTime)c.NextMaintDate
+                //}).ToList();
+
+
+            }
         }
-
     }
 }

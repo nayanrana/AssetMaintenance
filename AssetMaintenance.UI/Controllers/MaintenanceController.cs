@@ -22,6 +22,8 @@ namespace AssetMaintenance.UI.Controllers
         [HttpGet]
         public ActionResult MaintenanceByStatusList()
         {
+            var statusLst = new MaintenanceByStatusRepo().getMaintenanceByStatusCount().Where(x => x.MaintStatusId == 1 || x.MaintStatusId == 2 || x.MaintStatusId == 3 || x.MaintStatusId == 7).ToList();            
+            ViewBag.Organisations = new SelectList(statusLst, "MaintStatusId", "Description");
             return View();
         }
 
@@ -30,6 +32,9 @@ namespace AssetMaintenance.UI.Controllers
         {
             var obj = new MaintenanceByStatusListRepo();
             List<MaintenanceByStatusListDto> model = obj.getMaintenanceByStatusList(maintenanceType);
+            
+            //ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId == 1 || x.MaintStatusId == 2 || x.MaintStatusId == 3 ||x.MaintStatusId == 7);
+            
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
@@ -53,9 +58,11 @@ namespace AssetMaintenance.UI.Controllers
             var obj = new MaintenanceByIdRepo();
             var statusLst = new MaintenanceByStatusRepo().getMaintenanceByStatusCount();
 
+            var schduledAndCompletedStatusId = new int[] { 3, 5 };
+
             if (statusId == 1 || statusId == 2)
             {
-                ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId == 3);
+                ViewBag.lstStatus = statusLst.Where(x => schduledAndCompletedStatusId.Contains(x.MaintStatusId));
             }
             if (statusId == 3)
             {
@@ -66,7 +73,7 @@ namespace AssetMaintenance.UI.Controllers
                 ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId == 6);
             }
             AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetailbyID(id, mainId);
-            
+
             return View(model);
         }
 
