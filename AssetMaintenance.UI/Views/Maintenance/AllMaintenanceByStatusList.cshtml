@@ -27,8 +27,8 @@
 </div>
 
 <div class="content animate-panel" id="dashBoardContainer">
-   @*<strong style="float:left;padding:5px;">Select Status :</strong>
-    @Html.DropDownList("MaintStatusId", new SelectList(ViewBag.Organisations.Items, "MaintStatusId", "Description"), new { @class = "form-control", onchange = "getMaintenanceByStatusList()" ,id= "MaintStatusId" ,style="width:150px;float:left;"} )*@
+    <strong style="float:left;padding:5px;">Select Status :</strong>
+    @Html.DropDownList("MaintStatusId", new SelectList(ViewBag.Organisations.Items, "MaintStatusId", "Description"), new { @class = "form-control", onchange = "getMaintenanceByStatusList()", id = "MaintStatusId", style = "width:150px;float:left;" })
     <div id="ToasterMessage" class="text-center content animate-panel row" style="display:none; padding-top:10px;">
     </div>
 
@@ -74,7 +74,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">Asset</th>
-                                    <th class="text-center">Maintenance</th>                                    
+                                    <th class="text-center">Maintenance</th>
                                     <th class="text-center">Actual Odometer</th>
                                     <th class="text-center">Actual EngineHrs</th>
                                     <th class="text-center">Start Date</th>
@@ -103,8 +103,9 @@
             background-repeat: no-repeat;
             background-position: right;
         }
-        .modal-content{
-            width:700px !important;
+
+        .modal-content {
+            width: 700px !important;
         }
     </style>
     @Styles.Render("~/bundles/datatables/css")
@@ -126,43 +127,41 @@
         });
 
         function getMaintenanceByStatusList() {
-            var str = 0;            
-            if (window.location.href.split('?')[1] != undefined)
-                str = window.location.href.split('?')[1].split('=')[1];
+            var str = 0;
             $.fn.DataTable.isDataTable("#MaintenanceList");
-            $('#MaintenanceList').DataTable().clear().destroy(); 
-            
-        $.ajax({
-            type: 'Post',
-            data: JSON.stringify({ maintenanceType: str }),
-            @*'@MaintenanceStatus.OverDue'}),*@
-            url: '@Url.Action("MaintenanceByStatusList", "Maintenance")',
-            dataType: 'json',
-            contentType: "application/json; charset=utf-8",
-            success: function (data)
-            {
-                @*var Mstatus = @Request.QueryString["maintenanceType"]*@                                
-                           
-                $.each(data, function (i, item) {
-                    var tr;
-                    tr = $('<tr />');
-                    tr.append("<td class='text-center' data-title='Asset'>" + item.Asset + "</td>");
-                    tr.append("<td class='text-center' data-title='AssetNo'>" + item.AssetNo + "</td>");
-                    tr.append("<td class='text-center' data-title='Maintenance'>" + item.Maintenance + "</td>");
-                    tr.append("<td class='text-center' data-title='Status'>" + item.MaintenanceStatus + "</td>");
-                    tr.append("<td class='text-center' data-title='Reminder'>" + getFormattedDate(item.Reminder) + "</td>");
-                    tr.append("<td class='text-center' data-title='NextMaintenance'>" + getFormattedDate(item.NextMaintenance) + "</td>");
-                    tr.append("<td class='text-center' data-title='History'> " +
-                        "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.URI + "," + item.MaintenanceID+")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
-                        "</td>");
-                        tr.append("<td class='text-center' data-title='Edit'> " +
-                            "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "&mainId=" + item.MaintenanceID + "&statusId=" + (str == 0 ? item.MaintenanceID:str) + "'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +
-                        "</td>");
-                    $("#MaintenanceList tbody").append(tr);
-                });
-                htmlToDataTable();
-            }
-        });
+            $('#MaintenanceList').DataTable().clear().destroy();
+            str = $("#MaintStatusId").val();
+            $.ajax({
+                type: 'Post',
+                data: JSON.stringify({ maintenanceType: str }),
+                @*'@MaintenanceStatus.OverDue'}),*@
+                url: '@Url.Action("AllMaintenanceByStatusList", "Maintenance")',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (data)
+                {
+                    @*var Mstatus = @Request.QueryString["maintenanceType"]*@
+
+                    $.each(data, function (i, item) {
+                        var tr;
+                        tr = $('<tr />');
+                        tr.append("<td class='text-center' data-title='Asset'>" + item.Asset + "</td>");
+                        tr.append("<td class='text-center' data-title='AssetNo'>" + item.AssetNo + "</td>");
+                        tr.append("<td class='text-center' data-title='Maintenance'>" + item.Maintenance + "</td>");
+                        tr.append("<td class='text-center' data-title='Status'>" + item.MaintenanceStatus + "</td>");
+                        tr.append("<td class='text-center' data-title='Reminder'>" + getFormattedDate(item.Reminder) + "</td>");
+                        tr.append("<td class='text-center' data-title='NextMaintenance'>" + getFormattedDate(item.NextMaintenance) + "</td>");
+                        tr.append("<td class='text-center' data-title='History'> " +
+                            "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.URI + "," + item.MaintenanceID+")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
+                            "</td>");
+                            tr.append("<td class='text-center' data-title='Edit'> " +
+                                "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "&mainId=" + item.MaintenanceID + "&statusId=" + (str == 0 ? item.MaintenanceID:str) + "'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +
+                            "</td>");
+                        $("#MaintenanceList tbody").append(tr);
+                    });
+                    htmlToDataTable();
+                }
+            });
 
         }
         function htmlToDataTable() {

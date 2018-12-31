@@ -20,7 +20,7 @@ namespace AssetMaintenance.BAL
 
         public List<CategoriesDto> getAllCategories()
         {
-            var categoryList = dbCon.GFI_AMM_VehicleMaintCat.ToList().Select(x => new CategoriesDto
+            var categoryList = dbCon.GFI_AMM_VehicleMaintCat.AsEnumerable().ToList().Select(x => new CategoriesDto
             {
                 CategoryId = x.MaintCatId,
                 Description = x.Description

@@ -6,6 +6,8 @@ namespace AssetMaintenance.BAL.DTO
     public class MaintenanceTypeDto
     {
         public int CategoryId { get; set; }
+        public int MaintenanceTypeId { get; set; }
+        public string Category { get; set; }
         public string Description { get; set; }
         public bool IsFixedDateChecked { get; set; }
         public DateTime? OccurenceFixedDate { get; set; }

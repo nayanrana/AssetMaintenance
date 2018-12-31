@@ -14,7 +14,7 @@ namespace AssetMaintenance.UI.Controllers
         public ActionResult Index(int maintenanceType=1)
         {
             MaintenanceTypeRepo maintenanceTypeRepo = new MaintenanceTypeRepo();
-            var model = maintenanceTypeRepo.getMaintenanceTypeList(maintenanceType);
+            var model = maintenanceTypeRepo.getMaintenanceTypeByID(maintenanceType);
            
             return View(model);
         }
@@ -24,6 +24,18 @@ namespace AssetMaintenance.UI.Controllers
             var maintTypeRepo = new MaintenanceTypeRepo();
             var statusLst = maintTypeRepo.insertMaintenanceType(maintType);
             return Json("Record added successfully.");
+        }
+         
+        public ActionResult BindMaintenanceType()
+        { 
+            return View( );
+        }
+        [HttpPost]
+        public ActionResult BindMaintenanceTypeList()
+        {
+            MaintenanceTypeRepo maintenanceTypeRepo = new MaintenanceTypeRepo();
+            var model = maintenanceTypeRepo.getMaintenanceTypeList();
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }

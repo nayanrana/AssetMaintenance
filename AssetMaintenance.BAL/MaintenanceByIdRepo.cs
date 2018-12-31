@@ -34,7 +34,7 @@ namespace AssetMaintenance.BAL
 
         public AssetMaintenanceDetailDto getAssetMaintenanceDetailbyID(int id, int maintId)
         {
-            var result = dbCon.GFI_AMM_VehicleMaintenance.Where(c => c.AssetId == id && c.MaintStatusId_cbo == maintId).OrderByDescending(c => c.URI).Take(1).Select(c => new AssetMaintenanceDetailDto
+            var result = dbCon.GFI_AMM_VehicleMaintenance.Where(c => c.URI == id).OrderByDescending(c => c.URI).Take(1).Select(c => new AssetMaintenanceDetailDto
             {
                 URI = c.URI,
                 AssetId = c.AssetId,

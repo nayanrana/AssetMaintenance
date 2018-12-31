@@ -1,6 +1,7 @@
 ﻿using AssetMaintenance.BAL.DTO;
 using AssetMaintenance.DAL;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace AssetMaintenance.BAL
 {
@@ -14,9 +15,9 @@ namespace AssetMaintenance.BAL
             dbCon = new AssetMaintenanceEntities();
         }
 
-        public MaintenanceTypeDto getMaintenanceTypeList(int maintenanceType)
+        public MaintenanceTypeDto getMaintenanceTypeByID(int maintenanceType)
         {
-            var maintenanceResult = dbCon.GFI_AMM_VehicleMaintTypes.ToList().Where(x => x.MaintTypeId == maintenanceType).Select(x => new MaintenanceTypeDto
+            var maintenanceResult = dbCon.GFI_AMM_VehicleMaintTypes.Where(x => x.MaintTypeId == maintenanceType).Select(x => new MaintenanceTypeDto
             {
                 CategoryId = x.MaintCatId_cbo ?? 0,
                 Description = x.Description,
@@ -25,13 +26,30 @@ namespace AssetMaintenance.BAL
                 KMBasedMaintenanceDue = x.OccurrenceKM ?? 0,
                 KMBasedAlertThreshold = x.OccurrenceKMTh ?? 0,
                 TimeBasedMaintenanceDue = x.OccurrenceDuration ?? 0,
-                TimeBasedAlertThreshold = x.OccurrenceDurationTh ?? 0,
-                CategoryList = categoryRepo.getAllCategories()
+                TimeBasedAlertThreshold = x.OccurrenceDurationTh ?? 0,                
             }).FirstOrDefault();
+            maintenanceResult.CategoryList = categoryRepo.getAllCategories();
+            return maintenanceResult;
+        }
+        public List<MaintenanceTypeDto> getMaintenanceTypeList()
+        {
+            List<MaintenanceTypeDto> maintenanceResult = dbCon.GFI_AMM_VehicleMaintTypes.AsEnumerable().Select(x => new MaintenanceTypeDto
+            {
+                CategoryId = x.MaintCatId_cbo ?? 0,
+                Category= dbCon.GFI_AMM_VehicleMaintCat.FirstOrDefault(c=> c.MaintCatId == x.MaintCatId_cbo).Description,
+                Description = x.Description,
+                EngineHrsBasedMaintenanceDue = x.OccurrenceEngineHrs ?? 0,
+                EngineHrsBasedAlertThreshold = x.OccurrenceEngineHrsTh ?? 0,
+                KMBasedMaintenanceDue = x.OccurrenceKM ?? 0,
+                KMBasedAlertThreshold = x.OccurrenceKMTh ?? 0,
+                TimeBasedMaintenanceDue = x.OccurrenceDuration ?? 0,
+                TimeBasedAlertThreshold = x.OccurrenceDurationTh ?? 0,
+                MaintenanceTypeId=x.MaintTypeId,
+                CategoryList = null
+            }).ToList();
 
             return maintenanceResult;
         }
-
         public string insertMaintenanceType(MaintenanceTypeDto maintenanceType)
         {
             GFI_AMM_VehicleMaintTypes maintType = new GFI_AMM_VehicleMaintTypes();

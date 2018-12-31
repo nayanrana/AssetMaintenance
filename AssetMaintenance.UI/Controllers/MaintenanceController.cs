@@ -22,9 +22,9 @@ namespace AssetMaintenance.UI.Controllers
         [HttpGet]
         public ActionResult MaintenanceByStatusList()
         {
-            var statusLst = new MaintenanceByStatusRepo().getMaintenanceByStatusCount().Where(x => x.MaintStatusId == 1 || x.MaintStatusId == 2 || x.MaintStatusId == 3 || x.MaintStatusId == 7).ToList();            
-            statusLst.Insert(0, new MaintenanceByStatusDto() { Description = "-All-", MaintStatusId = 0});
-            ViewBag.Organisations = new SelectList(statusLst, "MaintStatusId", "Description");
+            //var statusLst = new MaintenanceByStatusRepo().getMaintenanceByStatusCount().Where(x => x.MaintStatusId == 1 || x.MaintStatusId == 2 || x.MaintStatusId == 3 || x.MaintStatusId == 7).ToList();            
+            //statusLst.Insert(0, new MaintenanceByStatusDto() { Description = "-All-", MaintStatusId = 0});
+            //ViewBag.Organisations = new SelectList(statusLst, "MaintStatusId", "Description");
             return View();
         }
 
@@ -32,10 +32,26 @@ namespace AssetMaintenance.UI.Controllers
         public ActionResult MaintenanceByStatusList(int maintenanceType)
         {
             var obj = new MaintenanceByStatusListRepo();
-            List<MaintenanceByStatusListDto> model = obj.getMaintenanceByStatusList(maintenanceType);
-            
+            List<MaintenanceByStatusListDto> model = obj.getMaintenanceByStatusList(maintenanceType);            
+            //ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId == 1 || x.MaintStatusId == 2 || x.MaintStatusId == 3 ||x.MaintStatusId == 7);            
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult AllMaintenanceByStatusList()
+        {
+            var statusLst = new MaintenanceByStatusRepo().getMaintenanceByStatusCount().Where(x => x.MaintStatusId == 1 || x.MaintStatusId == 2 || x.MaintStatusId == 3 || x.MaintStatusId == 7).ToList();
+            statusLst.Insert(0, new MaintenanceByStatusDto() { Description = "-All-", MaintStatusId = 0 });
+            ViewBag.Organisations = new SelectList(statusLst, "MaintStatusId", "Description");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AllMaintenanceByStatusList(int maintenanceType)
+        {
+            var obj = new MaintenanceByStatusListRepo();
+            List<MaintenanceByStatusListDto> model = obj.getAllMaintenanceByStatusList(maintenanceType);
             //ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId == 1 || x.MaintStatusId == 2 || x.MaintStatusId == 3 ||x.MaintStatusId == 7);
-            
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 

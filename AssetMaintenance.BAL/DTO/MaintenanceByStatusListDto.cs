@@ -11,8 +11,8 @@ namespace AssetMaintenance.BAL.DTO
         public string AssetNo { get; set; }
         public string Maintenance { get; set; }
         public string MaintenanceStatus { get; set; }
-        public int MaintenanceID { get; set; }
-        public DateTime Reminder { get; set; }
-        public DateTime NextMaintenance { get; set; } 
+        public int? MaintenanceID { get; set; }
+        public DateTime? Reminder { get; set; }
+        public DateTime? NextMaintenance { get; set; } 
     }
 }
