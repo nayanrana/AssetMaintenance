@@ -157,7 +157,7 @@
                                                 </div>
                                                 <div class="form-group col-lg-6">
                                                     <label>Total Amount <span class="req">*</span></label>
-                                                    @Html.TextBoxFor(model => model.TotalCost, new { @class = "form-control allownumericwithdecimal" })
+                                                    @Html.TextBoxFor(model => model.TotalCost, new { @class = "form-control allownumericwithdecimal", readOnly = "true" })
                                                 </div>
                                                 <div class="form-group col-lg-12">
                                                     <label>VAT Amount included in total cost</label>
@@ -301,15 +301,18 @@
         var desc = $("#txtDesc").val();
         var qty = $("#txtQty").val();
         var cost = $("#txtCost").val();
-        var tcost = $("#TotalCost").val();
+        ///var tcost = $("#TotalCost").val();
 
         totalCost = parseFloat(totalCost) + (parseFloat(cost) * parseFloat(qty));
-        $("#VATAmount").val((totalCost*15)/100);
-        if (parseFloat(tcost)>0 && totalCost > parseFloat(tcost)) {
-            toastr.error("Total cost exceed total amount.");
-            totalCost = parseFloat(totalCost) - (parseFloat(cost) * parseFloat(qty));
-            return;
-        }
+        $("#VATAmount").val((totalCost * 15) / 100);
+        
+        //if (parseFloat(tcost)>0 && totalCost > parseFloat(tcost)) {
+        //    toastr.error("Total cost exceed total amount.");
+        //    totalCost = parseFloat(totalCost) - (parseFloat(cost) * parseFloat(qty));
+        //    $("#TotalCost").val(totalCost);
+        //    return;
+        //}
+        $("#TotalCost").val(totalCost);
         if (!code && !desc && !qty && !cost) {
             toastr.error("Fill required data.");
             return;
