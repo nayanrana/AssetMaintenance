@@ -23,7 +23,7 @@ namespace AssetMaintenance.UI.Controllers
         {
             var maintTypeRepo = new MaintenanceTypeRepo();
             var statusLst = maintTypeRepo.insertMaintenanceType(maintType);
-            return Json("Record added successfully.");
+            return Json("Record saved successfully.");
         }
          
         public ActionResult BindMaintenanceType()

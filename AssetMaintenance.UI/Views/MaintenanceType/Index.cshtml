@@ -29,6 +29,7 @@
         <div class="col-md-3">
             <div class="hpanel">
                 <div class="panel-body">
+                    @Html.HiddenFor(model => model.MaintenanceTypeId)
                     <div class="dropdown">
                         <div class="form-group">
                             <label class="control-label" for="Relation">Category</label>
@@ -55,11 +56,11 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Occurence Fixed Date</label>
-                            @Html.TextBoxFor(m => m.OccurenceFixedDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "OccurenceFixedDate" })
+                            @Html.TextBoxFor(m => m.OccurenceFixedDate, "{0:dd/MM/yyyy}", new { @class="form-control datepicker", placeholder="OccurenceFixedDate" })
                         </div>
                         <div class="form-group m-t">
                             <label class="control-label">Occurence Fixed Date Threshold</label>
-                            @Html.TextBoxFor(m => m.OccurenceFixedDateThreshold, new { @class = "form-control", placeholder = "OccurenceFixedDateThreshold", id = "OccurenceFixedDateThreshold" })
+                            @Html.TextBoxFor(m => m.OccurenceFixedDateThreshold, new { @class="form-control", placeholder="OccurenceFixedDateThreshold" })
                         </div>
                     </div>
 
@@ -104,7 +105,7 @@
                         </table>
                     </div>
 
-                    <button onclick="addMaintenanceType();" class="btn w-xs btn-success pull-right btn-block" data-style="expand-right" id="AddCollaborator"><span class="ladda-label">Add</span><span class="ladda-spinner"></span></button>
+                    <button onclick="addMaintenanceType();" class="btn w-xs btn-success pull-right btn-block" data-style="expand-right" id="AddCollaborator"><span class="ladda-label">Save</span><span class="ladda-spinner"></span></button>
                 </div>
             </div>
         </div>
@@ -122,25 +123,30 @@
     <script type="text/javascript">
         $(function () {
             $('.datepicker').datepicker({ autoclose: true, format: 'dd/mm/yyyy'});
-            $('#OccurenceFixedDate').val();
-            $('#OccurenceFixedDate').datepicker({ 'setDate': new Date() });
+            //$('#OccurenceFixedDate').val();
+            //$('#OccurenceFixedDate').datepicker({ 'setDate': new Date() });
             
         });
         function addMaintenanceType() {
             var formData = new FormData();
             formData.append('CategoryId', $("#CategoryId").val());
             formData.append('Description', $("#Description").val());
-            formData.append('EngineHrsBasedAlertThreshold', $("#EngineHrsBasedAlertThreshold").val());
-            formData.append('EngineHrsBasedMaintenanceDue', $("#EngineHrsBasedMaintenanceDue").val());
-            formData.append('OccurrenceDuration', $("#OccurrenceDuration").val());
-            formData.append('OccurenceFixedDateThreshold', $("#OccurenceFixedDateThreshold").val());
+            formData.append('MaintenanceTypeId', $("#MaintenanceTypeId").val());
             formData.append('OccurenceFixedDate', $("#OccurenceFixedDate").val());
+            formData.append('OccurenceFixedDateThreshold', $("#OccurenceFixedDateThreshold").val());
+
+            formData.append('OccurrenceDuration', $("#TimeBasedMaintenanceDue").val());
+            formData.append('TimeBasedPeriod', $("#TimeBasedPeriod").val());
             formData.append('TimeBasedAlertThreshold', $("#TimeBasedAlertThreshold").val());
+            
+            formData.append('EngineHrsBasedAlertThreshold', $("#EngineHrsBasedAlertThreshold").val());
+            formData.append('EngineHrsBasedMaintenanceDue', $("#EngineHrsBasedMaintenanceDue").val());            
+            
             formData.append('KMBasedMaintenanceDue', $("#KMBasedMaintenanceDue").val());
             formData.append('KMBasedAlertThreshold', $("#KMBasedAlertThreshold").val());
-            formData.append('TimeBasedPeriod', $("#TimeBasedPeriod").val());
-            formData.append('IsFixedDateChecked', $("#chkFixedDate").is(':checked')==true ? 1 : 0);
-
+            
+            formData.append('IsFixedDateChecked', $("#chkFixedDate").is(':checked') == true ? 1 : 0);
+            debugger;
                 $.ajax({
                     type: 'Post',
                     dataType: 'json',

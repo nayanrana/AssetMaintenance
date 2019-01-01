@@ -38,7 +38,7 @@
             <a href="@Url.Action("AllMaintenanceByStatusList", "Maintenance",0)"> <span class="nav-label">Maintenance By Status</span>@*<span class="label label-warning pull-right">NEW</span>*@ </a>
         </li>
         <li class="@Html.IsSelected(controller: "MaintenanceType")">
-            <a href="@Url.Action("Index", "MaintenanceType")"> <span class="nav-label">Maintenance Type</span>@*<span class="label label-warning pull-right">NEW</span>*@ </a>
+            <a href="@Url.Action("BindMaintenanceType", "MaintenanceType")"> <span class="nav-label">Maintenance Type</span>@*<span class="label label-warning pull-right">NEW</span>*@ </a>
         </li>
         @*<li class="@Html.IsSelected(controller: "Interface")">
             <a href="#"><span class="nav-label">Interface</span><span class="fa arrow"></span> </a>

@@ -19,6 +19,7 @@ namespace AssetMaintenance.BAL
         {
             var maintenanceResult = dbCon.GFI_AMM_VehicleMaintTypes.Where(x => x.MaintTypeId == maintenanceType).Select(x => new MaintenanceTypeDto
             {
+                MaintenanceTypeId = x.MaintTypeId,
                 CategoryId = x.MaintCatId_cbo ?? 0,
                 Description = x.Description,
                 EngineHrsBasedMaintenanceDue = x.OccurrenceEngineHrs ?? 0,
@@ -26,8 +27,14 @@ namespace AssetMaintenance.BAL
                 KMBasedMaintenanceDue = x.OccurrenceKM ?? 0,
                 KMBasedAlertThreshold = x.OccurrenceKMTh ?? 0,
                 TimeBasedMaintenanceDue = x.OccurrenceDuration ?? 0,
-                TimeBasedAlertThreshold = x.OccurrenceDurationTh ?? 0,                
+                TimeBasedAlertThreshold = x.OccurrenceDurationTh ?? 0,
+                OccurenceFixedDateThreshold = (int)x.OccurrenceFixedDateTh,
+                OccurenceFixedDate = x.OccurrenceFixedDate,
+                IsFixedDateChecked = x.OccurrenceType == 1 ? true : false,
+                IsRecurringChecked = x.OccurrenceType == 0 ? true : false,
             }).FirstOrDefault();
+            if (maintenanceResult == null)
+                maintenanceResult = new MaintenanceTypeDto();
             maintenanceResult.CategoryList = categoryRepo.getAllCategories();
             return maintenanceResult;
         }
@@ -53,6 +60,11 @@ namespace AssetMaintenance.BAL
         public string insertMaintenanceType(MaintenanceTypeDto maintenanceType)
         {
             GFI_AMM_VehicleMaintTypes maintType = new GFI_AMM_VehicleMaintTypes();
+            if (maintenanceType.MaintenanceTypeId !=0)
+            {
+                 maintType = dbCon.GFI_AMM_VehicleMaintTypes.SingleOrDefault(c => c.MaintTypeId == maintenanceType.MaintenanceTypeId);
+            }
+            
             maintType.MaintCatId_cbo = maintenanceType.CategoryId;
             maintType.Description = maintenanceType.Description;
             maintType.OccurrenceEngineHrsTh = maintenanceType.EngineHrsBasedAlertThreshold;
@@ -66,7 +78,8 @@ namespace AssetMaintenance.BAL
             maintType.OccurrencePeriod_cbo = maintenanceType.TimeBasedPeriod;
             maintType.OccurrenceType = maintenanceType.IsFixedDateChecked==true?1:0;
             maintType.UpdatedDate = System.DateTime.Now;
-            dbCon.GFI_AMM_VehicleMaintTypes.Add(maintType);
+            if (maintenanceType.MaintenanceTypeId == 0)
+                dbCon.GFI_AMM_VehicleMaintTypes.Add(maintType);
             dbCon.SaveChanges();
             return "";
         }
