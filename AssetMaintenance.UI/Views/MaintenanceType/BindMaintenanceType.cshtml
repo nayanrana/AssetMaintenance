@@ -41,7 +41,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center" width="15%">Category</th>
-                                    <th class="text-center" width="15%">Description</th> 
+                                    <th class="text-center" width="15%">Description</th>
                                     <th class="text-center" width="5%">Edit</th>
                                     <th class="text-center" width="5%">Delete</th>
                                 </tr>
@@ -71,19 +71,20 @@
         }
     </style>
     @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/sweetAlert/css")
 
 }
 @section Scripts {
     @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/sweetAlert/js")
     @Scripts.Render("~/bundles/datatablesBootstrap/js")
     @Scripts.Render("~/bundles/datatablesPlugins/js")
 
     <script type="text/javascript">
         $(document).ready(function () {
-
             getMaintenanceByStatusList();
 
-            
+
         });
 
         function getMaintenanceByStatusList() {
@@ -113,9 +114,9 @@
                             + "<div> <a href='/MaintenanceType/Index?maintenanceType=" + item.MaintenanceTypeId + "'  data-asset=" + item.Asset
                             + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" + "</td>");
                         tr.append("<td class='text-center' data-title='Delete'> "
-                            + "<div> <a href='#'  data-asset=" + item.Asset
+                            + "<div> <a href='javascript:void(0);' onclick='deleteMaintenanceType(" + item.MaintenanceTypeId+")' data-asset=" + item.Asset
                             + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Delete</span></a></div>" + "</td>");
-                       
+
                         $("#MaintenanceList tbody").append(tr);
                     });
                     htmlToDataTable();
@@ -133,40 +134,36 @@
             );
         }
 
-        function maintenanceHistory(a,id,mainteId) {
-            var assetName = $(a).attr("data-asset");
-            $("#MaintenanceDataList tbody").html('');
-            $("#modalTitle").text("Maintenance History for " + assetName);
-            $("#MaintenanceHistoryModal").modal('show');
-
-            $.ajax({
-                type: "GET",
-                ///url: '_ViewMaintanence',
-                url: '@Url.Action("ViewMaintanenceList", "Maintenance")',
-                datatype: "json",
-                data: { id: id, maintId: mainteId },
-                success: function (data) {
-                    $.each(data, function (i, item) {
-                        var tr;
-                        tr = $('<tr />');
-                        tr.append("<td class='text-center' data-title='Asset'>" + item.Asset + "</td>");
-                        tr.append("<td class='text-center' data-title='Maintenance'>" + item.Maintenance + "</td>");
-                        tr.append("<td class='text-center' data-title='ActualOdometer'>" + (item.ActualOdometer == null ? 0 : item.ActualOdometer) + "</td>");
-                        tr.append("<td class='text-center' data-title='ActualEngineHrs'>" + (item.ActualEngineHrs == null ? 0 : item.ActualEngineHrs) + "</td>");
-                        tr.append("<td class='text-center' data-title='StartDate'>" + getFormattedDate(item.StartDate) + "</td>");
-                        tr.append("<td class='text-center' data-title='EndDate'>" + getFormattedDate(item.EndDate) + "</td>");
-                        tr.append("<td class='text-center' data-title='Amount'>" + (item.Amount == null ? 0 : item.Amount) + "</td>");
-                        //tr.append("<td class='text-center' data-title='History'> " +
-                        //    "<div> <a href='javascript:void(0)' onclick='maintenanceDetail(this," + item.URI + ")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> Edit</span></a></div>" +
-                        //    "</td>");
-                        $("#MaintenanceDataList tbody").append(tr);
-                    });
-                    debugger;
-                    htmlToDataTable();
-                    ///$('#myMaintBody').html(tr);
-                }
-            });
-
+        function deleteMaintenanceType(id) {
+            swal({
+                title: "Are you sure?",
+                text: "Your will not be able to recover this maintenance Type!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: "POST",
+                            ///url: '_ViewMaintanence',
+                            url: '@Url.Action("DeleteMaintenanceTypeByID", "MaintenanceType")',
+                            datatype: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                swal("Deleted!", "Maintenance Type has been deleted.", "success");
+                                getMaintenanceByStatusList();
+                            }
+                        });
+                        
+                    } else {
+                        swal("Cancelled", "Your Maintenance Type is safe :)", "error");
+                    }
+                });
         }
 
 

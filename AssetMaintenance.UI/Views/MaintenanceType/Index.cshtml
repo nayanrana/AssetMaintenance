@@ -52,22 +52,24 @@
                     <div class="dropdown">
                         <div class="form-group">
                             <label>Fixed Date : </label>
-                            <input type="checkbox" name="name" value="" id="chkFixedDate" />
+                            @*@Html.CheckBoxFor(m=> m.IsFixedDateChecked)*@
+                            <input type="checkbox" name="name" value="" id="chkFixedDate" checked="@Model.IsFixedDateChecked" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Occurence Fixed Date</label>
-                            @Html.TextBoxFor(m => m.OccurenceFixedDate, "{0:dd/MM/yyyy}", new { @class="form-control datepicker", placeholder="OccurenceFixedDate" })
+                            @Html.TextBoxFor(m => m.OccurenceFixedDate, "{0:dd/MM/yyyy}",  new { @class="form-control datepicker", placeholder="Occurence Fixed Date" })
                         </div>
                         <div class="form-group m-t">
                             <label class="control-label">Occurence Fixed Date Threshold</label>
-                            @Html.TextBoxFor(m => m.OccurenceFixedDateThreshold, new { @class="form-control", placeholder="OccurenceFixedDateThreshold" })
+                            @Html.TextBoxFor(m => m.OccurenceFixedDateThreshold, new { @class="form-control", placeholder="Occurence Fixed Date Threshold" })
                         </div>
                     </div>
 
                     <div class="dropdown">
                         <div class="form-group">
                             <label>Recurring : </label>
-                            <input type="checkbox" name="name" value="" id="chkRecurring" />
+                            @*@Html.CheckBoxFor(m => m.IsRecurringChecked)*@
+                            <input type="checkbox" name="name" value="" id="chkRecurring" checked="@Model.IsRecurringChecked" />
                         </div>
                         <table class="table table-responsive">
                             <tr>
@@ -78,22 +80,22 @@
                             </tr>
                             <tr>
                                 <td>Time Based</td>
-                                <td>@Html.TextBoxFor(m => m.TimeBasedMaintenanceDue, new { @class = "form-control", placeholder = "TimeBasedMaintenanceDue" })</td>
-                                <td>@Html.TextBoxFor(m => m.TimeBasedAlertThreshold, new { @class = "form-control", placeholder = "TimeBasedAlertThreshold" })</td>
+                                <td>@Html.TextBoxFor(m => m.TimeBasedMaintenanceDue, new { @class = "form-control", placeholder = "TimeBased Maintenance Due" })</td>
+                                <td>@Html.TextBoxFor(m => m.TimeBasedAlertThreshold, new { @class = "form-control", placeholder = "TimeBased Alert Threshold" })</td>
                                 <td>
                                     @Html.DropDownListFor(m => m.TimeBasedPeriod,
                                     new SelectList(new List<SelectListItem> {
-                                                new SelectListItem { Text = "Days", Value = "1"},
-                                                new SelectListItem { Text = "Months", Value = "0"}
+                                                new SelectListItem { Text = "DAY(S)", Value = "DAY(S)"},
+                                                new SelectListItem { Text = "MONTH(S)", Value = "MONTH(S)"}
                                             }, "Value", "Text"),
                                     "- Select Period -",
-                                    new { @class = "form-control" })
+                                    new { @class = "form-control",id= "TimeBasedPeriod" })
                                 </td>
                             </tr>
                             <tr>
                                 <td>KM Based</td>
-                                <td>@Html.TextBoxFor(m => m.KMBasedMaintenanceDue, new { @class = "form-control", placeholder = "KMBasedMaintenanceDue" })</td>
-                                <td>@Html.TextBoxFor(m => m.KMBasedAlertThreshold, new { @class = "form-control", placeholder = "KMBasedAlertThreshold" })</td>
+                                <td>@Html.TextBoxFor(m => m.KMBasedMaintenanceDue, new { @class = "form-control", placeholder = "KM Based Maintenance Due" })</td>
+                                <td>@Html.TextBoxFor(m => m.KMBasedAlertThreshold, new { @class = "form-control", placeholder = "KM Based Alert Threshold" })</td>
                                 <td></td>
                             </tr>
                             <tr>
@@ -132,10 +134,10 @@
             formData.append('CategoryId', $("#CategoryId").val());
             formData.append('Description', $("#Description").val());
             formData.append('MaintenanceTypeId', $("#MaintenanceTypeId").val());
-            formData.append('OccurenceFixedDate', $("#OccurenceFixedDate").val());
+            formData.append('OccurenceFixedDate', getMMFormattedDate($("#OccurenceFixedDate").val()));
             formData.append('OccurenceFixedDateThreshold', $("#OccurenceFixedDateThreshold").val());
 
-            formData.append('OccurrenceDuration', $("#TimeBasedMaintenanceDue").val());
+            formData.append('OccurrenceDuration', $("#TimeBasedMaintenanceDue").val()); 
             formData.append('TimeBasedPeriod', $("#TimeBasedPeriod").val());
             formData.append('TimeBasedAlertThreshold', $("#TimeBasedAlertThreshold").val());
             
@@ -145,7 +147,7 @@
             formData.append('KMBasedMaintenanceDue', $("#KMBasedMaintenanceDue").val());
             formData.append('KMBasedAlertThreshold', $("#KMBasedAlertThreshold").val());
             
-            formData.append('IsFixedDateChecked', $("#chkFixedDate").is(':checked') == true ? 1 : 0);
+            formData.append('IsFixedDateChecked', ($("#chkFixedDate").is(':checked') == true ? true : false));
             debugger;
                 $.ajax({
                     type: 'Post',
@@ -156,9 +158,8 @@
                     contentType: false,
                     processData: false,
                     success: function (data) {
-
                         toastr.success(data);
-                        
+                        location.href = '/MaintenanceType/BindMaintenanceType';
                         //alert(data);
                     }
                 });

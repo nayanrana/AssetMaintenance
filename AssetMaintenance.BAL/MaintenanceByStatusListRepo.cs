@@ -23,6 +23,7 @@ namespace AssetMaintenance.BAL
                    .Select(g =>
                    new MaintenanceByStatusListDto
                    {
+                       AssetID=(int)g.Key,
                        URI = (int)g.FirstOrDefault(c => c.AssetId == g.Key).URI,
                        Asset = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.Key).AssetName,
                        AssetNo = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.Key).AssetNumber,
@@ -49,6 +50,7 @@ namespace AssetMaintenance.BAL
                    .Select(g =>
                    new MaintenanceByStatusListDto
                    {
+                       AssetID=(int)g.AssetId,
                        URI = (int)g.URI,
                        Asset = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.AssetId).AssetName,
                        AssetNo = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == g.AssetId).AssetNumber,

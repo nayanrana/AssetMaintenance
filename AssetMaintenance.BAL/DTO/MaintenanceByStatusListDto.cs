@@ -7,6 +7,7 @@ namespace AssetMaintenance.BAL.DTO
     public class MaintenanceByStatusListDto
     {
         public int URI { get; set; }
+        public int AssetID { get; set; }
         public string Asset { get; set; }
         public string AssetNo { get; set; }
         public string Maintenance { get; set; }

@@ -153,7 +153,7 @@
                     tr.append("<td class='text-center' data-title='Reminder'>" + getFormattedDate(item.Reminder) + "</td>");
                     tr.append("<td class='text-center' data-title='NextMaintenance'>" + getFormattedDate(item.NextMaintenance) + "</td>");
                     tr.append("<td class='text-center' data-title='History'> " +
-                        "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.URI + "," + item.MaintenanceID+")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
+                        "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.AssetID + "," + item.MaintenanceID+")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
                         "</td>");
                         tr.append("<td class='text-center' data-title='Edit'> " +
                             "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "&mainId=" + item.MaintenanceID + "&statusId=" + (str == 0 ? item.MaintenanceID:str) + "'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +

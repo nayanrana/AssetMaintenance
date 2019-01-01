@@ -30,8 +30,9 @@ namespace AssetMaintenance.BAL
                 TimeBasedAlertThreshold = x.OccurrenceDurationTh ?? 0,
                 OccurenceFixedDateThreshold = (int)x.OccurrenceFixedDateTh,
                 OccurenceFixedDate = x.OccurrenceFixedDate,
-                IsFixedDateChecked = x.OccurrenceType == 1 ? true : false,
-                IsRecurringChecked = x.OccurrenceType == 0 ? true : false,
+                IsFixedDateChecked = x.OccurrenceType == 0 ? true : false,
+                IsRecurringChecked = x.OccurrenceType == 1 ? true : false,
+                TimeBasedPeriod=x.OccurrencePeriod_cbo,
             }).FirstOrDefault();
             if (maintenanceResult == null)
                 maintenanceResult = new MaintenanceTypeDto();
@@ -63,8 +64,7 @@ namespace AssetMaintenance.BAL
             if (maintenanceType.MaintenanceTypeId !=0)
             {
                  maintType = dbCon.GFI_AMM_VehicleMaintTypes.SingleOrDefault(c => c.MaintTypeId == maintenanceType.MaintenanceTypeId);
-            }
-            
+            }            
             maintType.MaintCatId_cbo = maintenanceType.CategoryId;
             maintType.Description = maintenanceType.Description;
             maintType.OccurrenceEngineHrsTh = maintenanceType.EngineHrsBasedAlertThreshold;
@@ -76,12 +76,20 @@ namespace AssetMaintenance.BAL
             maintType.OccurrenceKM = maintenanceType.KMBasedMaintenanceDue;
             maintType.OccurrenceKMTh = maintenanceType.KMBasedAlertThreshold;
             maintType.OccurrencePeriod_cbo = maintenanceType.TimeBasedPeriod;
-            maintType.OccurrenceType = maintenanceType.IsFixedDateChecked==true?1:0;
+            maintType.OccurrenceType = maintenanceType.IsFixedDateChecked==true?0:1;
             maintType.UpdatedDate = System.DateTime.Now;
             if (maintenanceType.MaintenanceTypeId == 0)
                 dbCon.GFI_AMM_VehicleMaintTypes.Add(maintType);
             dbCon.SaveChanges();
             return "";
+        }
+
+        public string deleteMaintType(int id)
+        {
+            GFI_AMM_VehicleMaintTypes maintType = dbCon.GFI_AMM_VehicleMaintTypes.SingleOrDefault(c => c.MaintTypeId == id);
+            dbCon.GFI_AMM_VehicleMaintTypes.Remove(maintType);
+            dbCon.SaveChanges();
+            return "Data Deleted successfully.";
         }
     }
 }

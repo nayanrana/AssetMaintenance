@@ -100,7 +100,7 @@ namespace AssetMaintenance.BAL
             maint.MaintStatusId_cbo = assetMaintenance.MaintStatusId_cbo;
             maint.MaintTypeId_cbo = assetMaintenance.MaintTypeId_cbo;
             maint.PhoneNumber = assetMaintenance.PhoneNumber;
-            maint.StartDate = assetMaintenance.StartDate;
+            maint.StartDate = assetMaintenance.StartDate;            
             maint.TotalCost = assetMaintenance.TotalCost;
             maint.VATAmount = assetMaintenance.VATAmount;
             maint.VATInclInItemsAmt = assetMaintenance.VATInclInItemsAmt== "undefined"?null: assetMaintenance.VATInclInItemsAmt;

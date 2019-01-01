@@ -37,5 +37,13 @@ namespace AssetMaintenance.UI.Controllers
             var model = maintenanceTypeRepo.getMaintenanceTypeList();
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult DeleteMaintenanceTypeByID(int id)
+        {
+            MaintenanceTypeRepo maintenanceTypeRepo = new MaintenanceTypeRepo();
+            var model = maintenanceTypeRepo.deleteMaintType(id);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }

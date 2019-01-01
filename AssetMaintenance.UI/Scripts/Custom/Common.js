@@ -16,10 +16,12 @@
 
 });
 
-function getFormattedDate(date) {    
+function getFormattedDate(date) {
     var jsonDate = date;  // returns "/Date(1245398693390)/";
     var re = /-?\d+/;
     var m = re.exec(jsonDate);
+    if (m == null)
+        return;
     var d = new Date(parseInt(m[0]));
 
     var year = d.getFullYear();
@@ -28,7 +30,16 @@ function getFormattedDate(date) {
 
     var day = d.getDate().toString();
     day = day.length > 1 ? day : '0' + day;
-    return day + '/' + month+ '/' + year;
+    return day + '/' + month + '/' + year;
+}
+
+function getMMFormattedDate(userDate) {
+    debugger;
+    var from = userDate.split("/");
+    var f = new Date(from[2], from[1], from[0]);
+    var date_string = f.getMonth() + "/" + f.getDate() + "/" + f.getFullYear();
+    
+    return date_string;
 }
 
 

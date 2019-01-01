@@ -244,7 +244,7 @@
     <script src="~/Scripts/Custom/jquery.mask.js"></script>
     <script type="text/javascript">
         $(function () {            
-
+        
         //$("#StartDate").val();
         if ($("#MaintStatusId_cbo").val() == "5") {
             validationAdvertiseMasterFormComplete();
@@ -344,10 +344,10 @@
         //htmlToDataTable();
     }
     function addMaintenance() {
-
+        
         if ($("#companyForm").valid()) {
             if ($("#MaintStatusId_cbo").val() == "5") {
-                if (lstItems.length <= 0) {
+                if (@Model.lstParts.Count<0 && lstItems.length <= 0) {
                     toastr.error("Add Cost/Part details.");
                     return;
                 }
@@ -366,13 +366,13 @@
             formData.append('CompanyRef', $("#CompanyRef").val());
             formData.append('ContactDetails', $("#ContactDetails").val());
             formData.append('CoverTypeId_cbo', $("#CoverTypeId_cbo").val());
-            formData.append('EndDate', $("#EndDate").val());
+            formData.append('EndDate', getMMFormattedDate($("#EndDate").val()));
             formData.append('EstimatedValue', $("#EstimatedValue").val());
             formData.append('MaintDescription', $("#MaintDescription").val());
             formData.append('MaintStatusId_cbo', $("#MaintStatusId_cbo").val());
             formData.append('MaintTypeId_cbo', $("#MaintTypeId_cbo").val());
             formData.append('PhoneNumber', $("#PhoneNumber").val());
-            formData.append('StartDate', $("#StartDate").val());
+            formData.append('StartDate', getMMFormattedDate($("#StartDate").val()));
             formData.append('TotalCost', $("#TotalCost").val());
             formData.append('VATAmount', $("#VATAmount").val());
             formData.append('VATInclInItemsAmt', $("#VATInclInItemsAmt").val());
@@ -389,6 +389,7 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
+                    debugger;
                     lstItems = [];
                     toastr.success(data);
                     if (window.location.href.split('&')[2] != undefined)
