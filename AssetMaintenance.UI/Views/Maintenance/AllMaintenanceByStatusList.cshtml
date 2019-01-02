@@ -12,15 +12,15 @@
             <div id="hbreadcrumb" class="pull-right m-t-lg">
                 <ol class="hbreadcrumb breadcrumb">
                     <li>
-                        <button class="btn btn-info btn-xs pull-right" type="button"><i class="fa fa-arrow-circle-left"></i> <span class="bold" style="padding-left:5px;">Maintenance</span></button>
+                        <button class="btn btn-info btn-xs pull-right" type="button" onclick="javascript:(location.href = '/')"><i class="fa fa-arrow-circle-left"></i> <span class="bold" style="padding-left:5px;">Maintenance</span></button>
                     </li>
                     <li class="active">
-                        <span>Maintenance By Status </span>
+                        <span>Maintenance List </span>
                     </li>
                 </ol>
             </div>
             <h2 class="font-light m-b-xs">
-                Maintenance By Status  <label id="lblString">@(Request.QueryString["maintenanceType"] == "1" ? "OVERDUE" : (Request.QueryString["maintenanceType"] == "2" ? "TO SCHEDULE" : (Request.QueryString["maintenanceType"] == "3" ? "SCHEDULED" : (Request.QueryString["maintenanceType"] == "4" ? "IN PROGRESS" : (Request.QueryString["maintenanceType"] == "5" ? "COMPLETED" : (Request.QueryString["maintenanceType"] == "6" ? "VALID" : (Request.QueryString["maintenanceType"] == "7" ? "EXPIRED" : "")))))))</label>
+                Maintenance List  
             </h2>
         </div>
     </div>
