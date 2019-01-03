@@ -117,7 +117,10 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-
+            if (localStorage.getItem('msg')) {
+                toastr.success(localStorage.getItem('msg'));
+                localStorage.clear();
+            }
             getMaintenanceByStatusList();
 
             $("#btnCloseModal").click(function () {

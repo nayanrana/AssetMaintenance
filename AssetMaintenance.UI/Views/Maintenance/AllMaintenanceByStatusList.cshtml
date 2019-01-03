@@ -8,28 +8,29 @@
                     <i class="fa fa-arrow-up"></i>
                 </div>
             </a>
-
-            <div id="hbreadcrumb" class="pull-right m-t-lg">
+            <div id="hbreadcrumb" class="pull-right">
                 <ol class="hbreadcrumb breadcrumb">
-                    <li>
-                        <button class="btn btn-info btn-xs pull-right" type="button" onclick="javascript:(location.href = '/')"><i class="fa fa-arrow-circle-left"></i> <span class="bold" style="padding-left:5px;">Maintenance</span></button>
-                    </li>
+                    <li><a href="../Maintenance/MaintenanceByStatus">Dashboard</a></li>
                     <li class="active">
-                        <span>Maintenance List </span>
+                        <span>All Maintenance List</span>
                     </li>
                 </ol>
             </div>
             <h2 class="font-light m-b-xs">
-                Maintenance List  
+                Maintenance List
             </h2>
         </div>
     </div>
 </div>
 
-<div class="content animate-panel" id="dashBoardContainer">
-    <strong style="float:left;padding:5px;">Select Status :</strong>
-    @Html.DropDownList("MaintStatusId", new SelectList(ViewBag.Organisations.Items, "MaintStatusId", "Description"), new { @class = "form-control", onchange = "getMaintenanceByStatusList()", id = "MaintStatusId", style = "width:150px;float:left;" })
-    <div id="ToasterMessage" class="text-center content animate-panel row" style="display:none; padding-top:10px;">
+<div class="content animate-panel">   
+    <div class="row" style="margin-left: -30px;">
+        <div class="form-group col-lg-12">
+            <div class="form-group col-lg-3">
+                <label>Status</label>
+                @Html.DropDownList("MaintStatusId", new SelectList(ViewBag.Organisations.Items, "MaintStatusId", "Description"), new { @class = "form-control", onchange = "getMaintenanceByStatusList()", id = "MaintStatusId"})
+            </div>
+        </div>
     </div>
 
     <div class="row" id="MaintenanceListGridDiv">
@@ -79,13 +80,11 @@
                                     <th class="text-center">Actual EngineHrs</th>
                                     <th class="text-center">Start Date</th>
                                     <th class="text-center">End Date</th>
-                                    <th class="text-center">Amount</th>
-                                    @*<th class="text-center" width="8%">History</th>*@
+                                    <th class="text-center">Amount</th>                                
                                 </tr>
                             </thead>
                             <tbody id="myMaintBody"></tbody>
-                        </table>
-                        @*<partial name="_ViewMaintanence" />*@
+                        </table>                        
                     </div>
                 </div>
             </div>

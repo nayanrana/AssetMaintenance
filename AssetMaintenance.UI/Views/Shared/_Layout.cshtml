@@ -59,9 +59,30 @@
     @Scripts.Render("~/bundles/homer/js")
     @Scripts.Render("~/bundles/validation/js")
     @Scripts.Render("~/bundles/toastr/js")
-
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        });
+    </script>
     <script src="~/Scripts/Custom/Common.js"></script>
     <!-- Handler for local scripts -->
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

@@ -99,7 +99,7 @@ namespace AssetMaintenance.UI.Controllers
         {
             var obj = new MaintenanceByIdRepo();
             var statusLst = obj.insertMaintenance(asstMaint);
-            return Json("Record added successfully.");
+            return Json("Record saved successfully.");
         }
     }
 }

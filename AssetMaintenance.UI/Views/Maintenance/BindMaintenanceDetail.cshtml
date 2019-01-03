@@ -391,7 +391,8 @@
                 success: function (data) {
                     debugger;
                     lstItems = [];
-                    toastr.success(data);
+                    localStorage.setItem('msg', data);
+                    ///toastr.success(data);
                     if (window.location.href.split('&')[2] != undefined)
                         str = window.location.href.split('&')[2].split('=')[1];
                     location.href = '/Maintenance/MaintenanceByStatusList?maintenanceType=' + str;

@@ -31,100 +31,103 @@
 </div>
 <div class="content">
     <div class="row">
-        <div class="col-md-3">
-            <div class="hpanel">
-                <div class="panel-body">
-                    @Html.HiddenFor(model => model.MaintenanceTypeId)
-                    <div class="dropdown">
-                        <div class="form-group">
-                            <label class="control-label" for="Relation">Category</label>
-                            @Html.DropDownList("CategoryId", new SelectList(Model.CategoryList.Select(x => new { Value = x.CategoryId, Text = x.Description }), "Value", "Text"), new { @class = "form-control m-b" })
+        <form enctype="multipart/form-data" id="companyForm" method="post" role="form">
+            <div class="col-md-3">
+                <div class="hpanel">
+                    <div class="panel-body">                        
+                        @Html.HiddenFor(model => model.MaintenanceTypeId)
+                        <div class="dropdown">
+                            <div class="form-group">
+                                <label class="control-label" for="Relation">Category</label>
+                                @Html.DropDownList("CategoryId", new SelectList(Model.CategoryList.Select(x => new { Value = x.CategoryId, Text = x.Description }), "Value", "Text"), new { @class = "form-control m-b" })
+                            </div>
+                            <div class="form-group m-t">
+                                <label class="control-label" for="Email">Description</label>
+                                @*<input type="text" placeholder="Description" name="Description" id="Description" class="form-control">*@
+                                @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Description", id = "Description" })
+                            </div>
                         </div>
-                        <div class="form-group m-t">
-                            <label class="control-label" for="Email">Description</label>
-                            @*<input type="text" placeholder="Description" name="Description" id="Description" class="form-control">*@
-                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control", placeholder = "Description", id = "Description" })
-                        </div>
+                        @*<button class="btn w-xs btn-success pull-right btn-block" data-style="expand-right" id="AddCollaborator"><span class="ladda-label">Add</span><span class="ladda-spinner"></span></button>*@
                     </div>
-                    @*<button class="btn w-xs btn-success pull-right btn-block" data-style="expand-right" id="AddCollaborator"><span class="ladda-label">Add</span><span class="ladda-spinner"></span></button>*@
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-9">
-            <div class="hpanel">
-                <div class="panel-body">
-                    <h4>Event Occurance</h4>
-                    <hr />
-                    <div class="dropdown">
-                        <div class="form-group">
-                            <label>Fixed Date : </label>
-                            @*@Html.CheckBoxFor(m=> m.IsFixedDateChecked)*@
-                            <input type="checkbox" name="name" value="" id="chkFixedDate" checked="@Model.IsFixedDateChecked" onchange="chkType('fixdate')" />
+            <div class="col-md-9">
+                <div class="hpanel">
+                    <div class="panel-body">
+                        <h4>Event Occurance</h4>
+                        <hr />
+                        <div class="dropdown">
+                            <div class="form-group">
+                                <label>Fixed Date : </label>
+                                @*@Html.CheckBoxFor(m=> m.IsFixedDateChecked)*@
+                                <input type="checkbox" name="name" value="" id="chkFixedDate" checked="@Model.IsFixedDateChecked" onchange="chkType('fixdate')" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Occurence Fixed Date</label>
+                                @Html.TextBoxFor(m => m.OccurenceFixedDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Occurence Fixed Date" })
+                            </div>
+                            <div class="form-group m-t">
+                                <label class="control-label">Occurence Fixed Date Threshold</label>
+                                @Html.TextBoxFor(m => m.OccurenceFixedDateThreshold, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Occurence Fixed Date Threshold" })
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">Occurence Fixed Date</label>
-                            @Html.TextBoxFor(m => m.OccurenceFixedDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Occurence Fixed Date" })
-                        </div>
-                        <div class="form-group m-t">
-                            <label class="control-label">Occurence Fixed Date Threshold</label>
-                            @Html.TextBoxFor(m => m.OccurenceFixedDateThreshold, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Occurence Fixed Date Threshold" })
-                        </div>
-                    </div>
 
-                    <div class="dropdown">
-                        <div class="form-group">
-                            <label>Recurring : </label>
-                            @*@Html.CheckBoxFor(m => m.IsRecurringChecked)*@
-                            <input type="checkbox" name="name" value="" id="chkRecurring" checked="@Model.IsRecurringChecked" onchange="chkType('recurring')"/>
+                        <div class="dropdown">
+                            <div class="form-group">
+                                <label>Recurring : </label>
+                                @*@Html.CheckBoxFor(m => m.IsRecurringChecked)*@
+                                <input type="checkbox" name="name" value="" id="chkRecurring" checked="@Model.IsRecurringChecked" onchange="chkType('recurring')" />
+                            </div>
+                            <table class="table table-responsive">
+                                <tr>
+                                    <td></td>
+                                    <td>Maintenance Due</td>
+                                    <td>Alert Threshhold</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Time Based</td>
+                                    <td>@Html.TextBoxFor(m => m.TimeBasedMaintenanceDue, new { @class = "form-control allownumericwithoutdecimal", placeholder = "TimeBased Maintenance Due" })</td>
+                                    <td>@Html.TextBoxFor(m => m.TimeBasedAlertThreshold, new { @class = "form-control allownumericwithoutdecimal", placeholder = "TimeBased Alert Threshold" })</td>
+                                    <td>
+                                        @Html.DropDownListFor(m => m.TimeBasedPeriod,
+                                        new SelectList(new List<SelectListItem> {
+                                                    new SelectListItem { Text = "DAY(S)", Value = "DAY(S)"},
+                                                    new SelectListItem { Text = "MONTH(S)", Value = "MONTH(S)"}
+                                                }, "Value", "Text"),
+                                        "- Select Period -",
+                                        new { @class = "form-control",id= "TimeBasedPeriod" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>KM Based</td>
+                                    <td>@Html.TextBoxFor(m => m.KMBasedMaintenanceDue, new { @class = "form-control allownumericwithoutdecimal", placeholder = "KM Based Maintenance Due" })</td>
+                                    <td>@Html.TextBoxFor(m => m.KMBasedAlertThreshold, new { @class = "form-control allownumericwithoutdecimal", placeholder = "KM Based Alert Threshold" })</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Engine Hrs Based</td>
+                                    <td>@Html.TextBoxFor(m => m.EngineHrsBasedMaintenanceDue, new { @class = "form-control allownumericwithoutdecimal", placeholder = "EngineHrsBasedMaintenanceDue" })</td>
+                                    <td>@Html.TextBoxFor(m => m.EngineHrsBasedAlertThreshold, new { @class = "form-control allownumericwithoutdecimal", placeholder = "EngineHrsBasedAlertThreshold" })</td>
+                                    <td></td>
+                                </tr>
+                            </table>
                         </div>
-                        <table class="table table-responsive">
-                            <tr>
-                                <td></td>
-                                <td>Maintenance Due</td>
-                                <td>Alert Threshhold</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Time Based</td>
-                                <td>@Html.TextBoxFor(m => m.TimeBasedMaintenanceDue, new { @class = "form-control allownumericwithoutdecimal", placeholder = "TimeBased Maintenance Due" })</td>
-                                <td>@Html.TextBoxFor(m => m.TimeBasedAlertThreshold, new { @class = "form-control allownumericwithoutdecimal", placeholder = "TimeBased Alert Threshold" })</td>
-                                <td>
-                                    @Html.DropDownListFor(m => m.TimeBasedPeriod,
-                                    new SelectList(new List<SelectListItem> {
-                                                new SelectListItem { Text = "DAY(S)", Value = "DAY(S)"},
-                                                new SelectListItem { Text = "MONTH(S)", Value = "MONTH(S)"}
-                                            }, "Value", "Text"),
-                                    "- Select Period -",
-                                    new { @class = "form-control",id= "TimeBasedPeriod" })
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>KM Based</td>
-                                <td>@Html.TextBoxFor(m => m.KMBasedMaintenanceDue, new { @class = "form-control allownumericwithoutdecimal", placeholder = "KM Based Maintenance Due" })</td>
-                                <td>@Html.TextBoxFor(m => m.KMBasedAlertThreshold, new { @class = "form-control allownumericwithoutdecimal", placeholder = "KM Based Alert Threshold" })</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Engine Hrs Based</td>
-                                <td>@Html.TextBoxFor(m => m.EngineHrsBasedMaintenanceDue, new { @class = "form-control allownumericwithoutdecimal", placeholder = "EngineHrsBasedMaintenanceDue" })</td>
-                                <td>@Html.TextBoxFor(m => m.EngineHrsBasedAlertThreshold, new { @class = "form-control allownumericwithoutdecimal", placeholder = "EngineHrsBasedAlertThreshold" })</td>
-                                <td></td>
-                            </tr>
-                        </table>
+                        @if (Model.MaintenanceTypeId != 0)
+                        {
+                            <input id="btnSubmit" type="button" class="btn btn-success " value="Save" onclick="addMaintenanceType();">
+                            @*<button onclick="addMaintenanceType();" class="btn w-xs btn-success " data-style="expand-right" id="AddCollaborator"><span class="ladda-label"> Save</span><span class="ladda-spinner"></span></button>*@
+                        }
+                        else
+                        {<input id="btnSubmit" type="button" class="btn btn-success " value="Add" onclick="addMaintenanceType();">
+                            @*<button onclick="addMaintenanceType();" class="btn w-xs btn-success " data-style="expand-right" id="AddCollaborator"><span class="ladda-label"> Add</span><span class="ladda-spinner"></span></button>*@
+                        }
+                        <button class="btn w-xs btn-danger " data-style="expand-right" id="CancelCollaborator" onclick="javascript:(location.href = '/MaintenanceType/BindMaintenanceType')"><span class="ladda-label"> Cancel</span><span class="ladda-spinner"></span></button>
                     </div>
-                    @if (Model.MaintenanceTypeId != 0)
-                    {
-                        <button onclick="addMaintenanceType();" class="btn w-xs btn-success " data-style="expand-right" id="AddCollaborator"><span class="ladda-label"> Save</span><span class="ladda-spinner"></span></button>
-                    }
-                    else
-                    {
-                        <button onclick="addMaintenanceType();" class="btn w-xs btn-success " data-style="expand-right" id="AddCollaborator"><span class="ladda-label"> Add</span><span class="ladda-spinner"></span></button>
-                    }
-                    <button  class="btn w-xs btn-danger " data-style="expand-right" id="CancelCollaborator" onclick="javascript:(location.href = '/MaintenanceType/BindMaintenanceType')"><span class="ladda-label"> Cancel</span><span class="ladda-spinner"></span></button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -138,6 +141,12 @@
     @Scripts.Render("~/bundles/datepicker/js")
     <script type="text/javascript">
         $(function () {
+            if ($("#MaintenanceTypeId").val()=="0") {
+                $("#chkFixedDate").prop("checked", true);
+                validationForFixedDate();
+
+            }
+            
             $('.datepicker').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
 
             $(".allownumericwithoutdecimal").on("keypress keyup blur", function (event) {
@@ -145,73 +154,83 @@
                 if ((event.which < 48 || event.which > 57)) {
                     event.preventDefault();
                 }
-            });            
+            });
         });
         function chkType(typ) {
             if (typ == 'fixdate') {
+                var validator = $("#companyForm").validate();
+                validator.destroy();
+                validationForFixedDate();
                 $("#chkRecurring").prop("checked", false);
+
                 //$("#TimeBasedMaintenanceDue").val('');
                 //$("#TimeBasedAlertThreshold").val('');
                 //$("#EngineHrsBasedAlertThreshold").val('');
                 //$("#EngineHrsBasedMaintenanceDue").val('');
                 //$("#KMBasedMaintenanceDue").val('');
                 //$("#KMBasedAlertThreshold").val('');
-            } else {                
+            } else {
+                var validator1 = $("#companyForm").validate();
+                validator1.destroy();
+                validationForRecurring();
+
                 $("#chkFixedDate").prop("checked", false);
                 //$("#OccurenceFixedDate").val('');
                 //$("#OccurenceFixedDateThreshold").val('');
             }
         }
         function addMaintenanceType() {
-            var formData = new FormData();
-            if ($("#chkFixedDate").is(':checked') == false && $("#chkRecurring").is(':checked') == false) {
-                toastr.error('Please select Fixed Date or Recurring.');
-                return;
-            }
-            if ($("#chkFixedDate").is(':checked') == true) {
-                if (!$("#OccurenceFixedDate").val() && !$("#OccurenceFixedDateThreshold").val()) {
-                    toastr.error('Occurence Fixed Date and Occurence Fixed Date Threshold both are required.');
-                    return;
-                }
-                if (!$("#OccurenceFixedDate").val()) {
-                    toastr.error('Occurence Fixed Date and is required.');
-                    return;
-                }
-                if (!$("#OccurenceFixedDateThreshold").val()) {
-                    toastr.error('Occurence Fixed Date Threshold is required.');
-                    return;
-                }
-                $("#TimeBasedMaintenanceDue").val('');
-                $("#TimeBasedAlertThreshold").val('');
-                $("#EngineHrsBasedAlertThreshold").val('');
-                $("#EngineHrsBasedMaintenanceDue").val('');
-                $("#KMBasedMaintenanceDue").val('');
-                $("#KMBasedAlertThreshold").val('');
-            } else {
-                if (!$("#TimeBasedPeriod").val() || !$("#TimeBasedMaintenanceDue").val() || $("#TimeBasedAlertThreshold").val() || !$("#EngineHrsBasedAlertThreshold").val() || !$("#EngineHrsBasedMaintenanceDue").val() || !$("#KMBasedMaintenanceDue").val() || !$("#KMBasedAlertThreshold").val()) {
-                    toastr.error('All Recurrering fileds are required.');                    
-                    return;
-                }
-                $("#OccurenceFixedDate").val('');
-                $("#OccurenceFixedDateThreshold").val('');
-            }
-            formData.append('CategoryId', $("#CategoryId").val());
-            formData.append('Description', $("#Description").val());
-            formData.append('MaintenanceTypeId', $("#MaintenanceTypeId").val());
-            formData.append('OccurenceFixedDate', getMMFormattedDate($("#OccurenceFixedDate").val()));
-            formData.append('OccurenceFixedDateThreshold', $("#OccurenceFixedDateThreshold").val());
+            if ($("#companyForm").valid()) {
 
-            formData.append('OccurrenceDuration', $("#TimeBasedMaintenanceDue").val()); 
-            formData.append('TimeBasedPeriod', $("#TimeBasedPeriod").val());
-            formData.append('TimeBasedAlertThreshold', $("#TimeBasedAlertThreshold").val());
-            
-            formData.append('EngineHrsBasedAlertThreshold', $("#EngineHrsBasedAlertThreshold").val());
-            formData.append('EngineHrsBasedMaintenanceDue', $("#EngineHrsBasedMaintenanceDue").val());            
-            
-            formData.append('KMBasedMaintenanceDue', $("#KMBasedMaintenanceDue").val());
-            formData.append('KMBasedAlertThreshold', $("#KMBasedAlertThreshold").val());
-            
-            formData.append('IsFixedDateChecked', ($("#chkFixedDate").is(':checked') == true ? true : false));            
+                var formData = new FormData();
+                //if ($("#chkFixedDate").is(':checked') == false && $("#chkRecurring").is(':checked') == false) {
+                //    toastr.error('Please select Fixed Date or Recurring.');
+                //    return;
+                //}
+                //if ($("#chkFixedDate").is(':checked') == true) {
+                //    if (!$("#OccurenceFixedDate").val() && !$("#OccurenceFixedDateThreshold").val()) {
+                //        toastr.error('Occurence Fixed Date and Occurence Fixed Date Threshold both are required.');
+                //        return;
+                //    }
+                //    if (!$("#OccurenceFixedDate").val()) {
+                //        toastr.error('Occurence Fixed Date and is required.');
+                //        return;
+                //    }
+                //    if (!$("#OccurenceFixedDateThreshold").val()) {
+                //        toastr.error('Occurence Fixed Date Threshold is required.');
+                //        return;
+                //    }
+                //    $("#TimeBasedMaintenanceDue").val('');
+                //    $("#TimeBasedAlertThreshold").val('');
+                //    $("#EngineHrsBasedAlertThreshold").val('');
+                //    $("#EngineHrsBasedMaintenanceDue").val('');
+                //    $("#KMBasedMaintenanceDue").val('');
+                //    $("#KMBasedAlertThreshold").val('');
+                //} else {
+                //    if (!$("#TimeBasedPeriod").val() || !$("#TimeBasedMaintenanceDue").val() || $("#TimeBasedAlertThreshold").val() || !$("#EngineHrsBasedAlertThreshold").val() || !$("#EngineHrsBasedMaintenanceDue").val() || !$("#KMBasedMaintenanceDue").val() || !$("#KMBasedAlertThreshold").val()) {
+                //        toastr.error('All Recurrering fileds are required.');
+                //        return;
+                //    }
+                //    $("#OccurenceFixedDate").val('');
+                //    $("#OccurenceFixedDateThreshold").val('');
+                //}
+                formData.append('CategoryId', $("#CategoryId").val());
+                formData.append('Description', $("#Description").val());
+                formData.append('MaintenanceTypeId', $("#MaintenanceTypeId").val());
+                formData.append('OccurenceFixedDate', getMMFormattedDate($("#OccurenceFixedDate").val()));
+                formData.append('OccurenceFixedDateThreshold', $("#OccurenceFixedDateThreshold").val());
+
+                formData.append('OccurrenceDuration', $("#TimeBasedMaintenanceDue").val());
+                formData.append('TimeBasedPeriod', $("#TimeBasedPeriod").val());
+                formData.append('TimeBasedAlertThreshold', $("#TimeBasedAlertThreshold").val());
+
+                formData.append('EngineHrsBasedAlertThreshold', $("#EngineHrsBasedAlertThreshold").val());
+                formData.append('EngineHrsBasedMaintenanceDue', $("#EngineHrsBasedMaintenanceDue").val());
+
+                formData.append('KMBasedMaintenanceDue', $("#KMBasedMaintenanceDue").val());
+                formData.append('KMBasedAlertThreshold', $("#KMBasedAlertThreshold").val());
+
+                formData.append('IsFixedDateChecked', ($("#chkFixedDate").is(':checked') == true ? true : false));
                 $.ajax({
                     type: 'Post',
                     dataType: 'json',
@@ -221,12 +240,125 @@
                     contentType: false,
                     processData: false,
                     success: function (data) {
-                        toastr.success(data);
-                        setTimeout(function () {
-                            location.href = '/MaintenanceType/BindMaintenanceType'
-                        }, 700);
-                        
+                        localStorage.setItem('msg', data);
+                        //toastr.success(data);
+                        location.href = '/MaintenanceType/BindMaintenanceType';
+                    
+
                         //alert(data);
+                    }
+                });
+
+            }
+
+        }
+            function validationForFixedDate() {
+                $("#companyForm").validate({
+                    rules: {
+                        IsFixedDateChecked: {
+                            required: true
+                        },
+                        Description: {
+                            required: true
+                        },
+                        OccurenceFixedDate: {
+                            required: true
+                        },
+                        OccurenceFixedDateThreshold: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        IsFixedDateChecked: {
+                            required: "Please select."
+                        },
+                        Description: {
+                            required: "Please enter description."
+                        },
+                        OccurenceFixedDate: {
+                            required: "Please select occurence date."
+                        },
+                        OccurenceFixedDateThreshold: {
+                            required: "Please enter Occurence Fixed Date Threshold"
+                        }
+
+                    },
+                    errorPlacement: function (error, element) {
+                        if ($(element).hasClass('dtp')) {
+                            error.addClass('errormessage').insertAfter(element.parent());
+                        } else {
+                            error.addClass('errormessage').insertAfter(element);
+                        }
+                    }
+                });
+        }
+        
+            function validationForRecurring() {
+                $("#companyForm").validate({
+                    rules: {
+                        Description: {
+                            required: true
+                        },
+                        OccurrenceDuration: {
+                            required: true
+                        },
+                        TimeBasedPeriod: {
+                            required: true
+                        },
+                        TimeBasedMaintenanceDue: {
+                            required: true
+                        },
+                        TimeBasedAlertThreshold: {
+                            required: true
+                        },
+                        EngineHrsBasedAlertThreshold: {
+                            required: true
+                        },
+                        EngineHrsBasedMaintenanceDue: {
+                            required: true
+                        },
+                        KMBasedMaintenanceDue: {
+                            required: true
+                        },
+                        KMBasedAlertThreshold: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        Description: {
+                            required: "Please enter description."
+                        },
+                        OccurrenceDuration: {
+                            required: "Please enter Occurrence Duration"
+                        },
+                        TimeBasedPeriod: {
+                            required: "Please select TimeBased Period"
+                        },
+                        TimeBasedMaintenanceDue: {
+                            required: "Please enter TimeBased Maintenance Due"
+                        },
+                        TimeBasedAlertThreshold: {
+                            required: "Please enter TimeBased Alert Threshold"
+                        },
+                        EngineHrsBasedAlertThreshold: {
+                            required: "Please enter Engine Hrs Based Alert Threshold"
+                        },
+                        EngineHrsBasedMaintenanceDue: {
+                            required: "Please enter Engine Hrs Based MaintenanceDue"
+                        },
+                        KMBasedMaintenanceDue: {
+                            required: "Please enter KM Based Maintenance Due"
+                        },
+                        KMBasedAlertThreshold: {
+                            required: "Please enter KM Based Alert Threshold"
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        if ($(element).hasClass('dtp')) {
+                            error.addClass('errormessage').insertAfter(element.parent());
+                        } else {
+                            error.addClass('errormessage').insertAfter(element);
+                        }
                     }
                 });
 
