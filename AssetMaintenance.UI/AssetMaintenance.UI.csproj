@@ -149,6 +149,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Fuel Pricing\FuelPricingMasterController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2492,6 +2493,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Maintenance\MaintenanceByStatus.cshtml" />
     <Content Include="Views\Maintenance\MaintenanceByStatusList.cshtml" />
+    <Content Include="Views\FuelPricingMaster\FuelMaster.cshtml" />
+    <Content Include="Views\FuelPricingMaster\_FuelDetails.cshtml" />
+    <Content Include="Views\FuelPricingMaster\_DieselDetails.cshtml" />
+    <Content Include="Views\FuelPricingMaster\_GasolineDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

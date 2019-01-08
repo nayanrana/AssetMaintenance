@@ -66,6 +66,9 @@
       <DependentUpon>AssetMaintenance.edmx</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="Fuel_Record.cs">
+      <DependentUpon>AssetMaintenance.tt</DependentUpon>
+    </Compile>
     <Compile Include="GFI_AMM_AssetExtProVehicles.cs">
       <DependentUpon>AssetMaintenance.tt</DependentUpon>
     </Compile>
@@ -93,6 +96,9 @@
     <Compile Include="GFI_AMM_VehicleTypes.cs">
       <DependentUpon>AssetMaintenance.tt</DependentUpon>
     </Compile>
+    <Compile Include="GFI_DieselDetail.cs">
+      <DependentUpon>AssetMaintenance.tt</DependentUpon>
+    </Compile>
     <Compile Include="GFI_FLT_Asset.cs">
       <DependentUpon>AssetMaintenance.tt</DependentUpon>
     </Compile>
@@ -115,6 +121,12 @@
       <DependentUpon>AssetMaintenance.tt</DependentUpon>
     </Compile>
     <Compile Include="GFI_FLT_RoadSpeedType.cs">
+      <DependentUpon>AssetMaintenance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GFI_FuelDetail.cs">
+      <DependentUpon>AssetMaintenance.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GFI_GasolineDetail.cs">
       <DependentUpon>AssetMaintenance.tt</DependentUpon>
     </Compile>
     <Compile Include="GFI_SYS_LookUpTypes.cs">

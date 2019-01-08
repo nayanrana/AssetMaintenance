@@ -25,3 +25,12 @@ D:\proj\AssetMaintenance\AssetMaintenance.Helper\obj\Debug\netstandard2.0\AssetM
 D:\proj\AssetMaintenance\AssetMaintenance.Helper\obj\Debug\netstandard2.0\AssetMaintenance.Helper.AssemblyInfo.cs
 D:\proj\AssetMaintenance\AssetMaintenance.Helper\obj\Debug\netstandard2.0\AssetMaintenance.Helper.dll
 D:\proj\AssetMaintenance\AssetMaintenance.Helper\obj\Debug\netstandard2.0\AssetMaintenance.Helper.pdb
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.Helper\bin\Debug\netstandard2.0\AssetMaintenance.Helper.deps.json
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.Helper\bin\Debug\netstandard2.0\AssetMaintenance.Helper.dll
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.Helper\bin\Debug\netstandard2.0\AssetMaintenance.Helper.pdb
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.Helper\obj\Debug\netstandard2.0\AssetMaintenance.Helper.csprojAssemblyReference.cache
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.Helper\obj\Debug\netstandard2.0\AssetMaintenance.Helper.csproj.CoreCompileInputs.cache
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.Helper\obj\Debug\netstandard2.0\AssetMaintenance.Helper.AssemblyInfoInputs.cache
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.Helper\obj\Debug\netstandard2.0\AssetMaintenance.Helper.AssemblyInfo.cs
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.Helper\obj\Debug\netstandard2.0\AssetMaintenance.Helper.dll
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.Helper\obj\Debug\netstandard2.0\AssetMaintenance.Helper.pdb

@@ -45,5 +45,9 @@ namespace AssetMaintenance.DAL
         public virtual DbSet<GFI_SYS_LookUpTypes> GFI_SYS_LookUpTypes { get; set; }
         public virtual DbSet<GFI_SYS_LookUpValues> GFI_SYS_LookUpValues { get; set; }
         public virtual DbSet<GFI_SYS_User> GFI_SYS_User { get; set; }
+        public virtual DbSet<GFI_DieselDetail> GFI_DieselDetail { get; set; }
+        public virtual DbSet<GFI_FuelDetail> GFI_FuelDetail { get; set; }
+        public virtual DbSet<GFI_GasolineDetail> GFI_GasolineDetail { get; set; }
+        public virtual DbSet<Fuel_Record> Fuel_Record { get; set; }
     }
 }

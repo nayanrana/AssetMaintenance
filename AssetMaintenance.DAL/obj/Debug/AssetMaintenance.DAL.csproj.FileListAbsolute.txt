@@ -10,3 +10,15 @@ E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\obj
 E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.csproj.CopyComplete
 E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.dll
 E:\Projects\Mauritius\AssetMaintenance\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.pdb
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\AssetMaintenance.DAL.dll.config
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\AssetMaintenance.DAL.dll
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\AssetMaintenance.DAL.pdb
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\EntityFramework.dll
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\EntityFramework.SqlServer.dll
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\EntityFramework.xml
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\bin\Debug\EntityFramework.SqlServer.xml
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.csprojAssemblyReference.cache
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.csproj.CoreCompileInputs.cache
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.csproj.CopyComplete
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.dll
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.DAL\obj\Debug\AssetMaintenance.DAL.pdb
