@@ -10,5 +10,6 @@ namespace AssetMaintenance.BAL.DTO
         public double Price { get; set; }
         public double Discount { get; set; }
         public long CreatedBy { get; set; }
+        public DateTime PriceDate { get; set; }
     }
 }

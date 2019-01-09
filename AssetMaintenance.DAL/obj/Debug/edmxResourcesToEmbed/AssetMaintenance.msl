@@ -428,6 +428,7 @@
     <EntitySetMapping Name="GFI_FuelDetail">
       <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FuelDetail">
         <MappingFragment StoreEntitySet="GFI_FuelDetail">
+          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />

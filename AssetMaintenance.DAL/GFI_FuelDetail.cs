@@ -22,6 +22,7 @@ namespace AssetMaintenance.DAL
         public Nullable<long> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public bool Status { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual GFI_FuelDetail GFI_FuelDetail1 { get; set; }
         public virtual GFI_FuelDetail GFI_FuelDetail2 { get; set; }

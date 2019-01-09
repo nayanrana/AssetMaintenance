@@ -21,8 +21,10 @@
     <!-- Add local styles, mostly for plugins css file -->
     @if (IsSectionDefined("Styles"))
     {@RenderSection("Styles", required: false)}
-                                              
+
     <!-- Primary HOMER style -->
+    @Scripts.Render("~/bundles/jquery/js")
+
     @Styles.Render("~/bundles/homer/css")
 </head>
 <body class="@Html.PageClass()">
@@ -54,11 +56,13 @@
     </div>
 
     <!-- Section for main scripts render -->
-    @Scripts.Render("~/bundles/jquery/js")
     @Scripts.Render("~/bundles/bootstrap/js")
     @Scripts.Render("~/bundles/homer/js")
     @Scripts.Render("~/bundles/validation/js")
     @Scripts.Render("~/bundles/toastr/js")
+    @Scripts.Render("~/bundles/moment/js")
+    @Scripts.Render("~/bundles/jqueryui/js")
+
     <script>
         $(function () {
             toastr.options = {

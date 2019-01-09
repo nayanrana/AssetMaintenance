@@ -573,6 +573,7 @@
     <Property Name="Status" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="GFI_FuelDetail1" Relationship="AssetMaintenanceModel.FK_GFI_FuelDetail_GFI_FuelDetail" FromRole="GFI_FuelDetail" ToRole="GFI_FuelDetail1" />
     <NavigationProperty Name="GFI_FuelDetail2" Relationship="AssetMaintenanceModel.FK_GFI_FuelDetail_GFI_FuelDetail" FromRole="GFI_FuelDetail1" ToRole="GFI_FuelDetail" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
   <EntityType Name="GFI_GasolineDetail">
     <Key>

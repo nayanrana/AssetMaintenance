@@ -362,6 +362,7 @@
           <Property Name="FuelId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
           <Property Name="Discount" Type="float" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="bigint" />
@@ -1179,6 +1180,7 @@
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="GFI_FuelDetail1" Relationship="AssetMaintenanceModel.FK_GFI_FuelDetail_GFI_FuelDetail" FromRole="GFI_FuelDetail" ToRole="GFI_FuelDetail1" />
           <NavigationProperty Name="GFI_FuelDetail2" Relationship="AssetMaintenanceModel.FK_GFI_FuelDetail_GFI_FuelDetail" FromRole="GFI_FuelDetail1" ToRole="GFI_FuelDetail" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="GFI_GasolineDetail">
           <Key>
@@ -1652,6 +1654,7 @@
           <EntitySetMapping Name="GFI_FuelDetail">
             <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FuelDetail">
               <MappingFragment StoreEntitySet="GFI_FuelDetail">
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />

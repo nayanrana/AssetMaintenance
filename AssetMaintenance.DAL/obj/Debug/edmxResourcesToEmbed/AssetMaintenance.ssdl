@@ -357,6 +357,7 @@
     <Property Name="FuelId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Price" Type="float" Nullable="false" />
     <Property Name="Discount" Type="float" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
     <Property Name="CreatedBy" Type="bigint" Nullable="false" />
     <Property Name="CreatedOn" Type="datetime" Nullable="false" />
     <Property Name="ModifiedBy" Type="bigint" />
