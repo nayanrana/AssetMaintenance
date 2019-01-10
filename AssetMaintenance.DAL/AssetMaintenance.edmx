@@ -207,6 +207,7 @@
           <Property Name="Dieselld" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
           <Property Name="Discount" Type="float" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="bigint" />
@@ -375,6 +376,7 @@
           </Key>
           <Property Name="Gasolineld" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Discount" Type="float" Nullable="false" />
           <Property Name="CreatedBy" Type="bigint" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
@@ -1165,6 +1167,7 @@
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="GFI_FuelDetail">
           <Key>
@@ -1194,6 +1197,7 @@
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <Association Name="FK_GFI_FuelDetail_GFI_FuelDetail">
           <End Type="AssetMaintenanceModel.GFI_FuelDetail" Role="GFI_FuelDetail" Multiplicity="1" />
@@ -1640,6 +1644,7 @@
           <EntitySetMapping Name="GFI_DieselDetail">
             <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_DieselDetail">
               <MappingFragment StoreEntitySet="GFI_DieselDetail">
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -1669,6 +1674,7 @@
           <EntitySetMapping Name="GFI_GasolineDetail">
             <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_GasolineDetail">
               <MappingFragment StoreEntitySet="GFI_GasolineDetail">
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />

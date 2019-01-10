@@ -558,6 +558,7 @@
     <Property Name="ModifiedBy" Type="Int64" />
     <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
     <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
   <EntityType Name="GFI_FuelDetail">
     <Key>
@@ -587,6 +588,7 @@
     <Property Name="ModifiedBy" Type="Int64" />
     <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
     <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
   <Association Name="FK_GFI_FuelDetail_GFI_FuelDetail">
     <End Type="AssetMaintenanceModel.GFI_FuelDetail" Role="GFI_FuelDetail" Multiplicity="1" />

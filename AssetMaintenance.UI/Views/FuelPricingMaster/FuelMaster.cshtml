@@ -1,4 +1,4 @@
-﻿
+﻿@model AssetMaintenance.BAL.DTO.FuelMasterViewModelDto
 <link href="~/Vendor/jquery-ui/themes/blitzer/jquery-ui.css" rel="stylesheet" />
 <div class="normalheader ">
     <div class="hpanel">
@@ -25,32 +25,81 @@
 </div>
 
 <div class="content">
+    
+    <div id="divFuelDetail">
+        @Html.Partial("_FuelDetails", @Model.FuelList)
+    </div>
+    
+    <div id="divDieselDetail">
+        @Html.Partial("_DieselDetails", @Model.DieselList)
+    </div>
 
-    @Html.Partial("_FuelDetails")
-
-    @Html.Partial("_DieselDetails")
-
-    @Html.Partial("_GasolineDetails")
-
-
+    <div id="divGasolineDetail">
+    @Html.Partial("_GasolineDetails",Model.GasoloneList)
+         </div>
 </div>
 
 
 @section Scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#txtDate").datepicker({
-            });
+            $("#txtFuelDate").datepicker();
+            $("#txtDieselDate").datepicker();
+
             $('.numeric').keypress(function (e) {
-                var regex = new RegExp("^[a-zA-Z0-9-]+$");
-                var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-                if (regex.test(str)) {
-                    return true;
+                var $this = $(this);
+                if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
+                    ((event.which < 48 || event.which > 57) &&
+                        (event.which != 0 && event.which != 8))) {
+                    event.preventDefault();
                 }
 
-                e.preventDefault();
-                return false;
+                var text = $(this).val();
+                if ((event.which == 46) && (text.indexOf('.') == -1)) {
+                    setTimeout(function () {
+                        if ($this.val().substring($this.val().indexOf('.')).length > 4) {
+                            $this.val($this.val().substring(0, $this.val().indexOf('.') + 4));
+                        }
+                    }, 1);
+                }
+
+                if ((text.indexOf('.') != -1) &&
+                    (text.substring(text.indexOf('.')).length > 3) &&
+                    (event.which != 0 && event.which != 8) &&
+                    ($(this)[0].selectionStart >= text.length - 3)) {
+                    event.preventDefault();
+                }
             });
         });
+
+        function AddFuelDetail(type) {
+
+            var FuelMasterDto = {
+                FuelId: 0,
+                Price: $("#txt" + type + "Price").val(),
+                Discount: $("#txt" + type + "Discount").val(),
+                PriceDate: $("#txt" + type + "Date").val(),
+                Type: type
+            }
+
+            if ($("#txt" + type + "Price").val() != "" || $("#txt" + type + "Discount").val() != "" || $("#txt" + type + "Date").val() != "") {
+                $.ajax({
+                    type: "POST",
+                    dataType: "HTML",
+                    url: "/FuelPricingMaster/AddFuelMaster",
+                    data: { objModel: FuelMasterDto },
+                    contentType: 'application/x-www-form-urlencoded',
+                    success: function (data) {
+                        if (data != "") {
+                            toastr.success("Record added succesfully.");
+                            $("#div" + type + "Detail").html(data);
+                        }
+                    },
+                    error: function () {
+                        alert("Error occured!!")
+                    }
+                });
+            }
+        }
     </script>
 }

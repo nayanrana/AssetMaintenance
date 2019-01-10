@@ -10,18 +10,45 @@ namespace AssetMaintenance.UI.Controllers.Fuel_Master
 {
     public class FuelPricingMasterController : Controller
     {
-        FuelPriceMasterRepo objFuelPriceMasterRepo = new FuelPriceMasterRepo();
+        FuelPriceMasterRepo objFuelPriceRepo = new FuelPriceMasterRepo();
         // GET: FuelPricingMaster
         public ActionResult FuelMaster()
         {
-            return View();
+            FuelMasterViewModelDto objFuel = new FuelMasterViewModelDto();
+            objFuel.FuelList = objFuelPriceRepo.GetFuelDetail();
+            objFuel.DieselList = objFuelPriceRepo.GetDisellDetail();
+            objFuel.GasoloneList = objFuelPriceRepo.GetGasolineDetail();
+
+            return View(objFuel);
         }
 
         [HttpPost]
         public ActionResult AddFuelMaster(FuelMasterDto objModel)
         {
-            objFuelPriceMasterRepo.InsertFuelRecord(objModel);
-            return View();
+            if (objModel.Type == "Fuel")
+            {
+                bool isResult = objFuelPriceRepo.InsertFuelRecord(objModel);
+                if (!isResult)
+                    return PartialView("");
+                var FuelList = objFuelPriceRepo.GetFuelDetail();
+                return PartialView("_FuelDetails", FuelList);
+            }
+            else if(objModel.Type == "Diesel")
+            {
+                bool isResult = objFuelPriceRepo.InsertDiselRecord(objModel);
+                if (!isResult)
+                    return PartialView("");
+                var FuelList = objFuelPriceRepo.GetDisellDetail();
+                return PartialView("_DieselDetails", FuelList);
+            }
+            else
+            {
+                bool isResult = objFuelPriceRepo.InsertGasolineRecord(objModel);
+                if (!isResult)
+                    return PartialView("");
+                var FuelList = objFuelPriceRepo.GetGasolineDetail();
+                return PartialView("_GasolineDetails", FuelList);
+            }
         }
     }
 }

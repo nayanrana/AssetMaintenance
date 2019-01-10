@@ -414,6 +414,7 @@
     <EntitySetMapping Name="GFI_DieselDetail">
       <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_DieselDetail">
         <MappingFragment StoreEntitySet="GFI_DieselDetail">
+          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -443,6 +444,7 @@
     <EntitySetMapping Name="GFI_GasolineDetail">
       <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_GasolineDetail">
         <MappingFragment StoreEntitySet="GFI_GasolineDetail">
+          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
