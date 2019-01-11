@@ -12,7 +12,7 @@
 
             <div id="hbreadcrumb" class="pull-right m-t-lg">
                 <ol class="hbreadcrumb breadcrumb">
-                    <li><a href="@Url.Action("Index", "ControlPanel")">Fuel Management</a></li>
+                    <li><a href="@Url.Action(" Index", "ControlPanel" )">Fuel Management</a></li>
                     <li class="active">
                         <span>Fuel Management</span>
                     </li>
@@ -28,6 +28,23 @@
 <div class="content animate-panel" style="padding-top:30px;" id="InputFormDiv">
     <div class="hpanel">
         <div class="panel-body">
+            <div class="row text-right">
+                <div class="col-lg-5"></div>
+                <div class="form-group col-lg-2 text-right">
+                    <label>File Upload</label>
+                </div>
+                <div class="col-lg-2 text-left">
+                    <input type="file" id="fileBrowse" />
+                </div>
+                <div class="col-lg-1 text-left">
+                    <button type="button" class="btn btn-success" id="btnUploadFile" onclick="UploadFiles()">Upload</button>
+                </div>
+                <div class="col-lg-2 text-left">
+                    <br />
+                    <a href="~/Template/Fuel Template.xlsx" download class="btn-link">Download Template</a>
+                </div>
+            </div>
+            <br />
             <form id="createFuelRecordForm" role="form" method="post">
 
                 <div class="row">
@@ -38,7 +55,7 @@
                     <div class="form-group col-lg-4">
                         <label>Period</label>
                         @Html.TextBoxFor(model => model.Period, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" , placeholder = "Period" })
-                        @*<input type="text" id="Period" class="form-control datepicker" name="Period" placeholder="Period" >*@
+                        @*<input type="text" id="Period" class="form-control datepicker" name="Period" placeholder="Period">*@
                     </div>
                     <div class="form-group col-lg-4">
                         <label>Registration No.</label>
@@ -100,6 +117,7 @@
     </div>
 </div>
 
+@Html.Partial("_ViewUploadFile")
 @section Styles {
     @Styles.Render("~/bundles/datepicker/css")
 
@@ -107,7 +125,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/datepicker/js")
 
-    <script type="text/javascript">
+<script type="text/javascript">
     toastr.options = {
         "debug": false,
         "newestOnTop": false,
@@ -117,45 +135,45 @@
         "toastClass": "animated fadeInDown",
     };
 
-        $(function () {
-            $('.datepicker').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+    $(function () {
+        $('.datepicker').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
 
-            bindFuelList();
-            $("#btnCreateFuelRecord").click(function () {
-                createFuelRecord();
-                $("#createFuelRecordForm").validate({
-                    rules: {
-                        FillingStation: {
-                            required: true
-                        },
-                        RegistrationNo: {
-                            required: true
-                        },
-                        FuelInvoice: {
-                            required: true
-                        },
-                        BatchNo: {
-                            required: true
-                        },
-                        RetailPrice: {
-                            required: true
-                        },
-                        Discount: {
-                            required: true
-                        },
-                        TotalAmount: {
-                            required: true
-                        }
+        bindFuelList();
+        $("#btnCreateFuelRecord").click(function () {
+            createFuelRecord();
+            $("#createFuelRecordForm").validate({
+                rules: {
+                    FillingStation: {
+                        required: true
                     },
-                    submitHandler: function (form) {
-                        createFuelRecord();
+                    RegistrationNo: {
+                        required: true
+                    },
+                    FuelInvoice: {
+                        required: true
+                    },
+                    BatchNo: {
+                        required: true
+                    },
+                    RetailPrice: {
+                        required: true
+                    },
+                    Discount: {
+                        required: true
+                    },
+                    TotalAmount: {
+                        required: true
                     }
-                });
-
+                },
+                submitHandler: function (form) {
+                    createFuelRecord();
+                }
             });
-        });
 
-     function createFuelRecord() {
+        });
+    });
+
+    function createFuelRecord() {
         //swal({
         //    title: 'Create Fuel Record',
         //    text: 'Are you sure you want to create fuel record ?',
@@ -166,62 +184,87 @@
         //},
         // function () {
 
-             $("#upsertCompanyLoader").show();
+        $("#upsertCompanyLoader").show();
 
-            var formData = new FormData($('#createFuelRecordForm')[0]);
-             formData.append('FillingStation', $("#FillingStation").val());
-             formData.append('Period', $("#Period").val());
-             formData.append('RegistrationNo', $("#RegistrationNo").val());
-             formData.append('FuelInvoice', $("#FuelInvoice").val());
-             formData.append('BatchNo', $("#BatchNo").val());
-             formData.append('RetailPrice', $("#RetailPrice").val());
-             formData.append('Discount', $("#Discount").val());
-             formData.append('TotalAmount', $("#TotalAmount").val());
+        var formData = new FormData($('#createFuelRecordForm')[0]);
+        formData.append('FillingStation', $("#FillingStation").val());
+        formData.append('Period', $("#Period").val());
+        formData.append('RegistrationNo', $("#RegistrationNo").val());
+        formData.append('FuelInvoice', $("#FuelInvoice").val());
+        formData.append('BatchNo', $("#BatchNo").val());
+        formData.append('RetailPrice', $("#RetailPrice").val());
+        formData.append('Discount', $("#Discount").val());
+        formData.append('TotalAmount', $("#TotalAmount").val());
 
-            $.ajax({
+        $.ajax({
             type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            url: '@Url.Action("CreateFuelRecord", "FuelManagement")',
+            success: function (data) {
+
+                bindFuelList();
+                toastr.success("Fuel Record inserted successfully.");
+            }
+        });
+        //});
+    }
+
+    function bindFuelList() {
+        $.ajax({
+            type: 'Get',
+            data: '',
+
+            url: '@Url.Action("ViewFuelList", "FuelManagement")',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $.each(data, function (i, item) {
+                    var tr;
+                    tr = $('<tr />');
+                    tr.append("<td class='text-center' data-title='Asset'>" + item.FillingStation + "</td>");
+                    tr.append("<td class='text-center' data-title='AssetNo'>" + getFormattedDate(item.Period) + "</td>");
+                    tr.append("<td class='text-center' data-title='Maintenance'>" + item.RegistrationNo + "</td>");
+                    tr.append("<td class='text-center' data-title='Status'>" + item.FuelInvoice + "</td>");
+                    tr.append("<td class='text-center' data-title='Reminder'>" + item.BatchNo + "</td>");
+                    tr.append("<td class='text-center' data-title='NextMaintenance'>" + item.RetailPrice + "</td>");
+                    tr.append("<td class='text-center' data-title='History'> " + item.Discount + "</td>");
+                    tr.append("<td class='text-center' data-title='Edit'> " + item.TotalAmount + "</td>");
+                    $("#FuelList tbody").append(tr);
+                });
+                htmlToDataTable();
+            }
+        });
+    }
+
+    function UploadFiles() {
+
+        if (document.getElementById("fileBrowse").files.length > 0) {
+            var formData = new FormData();
+            var file = document.getElementById("fileBrowse").files[0];
+            formData.append("Uploadfiles", file);
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: '/FuelManagement/DisplayFileData',
                 data: formData,
-                cache: false,
+                dataType: 'HTML',
                 contentType: false,
                 processData: false,
-                url: '@Url.Action("CreateFuelRecord", "FuelManagement")',
-                success: function (data) {
-                    
-                    bindFuelList();
-                    toastr.success("Fuel Record inserted successfully.");
-            }
-            });
-        //});
-        }
-
-        function bindFuelList() {
-            $.ajax({
-                type: 'Get',
-                data: '',
-                
-                url: '@Url.Action("ViewFuelList", "FuelManagement")',
-                dataType: 'json',
-                contentType: "application/json; charset=utf-8",
-                success: function (data)
-                {
-                    $.each(data, function (i, item) {
-                        var tr;
-                        tr = $('<tr />');
-                        tr.append("<td class='text-center' data-title='Asset'>" + item.FillingStation + "</td>");
-                        tr.append("<td class='text-center' data-title='AssetNo'>" + getFormattedDate(item.Period) + "</td>");
-                        tr.append("<td class='text-center' data-title='Maintenance'>" + item.RegistrationNo + "</td>");
-                        tr.append("<td class='text-center' data-title='Status'>" + item.FuelInvoice + "</td>");
-                        tr.append("<td class='text-center' data-title='Reminder'>" + item.BatchNo + "</td>");
-                        tr.append("<td class='text-center' data-title='NextMaintenance'>" + item.RetailPrice+ "</td>");
-                        tr.append("<td class='text-center' data-title='History'> " + item.Discount+ "</td>");
-                        tr.append("<td class='text-center' data-title='Edit'> " + item.TotalAmount +"</td>");
-                        $("#FuelList tbody").append(tr);
-                    });
-                    htmlToDataTable();
+                success: function (response) {
+                    debugger;
+                    $("#tblUploadedData").html('').html(response);
+                    $("#modalViewData").modal('show');
+                },
+                error: function(error) {
+                    alert("errror");
                 }
             });
         }
 
-    </script>
+    }
+</script>
 
 }

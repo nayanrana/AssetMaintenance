@@ -766,3 +766,6 @@ F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.UI\bin\Microsof
 F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.UI\bin\AssetMaintenance.DAL.pdb
 F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.UI\bin\AssetMaintenance.DAL.dll.config
 F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.UI\obj\Debug\AssetMaintenance.UI.csproj.CopyComplete
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.UI\bin\DocumentFormat.OpenXml.dll
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.UI\bin\System.IO.Packaging.dll
+F:\Projects\AssetMaintence-Git\AssetMaintenance\AssetMaintenance.UI\bin\DocumentFormat.OpenXml.xml

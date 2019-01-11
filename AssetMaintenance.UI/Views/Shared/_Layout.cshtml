@@ -55,13 +55,14 @@
         @Html.Partial("_Footer")
     </div>
 
+    @Scripts.Render("~/bundles/jqueryui/js")
     <!-- Section for main scripts render -->
     @Scripts.Render("~/bundles/bootstrap/js")
     @Scripts.Render("~/bundles/homer/js")
-    @Scripts.Render("~/bundles/validation/js")
+    @*@Scripts.Render("~/bundles/validation/js")*@
     @Scripts.Render("~/bundles/toastr/js")
     @Scripts.Render("~/bundles/moment/js")
-    @Scripts.Render("~/bundles/jqueryui/js")
+
 
     <script>
         $(function () {
