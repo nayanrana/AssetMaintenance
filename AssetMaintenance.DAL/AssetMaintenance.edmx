@@ -19,6 +19,28 @@
           <Property Name="Discount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="FuelRecord_Detail">
+          <Key>
+            <PropertyRef Name="FuelRecord_DetailId" />
+          </Key>
+          <Property Name="FuelRecord_DetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FuelRecordId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="VoucherNo" Type="int" Nullable="false" />
+          <Property Name="RegistrationNo" Type="nchar" MaxLength="10" />
+          <Property Name="FillingStation" Type="varchar" MaxLength="50" />
+          <Property Name="Driver" Type="varchar" MaxLength="50" />
+          <Property Name="FuelType" Type="nchar" MaxLength="10" />
+          <Property Name="Quantities" Type="float" />
+          <Property Name="ActualMilage" Type="nchar" MaxLength="10" />
+          <Property Name="CurrentMilage" Type="nchar" MaxLength="10" />
+          <Property Name="AmountExVal" Type="float" />
+          <Property Name="Discount" Type="nchar" MaxLength="10" />
+          <Property Name="VatAmount" Type="float" />
+          <Property Name="AmountInVal" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreatedOn" Type="bigint" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="GFI_AMM_AssetExtProVehicles">
           <Key>
             <PropertyRef Name="AssetId" />
@@ -451,7 +473,7 @@
           <Property Name="PswdExpiryWarnDate" Type="datetime" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK__GFI_AMM_A__Field__6A30C649">
+        <Association Name="FK__GFI_AMM_A__Field__71D1E811">
           <End Role="GFI_FLT_AssetDataType" Type="Self.GFI_FLT_AssetDataType" Multiplicity="0..1" />
           <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="*" />
           <ReferentialConstraint>
@@ -463,7 +485,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__GFI_AMM_A__Field__6B24EA82">
+        <Association Name="FK__GFI_AMM_A__Field__72C60C4A">
           <End Role="GFI_FLT_AssetDataType" Type="Self.GFI_FLT_AssetDataType" Multiplicity="0..1" />
           <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="*" />
           <ReferentialConstraint>
@@ -475,7 +497,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__GFI_AMM_A__Field__6C190EBB">
+        <Association Name="FK__GFI_AMM_A__Field__73BA3083">
           <End Role="GFI_FLT_AssetDataType" Type="Self.GFI_FLT_AssetDataType" Multiplicity="0..1" />
           <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="*" />
           <ReferentialConstraint>
@@ -487,7 +509,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__GFI_AMM_A__Field__6D0D32F4">
+        <Association Name="FK__GFI_AMM_A__Field__74AE54BC">
           <End Role="GFI_FLT_AssetDataType" Type="Self.GFI_FLT_AssetDataType" Multiplicity="0..1" />
           <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="*" />
           <ReferentialConstraint>
@@ -499,7 +521,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__GFI_AMM_A__Field__6E01572D">
+        <Association Name="FK__GFI_AMM_A__Field__75A278F5">
           <End Role="GFI_FLT_AssetDataType" Type="Self.GFI_FLT_AssetDataType" Multiplicity="0..1" />
           <End Role="GFI_AMM_AssetExtProVehicles" Type="Self.GFI_AMM_AssetExtProVehicles" Multiplicity="*" />
           <ReferentialConstraint>
@@ -508,6 +530,18 @@
             </Principal>
             <Dependent Role="GFI_AMM_AssetExtProVehicles">
               <PropertyRef Name="Field6Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FuelRecord_Detail_FuelRecord_Detail">
+          <End Role="Fuel_Record" Type="Self.Fuel_Record" Multiplicity="1" />
+          <End Role="FuelRecord_Detail" Type="Self.FuelRecord_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fuel_Record">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FuelRecord_Detail">
+              <PropertyRef Name="FuelRecordId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -549,6 +583,7 @@
         </Association>
         <EntityContainer Name="AssetMaintenanceModelStoreContainer">
           <EntitySet Name="Fuel_Record" EntityType="Self.Fuel_Record" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FuelRecord_Detail" EntityType="Self.FuelRecord_Detail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GFI_AMM_AssetExtProVehicles" EntityType="Self.GFI_AMM_AssetExtProVehicles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GFI_AMM_MaintenanceTrip" EntityType="Self.GFI_AMM_MaintenanceTrip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GFI_AMM_VehicleMaintCat" EntityType="Self.GFI_AMM_VehicleMaintCat" Schema="dbo" store:Type="Tables" />
@@ -572,25 +607,29 @@
           <EntitySet Name="GFI_SYS_LookUpTypes" EntityType="Self.GFI_SYS_LookUpTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GFI_SYS_LookUpValues" EntityType="Self.GFI_SYS_LookUpValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GFI_SYS_User" EntityType="Self.GFI_SYS_User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__GFI_AMM_A__Field__6A30C649" Association="Self.FK__GFI_AMM_A__Field__6A30C649">
+          <AssociationSet Name="FK__GFI_AMM_A__Field__71D1E811" Association="Self.FK__GFI_AMM_A__Field__71D1E811">
             <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
             <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
           </AssociationSet>
-          <AssociationSet Name="FK__GFI_AMM_A__Field__6B24EA82" Association="Self.FK__GFI_AMM_A__Field__6B24EA82">
+          <AssociationSet Name="FK__GFI_AMM_A__Field__72C60C4A" Association="Self.FK__GFI_AMM_A__Field__72C60C4A">
             <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
             <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
           </AssociationSet>
-          <AssociationSet Name="FK__GFI_AMM_A__Field__6C190EBB" Association="Self.FK__GFI_AMM_A__Field__6C190EBB">
+          <AssociationSet Name="FK__GFI_AMM_A__Field__73BA3083" Association="Self.FK__GFI_AMM_A__Field__73BA3083">
             <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
             <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
           </AssociationSet>
-          <AssociationSet Name="FK__GFI_AMM_A__Field__6D0D32F4" Association="Self.FK__GFI_AMM_A__Field__6D0D32F4">
+          <AssociationSet Name="FK__GFI_AMM_A__Field__74AE54BC" Association="Self.FK__GFI_AMM_A__Field__74AE54BC">
             <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
             <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
           </AssociationSet>
-          <AssociationSet Name="FK__GFI_AMM_A__Field__6E01572D" Association="Self.FK__GFI_AMM_A__Field__6E01572D">
+          <AssociationSet Name="FK__GFI_AMM_A__Field__75A278F5" Association="Self.FK__GFI_AMM_A__Field__75A278F5">
             <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
             <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FuelRecord_Detail_FuelRecord_Detail" Association="Self.FK_FuelRecord_Detail_FuelRecord_Detail">
+            <End Role="Fuel_Record" EntitySet="Fuel_Record" />
+            <End Role="FuelRecord_Detail" EntitySet="FuelRecord_Detail" />
           </AssociationSet>
           <AssociationSet Name="FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_Asset" Association="Self.FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_Asset">
             <End Role="GFI_FLT_Asset" EntitySet="GFI_FLT_Asset" />
@@ -1154,6 +1193,11 @@
             <End Role="GFI_FuelDetail1" EntitySet="GFI_FuelDetail" />
           </AssociationSet>
           <EntitySet Name="Fuel_Record" EntityType="AssetMaintenanceModel.Fuel_Record" />
+          <EntitySet Name="FuelRecord_Detail" EntityType="AssetMaintenanceModel.FuelRecord_Detail" />
+          <AssociationSet Name="FK_FuelRecord_Detail_FuelRecord_Detail" Association="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail">
+            <End Role="Fuel_Record" EntitySet="Fuel_Record" />
+            <End Role="FuelRecord_Detail" EntitySet="FuelRecord_Detail" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="GFI_DieselDetail">
           <Key>
@@ -1224,7 +1268,43 @@
           <Property Name="RetailPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="Discount" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="FuelRecord_Detail" Relationship="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" FromRole="Fuel_Record" ToRole="FuelRecord_Detail" />
         </EntityType>
+        <EntityType Name="FuelRecord_Detail">
+          <Key>
+            <PropertyRef Name="FuelRecord_DetailId" />
+          </Key>
+          <Property Name="FuelRecord_DetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FuelRecordId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="VoucherNo" Type="Int32" Nullable="false" />
+          <Property Name="RegistrationNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="FillingStation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FuelType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Quantities" Type="Double" />
+          <Property Name="ActualMilage" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CurrentMilage" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AmountExVal" Type="Double" />
+          <Property Name="Discount" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="VatAmount" Type="Double" />
+          <Property Name="AmountInVal" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CreatedOn" Type="Int64" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Fuel_Record" Relationship="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" FromRole="FuelRecord_Detail" ToRole="Fuel_Record" />
+        </EntityType>
+        <Association Name="FK_FuelRecord_Detail_FuelRecord_Detail">
+          <End Type="AssetMaintenanceModel.Fuel_Record" Role="Fuel_Record" Multiplicity="1" />
+          <End Type="AssetMaintenanceModel.FuelRecord_Detail" Role="FuelRecord_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fuel_Record">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FuelRecord_Detail">
+              <PropertyRef Name="FuelRecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1698,6 +1778,29 @@
                 <ScalarProperty Name="Period" ColumnName="Period" />
                 <ScalarProperty Name="FillingStation" ColumnName="FillingStation" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FuelRecord_Detail">
+            <EntityTypeMapping TypeName="AssetMaintenanceModel.FuelRecord_Detail">
+              <MappingFragment StoreEntitySet="FuelRecord_Detail">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="AmountInVal" ColumnName="AmountInVal" />
+                <ScalarProperty Name="VatAmount" ColumnName="VatAmount" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="AmountExVal" ColumnName="AmountExVal" />
+                <ScalarProperty Name="CurrentMilage" ColumnName="CurrentMilage" />
+                <ScalarProperty Name="ActualMilage" ColumnName="ActualMilage" />
+                <ScalarProperty Name="Quantities" ColumnName="Quantities" />
+                <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+                <ScalarProperty Name="Driver" ColumnName="Driver" />
+                <ScalarProperty Name="FillingStation" ColumnName="FillingStation" />
+                <ScalarProperty Name="RegistrationNo" ColumnName="RegistrationNo" />
+                <ScalarProperty Name="VoucherNo" ColumnName="VoucherNo" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="FuelRecordId" ColumnName="FuelRecordId" />
+                <ScalarProperty Name="FuelRecord_DetailId" ColumnName="FuelRecord_DetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

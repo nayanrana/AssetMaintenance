@@ -14,6 +14,12 @@ namespace AssetMaintenance.DAL
     
     public partial class Fuel_Record
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Fuel_Record()
+        {
+            this.FuelRecord_Detail = new HashSet<FuelRecord_Detail>();
+        }
+    
         public int Id { get; set; }
         public string FillingStation { get; set; }
         public Nullable<System.DateTime> Period { get; set; }
@@ -23,5 +29,8 @@ namespace AssetMaintenance.DAL
         public decimal RetailPrice { get; set; }
         public Nullable<decimal> Discount { get; set; }
         public Nullable<decimal> TotalAmount { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FuelRecord_Detail> FuelRecord_Detail { get; set; }
     }
 }

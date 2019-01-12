@@ -66,6 +66,9 @@
       <DependentUpon>AssetMaintenance.edmx</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="FuelRecord_Detail.cs">
+      <DependentUpon>AssetMaintenance.tt</DependentUpon>
+    </Compile>
     <Compile Include="Fuel_Record.cs">
       <DependentUpon>AssetMaintenance.tt</DependentUpon>
     </Compile>

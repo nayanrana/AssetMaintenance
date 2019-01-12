@@ -37,6 +37,8 @@
         <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_GasolineDetail" Width="1.5" PointX="16.375" PointY="0.75" />
         <AssociationConnector Association="AssetMaintenanceModel.FK_GFI_FuelDetail_GFI_FuelDetail" />
         <EntityTypeShape EntityType="AssetMaintenanceModel.Fuel_Record" Width="1.5" PointX="16.375" PointY="4.75" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.FuelRecord_Detail" Width="1.5" PointX="18.625" PointY="4" />
+        <AssociationConnector Association="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
