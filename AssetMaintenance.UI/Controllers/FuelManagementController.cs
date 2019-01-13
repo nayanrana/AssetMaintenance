@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using AssetMaintenance.BAL;
 using AssetMaintenance.BAL.DTO;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Spreadsheet;
+using OfficeOpenXml;
 
 namespace AssetMaintenance.UI.Controllers
 {
     public class FuelManagementController : Controller
     {
+        public List<FuelRecord_DetailDto> ListFuelRecord = new List<FuelRecord_DetailDto>();
         // GET: FuelManagement
         public ActionResult Index()
         {
@@ -26,7 +27,17 @@ namespace AssetMaintenance.UI.Controllers
         {
             var obj = new FuelRecordRepo();
             var statusLst = obj.InsertFuelRecord(fuel);
-            return Json("Record saved successfully.");
+            if (statusLst != 0)
+            {
+                FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
+                bool result = objDetail.InsertFuelRecordDetail((TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>) , statusLst);
+                return Json("Record saved successfully.");
+            }
+            else
+            {
+                return Json("Something went wrong.");
+
+            }
         }
 
         [HttpGet]
@@ -40,73 +51,185 @@ namespace AssetMaintenance.UI.Controllers
         [HttpPost]
         public ActionResult DisplayFileData()
         {
-            if(Path.GetExtension(Request.Files[0].FileName)==".xlsx")
+            ListFuelRecord = new List<FuelRecord_DetailDto>();
+            Regex decimalRegex = new Regex(@"^[0-9]*(\.[0-9]{1,2})?$");
+            if (Path.GetExtension(Request.Files[0].FileName) == ".xlsx")
             {
-                string str = GetDataTableFromSpreadsheet(Request.Files[0].InputStream);
+                string validationMsg = string.Empty;
+                int chkInt = 0;
+                double chkDouble;
+                DateTime chkDate = new DateTime();
 
-                return Content(str);
-
-            }
-            else
-            {
-                return Content("Please upload Excel Files only");
-            }
-        }
-
-
-        public string GetDataTableFromSpreadsheet(Stream MyExcelStream)
-        {
-            StringBuilder strBuilder = new StringBuilder();
-            using (SpreadsheetDocument sDoc = SpreadsheetDocument.Open(MyExcelStream, false))
-            {
-                WorkbookPart workbookPart = sDoc.WorkbookPart;
-                IEnumerable<Sheet> sheets = sDoc.WorkbookPart.Workbook.GetFirstChild<Sheets>().Elements<Sheet>();
-                string relationshipId = sheets.First().Id.Value;
-                WorksheetPart worksheetPart = (WorksheetPart)sDoc.WorkbookPart.GetPartById(relationshipId);
-                Worksheet workSheet = worksheetPart.Worksheet;
-                SheetData sheetData = workSheet.GetFirstChild<SheetData>();
-                IEnumerable<Row> rows = sheetData.Descendants<Row>();
-
-                strBuilder.Append("<thead><tr>");
-                foreach (Cell cell in rows.ElementAt(0))
+                using (var package = new ExcelPackage(Request.Files[0].InputStream))
                 {
-                    strBuilder.Append("<th>" + GetCellValue(sDoc, cell) + "</th>");
-                }
-                strBuilder.Append("</thead></tr><tbody>");
-
-                foreach (Row row in rows) //this will also include your header row...
-                {
-                    if (row.RowIndex != 1)
+                    var currentSheet = package.Workbook.Worksheets;
+                    var workSheet = currentSheet.First();
+                    var noOfCol = workSheet.Dimension.End.Column;
+                    var noOfRow = workSheet.Dimension.End.Row;
+                  
+                    if (noOfRow >= 2)
                     {
-                        strBuilder.Append("<tr>");
 
-                        for (int i = 0; i < row.Descendants<Cell>().Count(); i++)
+
+                        for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
-                            strBuilder.Append("<td>" + GetCellValue(sDoc, row.Descendants<Cell>().ElementAt(i)) + "</td>");
+                            if (workSheet.Cells[rowIterator, 1].Value == null
+                                && workSheet.Cells[rowIterator, 2].Value == null
+                                && workSheet.Cells[rowIterator, 3].Value == null
+                                && workSheet.Cells[rowIterator, 4].Value == null
+                                && workSheet.Cells[rowIterator, 5].Value == null
+                                && workSheet.Cells[rowIterator, 6].Value == null
+                                && workSheet.Cells[rowIterator, 7].Value == null
+                                && workSheet.Cells[rowIterator, 8].Value == null
+                                && workSheet.Cells[rowIterator, 9].Value == null
+                                && workSheet.Cells[rowIterator, 10].Value == null
+                                && workSheet.Cells[rowIterator, 11].Value == null
+                                && workSheet.Cells[rowIterator, 12].Value == null
+                                && workSheet.Cells[rowIterator, 13].Value == null
+                                )
+                            {
+                                continue;
+                            }
+                                FuelRecord_DetailDto model = new FuelRecord_DetailDto();
+                                if (workSheet.Cells[rowIterator, 1].Value != null)
+                                {
+                                    if (DateTime.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out chkDate))
+                                    {
+                                        model.Date = chkDate;
+                                    }
+                                    else
+                                    {
+                                        validationMsg = "Invalid Date format in excel sheet.";
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    validationMsg = "Date is required in excel sheet";
+                                    break;
+                                }
+
+                                if (workSheet.Cells[rowIterator, 3].Value != null)
+                                {
+                                    model.RegistrationNo = Convert.ToString(workSheet.Cells[rowIterator, 3].Value);
+                                }
+                                else
+                                {
+                                    validationMsg = "Registration No. is required in excel sheet";
+                                    break;
+                                }
+
+                                model.VoucherNo = Convert.ToString(workSheet.Cells[rowIterator, 2].Value);
+
+                                model.FillingStation = Convert.ToString(workSheet.Cells[rowIterator, 4].Value);
+                                model.Driver = Convert.ToString(workSheet.Cells[rowIterator, 5].Value);
+
+                                if (workSheet.Cells[rowIterator, 6].Value != null)
+                                {
+                                    model.FuelType = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                }
+                                else
+                                {
+                                    validationMsg = "Fuel Type is required in excel sheet";
+                                    break;
+                                }
+                                if (workSheet.Cells[rowIterator, 7].Value != null)
+                                {
+                                    if (int.TryParse(workSheet.Cells[rowIterator, 7].Value.ToString(), out chkInt))
+                                    {
+                                        model.Quantities = chkInt;
+                                    }
+                                    else
+                                    {
+                                        validationMsg = "Invalid Number format for Quantity Litres in excel sheet.";
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    validationMsg = "Quantity Litres is required in excel sheet";
+                                    break;
+                                }
+
+                                if (workSheet.Cells[rowIterator, 8].Value != null && int.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out chkInt))
+                                {
+                                    model.ActualMilage = chkInt;
+                                }
+                                else
+                                {
+                                    validationMsg = "Invalid Number format for Actual Milage in excel sheet.";
+                                    break;
+                                }
+
+                                if (workSheet.Cells[rowIterator, 9].Value != null && int.TryParse(workSheet.Cells[rowIterator, 9].Value.ToString(), out chkInt))
+                                {
+                                    model.CurrentMilage = chkInt;
+                                }
+                                else
+                                {
+                                    validationMsg = "Invalid Number format for Current Milage in excel sheet.";
+                                    break;
+                                }
+                                if (workSheet.Cells[rowIterator, 10].Value != null && double.TryParse(workSheet.Cells[rowIterator, 10].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 10].Value.ToString()))
+                                {
+                                    model.AmountExVal = chkDouble;
+                                }
+                                else
+                                {
+                                    validationMsg = "Invalid Number format for Amount (Excl. Vat) in excel sheet.";
+                                    break;
+                                }
+
+                                if (workSheet.Cells[rowIterator, 11].Value != null && int.TryParse(workSheet.Cells[rowIterator, 11].Value.ToString(), out chkInt))
+                                {
+                                    if (chkInt > 100)
+                                    {
+                                        validationMsg = "Discount (%) must be less than 100%";
+                                        break;
+                                    }
+                                    model.Discount = chkInt;
+                                }
+                                else
+                                {
+                                    validationMsg = "Invalid Number format for Discount (%) in excel sheet.";
+                                    break;
+                                }
+                                if (workSheet.Cells[rowIterator, 12].Value != null && double.TryParse(workSheet.Cells[rowIterator, 12].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 13].Value.ToString()))
+                                {
+                                    model.VatAmount = chkDouble;
+                                }
+                                else
+                                {
+                                    validationMsg = "Invalid Number format for Vat Amount in excel sheet.";
+                                    break;
+                                }
+                                if (workSheet.Cells[rowIterator, 13].Value != null && double.TryParse(workSheet.Cells[rowIterator, 13].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 13].Value.ToString()))
+                                {
+                                    model.AmountInVal = chkDouble;
+                                }
+                                else
+                                {
+                                    validationMsg = "Invalid Number format for Amount inc. vat (Rs) in excel sheet.";
+                                    break;
+                                }
+                                ListFuelRecord.Add(model);
+
                         }
-                        strBuilder.Append("</tr>");
+                        TempData["lstFuelRecod"] = ListFuelRecord;
+                        TempData.Keep("lstFuelRecod");
+                        return Json(new { msg = validationMsg, Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
+
                     }
+                    else
+                        validationMsg = "Excel File can not bt empty.";
+                    return Json(new { msg = "Please upload Excel Files only", Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
                 }
-                strBuilder.Append("</tbody>");
-            }
-            return strBuilder.ToString();
-
-        }
-
-        public static string GetCellValue(SpreadsheetDocument document, Cell cell)
-        {
-            SharedStringTablePart stringTablePart = document.WorkbookPart.SharedStringTablePart;
-            string value = cell.CellValue.InnerXml;
-
-            if (cell.DataType != null && cell.DataType.Value == CellValues.SharedString)
-            {
-                return stringTablePart.SharedStringTable.ChildElements[Int32.Parse(value)].InnerText;
             }
             else
             {
-                return value;
+                return Json(new { msg = "Please upload Excel Files only", Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
+
             }
         }
-
     }
 }

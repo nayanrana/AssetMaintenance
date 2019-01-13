@@ -538,13 +538,18 @@
       <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
     </AssociationSet>
     <EntitySet Name="GFI_DieselDetail" EntityType="AssetMaintenanceModel.GFI_DieselDetail" />
-    <EntitySet Name="GFI_FuelDetail" EntityType="AssetMaintenanceModel.GFI_FuelDetail" />
     <EntitySet Name="GFI_GasolineDetail" EntityType="AssetMaintenanceModel.GFI_GasolineDetail" />
+    <EntitySet Name="GFI_FuelDetail" EntityType="AssetMaintenanceModel.GFI_FuelDetail" />
     <AssociationSet Name="FK_GFI_FuelDetail_GFI_FuelDetail" Association="AssetMaintenanceModel.FK_GFI_FuelDetail_GFI_FuelDetail">
       <End Role="GFI_FuelDetail" EntitySet="GFI_FuelDetail" />
       <End Role="GFI_FuelDetail1" EntitySet="GFI_FuelDetail" />
     </AssociationSet>
+    <EntitySet Name="FuelRecord_Detail" EntityType="AssetMaintenanceModel.FuelRecord_Detail" />
     <EntitySet Name="Fuel_Record" EntityType="AssetMaintenanceModel.Fuel_Record" />
+    <AssociationSet Name="FK_FuelRecord_Detail_FuelRecord_Detail" Association="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail">
+      <End Role="Fuel_Record" EntitySet="Fuel_Record" />
+      <End Role="FuelRecord_Detail" EntitySet="FuelRecord_Detail" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="GFI_DieselDetail">
     <Key>
@@ -558,22 +563,6 @@
     <Property Name="ModifiedBy" Type="Int64" />
     <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
     <Property Name="Status" Type="Boolean" Nullable="false" />
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-  </EntityType>
-  <EntityType Name="GFI_FuelDetail">
-    <Key>
-      <PropertyRef Name="FuelId" />
-    </Key>
-    <Property Name="FuelId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Price" Type="Double" Nullable="false" />
-    <Property Name="Discount" Type="Double" Nullable="false" />
-    <Property Name="CreatedBy" Type="Int64" Nullable="false" />
-    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ModifiedBy" Type="Int64" />
-    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-    <Property Name="Status" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="GFI_FuelDetail1" Relationship="AssetMaintenanceModel.FK_GFI_FuelDetail_GFI_FuelDetail" FromRole="GFI_FuelDetail" ToRole="GFI_FuelDetail1" />
-    <NavigationProperty Name="GFI_FuelDetail2" Relationship="AssetMaintenanceModel.FK_GFI_FuelDetail_GFI_FuelDetail" FromRole="GFI_FuelDetail1" ToRole="GFI_FuelDetail" />
     <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
   <EntityType Name="GFI_GasolineDetail">
@@ -590,6 +579,22 @@
     <Property Name="Status" Type="Boolean" Nullable="false" />
     <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
   </EntityType>
+  <EntityType Name="GFI_FuelDetail">
+    <Key>
+      <PropertyRef Name="FuelId" />
+    </Key>
+    <Property Name="FuelId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="Discount" Type="Double" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int64" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="GFI_FuelDetail1" Relationship="AssetMaintenanceModel.FK_GFI_FuelDetail_GFI_FuelDetail" FromRole="GFI_FuelDetail" ToRole="GFI_FuelDetail1" />
+    <NavigationProperty Name="GFI_FuelDetail2" Relationship="AssetMaintenanceModel.FK_GFI_FuelDetail_GFI_FuelDetail" FromRole="GFI_FuelDetail1" ToRole="GFI_FuelDetail" />
+  </EntityType>
   <Association Name="FK_GFI_FuelDetail_GFI_FuelDetail">
     <End Type="AssetMaintenanceModel.GFI_FuelDetail" Role="GFI_FuelDetail" Multiplicity="1" />
     <End Type="AssetMaintenanceModel.GFI_FuelDetail" Role="GFI_FuelDetail1" Multiplicity="0..1" />
@@ -602,18 +607,56 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="FuelRecord_Detail">
+    <Key>
+      <PropertyRef Name="FuelRecord_DetailId" />
+    </Key>
+    <Property Name="FuelRecord_DetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FuelRecordId" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="VoucherNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RegistrationNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FillingStation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FuelType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Quantities" Type="Int32" Nullable="false" />
+    <Property Name="ActualMilage" Type="Int32" />
+    <Property Name="CurrentMilage" Type="Int32" />
+    <Property Name="AmountExVal" Type="Double" />
+    <Property Name="Discount" Type="Double" />
+    <Property Name="VatAmount" Type="Double" />
+    <Property Name="AmountInVal" Type="Double" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="Int64" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Fuel_Record" Relationship="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" FromRole="FuelRecord_Detail" ToRole="Fuel_Record" />
+  </EntityType>
   <EntityType Name="Fuel_Record">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FillingStation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Period" Type="DateTime" Precision="3" />
+    <Property Name="FillingStation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PeriodTo" Type="DateTime" Precision="3" />
+    <Property Name="PeriodFrom" Type="DateTime" Precision="0" />
     <Property Name="RegistrationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="FuelInvoice" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="BatchNo" Type="Int32" Nullable="false" />
     <Property Name="RetailPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
     <Property Name="Discount" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="FuelRecord_Detail" Relationship="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" FromRole="Fuel_Record" ToRole="FuelRecord_Detail" />
   </EntityType>
+  <Association Name="FK_FuelRecord_Detail_FuelRecord_Detail">
+    <End Type="AssetMaintenanceModel.Fuel_Record" Role="Fuel_Record" Multiplicity="1" />
+    <End Type="AssetMaintenanceModel.FuelRecord_Detail" Role="FuelRecord_Detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fuel_Record">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FuelRecord_Detail">
+        <PropertyRef Name="FuelRecordId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

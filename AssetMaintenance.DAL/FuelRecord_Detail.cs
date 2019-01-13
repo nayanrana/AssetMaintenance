@@ -17,18 +17,19 @@ namespace AssetMaintenance.DAL
         public long FuelRecord_DetailId { get; set; }
         public int FuelRecordId { get; set; }
         public System.DateTime Date { get; set; }
-        public int VoucherNo { get; set; }
+        public string VoucherNo { get; set; }
         public string RegistrationNo { get; set; }
         public string FillingStation { get; set; }
         public string Driver { get; set; }
         public string FuelType { get; set; }
-        public Nullable<double> Quantities { get; set; }
-        public string ActualMilage { get; set; }
-        public string CurrentMilage { get; set; }
+        public int Quantities { get; set; }
+        public Nullable<int> ActualMilage { get; set; }
+        public Nullable<int> CurrentMilage { get; set; }
         public Nullable<double> AmountExVal { get; set; }
-        public string Discount { get; set; }
+        public Nullable<double> Discount { get; set; }
         public Nullable<double> VatAmount { get; set; }
-        public string AmountInVal { get; set; }
+        public double AmountInVal { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
         public long CreatedOn { get; set; }
         public bool Active { get; set; }
     

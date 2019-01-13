@@ -426,21 +426,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="GFI_FuelDetail">
-      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FuelDetail">
-        <MappingFragment StoreEntitySet="GFI_FuelDetail">
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="Discount" ColumnName="Discount" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="FuelId" ColumnName="FuelId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="GFI_GasolineDetail">
       <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_GasolineDetail">
         <MappingFragment StoreEntitySet="GFI_GasolineDetail">
@@ -456,6 +441,45 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="GFI_FuelDetail">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FuelDetail">
+        <MappingFragment StoreEntitySet="GFI_FuelDetail">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="FuelId" ColumnName="FuelId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FuelRecord_Detail">
+      <EntityTypeMapping TypeName="AssetMaintenanceModel.FuelRecord_Detail">
+        <MappingFragment StoreEntitySet="FuelRecord_Detail">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="AmountInVal" ColumnName="AmountInVal" />
+          <ScalarProperty Name="VatAmount" ColumnName="VatAmount" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="AmountExVal" ColumnName="AmountExVal" />
+          <ScalarProperty Name="CurrentMilage" ColumnName="CurrentMilage" />
+          <ScalarProperty Name="ActualMilage" ColumnName="ActualMilage" />
+          <ScalarProperty Name="Quantities" ColumnName="Quantities" />
+          <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+          <ScalarProperty Name="Driver" ColumnName="Driver" />
+          <ScalarProperty Name="FillingStation" ColumnName="FillingStation" />
+          <ScalarProperty Name="RegistrationNo" ColumnName="RegistrationNo" />
+          <ScalarProperty Name="VoucherNo" ColumnName="VoucherNo" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="FuelRecordId" ColumnName="FuelRecordId" />
+          <ScalarProperty Name="FuelRecord_DetailId" ColumnName="FuelRecord_DetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Fuel_Record">
       <EntityTypeMapping TypeName="AssetMaintenanceModel.Fuel_Record">
         <MappingFragment StoreEntitySet="Fuel_Record">
@@ -465,7 +489,8 @@
           <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
           <ScalarProperty Name="FuelInvoice" ColumnName="FuelInvoice" />
           <ScalarProperty Name="RegistrationNo" ColumnName="RegistrationNo" />
-          <ScalarProperty Name="Period" ColumnName="Period" />
+          <ScalarProperty Name="PeriodFrom" ColumnName="PeriodFrom" />
+          <ScalarProperty Name="PeriodTo" ColumnName="PeriodTo" />
           <ScalarProperty Name="FillingStation" ColumnName="FillingStation" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>

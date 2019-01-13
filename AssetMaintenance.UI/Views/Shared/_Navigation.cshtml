@@ -42,5 +42,8 @@
         <li class="@Html.IsSelected(controller: "FuelManagement")">
             <a href="@Url.Action("Index", "FuelManagement")"> <span class="nav-label">Fuel Management</span></a>
         </li>
+        <li class="@Html.IsSelected(controller: "FuelPricingMaster")">
+            <a href="@Url.Action("FuelMaster", "FuelPricingMaster")"> <span class="nav-label">Fuel Price</span></a>
+        </li>
     </ul>
 </div>

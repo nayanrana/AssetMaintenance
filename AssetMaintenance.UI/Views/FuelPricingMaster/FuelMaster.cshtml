@@ -1,5 +1,7 @@
 ﻿@model AssetMaintenance.BAL.DTO.FuelMasterViewModelDto
 <link href="~/Vendor/jquery-ui/themes/blitzer/jquery-ui.css" rel="stylesheet" />
+
+
 <div class="normalheader ">
     <div class="hpanel">
         <div class="panel-body">
@@ -23,82 +25,132 @@
         </div>
     </div>
 </div>
-
-<div class="content">
-    
-    <div id="divFuelDetail">
-        @Html.Partial("_FuelDetails", @Model.FuelList)
+<div class="content animate-panel">
+    <label>Supplier</label>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        <a class="closebox"><i class="fa fa-times"></i></a>
+                    </div>
+                    Fuel
+                </div>
+                <div class="panel-body">
+                    <div id="divFuelDetail">
+                        @Html.Partial("_FuelDetails", @Model.FuelList)
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div id="divDieselDetail">
-        @Html.Partial("_DieselDetails", @Model.DieselList)
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        <a class="closebox"><i class="fa fa-times"></i></a>
+                    </div>
+                    Diesel
+                </div>
+                <div class="panel-body">
+                    <div id="divDieselDetail">
+                        @Html.Partial("_DieselDetails", @Model.DieselList)
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div id="divGasolineDetail">
-    @Html.Partial("_GasolineDetails",Model.GasoloneList)
-         </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="hpanel hblue">
+                <div class="panel-heading hbuilt">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        <a class="closebox"><i class="fa fa-times"></i></a>
+                    </div>
+                    Gasoline
+                </div>
+                <div class="panel-body">
+                    <div id="divGasolineDetail">
+                        @Html.Partial("_GasolineDetails", Model.GasoloneList)
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
-
-
+@section Styles {
+    <style>
+        .req {
+            color: red!important;
+        }
+    </style>
+}
 @section Scripts {
     <script type="text/javascript">
         $(document).ready(function () {
             $("#txtFuelDate").datepicker();
             $("#txtDieselDate").datepicker();
-
-            $('.numeric').keypress(function (e) {
-                var $this = $(this);
-                if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
-                    ((event.which < 48 || event.which > 57) &&
-                        (event.which != 0 && event.which != 8))) {
-                    event.preventDefault();
-                }
-
-                var text = $(this).val();
-                if ((event.which == 46) && (text.indexOf('.') == -1)) {
-                    setTimeout(function () {
-                        if ($this.val().substring($this.val().indexOf('.')).length > 4) {
-                            $this.val($this.val().substring(0, $this.val().indexOf('.') + 4));
-                        }
-                    }, 1);
-                }
-
-                if ((text.indexOf('.') != -1) &&
-                    (text.substring(text.indexOf('.')).length > 3) &&
-                    (event.which != 0 && event.which != 8) &&
-                    ($(this)[0].selectionStart >= text.length - 3)) {
-                    event.preventDefault();
-                }
-            });
         });
-
-        function AddFuelDetail(type) {
-
-            var FuelMasterDto = {
-                FuelId: 0,
-                Price: $("#txt" + type + "Price").val(),
-                Discount: $("#txt" + type + "Discount").val(),
-                PriceDate: $("#txt" + type + "Date").val(),
-                Type: type
+        function DecimalNumberOnly(e) {
+            var $this = $(e);
+            if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
+                ((event.which < 48 || event.which > 57) &&
+                    (event.which != 0 && event.which != 8))) {
+                event.preventDefault();
             }
 
-            if ($("#txt" + type + "Price").val() != "" || $("#txt" + type + "Discount").val() != "" || $("#txt" + type + "Date").val() != "") {
-                $.ajax({
-                    type: "POST",
-                    dataType: "HTML",
-                    url: "/FuelPricingMaster/AddFuelMaster",
-                    data: { objModel: FuelMasterDto },
-                    contentType: 'application/x-www-form-urlencoded',
-                    success: function (data) {
-                        if (data != "") {
-                            toastr.success("Record added succesfully.");
-                            $("#div" + type + "Detail").html(data);
-                        }
-                    },
-                    error: function () {
-                        alert("Error occured!!")
+            var text = $(e).val();
+            if ((event.which == 46) && (text.indexOf('.') == -1)) {
+                setTimeout(function () {
+                    if ($this.val().substring($this.val().indexOf('.')).length > 4) {
+                        $this.val($this.val().substring(0, $this.val().indexOf('.') + 4));
                     }
-                });
+                }, 1);
+            }
+
+            if ((text.indexOf('.') != -1) &&
+                (text.substring(text.indexOf('.')).length > 3) &&
+                (event.which != 0 && event.which != 8) &&
+                ($(e)[0].selectionStart >= text.length - 3)) {
+                event.preventDefault();
+            }
+        }
+
+        function AddFuelDetail(type) {
+            if ($("#frm" + type).valid()) {
+                var FuelMasterDto = {
+                    FuelId: 0,
+                    Price: $("#txt" + type + "Price").val(),
+                    Discount: $("#txt" + type + "Discount").val(),
+                    PriceDate: $("#txt" + type + "Date").val(),
+                    Type: type
+                }
+
+                if ($("#txt" + type + "Price").val() != "" || $("#txt" + type + "Discount").val() != "" || $("#txt" + type + "Date").val() != "") {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "HTML",
+                        url: "/FuelPricingMaster/AddFuelMaster",
+                        data: { objModel: FuelMasterDto },
+                        contentType: 'application/x-www-form-urlencoded',
+                        success: function (data) {
+                            if (data != "") {
+                                toastr.success("Record added succesfully.");
+                                $("#div" + type + "Detail").html(data);
+                            }
+                        },
+                        error: function () {
+                            alert("Error occured!!")
+                        }
+                    });
+                }
             }
         }
     </script>

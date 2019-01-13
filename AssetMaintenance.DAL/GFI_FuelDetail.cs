@@ -17,12 +17,12 @@ namespace AssetMaintenance.DAL
         public long FuelId { get; set; }
         public double Price { get; set; }
         public double Discount { get; set; }
+        public System.DateTime Date { get; set; }
         public long CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public bool Status { get; set; }
-        public System.DateTime Date { get; set; }
     
         public virtual GFI_FuelDetail GFI_FuelDetail1 { get; set; }
         public virtual GFI_FuelDetail GFI_FuelDetail2 { get; set; }
