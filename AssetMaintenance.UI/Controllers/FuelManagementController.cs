@@ -30,7 +30,7 @@ namespace AssetMaintenance.UI.Controllers
             if (statusLst != 0)
             {
                 FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
-                bool result = objDetail.InsertFuelRecordDetail((TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>) , statusLst);
+                bool result = objDetail.InsertFuelRecordDetail((TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>), statusLst);
                 return Json("Record saved successfully.");
             }
             else
@@ -58,7 +58,8 @@ namespace AssetMaintenance.UI.Controllers
                 string validationMsg = string.Empty;
                 int chkInt = 0;
                 double chkDouble;
-                DateTime chkDate = new DateTime();
+                //DateTime chkDate = new DateTime();
+                DateTime chkDate;
 
                 using (var package = new ExcelPackage(Request.Files[0].InputStream))
                 {
@@ -66,7 +67,7 @@ namespace AssetMaintenance.UI.Controllers
                     var workSheet = currentSheet.First();
                     var noOfCol = workSheet.Dimension.End.Column;
                     var noOfRow = workSheet.Dimension.End.Row;
-                  
+
                     if (noOfRow >= 2)
                     {
 
@@ -90,129 +91,145 @@ namespace AssetMaintenance.UI.Controllers
                             {
                                 continue;
                             }
-                                FuelRecord_DetailDto model = new FuelRecord_DetailDto();
-                                if (workSheet.Cells[rowIterator, 1].Value != null)
-                                {
-                                    if (DateTime.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out chkDate))
-                                    {
-                                        model.Date = chkDate;
-                                    }
-                                    else
-                                    {
-                                        validationMsg = "Invalid Date format in excel sheet.";
-                                        break;
-                                    }
-                                }
-                                else
-                                {
-                                    validationMsg = "Date is required in excel sheet";
-                                    break;
-                                }
+                            FuelRecord_DetailDto model = new FuelRecord_DetailDto();
+                            if (workSheet.Cells[rowIterator, 1].Value != null)
+                            {
 
-                                if (workSheet.Cells[rowIterator, 3].Value != null)
-                                {
-                                    model.RegistrationNo = Convert.ToString(workSheet.Cells[rowIterator, 3].Value);
-                                }
-                                else
-                                {
-                                    validationMsg = "Registration No. is required in excel sheet";
-                                    break;
-                                }
+                                //if (DateTime.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out chkDate))
+                                //{
+                                //    model.Date = chkDate;
+                                //}
+                                //else
+                                //{
+                                //    validationMsg = "Invalid Date format in excel sheet.";
+                                //    break;
+                                //}
 
-                                model.VoucherNo = Convert.ToString(workSheet.Cells[rowIterator, 2].Value);
+                                //if (DateTime.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out chkDate))
+                                //{
+                                //    model.Date = chkDate;
+                                //}
+                                //else
+                                //{
+                                //    validationMsg = "Invalid Date format in excel sheet.";
+                                //    break;
+                                //}
 
-                                model.FillingStation = Convert.ToString(workSheet.Cells[rowIterator, 4].Value);
-                                model.Driver = Convert.ToString(workSheet.Cells[rowIterator, 5].Value);
+                                model.Date = DateTime.ParseExact(workSheet.Cells[rowIterator, 1].Value.ToString(), @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture);
 
-                                if (workSheet.Cells[rowIterator, 6].Value != null)
-                                {
-                                    model.FuelType = workSheet.Cells[rowIterator, 6].Value.ToString();
-                                }
-                                else
-                                {
-                                    validationMsg = "Fuel Type is required in excel sheet";
-                                    break;
-                                }
-                                if (workSheet.Cells[rowIterator, 7].Value != null)
-                                {
-                                    if (int.TryParse(workSheet.Cells[rowIterator, 7].Value.ToString(), out chkInt))
-                                    {
-                                        model.Quantities = chkInt;
-                                    }
-                                    else
-                                    {
-                                        validationMsg = "Invalid Number format for Quantity Litres in excel sheet.";
-                                        break;
-                                    }
-                                }
-                                else
-                                {
-                                    validationMsg = "Quantity Litres is required in excel sheet";
-                                    break;
-                                }
+                                //model.Date =Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
 
-                                if (workSheet.Cells[rowIterator, 8].Value != null && int.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out chkInt))
-                                {
-                                    model.ActualMilage = chkInt;
-                                }
-                                else
-                                {
-                                    validationMsg = "Invalid Number format for Actual Milage in excel sheet.";
-                                    break;
-                                }
+                            }
+                            else
+                            {
+                                validationMsg = "Date is required in excel sheet";
+                                break;
+                            }
 
-                                if (workSheet.Cells[rowIterator, 9].Value != null && int.TryParse(workSheet.Cells[rowIterator, 9].Value.ToString(), out chkInt))
-                                {
-                                    model.CurrentMilage = chkInt;
-                                }
-                                else
-                                {
-                                    validationMsg = "Invalid Number format for Current Milage in excel sheet.";
-                                    break;
-                                }
-                                if (workSheet.Cells[rowIterator, 10].Value != null && double.TryParse(workSheet.Cells[rowIterator, 10].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 10].Value.ToString()))
-                                {
-                                    model.AmountExVal = chkDouble;
-                                }
-                                else
-                                {
-                                    validationMsg = "Invalid Number format for Amount (Excl. Vat) in excel sheet.";
-                                    break;
-                                }
+                            if (workSheet.Cells[rowIterator, 3].Value != null)
+                            {
+                                model.RegistrationNo = Convert.ToString(workSheet.Cells[rowIterator, 3].Value);
+                            }
+                            else
+                            {
+                                validationMsg = "Registration No. is required in excel sheet";
+                                break;
+                            }
 
-                                if (workSheet.Cells[rowIterator, 11].Value != null && int.TryParse(workSheet.Cells[rowIterator, 11].Value.ToString(), out chkInt))
+                            model.VoucherNo = Convert.ToString(workSheet.Cells[rowIterator, 2].Value);
+
+                            model.FillingStation = Convert.ToString(workSheet.Cells[rowIterator, 4].Value);
+                            model.Driver = Convert.ToString(workSheet.Cells[rowIterator, 5].Value);
+
+                            if (workSheet.Cells[rowIterator, 6].Value != null)
+                            {
+                                model.FuelType = workSheet.Cells[rowIterator, 6].Value.ToString();
+                            }
+                            else
+                            {
+                                validationMsg = "Fuel Type is required in excel sheet";
+                                break;
+                            }
+                            if (workSheet.Cells[rowIterator, 7].Value != null)
+                            {
+                                if (int.TryParse(workSheet.Cells[rowIterator, 7].Value.ToString(), out chkInt))
                                 {
-                                    if (chkInt > 100)
-                                    {
-                                        validationMsg = "Discount (%) must be less than 100%";
-                                        break;
-                                    }
-                                    model.Discount = chkInt;
+                                    model.Quantities = chkInt;
                                 }
                                 else
                                 {
-                                    validationMsg = "Invalid Number format for Discount (%) in excel sheet.";
+                                    validationMsg = "Invalid Number format for Quantity Litres in excel sheet.";
                                     break;
                                 }
-                                if (workSheet.Cells[rowIterator, 12].Value != null && double.TryParse(workSheet.Cells[rowIterator, 12].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 13].Value.ToString()))
+                            }
+                            else
+                            {
+                                validationMsg = "Quantity Litres is required in excel sheet";
+                                break;
+                            }
+
+                            if (workSheet.Cells[rowIterator, 8].Value != null && int.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out chkInt))
+                            {
+                                model.ActualMilage = chkInt;
+                            }
+                            else
+                            {
+                                validationMsg = "Invalid Number format for Actual Milage in excel sheet.";
+                                break;
+                            }
+
+                            if (workSheet.Cells[rowIterator, 9].Value != null && int.TryParse(workSheet.Cells[rowIterator, 9].Value.ToString(), out chkInt))
+                            {
+                                model.CurrentMilage = chkInt;
+                            }
+                            else
+                            {
+                                validationMsg = "Invalid Number format for Current Milage in excel sheet.";
+                                break;
+                            }
+                            if (workSheet.Cells[rowIterator, 10].Value != null && double.TryParse(workSheet.Cells[rowIterator, 10].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 10].Value.ToString()))
+                            {
+                                model.AmountExVal = chkDouble;
+                            }
+                            else
+                            {
+                                validationMsg = "Invalid Number format for Amount (Excl. Vat) in excel sheet.";
+                                break;
+                            }
+
+                            if (workSheet.Cells[rowIterator, 11].Value != null && int.TryParse(workSheet.Cells[rowIterator, 11].Value.ToString(), out chkInt))
+                            {
+                                if (chkInt > 100)
                                 {
-                                    model.VatAmount = chkDouble;
-                                }
-                                else
-                                {
-                                    validationMsg = "Invalid Number format for Vat Amount in excel sheet.";
+                                    validationMsg = "Discount (%) must be less than 100%";
                                     break;
                                 }
-                                if (workSheet.Cells[rowIterator, 13].Value != null && double.TryParse(workSheet.Cells[rowIterator, 13].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 13].Value.ToString()))
-                                {
-                                    model.AmountInVal = chkDouble;
-                                }
-                                else
-                                {
-                                    validationMsg = "Invalid Number format for Amount inc. vat (Rs) in excel sheet.";
-                                    break;
-                                }
-                                ListFuelRecord.Add(model);
+                                model.Discount = chkInt;
+                            }
+                            else
+                            {
+                                validationMsg = "Invalid Number format for Discount (%) in excel sheet.";
+                                break;
+                            }
+                            if (workSheet.Cells[rowIterator, 12].Value != null && double.TryParse(workSheet.Cells[rowIterator, 12].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 13].Value.ToString()))
+                            {
+                                model.VatAmount = chkDouble;
+                            }
+                            else
+                            {
+                                validationMsg = "Invalid Number format for Vat Amount in excel sheet.";
+                                break;
+                            }
+                            if (workSheet.Cells[rowIterator, 13].Value != null && double.TryParse(workSheet.Cells[rowIterator, 13].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 13].Value.ToString()))
+                            {
+                                model.AmountInVal = chkDouble;
+                            }
+                            else
+                            {
+                                validationMsg = "Invalid Number format for Amount inc. vat (Rs) in excel sheet.";
+                                break;
+                            }
+                            ListFuelRecord.Add(model);
 
                         }
                         TempData["lstFuelRecod"] = ListFuelRecord;
@@ -229,6 +246,23 @@ namespace AssetMaintenance.UI.Controllers
             {
                 return Json(new { msg = "Please upload Excel Files only", Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
 
+            }
+        }
+
+        public bool IsDate(Object obj)
+        {
+
+            string strDate = Convert.ToDateTime(obj).ToString();
+            try
+            {
+                DateTime dt = DateTime.Parse(strDate);
+                if (dt != DateTime.MinValue && dt != DateTime.MaxValue)
+                    return true;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
