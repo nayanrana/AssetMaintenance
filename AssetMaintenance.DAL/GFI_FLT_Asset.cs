@@ -14,6 +14,12 @@ namespace AssetMaintenance.DAL
     
     public partial class GFI_FLT_Asset
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public GFI_FLT_Asset()
+        {
+            this.AssetMaintenaceTypes = new HashSet<AssetMaintenaceType>();
+        }
+    
         public int AssetID { get; set; }
         public string AssetNumber { get; set; }
         public string Status_b { get; set; }
@@ -30,5 +36,7 @@ namespace AssetMaintenance.DAL
         public Nullable<int> RoadSpeedType { get; set; }
     
         public virtual GFI_AMM_AssetExtProVehicles GFI_AMM_AssetExtProVehicles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssetMaintenaceType> AssetMaintenaceTypes { get; set; }
     }
 }

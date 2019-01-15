@@ -240,9 +240,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AssetMaintenanceController.cs" />
     <Compile Include="Controllers\Fuel Pricing\FuelPricingMasterController.cs" />
     <Compile Include="Controllers\FuelManagementController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
+    <Compile Include="Controllers\MaintenanceTypeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,6 +256,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\select2.css" />
+    <Content Include="Content\css\select2.min.css" />
     <Content Include="Content\img\green%402x.png" />
     <Content Include="Content\img\green.png" />
     <Content Include="Content\style.css" />
@@ -332,6 +336,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Vendor\animate.css\animate.css" />
     <Content Include="Vendor\animate.css\animate.min.css" />
     <Content Include="Vendor\animate.css\Gruntfile.js" />
@@ -2592,6 +2598,9 @@
     <Content Include="Template\Fuel Template.xlsx" />
     <Content Include="Views\FuelManagement\Index.cshtml" />
     <Content Include="Views\FuelManagement\_ViewUploadFile.cshtml" />
+    <Content Include="Views\MaintenanceType\BindMaintenanceType.cshtml" />
+    <Content Include="Views\MaintenanceType\Index.cshtml" />
+    <Content Include="Views\AssetMaintenance\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

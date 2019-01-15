@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AssetMaintenanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AssetMaintenaceType">
+          <Key>
+            <PropertyRef Name="AssetMaintenceId" />
+          </Key>
+          <Property Name="AssetMaintenceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssetId" Type="int" Nullable="false" />
+          <Property Name="MaintenceId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Fuel_Record">
           <Key>
             <PropertyRef Name="Id" />
@@ -535,6 +543,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes">
+          <End Role="GFI_AMM_VehicleMaintTypes" Type="Self.GFI_AMM_VehicleMaintTypes" Multiplicity="1" />
+          <End Role="AssetMaintenaceType" Type="Self.AssetMaintenaceType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GFI_AMM_VehicleMaintTypes">
+              <PropertyRef Name="MaintTypeId" />
+            </Principal>
+            <Dependent Role="AssetMaintenaceType">
+              <PropertyRef Name="MaintenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssetMaintenaceType_GFI_FLT_Asset">
+          <End Role="GFI_FLT_Asset" Type="Self.GFI_FLT_Asset" Multiplicity="1" />
+          <End Role="AssetMaintenaceType" Type="Self.AssetMaintenaceType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GFI_FLT_Asset">
+              <PropertyRef Name="AssetID" />
+            </Principal>
+            <Dependent Role="AssetMaintenaceType">
+              <PropertyRef Name="AssetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FuelRecord_Detail_FuelRecord_Detail">
           <End Role="Fuel_Record" Type="Self.Fuel_Record" Multiplicity="1" />
           <End Role="FuelRecord_Detail" Type="Self.FuelRecord_Detail" Multiplicity="*" />
@@ -572,6 +604,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="AssetMaintenanceModelStoreContainer">
+          <EntitySet Name="AssetMaintenaceType" EntityType="Self.AssetMaintenaceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Fuel_Record" EntityType="Self.Fuel_Record" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FuelRecord_Detail" EntityType="Self.FuelRecord_Detail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GFI_AMM_AssetExtProVehicles" EntityType="Self.GFI_AMM_AssetExtProVehicles" Schema="dbo" store:Type="Tables" />
@@ -616,6 +649,14 @@
           <AssociationSet Name="FK__GFI_AMM_A__Field__75A278F5" Association="Self.FK__GFI_AMM_A__Field__75A278F5">
             <End Role="GFI_FLT_AssetDataType" EntitySet="GFI_FLT_AssetDataType" />
             <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" Association="Self.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes">
+            <End Role="GFI_AMM_VehicleMaintTypes" EntitySet="GFI_AMM_VehicleMaintTypes" />
+            <End Role="AssetMaintenaceType" EntitySet="AssetMaintenaceType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssetMaintenaceType_GFI_FLT_Asset" Association="Self.FK_AssetMaintenaceType_GFI_FLT_Asset">
+            <End Role="GFI_FLT_Asset" EntitySet="GFI_FLT_Asset" />
+            <End Role="AssetMaintenaceType" EntitySet="AssetMaintenaceType" />
           </AssociationSet>
           <AssociationSet Name="FK_FuelRecord_Detail_FuelRecord_Detail" Association="Self.FK_FuelRecord_Detail_FuelRecord_Detail">
             <End Role="Fuel_Record" EntitySet="Fuel_Record" />
@@ -788,6 +829,7 @@
           <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AssetMaintenaceTypes" Relationship="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" FromRole="GFI_AMM_VehicleMaintTypes" ToRole="AssetMaintenaceType" />
         </EntityType>
         <EntityType Name="GFI_AMM_VehicleMaintTypesLink">
           <Key>
@@ -841,6 +883,7 @@
           <Property Name="ColorID" Type="Int32" />
           <Property Name="RoadSpeedType" Type="Int32" />
           <NavigationProperty Name="GFI_AMM_AssetExtProVehicles" Relationship="Self.FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_Asset" FromRole="GFI_FLT_Asset" ToRole="GFI_AMM_AssetExtProVehicles" />
+          <NavigationProperty Name="AssetMaintenaceTypes" Relationship="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_FLT_Asset" FromRole="GFI_FLT_Asset" ToRole="AssetMaintenaceType" />
         </EntityType>
         <EntityType Name="GFI_FLT_AssetDataType">
           <Key>
@@ -1184,6 +1227,15 @@
             <End Role="Fuel_Record" EntitySet="Fuel_Record" />
             <End Role="FuelRecord_Detail" EntitySet="FuelRecord_Detail" />
           </AssociationSet>
+          <EntitySet Name="AssetMaintenaceTypes" EntityType="AssetMaintenanceModel.AssetMaintenaceType" />
+          <AssociationSet Name="FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" Association="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes">
+            <End Role="GFI_AMM_VehicleMaintTypes" EntitySet="GFI_AMM_VehicleMaintTypes" />
+            <End Role="AssetMaintenaceType" EntitySet="AssetMaintenaceTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AssetMaintenaceType_GFI_FLT_Asset" Association="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_FLT_Asset">
+            <End Role="GFI_FLT_Asset" EntitySet="GFI_FLT_Asset" />
+            <End Role="AssetMaintenaceType" EntitySet="AssetMaintenaceTypes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="GFI_DieselDetail">
           <Key>
@@ -1290,6 +1342,40 @@
             </Principal>
             <Dependent Role="FuelRecord_Detail">
               <PropertyRef Name="FuelRecordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AssetMaintenaceType">
+          <Key>
+            <PropertyRef Name="AssetMaintenceId" />
+          </Key>
+          <Property Name="AssetMaintenceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AssetId" Type="Int32" Nullable="false" />
+          <Property Name="MaintenceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GFI_AMM_VehicleMaintTypes" Relationship="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" FromRole="AssetMaintenaceType" ToRole="GFI_AMM_VehicleMaintTypes" />
+          <NavigationProperty Name="GFI_FLT_Asset" Relationship="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_FLT_Asset" FromRole="AssetMaintenaceType" ToRole="GFI_FLT_Asset" />
+        </EntityType>
+        <Association Name="FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes">
+          <End Type="AssetMaintenanceModel.GFI_AMM_VehicleMaintTypes" Role="GFI_AMM_VehicleMaintTypes" Multiplicity="1" />
+          <End Type="AssetMaintenanceModel.AssetMaintenaceType" Role="AssetMaintenaceType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GFI_AMM_VehicleMaintTypes">
+              <PropertyRef Name="MaintTypeId" />
+            </Principal>
+            <Dependent Role="AssetMaintenaceType">
+              <PropertyRef Name="MaintenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AssetMaintenaceType_GFI_FLT_Asset">
+          <End Type="AssetMaintenanceModel.GFI_FLT_Asset" Role="GFI_FLT_Asset" Multiplicity="1" />
+          <End Type="AssetMaintenanceModel.AssetMaintenaceType" Role="AssetMaintenaceType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GFI_FLT_Asset">
+              <PropertyRef Name="AssetID" />
+            </Principal>
+            <Dependent Role="AssetMaintenaceType">
+              <PropertyRef Name="AssetId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1791,6 +1877,15 @@
                 <ScalarProperty Name="PeriodTo" ColumnName="PeriodTo" />
                 <ScalarProperty Name="FillingStation" ColumnName="FillingStation" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssetMaintenaceTypes">
+            <EntityTypeMapping TypeName="AssetMaintenanceModel.AssetMaintenaceType">
+              <MappingFragment StoreEntitySet="AssetMaintenaceType">
+                <ScalarProperty Name="MaintenceId" ColumnName="MaintenceId" />
+                <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+                <ScalarProperty Name="AssetMaintenceId" ColumnName="AssetMaintenceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

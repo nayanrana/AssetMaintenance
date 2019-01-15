@@ -14,6 +14,12 @@ namespace AssetMaintenance.DAL
     
     public partial class GFI_AMM_VehicleMaintTypes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public GFI_AMM_VehicleMaintTypes()
+        {
+            this.AssetMaintenaceTypes = new HashSet<AssetMaintenaceType>();
+        }
+    
         public int MaintTypeId { get; set; }
         public Nullable<int> MaintCatId_cbo { get; set; }
         public string Description { get; set; }
@@ -31,5 +37,8 @@ namespace AssetMaintenance.DAL
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AssetMaintenaceType> AssetMaintenaceTypes { get; set; }
     }
 }

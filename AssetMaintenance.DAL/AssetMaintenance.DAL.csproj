@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetMaintenaceType.cs">
+      <DependentUpon>AssetMaintenance.tt</DependentUpon>
+    </Compile>
     <Compile Include="AssetMaintenance.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
