@@ -1,5 +1,7 @@
 ﻿@model AssetMaintenance.BAL.DTO.FuelRecordDto
+<link href="~/Vendor/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
 
+<script src="~/Vendor/sweetalert/lib/sweet-alert.js"></script>
 <div class="normalheader ">
     <div class="hpanel">
         <div class="panel-body">
@@ -97,7 +99,7 @@
             <br />
         </div>
     </div>
-    
+
 
     <div class="row" id="FuelListGridDiv">
         <div class="col-lg-12">
@@ -177,31 +179,45 @@
 
      function createFuelRecord() {
          if ($("#createFuelRecordForm").valid()) {
-             var formData = new FormData($('#createFuelRecordForm')[0]);
-             formData.append('FillingStation', $("#FillingStation").val());
-             formData.append('PeriodFrom', $("#PeriodFrom").val());
-             formData.append('PeriodTo', $("#PeriodTo").val());
-             formData.append('RegistrationNo', $("#RegistrationNo").val());
-             formData.append('FuelInvoice', $("#FuelInvoice").val());
-             formData.append('BatchNo', $("#BatchNo").val());
-             formData.append('RetailPrice', $("#RetailPrice").val());
-             formData.append('Discount', $("#Discount").val());
-             formData.append('TotalAmount', $("#TotalAmount").val());
 
-             $.ajax({
-                 type: 'POST',
-                 data: formData,
-                 cache: false,
-                 contentType: false,
-                 processData: false,
-                 url: '@Url.Action("CreateFuelRecord", "FuelManagement")',
-                 success: function (data) {
-                     getFuelRecordList();
-                     $($("#createFuelRecordForm input").val(''));
-                     $("#fuelDetailsDiv").html('');
-                     toastr.success("Fuel Record inserted successfully.");
-                 }
-             });
+             swal({
+                 title: "",
+                 text: "Do you want to generate a payment certificate for information recorded?",
+                 type: "warning",
+                 showCancelButton: true,
+                 confirmButtonColor: "#DD6B55",
+                 confirmButtonText: "Yes",
+                 cancelButtonText: "No",
+                 closeOnConfirm: false,
+                 closeOnCancel: false
+             },
+                 function (isConfirm) {
+                     var formData = new FormData($('#createFuelRecordForm')[0]);
+                     formData.append('FillingStation', $("#FillingStation").val());
+                     formData.append('PeriodFrom', $("#PeriodFrom").val());
+                     formData.append('PeriodTo', $("#PeriodTo").val());
+                     formData.append('RegistrationNo', $("#RegistrationNo").val());
+                     formData.append('FuelInvoice', $("#FuelInvoice").val());
+                     formData.append('BatchNo', $("#BatchNo").val());
+                     formData.append('RetailPrice', $("#RetailPrice").val());
+                     formData.append('Discount', $("#Discount").val());
+                     formData.append('TotalAmount', $("#TotalAmount").val());
+
+                     $.ajax({
+                         type: 'POST',
+                         data: formData,
+                         cache: false,
+                         contentType: false,
+                         processData: false,
+                         url: '@Url.Action("CreateFuelRecord", "FuelManagement")',
+                         success: function (data) {
+                             getFuelRecordList();
+                             $($("#createFuelRecordForm input").val(''));
+                             $("#fuelDetailsDiv").html('');
+                             toastr.success("Fuel Record inserted successfully.");
+                         }
+                     });
+                 });
          }
         }
 
@@ -226,7 +242,7 @@
                         tr.append("<td class='text-center' data-title='Edit'> " + item.TotalAmount +"</td>");
                         $("#FuelList tbody").append(tr);
                     });
-                    
+
                 }
             });
         }
