@@ -16,9 +16,9 @@ namespace AssetMaintenance.BAL
 
             //statuslst[0] = maintenanceStatus; }
             var result = dbCon.GFI_AMM_VehicleMaintenance
+                    ///.Where(c=> statuslst.Contains((int)c.Status))
                     .Where(c => c.MaintStatusId_cbo == maintenanceStatus)
-                   // .Join(dbCon.GFI_FLT_Asset, vm => vm.AssetId, a => a.AssetID, (vm, a) => new { Vm = vm, A = a })
-                    .OrderByDescending(c => c.URI)
+                .OrderByDescending(c => c.URI)
                    ///.GroupBy(p => p.AssetId)
                    .Select(g =>
                    new MaintenanceByStatusListDto
@@ -40,10 +40,10 @@ namespace AssetMaintenance.BAL
 
         public List<MaintenanceByStatusListDto> getAllMaintenanceByStatusList(int maintenanceStatus)
         {
-            int[] statuslst = new int[6];
+            int[] statuslst = new int[4];
             if (maintenanceStatus == 0)
             {
-                statuslst[0] = 1; statuslst[1] = 2; statuslst[2] = 3; statuslst[3] = 7; statuslst[4] = 5; statuslst[5] = 6;
+                statuslst[0] = 1; statuslst[1] = 2; statuslst[2] = 3; statuslst[3] = 7;
                 var result = dbCon.GFI_AMM_VehicleMaintenance
                     .Where(c => statuslst.Contains((int)c.MaintStatusId_cbo))
                     .OrderByDescending(c => c.URI)
