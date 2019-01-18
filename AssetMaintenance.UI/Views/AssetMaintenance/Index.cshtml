@@ -22,6 +22,8 @@
             </h2>
         </div>
     </div>
+   
+
 </div>
 
 <div class="content animate-panel" style="padding-top:30px;" id="InputFormDiv">
@@ -58,10 +60,10 @@
                     <label>  KMS</label>
                 </div>
                 <div class="col-lg-3">
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" id="R1Km" readonly />
                 </div>
                 <div class="col-lg-3">
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" id="R2Km" readonly />
                 </div>
                 <div class="col-lg-3"><br /><br /></div>
 
@@ -69,25 +71,50 @@
                     <label> Time</label>
                 </div>
                 <div class="col-lg-3">
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" id="R1Time" readonly />
                 </div>
                 <div class="col-lg-3">
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" id="R2Time" readonly />
                 </div>
                 <div class="col-lg-3"><br /><br /></div>
 
                 <div class="col-lg-3 text-right">
-                    <label> Energy</label>
+                    <label> Engine Hrs Based</label>
                 </div>
                 <div class="col-lg-3">
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" id="R1EngHrs" readonly />
                 </div>
                 <div class="col-lg-3 ">
-                    <input type="text" class="form-control" />
+                    <input type="text" class="form-control" id="R2EngHrs" readonly />
                 </div>
                 <div class="col-lg-3">
 
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hpanel">
+        <div class="panel-heading">
+            <div class="panel-tools">
+                <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                <a class="closebox"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="AssetAndMaintenanceTypeList" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center" width="15%">Name</th>
+                            <th class="text-center" width="8%">Date</th>
+                            <th class="text-center" width="8%">Principal</th>
+                            <th class="text-center" width="8%">My Role</th>
+                            <th class="text-center" width="10%">My Access Rights</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myBody"></tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -103,6 +130,7 @@
                 contentType: 'application/x-www-form-urlencoded',
                 success: function (data) {
                     toastr.success(data);
+                    clearControls();
                 }
             });
         }
@@ -110,6 +138,32 @@
             $('#AssetId').select2();
             $('#MaintenanceId').select2();
 
+            $("#MaintenanceId").change(function () {
+                 $.ajax({
+                        type: 'POST',
+                        data: JSON.stringify({ maintenanceTypeId: $("#MaintenanceId").val() }),
+                        url: '@Url.Action("GetMaintenanceTypeDetailsById", "AssetMaintenance")',
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                     success: function (data) {
+                         $("#R1Km").val(data.KMBasedAlertThreshold);
+                         $("#R2Km").val(data.KMBasedMaintenanceDue);
+                         $("#R1Time").val(data.OccurenceFixedDateThreshold);
+                         $("#R2Time").val(data.OccurrenceDuration);
+                         $("#R1EngHrs").val(data.EngineHrsBasedAlertThreshold);
+                         $("#R2EngHrs").val(data.EngineHrsBasedMaintenanceDue);
+                        }
+                    });
+            });
         });
+
+        function clearControls() {
+            $("#R1Km").val('');
+            $("#R2Km").val('');
+            $("#R1Time").val('');
+            $("#R2Time").val('');
+            $("#R1EngHrs").val('');
+            $("#R2EngHrs").val('');
+        }
     </script>
 }

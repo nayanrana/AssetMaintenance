@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using AssetMaintenance.BAL.DTO;
+
 namespace AssetMaintenance.BAL
 {
     public class AssetMaintenanceRepo
@@ -51,7 +53,7 @@ namespace AssetMaintenance.BAL
             }
         }
 
-        public bool SaveAssetMaintenance(int assestId,int maintenanceId)
+        public bool SaveAssetMaintenance(int assestId, int maintenanceId)
         {
             try
             {
@@ -67,5 +69,43 @@ namespace AssetMaintenance.BAL
                 return false;
             }
         }
+
+        public MaintenanceTypeDto GetMaintenanceTypeDetailsById(int maintenanceTypeId)
+        {
+            var maintenanceTypeDetail = new MaintenanceTypeDto();
+            maintenanceTypeDetail = dbCon.GFI_AMM_VehicleMaintTypes.
+                                     Where(x => x.MaintTypeId == maintenanceTypeId).Select(x => new MaintenanceTypeDto
+                                     {
+                                         KMBasedAlertThreshold = x.OccurrenceKMTh ?? 0,
+                                         KMBasedMaintenanceDue = x.OccurrenceKM ?? 0,
+                                         EngineHrsBasedMaintenanceDue = x.OccurrenceEngineHrs ?? 0,
+                                         EngineHrsBasedAlertThreshold = x.OccurrenceEngineHrsTh ?? 0,
+                                         OccurrenceDuration = x.OccurrenceDuration ?? 0,
+                                         OccurenceFixedDateThreshold = x.OccurrenceDurationTh ?? 0,
+                                         MaintenanceTypeId = x.MaintTypeId
+                                     })
+                                     .FirstOrDefault();
+
+            return maintenanceTypeDetail;
+        }
+
+        //public MaintenanceTypeDto GetAssetAndMaintenanceTypeDetailsByAssetId(int assetId)
+        //{
+        //    var maintenanceTypeDetail = new MaintenanceTypeDto();
+        //    maintenanceTypeDetail = dbCon.AssetMaintenaceTypes.
+        //                             Where(x => x.AssetId == assetId).Select(x => new MaintenanceTypeDto
+        //                             {
+        //                                 KMBasedAlertThreshold = x.OccurrenceKMTh ?? 0,
+        //                                 KMBasedMaintenanceDue = x.OccurrenceKM ?? 0,
+        //                                 EngineHrsBasedMaintenanceDue = x.OccurrenceEngineHrs ?? 0,
+        //                                 EngineHrsBasedAlertThreshold = x.OccurrenceEngineHrsTh ?? 0,
+        //                                 OccurrenceDuration = x.OccurrenceDuration ?? 0,
+        //                                 OccurenceFixedDateThreshold = x.OccurrenceDurationTh ?? 0,
+        //                                 MaintenanceTypeId = x.MaintTypeId
+        //                             })
+        //                             .FirstOrDefault();
+
+        //    return maintenanceTypeDetail;
+        //}
     }
 }

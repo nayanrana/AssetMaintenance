@@ -23,7 +23,13 @@ namespace AssetMaintenance.UI.Controllers
         public ActionResult SaveAssestMaintenceType(int assetId,int maintenaceId)
         {
             obj.SaveAssetMaintenance(assetId, maintenaceId);
-            return Json("Data Saved Succesfully");
+            return Json("Maintenance type successfully assigned to this asset.");
+        }
+
+        [HttpPost]
+        public ActionResult GetMaintenanceTypeDetailsById(int maintenanceTypeId)
+        {            
+            return Json(obj.GetMaintenanceTypeDetailsById(maintenanceTypeId));
         }
     }
 }
