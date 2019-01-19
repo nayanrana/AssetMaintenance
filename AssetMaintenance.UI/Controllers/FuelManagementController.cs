@@ -22,6 +22,8 @@ namespace AssetMaintenance.UI.Controllers
             return View(obj);
         }
 
+       
+
         [HttpPost]
         public ActionResult CreateFuelRecord(FuelRecordDto fuel)
         {
@@ -265,5 +267,92 @@ namespace AssetMaintenance.UI.Controllers
                 throw ex;
             }
         }
+
+        //[HttpPost]
+        //public ActionResult CreateFuelManualRecord()
+        //{
+        //    ListFuelRecord = new List<FuelRecord_DetailDto>();
+        //    string validationMsg = string.Empty;
+        //    int chkInt = 0;
+        //    double chkDouble = 0;
+        //    //DateTime chkDate = new DateTime();
+        //    DateTime chkDate;
+            
+        //        var currentSheet = package.Workbook.Worksheets;
+        //        var workSheet = currentSheet.First();
+        //        var noOfCol = workSheet.Dimension.End.Column;
+        //        var noOfRow = workSheet.Dimension.End.Row;
+
+            
+               
+
+        //        FuelRecordManualDto model = new FuelRecordManualDto();
+        //        if (model.Date != null)
+        //        {
+        //            model.Date = DateTime.ParseExact(workSheet.Cells[1].Value.ToString(), @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+        //        }
+        //        else
+        //        {
+        //            validationMsg = "Date is required in excel sheet";
+                    
+        //        }
+        //        model.VoucherNumber = Convert.ToString(workSheet.Cells[2].Value);
+        //        model.Period= Convert.ToString(workSheet.Cells[3].Value);
+        //        model.FillingStation = Convert.ToString(workSheet.Cells[4].Value);
+        //        model.ClaimNumber = Convert.ToString(workSheet.Cells[ 5].Value);
+
+        //        if (model.FuelType != null)
+        //        {
+        //            model.FuelType = workSheet.Cells[ 6].Value.ToString();
+        //        }
+        //        else
+        //        {
+        //            validationMsg = "Fuel Type is required in excel sheet";
+                   
+        //        }
+        //        model.QuantityLiter = chkInt;
+        //        model.Amount = chkDouble;
+
+        //        if (workSheet.Cells[ 11].Value != null && int.TryParse(workSheet.Cells[ 11].Value.ToString(), out chkInt))
+        //        {
+        //            if (chkInt > 100)
+        //            {
+        //                validationMsg = "Discount (%) must be less than 100%";
+                        
+        //            }
+        //            model.DiscountAmount = chkInt;
+        //        }
+        //        else
+        //        {
+        //            validationMsg = "Invalid Number format for Discount (%) in excel sheet.";
+                   
+        //        }
+        //        if (workSheet.Cells[ 12].Value != null && double.TryParse(workSheet.Cells[ 12].Value.ToString(), out chkDouble) )
+        //        {
+        //            model.VatAmount = chkDouble;
+        //        }
+        //        else
+        //        {
+        //            validationMsg = "Invalid Number format for Vat Amount in excel sheet.";
+                   
+        //        }
+
+        //        if (workSheet.Cells[ 13].Value != null && double.TryParse(workSheet.Cells[ 13].Value.ToString(), out chkDouble) )
+        //        {
+        //            model.AmountInc = chkDouble;
+        //        }
+        //        else
+        //        {
+        //            validationMsg = "Invalid Number format for Amount inc. vat (Rs) in excel sheet.";
+                    
+        //        }
+        //        ListFuelRecord.Add(model);
+        //        TempData["lstFuelRecod"] = ListFuelRecord;
+        //        TempData.Keep("lstFuelRecod");
+        //        return Json(new { msg = validationMsg, Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
+                
+
+        //    }
+        //}
     }
 }

@@ -31,5 +31,11 @@ namespace AssetMaintenance.UI.Controllers
         {            
             return Json(obj.GetMaintenanceTypeDetailsById(maintenanceTypeId));
         }
+
+        [HttpGet]
+        public ActionResult GetAssetAndMaintenanceTypeDetailsByAssetId(int assetId)
+        {
+            return Json(obj.GetAssetAndMaintenanceTypeDetailsByAssetId(assetId),JsonRequestBehavior.AllowGet);
+        }
     }
 }

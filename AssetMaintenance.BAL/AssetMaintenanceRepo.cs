@@ -89,23 +89,21 @@ namespace AssetMaintenance.BAL
             return maintenanceTypeDetail;
         }
 
-        //public MaintenanceTypeDto GetAssetAndMaintenanceTypeDetailsByAssetId(int assetId)
-        //{
-        //    var maintenanceTypeDetail = new MaintenanceTypeDto();
-        //    maintenanceTypeDetail = dbCon.AssetMaintenaceTypes.
-        //                             Where(x => x.AssetId == assetId).Select(x => new MaintenanceTypeDto
-        //                             {
-        //                                 KMBasedAlertThreshold = x.OccurrenceKMTh ?? 0,
-        //                                 KMBasedMaintenanceDue = x.OccurrenceKM ?? 0,
-        //                                 EngineHrsBasedMaintenanceDue = x.OccurrenceEngineHrs ?? 0,
-        //                                 EngineHrsBasedAlertThreshold = x.OccurrenceEngineHrsTh ?? 0,
-        //                                 OccurrenceDuration = x.OccurrenceDuration ?? 0,
-        //                                 OccurenceFixedDateThreshold = x.OccurrenceDurationTh ?? 0,
-        //                                 MaintenanceTypeId = x.MaintTypeId
-        //                             })
-        //                             .FirstOrDefault();
+        public List<AssetAndMaintenanceTypeAssignmentDto> GetAssetAndMaintenanceTypeDetailsByAssetId(int assetId)
+        {
+            var assetAndMaintenanceTypeAssignmentList = new List<AssetAndMaintenanceTypeAssignmentDto>();
+            assetAndMaintenanceTypeAssignmentList = dbCon.AssetMaintenaceTypes.
+                                     Where(x => x.AssetId == assetId)
+                                     .Select(x => new AssetAndMaintenanceTypeAssignmentDto
+                                     {
+                                         AssetId = x.AssetId,
+                                         MaintenanceTypeId = x.MaintenceId,
+                                         AssetName = x.GFI_FLT_Asset.AssetName,
+                                         MaintenanceTypeName = x.GFI_AMM_VehicleMaintTypes.Description
+                                     })
+                                     .ToList();
 
-        //    return maintenanceTypeDetail;
-        //}
+            return assetAndMaintenanceTypeAssignmentList;
+        }
     }
 }

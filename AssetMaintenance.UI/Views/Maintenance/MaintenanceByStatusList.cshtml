@@ -40,8 +40,8 @@
                         <table id="MaintenanceList" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
                             <thead>
                                 <tr>
-                                    <th class="text-center" width="15%">Asset</th>
-                                    <th class="text-center" width="5%">Asset No</th>
+                                    <th class="text-center" width="15%">Asset Name</th>
+                                    @*<th class="text-center" width="5%">Asset No</th>*@
                                     <th class="text-center" width="15%">Maintenance</th>
                                     <th class="text-center" width="10%">Status </th>
                                     <th class="text-center" width="10%">Reminder</th>
@@ -150,7 +150,7 @@
                     var tr;
                     tr = $('<tr />');
                     tr.append("<td class='text-center' data-title='Asset'>" + item.Asset + "</td>");
-                    tr.append("<td class='text-center' data-title='AssetNo'>" + item.AssetNo + "</td>");
+                    //tr.append("<td class='text-center' data-title='AssetNo'>" + item.AssetNo + "</td>");
                     tr.append("<td class='text-center' data-title='Maintenance'>" + item.Maintenance + "</td>");
                     tr.append("<td class='text-center' data-title='Status'>" + item.MaintenanceStatus + "</td>");
                     tr.append("<td class='text-center' data-title='Reminder'>" + getFormattedDate(item.Reminder) + "</td>");

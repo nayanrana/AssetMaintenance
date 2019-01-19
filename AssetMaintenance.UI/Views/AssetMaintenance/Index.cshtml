@@ -22,7 +22,7 @@
             </h2>
         </div>
     </div>
-   
+
 
 </div>
 
@@ -33,11 +33,11 @@
             <div class="row">
                 <div class="form-group col-lg-4">
                     <label>Asset</label>
-                    @Html.DropDownList("MaintStatusId", new SelectList(ViewBag.Asset, "Key", "Value"), new { @class = "form-control", id = "AssetId", required = "required" })
+                    @Html.DropDownList("MaintStatusId", new SelectList(ViewBag.Asset, "Key", "Value"), "-- Select Asset --", new { @class = "form-control", id = "AssetId", required = "required" })
                 </div>
                 <div class="form-group col-lg-4">
                     <label>Maintenance Type</label>
-                    @Html.DropDownList("MaintStatusId", new SelectList(ViewBag.MaintenanceType, "Key", "Value"), new { @class = "form-control", id = "MaintenanceId" })
+                    @Html.DropDownList("MaintStatusId", new SelectList(ViewBag.MaintenanceType, "Key", "Value"), "-- Select Maintenance Type --",new { @class = "form-control", id = "MaintenanceId" })
 
                 </div>
                 <div>
@@ -106,11 +106,8 @@
                 <table id="AssetAndMaintenanceTypeList" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
                     <thead>
                         <tr>
-                            <th class="text-center" width="15%">Name</th>
-                            <th class="text-center" width="8%">Date</th>
-                            <th class="text-center" width="8%">Principal</th>
-                            <th class="text-center" width="8%">My Role</th>
-                            <th class="text-center" width="10%">My Access Rights</th>
+                            <th class="text-center" width="15%">Asset Name</th>
+                            <th class="text-center" width="8%">Maintenance Type Name</th>
                         </tr>
                     </thead>
                     <tbody id="myBody"></tbody>
@@ -119,7 +116,17 @@
         </div>
     </div>
 </div>
+@section Styles {
+
+    @Styles.Render("~/bundles/datatables/css")
+
+}
+
 @section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+
     <script>
         function saveData() {
             $.ajax({
@@ -129,15 +136,55 @@
                 dataType: 'HTML',
                 contentType: 'application/x-www-form-urlencoded',
                 success: function (data) {
+                    AssetAndMaintenanceTypeAssignmentGrid();
                     toastr.success(data);
                     clearControls();
                 }
             });
         }
+        function htmlToDataTable() {
+            var table = $('#AssetAndMaintenanceTypeList').dataTable(
+                {
+                    "ordering": true,
+                    columnDefs: [
+                        {
+                            orderable: false, targets: "no-sort"
+                        }
+                    ],
+                    "lengthChange": false,
+                    "deferRender": true,
+                    "bDestroy": true
+                }
+            );
+        }
+
+
+        function AssetAndMaintenanceTypeAssignmentGrid() {
+
+                    $.ajax({
+                        type: 'Get',
+                        data: { assetId: $("#AssetId").val()},
+                        url: '@Url.Action("GetAssetAndMaintenanceTypeDetailsByAssetId", "AssetMaintenance")',
+                        dataType: 'json',
+                        success: function (data)
+                        {
+                            $.each(data, function (i, item) {
+                                    var tr;
+                                    tr = $('<tr />');
+                                    tr.append("<td class='text-center' data-title='Created On'>" + item.AssetName + "</td>");
+                                    tr.append("<td class='text-center' data-title='Principal Name'>" + item.MaintenanceTypeName + "</td>");
+
+                                    $("#AssetAndMaintenanceTypeList tbody").append(tr);
+                            });
+                            htmlToDataTable();
+                        }
+             });
+        }
+
         $(document).ready(function () {
             $('#AssetId').select2();
             $('#MaintenanceId').select2();
-
+            
             $("#MaintenanceId").change(function () {
                  $.ajax({
                         type: 'POST',
@@ -155,6 +202,11 @@
                         }
                     });
             });
+
+            $("#AssetId").change(function () {
+                AssetAndMaintenanceTypeAssignmentGrid();
+            });
+
         });
 
         function clearControls() {
