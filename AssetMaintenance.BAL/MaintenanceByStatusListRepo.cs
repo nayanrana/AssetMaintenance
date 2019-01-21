@@ -31,7 +31,7 @@ namespace AssetMaintenance.BAL
                        Maintenance = dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.MaintTypeId_cbo).Description,
                        MaintenanceStatus = dbCon.GFI_AMM_VehicleMaintStatus.FirstOrDefault(d => d.MaintStatusId == g.MaintStatusId_cbo).Description,
                        MaintenanceID = (int)g.MaintStatusId_cbo,   //FirstOrDefault(c => c.AssetId == g.Key).Status,
-                       Reminder = (DateTime)dbCon.GFI_AMM_VehicleMaintTypes.FirstOrDefault(d => d.MaintTypeId == g.MaintTypeId_cbo).OccurrenceFixedDate,
+                       Reminder = g.StartDate,
                    }).ToList();
             // Will query Database once we have structure ready
             return result;

@@ -42,7 +42,8 @@
                             <thead>
                                 <tr>
                                     <th class="text-center" width="15%">Filling Station</th>
-                                    <th class="text-center" width="15%">Period</th>
+                                    <th class="text-center" width="5%">Period From</th>
+                                    <th class="text-center" width="5%">Period To</th>
                                     <th class="text-center" width="10%">RegistrationNo</th>
                                     <th class="text-center" width="10%">FuelInvoice</th>
                                     <th class="text-center" width="10%">BatchNo</th>
@@ -120,7 +121,8 @@
                         var tr;
                         tr = $('<tr />');
                         tr.append("<td class='text-center' data-title='Asset'>" + item.FillingStation + "</td>");
-                        tr.append("<td class='text-center' data-title='AssetNo'>" + getFormattedDate(item.Period) + "</td>");
+                        tr.append("<td class='text-center' data-title='AssetNo'>" + getFormattedDate(item.PeriodFrom) + "</td>");
+                        tr.append("<td class='text-center' data-title='AssetNo'>" + getFormattedDate(item.PeriodTo) + "</td>");
                         tr.append("<td class='text-center' data-title='Maintenance'>" + item.RegistrationNo + "</td>");
                         tr.append("<td class='text-center' data-title='Status'>" + item.FuelInvoice + "</td>");
                         tr.append("<td class='text-center' data-title='Reminder'>" + item.BatchNo + "</td>");

@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AssetMaintenance.BAL.DTO
 {
@@ -7,7 +8,9 @@ namespace AssetMaintenance.BAL.DTO
     {
         public int Id { get; set; }
         public string FillingStation { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> PeriodFrom { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> PeriodTo { get; set; }
 
         public string RegistrationNo { get; set; }
@@ -23,7 +26,9 @@ namespace AssetMaintenance.BAL.DTO
 
     public class FuelRecordManualDto
     {
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Period { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
         public string FillingStation { get; set; }
         public int ClaimNumber { get; set; }
