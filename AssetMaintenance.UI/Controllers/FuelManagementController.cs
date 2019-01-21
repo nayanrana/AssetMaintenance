@@ -129,8 +129,17 @@ namespace AssetMaintenance.UI.Controllers
                                 //    validationMsg = "Invalid Date format in excel sheet.";
                                 //    break;
                                 //}
+                                double d;
+                                if (double.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(),out d))
+                                {
+                                    model.Date = DateTime.FromOADate(d);
+                                }
+                                else
+                                {
+                                    model.Date = DateTime.ParseExact(workSheet.Cells[rowIterator, 1].Value.ToString(), @"dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                }
 
-                                model.Date = DateTime.ParseExact(workSheet.Cells[rowIterator, 1].Value.ToString(), @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                
 
                                 //model.Date =Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
 
