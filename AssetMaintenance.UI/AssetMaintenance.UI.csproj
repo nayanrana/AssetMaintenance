@@ -2609,6 +2609,8 @@
     <Content Include="Views\MaintenanceType\BindMaintenanceType.cshtml" />
     <Content Include="Views\MaintenanceType\Index.cshtml" />
     <Content Include="Views\AssetMaintenance\Index.cshtml" />
+    <Content Include="Views\Maintenance\BindMaintenanceDetail.cshtml" />
+    <Content Include="Views\FuelManagement\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,7 +21,10 @@ namespace AssetMaintenance.UI.Controllers
             FuelRecordDto obj = new FuelRecordDto();
             return View(obj);
         }
-
+        public ActionResult List()
+        {
+            return View();
+        }
        
 
         [HttpPost]
@@ -31,8 +34,18 @@ namespace AssetMaintenance.UI.Controllers
             var statusLst = obj.InsertFuelRecord(fuel);
             if (statusLst != 0)
             {
-                FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
-                bool result = objDetail.InsertFuelRecordDetail((TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>), statusLst);
+                if (fuel.Modeofupload==0)
+                {
+                    FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
+                    bool result = objDetail.InsertFuelRecordDetail((TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>), statusLst);
+                }
+                else
+                {
+                    FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
+                    bool result = objDetail.InsertFuelRecordDetailManual((TempData.Peek("fuelrecordmanuallist") as List<FuelRecordManualDto>), statusLst);
+
+                }
+               
                 return Json("Record saved successfully.");
             }
             else
@@ -267,6 +280,18 @@ namespace AssetMaintenance.UI.Controllers
                 throw ex;
             }
         }
+        [HttpPost]
+        public ActionResult CreateFuelManualRecord(FuelRecordManualDto model)
+        {
+            List<FuelRecordManualDto> lstfuelRecordManuals = new List<FuelRecordManualDto>();
+            if (TempData.ContainsKey("fuelrecordmanuallist"))
+                lstfuelRecordManuals = (TempData.Peek("fuelrecordmanuallist") as List<FuelRecordManualDto>);
+
+            lstfuelRecordManuals.Add(model);
+            TempData["fuelrecordmanuallist"] = lstfuelRecordManuals;
+            TempData.Keep("fuelrecordmanuallist");
+            return Json(new { msg = "Record added successfully", Html = lstfuelRecordManuals }, JsonRequestBehavior.AllowGet);
+        }
 
         //[HttpPost]
         //public ActionResult CreateFuelManualRecord()
@@ -277,14 +302,14 @@ namespace AssetMaintenance.UI.Controllers
         //    double chkDouble = 0;
         //    //DateTime chkDate = new DateTime();
         //    DateTime chkDate;
-            
+
         //        var currentSheet = package.Workbook.Worksheets;
         //        var workSheet = currentSheet.First();
         //        var noOfCol = workSheet.Dimension.End.Column;
         //        var noOfRow = workSheet.Dimension.End.Row;
 
-            
-               
+
+
 
         //        FuelRecordManualDto model = new FuelRecordManualDto();
         //        if (model.Date != null)
@@ -294,7 +319,7 @@ namespace AssetMaintenance.UI.Controllers
         //        else
         //        {
         //            validationMsg = "Date is required in excel sheet";
-                    
+
         //        }
         //        model.VoucherNumber = Convert.ToString(workSheet.Cells[2].Value);
         //        model.Period= Convert.ToString(workSheet.Cells[3].Value);
@@ -308,7 +333,7 @@ namespace AssetMaintenance.UI.Controllers
         //        else
         //        {
         //            validationMsg = "Fuel Type is required in excel sheet";
-                   
+
         //        }
         //        model.QuantityLiter = chkInt;
         //        model.Amount = chkDouble;
@@ -318,14 +343,14 @@ namespace AssetMaintenance.UI.Controllers
         //            if (chkInt > 100)
         //            {
         //                validationMsg = "Discount (%) must be less than 100%";
-                        
+
         //            }
         //            model.DiscountAmount = chkInt;
         //        }
         //        else
         //        {
         //            validationMsg = "Invalid Number format for Discount (%) in excel sheet.";
-                   
+
         //        }
         //        if (workSheet.Cells[ 12].Value != null && double.TryParse(workSheet.Cells[ 12].Value.ToString(), out chkDouble) )
         //        {
@@ -334,7 +359,7 @@ namespace AssetMaintenance.UI.Controllers
         //        else
         //        {
         //            validationMsg = "Invalid Number format for Vat Amount in excel sheet.";
-                   
+
         //        }
 
         //        if (workSheet.Cells[ 13].Value != null && double.TryParse(workSheet.Cells[ 13].Value.ToString(), out chkDouble) )
@@ -344,13 +369,13 @@ namespace AssetMaintenance.UI.Controllers
         //        else
         //        {
         //            validationMsg = "Invalid Number format for Amount inc. vat (Rs) in excel sheet.";
-                    
+
         //        }
         //        ListFuelRecord.Add(model);
         //        TempData["lstFuelRecod"] = ListFuelRecord;
         //        TempData.Keep("lstFuelRecod");
         //        return Json(new { msg = validationMsg, Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
-                
+
 
         //    }
         //}

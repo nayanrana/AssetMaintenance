@@ -1,0 +1,182 @@
+﻿@using AssetMaintenance.Helper
+
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            @*<div id="hbreadcrumb" class="pull-right">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="../Maintenance/MaintenanceByStatus">Dashboard</a></li>
+                    <li class="active">
+                        <span>Maintenance Types</span>
+                    </li>
+                </ol>
+            </div>*@
+            <h2 class="font-light m-b-xs">
+              Fuel Management
+            </h2>
+        </div>
+    </div>
+</div>
+
+<div class="content animate-panel">
+    <div class="row" id="MaintenanceListGridDiv">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        <a class="closebox"><i class="fa fa-times"></i></a>
+                    </div>
+                    @*<a href="/MaintenanceType/Index?maintenanceType=0" class="btn btn-success">Add New Maintenance</a>*@
+                    <button id="btnAddFuelManagement" class="btn btn-success " type="button"><i class="fa fa-plus-square"></i> <span class="bold" style="padding-left:5px;">Add New Fuel Management</span></button>
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="FuelList" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" width="15%">Filling Station</th>
+                                    <th class="text-center" width="15%">Period</th>
+                                    <th class="text-center" width="10%">RegistrationNo</th>
+                                    <th class="text-center" width="10%">FuelInvoice</th>
+                                    <th class="text-center" width="10%">BatchNo</th>
+                                    <th class="text-center" width="5%">RetailPrice</th>
+                                    <th class="text-center" width="5%">Discount</th>
+                                    <th class="text-center" width="5%">TotalAmount</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section Styles {
+
+    <style type="text/css">
+        .loader {
+            background: url("../images/Custom/ui-anim_basic_16x16.gif");
+            background-repeat: no-repeat;
+            background-position: right;
+        }
+
+        .modal-content {
+            width: 700px !important;
+        }
+    </style>
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/sweetAlert/css")
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/sweetAlert/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (localStorage.getItem('msg')) {
+                toastr.success(localStorage.getItem('msg'));
+                localStorage.clear();
+            }
+
+            getMaintenanceByStatusList();
+            $("#btnAddFuelManagement").click(function () {
+                location.href = "../FuelManagement/Index";
+            });
+
+        });
+
+        function getMaintenanceByStatusList() {
+            var str = 0;
+           
+            $.fn.DataTable.isDataTable("#MaintenanceList");
+            $('#MaintenanceList').DataTable().clear().destroy();
+
+            $.ajax({
+                type: 'Get',
+                data: '',
+                @*'@MaintenanceStatus.OverDue'}),*@
+                url: '@Url.Action("ViewFuelList", "FuelManagement")',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (data)
+                {
+                    @*var Mstatus = @Request.QueryString["maintenanceType"]*@
+
+                    $.each(data, function (i, item) {
+                        var tr;
+                        tr = $('<tr />');
+                        tr.append("<td class='text-center' data-title='Asset'>" + item.FillingStation + "</td>");
+                        tr.append("<td class='text-center' data-title='AssetNo'>" + getFormattedDate(item.Period) + "</td>");
+                        tr.append("<td class='text-center' data-title='Maintenance'>" + item.RegistrationNo + "</td>");
+                        tr.append("<td class='text-center' data-title='Status'>" + item.FuelInvoice + "</td>");
+                        tr.append("<td class='text-center' data-title='Reminder'>" + item.BatchNo + "</td>");
+                        tr.append("<td class='text-center' data-title='NextMaintenance'>" + item.RetailPrice + "</td>");
+                        tr.append("<td class='text-center' data-title='History'> " + item.Discount + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> " + item.TotalAmount + "</td>");
+                        $("#FuelList tbody").append(tr);
+                    });
+                    htmlToDataTable();
+                }
+            });
+
+        }
+        function htmlToDataTable() {
+            var table = $('#MaintenanceList').dataTable(
+                {
+                    "lengthChange": false,
+                    "deferRender": true,
+                    "bDestroy": true
+                }
+            );
+        }
+
+        function deleteMaintenanceType(id) {
+            swal({
+                title: "Are you sure?",
+                text: "Your will not be able to recover this maintenance Type!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: "POST",
+                            ///url: '_ViewMaintanence',
+                            url: '@Url.Action("DeleteMaintenanceTypeByID", "MaintenanceType")',
+                            datatype: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                swal("Deleted!", "Maintenance Type has been deleted.", "success");
+                                getMaintenanceByStatusList();
+                            }
+                        });
+
+                    } else {
+                        swal("Cancelled", "Your Maintenance Type is safe :)", "error");
+                    }
+                });
+        }
+
+
+
+    </script>
+}

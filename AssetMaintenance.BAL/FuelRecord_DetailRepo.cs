@@ -53,5 +53,38 @@ namespace AssetMaintenance.BAL
                 return false;
             }
         }
+        public bool InsertFuelRecordDetailManual(List<FuelRecordManualDto> lstFuelRecodDto, int fuelId)
+        {
+            try
+            {
+                FuelRecord_Detail objFuelDetails;
+                foreach (var item in lstFuelRecodDto)
+                {
+                    objFuelDetails = new FuelRecord_Detail();
+                    objFuelDetails.FuelRecordId = fuelId;
+                  
+                    objFuelDetails.AmountExVal = item.Amount;
+                    objFuelDetails.AmountInVal = item.AmountInc.HasValue?item.AmountInc.Value:0;
+                    
+                    objFuelDetails.Date = item.Date;
+                    objFuelDetails.Discount = item.DiscountAmount;
+                  
+                    objFuelDetails.FillingStation = item.FillingStation;
+
+                    objFuelDetails.FuelType = item.FuelType;
+                    objFuelDetails.Quantities = item.QuantityLitre;
+                    objFuelDetails.VatAmount = item.VatAmount;
+                    objFuelDetails.VoucherNo = item.VoucherNumber;
+                    objFuelDetails.RegistrationNo = "";
+                    dbCon.FuelRecord_Detail.Add(objFuelDetails);
+                }
+                dbCon.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

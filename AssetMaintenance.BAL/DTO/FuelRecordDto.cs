@@ -16,24 +16,24 @@ namespace AssetMaintenance.BAL.DTO
         public decimal RetailPrice { get; set; }
         public Nullable<decimal> Discount { get; set; }
         public Nullable<decimal> TotalAmount { get; set; }
-
+        public int Modeofupload { get; set; }
         public FuelRecordManualDto fuelRecordManualDto { get; set; }
 
     }
 
     public class FuelRecordManualDto
     {
-        public Nullable<System.DateTime> Period { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public DateTime Period { get; set; }
+        public DateTime Date { get; set; }
         public string FillingStation { get; set; }
         public int ClaimNumber { get; set; }
-        public Guid VoucherNumber { get; set; }
+        public string VoucherNumber { get; set; }
         public string FuelType { get; set; }
         public int QuantityLitre { get; set; }
-        public Nullable<decimal> Amount { get; set; }
-        public Nullable<decimal> DiscountAmount { get; set; }
-        public Nullable<decimal> VatAmount { get; set; }
-        public Nullable<decimal> AmountInc { get; set; }
+        public Nullable<double> Amount { get; set; }
+        public Nullable<double> DiscountAmount { get; set; }
+        public Nullable<double> VatAmount { get; set; }
+        public Nullable<double> AmountInc { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> DateModified { get; set; }

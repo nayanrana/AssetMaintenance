@@ -169,6 +169,8 @@
                         success: function (data)
                         {
                             $("#AssetAndMaintenanceTypeList tbody").html("");
+                            $.fn.DataTable.isDataTable("#AssetAndMaintenanceTypeList");
+                            $('#AssetAndMaintenanceTypeList').DataTable().clear().destroy();
                             $.each(data, function (i, item) {
                                     var tr;
                                     tr = $('<tr />');
@@ -177,7 +179,7 @@
 
                                     $("#AssetAndMaintenanceTypeList tbody").append(tr);
                             });
-                           // htmlToDataTable();
+                            htmlToDataTable();
                         }
              });
         }
