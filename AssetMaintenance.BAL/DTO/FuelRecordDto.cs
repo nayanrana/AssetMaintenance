@@ -29,7 +29,7 @@ namespace AssetMaintenance.BAL.DTO
         public int ClaimNumber { get; set; }
         public Guid VoucherNumber { get; set; }
         public string FuelType { get; set; }
-        public int QuantityLiter { get; set; }
+        public int QuantityLitre { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public Nullable<decimal> DiscountAmount { get; set; }
         public Nullable<decimal> VatAmount { get; set; }
