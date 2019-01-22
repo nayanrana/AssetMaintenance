@@ -137,13 +137,13 @@ namespace AssetMaintenance.UI.Controllers
                                 }
                                 else
                                 {
-                                    model.Date = DateTime.ParseExact(workSheet.Cells[rowIterator, 1].Value.ToString(), @"dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                    model.Date = Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
+                                    //model.Date = DateTime.ParseExact(workSheet.Cells[rowIterator, 1].Value.ToString(), @"dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                                 }
 
                                 
 
-                                //model.Date =Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
-
+                                
                             }
                             else
                             {
