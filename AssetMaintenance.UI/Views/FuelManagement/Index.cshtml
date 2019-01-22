@@ -476,6 +476,10 @@
 
         function FuelManagementGrid() {
             debugger;
+            if ($("#manualcreate").valid() == false) {
+                return;
+            }
+
            // var datastring = $("#manualcreate").serialize();
             var formData = new FormData();
            // formData.append("btnCreateFuelManualRecord");

@@ -38,12 +38,13 @@ namespace AssetMaintenance.UI.Controllers
                 {
                     FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
                     bool result = objDetail.InsertFuelRecordDetail((TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>), statusLst);
+                    TempData.Remove("lstFuelRecod");
                 }
                 else
                 {
                     FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
                     bool result = objDetail.InsertFuelRecordDetailManual((TempData.Peek("fuelrecordmanuallist") as List<FuelRecordManualDto>), statusLst);
-
+                    TempData.Remove("fuelrecordmanuallist");
                 }
                
                 return Json("Record saved successfully.");

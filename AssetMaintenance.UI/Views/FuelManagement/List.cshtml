@@ -38,7 +38,7 @@
 
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table id="FuelList" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
+                        <table id="FuelList" class="table table-striped table-bordered table-hover dataTable no-footer " width="100%">
                             <thead>
                                 <tr>
                                     <th class="text-center" width="15%">Filling Station</th>
@@ -103,8 +103,8 @@
         function getMaintenanceByStatusList() {
             var str = 0;
            
-            $.fn.DataTable.isDataTable("#MaintenanceList");
-            $('#MaintenanceList').DataTable().clear().destroy();
+            $.fn.DataTable.isDataTable("#FuelList");
+            $('#FuelList').DataTable().clear().destroy();
 
             $.ajax({
                 type: 'Get',
@@ -137,7 +137,7 @@
 
         }
         function htmlToDataTable() {
-            var table = $('#MaintenanceList').dataTable(
+            var table = $('#FuelList').dataTable(
                 {
                     "lengthChange": false,
                     "deferRender": true,
