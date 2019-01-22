@@ -62,5 +62,74 @@ namespace AssetMaintenance.BAL
                 return 0;
             }
         }
+
+        public FuelRecordDto getFuelManagerByID(int fuelmanagetid)
+        {
+            if (fuelmanagetid>0)
+            {
+                var fuelmanagerResult = dbCon.Fuel_Record.Where(x => x.Id == fuelmanagetid).Select(x => new FuelRecordDto
+                {
+
+                    Id = x.Id,
+                    FillingStation = x.FillingStation,
+                    PeriodFrom = x.PeriodFrom,
+                    PeriodTo = x.PeriodTo,
+                    RegistrationNo = x.RegistrationNo,
+                    FuelInvoice = x.FuelInvoice ?? 0,
+                    BatchNo = x.BatchNo,
+                    RetailPrice = x.RetailPrice,
+                    Discount = x.Discount ?? 0,
+                    TotalAmount = x.TotalAmount
+
+                }).FirstOrDefault();
+                return fuelmanagerResult;
+            }
+            else
+            {
+               
+                return new FuelRecordDto();
+            }
+            
+            
+        }
+
+        public bool updateFuelRecord(FuelRecordDto model)
+        {
+            try
+            {
+                var fuelmanagerResult = dbCon.Fuel_Record.Where(x => x.Id == model.Id).FirstOrDefault();
+                fuelmanagerResult.BatchNo = model.BatchNo;
+                fuelmanagerResult.FillingStation = model.FillingStation;
+                fuelmanagerResult.PeriodFrom = model.PeriodFrom;
+                fuelmanagerResult.PeriodTo = model.PeriodTo;
+                fuelmanagerResult.RegistrationNo = model.RegistrationNo;
+                fuelmanagerResult.FuelInvoice = model.FuelInvoice;
+                fuelmanagerResult.RetailPrice = model.RetailPrice;
+                fuelmanagerResult.Discount = model.Discount;
+                fuelmanagerResult.TotalAmount = model.TotalAmount;
+
+                dbCon.SaveChanges();
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+           
+            
+        }
+
+        public string deleteFuelManagement(int id)
+        {
+            dbCon.FuelRecord_Detail.RemoveRange(dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == id).ToList());
+            dbCon.SaveChanges();
+            Fuel_Record fuelDelete = dbCon.Fuel_Record.SingleOrDefault(c => c.Id == id);
+         
+            dbCon.Fuel_Record.Remove(fuelDelete);
+            dbCon.SaveChanges();
+            return "Data Deleted successfully.";
+        }
     }
 }

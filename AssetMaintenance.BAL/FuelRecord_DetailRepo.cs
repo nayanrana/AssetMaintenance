@@ -2,6 +2,7 @@
 using AssetMaintenance.DAL;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AssetMaintenance.BAL
@@ -25,6 +26,9 @@ namespace AssetMaintenance.BAL
             try
             {
                 FuelRecord_Detail objFuelDetails;
+                dbCon.FuelRecord_Detail.RemoveRange(dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == fuelId).ToList());
+                dbCon.SaveChanges();
+
                 foreach (var item in lstFuelRecodDto)
                 {
                     objFuelDetails = new FuelRecord_Detail();
@@ -57,6 +61,8 @@ namespace AssetMaintenance.BAL
         {
             try
             {
+                dbCon.FuelRecord_Detail.RemoveRange(dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == fuelId).ToList());
+                dbCon.SaveChanges();
                 FuelRecord_Detail objFuelDetails;
                 foreach (var item in lstFuelRecodDto)
                 {
@@ -85,6 +91,26 @@ namespace AssetMaintenance.BAL
             {
                 return false;
             }
+        }
+
+        public List<FuelRecordManualDto> getFuelDetails(int fuelid)
+        {
+            var fueldetails = dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == fuelid).Select(k => new FuelRecordManualDto
+            {
+                  Amount = k.AmountExVal,
+                  AmountInc = k.AmountInVal,
+                  Date = k.Date,
+                  DiscountAmount = k.Discount,
+                  FillingStation = k.FillingStation,
+                  FuelType = k.FuelType,
+                  QuantityLitre = k.Quantities,
+                  VatAmount = k.VatAmount,
+                  VoucherNumber = k.VoucherNo
+                
+
+            }).ToList();
+
+            return fueldetails;
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AssetMaintenance.BAL;
 using AssetMaintenance.BAL.DTO;
+using AssetMaintenance.DAL;
 using OfficeOpenXml;
 
 namespace AssetMaintenance.UI.Controllers
@@ -16,10 +17,13 @@ namespace AssetMaintenance.UI.Controllers
     {
         public List<FuelRecord_DetailDto> ListFuelRecord = new List<FuelRecord_DetailDto>();
         // GET: FuelManagement
-        public ActionResult Index()
+        public ActionResult Index(int fuelmanagetid=0)
         {
-            FuelRecordDto obj = new FuelRecordDto();
-            return View(obj);
+            FuelRecordRepo obj = new FuelRecordRepo();
+
+           
+            var model = obj.getFuelManagerByID(fuelmanagetid);
+            return View(model);
         }
         public ActionResult List()
         {
@@ -31,7 +35,20 @@ namespace AssetMaintenance.UI.Controllers
         public ActionResult CreateFuelRecord(FuelRecordDto fuel)
         {
             var obj = new FuelRecordRepo();
-            var statusLst = obj.InsertFuelRecord(fuel);
+            int statusLst = 0;
+            if (fuel.Id>0)
+            {
+                if (obj.updateFuelRecord(fuel))
+                {
+                    statusLst = fuel.Id;
+                }
+
+            }
+            else
+            {
+                statusLst = obj.InsertFuelRecord(fuel);
+            }
+           
             if (statusLst != 0)
             {
                 if (fuel.Modeofupload==0)
@@ -290,6 +307,7 @@ namespace AssetMaintenance.UI.Controllers
                 throw ex;
             }
         }
+
         [HttpPost]
         public ActionResult CreateFuelManualRecord(FuelRecordManualDto model)
         {
@@ -301,6 +319,20 @@ namespace AssetMaintenance.UI.Controllers
             TempData["fuelrecordmanuallist"] = lstfuelRecordManuals;
             TempData.Keep("fuelrecordmanuallist");
             return Json(new { msg = "Record added successfully", Html = lstfuelRecordManuals }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetFuelDetails(int fuelmanagetid)
+        {
+            var obj = new FuelRecord_DetailRepo();
+            return Json(new { msg = "Record added successfully", Html = obj.getFuelDetails(fuelmanagetid) }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult DeleteFuelManagementByID(int id)
+        {
+            FuelRecordRepo fulemanagement = new FuelRecordRepo();
+            var model = fulemanagement.deleteFuelManagement(id);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         //[HttpPost]

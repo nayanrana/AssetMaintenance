@@ -50,6 +50,8 @@
                                     <th class="text-center" width="5%">RetailPrice</th>
                                     <th class="text-center" width="5%">Discount</th>
                                     <th class="text-center" width="5%">TotalAmount</th>
+                                    <th class="text-center" width="5%">Edit</th>
+                                    <th class="text-center" width="5%">Delete</th>
                                 </tr>
                             </thead>
                             <tbody id="myBody"></tbody>
@@ -129,6 +131,13 @@
                         tr.append("<td class='text-center' data-title='NextMaintenance'>" + item.RetailPrice + "</td>");
                         tr.append("<td class='text-center' data-title='History'> " + item.Discount + "</td>");
                         tr.append("<td class='text-center' data-title='Edit'> " + item.TotalAmount + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> "
+                            + "<div> <a href='/FuelManagement/Index?fuelmanagetid=" + item.Id + "'  data-asset=" + item.id
+                            + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" + "</td>");
+                        tr.append("<td class='text-center' data-title='Delete'> "
+                            + "<div> <a href='javascript:void(0);' onclick='deleteFuelManagement(" + item.Id + ")' data-asset=" + item.id
+                            + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Delete</span></a></div>" + "</td>");
+
                         $("#FuelList tbody").append(tr);
                     });
                     htmlToDataTable();
@@ -146,7 +155,7 @@
             );
         }
 
-        function deleteMaintenanceType(id) {
+        function deleteFuelManagement(id) {
             swal({
                 title: "Are you sure?",
                 text: "Your will not be able to recover this maintenance Type!",
@@ -163,17 +172,17 @@
                         $.ajax({
                             type: "POST",
                             ///url: '_ViewMaintanence',
-                            url: '@Url.Action("DeleteMaintenanceTypeByID", "MaintenanceType")',
+                            url: '@Url.Action("DeleteFuelManagementByID", "FuelManagement")',
                             datatype: "json",
                             data: { id: id },
                             success: function (data) {
-                                swal("Deleted!", "Maintenance Type has been deleted.", "success");
+                                swal("Deleted!", "Fuel Management has been deleted.", "success");
                                 getMaintenanceByStatusList();
                             }
                         });
 
                     } else {
-                        swal("Cancelled", "Your Maintenance Type is safe :)", "error");
+                        swal("Cancelled", "Your Fuel Management is safe :)", "error");
                     }
                 });
         }

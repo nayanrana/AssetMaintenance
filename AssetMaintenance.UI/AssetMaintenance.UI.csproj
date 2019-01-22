@@ -2648,6 +2648,10 @@
       <Project>{02a8eb56-41af-4d60-93a1-4018f7374cb1}</Project>
       <Name>AssetMaintenance.BAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AssetMaintenance.DAL\AssetMaintenance.DAL.csproj">
+      <Project>{72B343E1-AC74-4611-AE4E-9BBC5BB177EC}</Project>
+      <Name>AssetMaintenance.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AssetMaintenance.Helper\AssetMaintenance.Helper.csproj">
       <Project>{ca9ac332-0ce8-4463-8c1f-6dbbed498ec3}</Project>
       <Name>AssetMaintenance.Helper</Name>
