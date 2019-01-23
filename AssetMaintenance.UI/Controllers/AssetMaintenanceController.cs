@@ -22,8 +22,13 @@ namespace AssetMaintenance.UI.Controllers
         [HttpPost]
         public ActionResult SaveAssestMaintenceType(int assetId,int maintenaceId)
         {
-            obj.SaveAssetMaintenance(assetId, maintenaceId);
-            return Json("Maintenance type successfully assigned to this asset.");
+           var result= obj.SaveAssetMaintenance(assetId, maintenaceId);
+            if (result == true)
+                return Json(new { msg = "Maintenance type successfully assigned to this asset.", type = "success" }, JsonRequestBehavior.AllowGet);
+            else if (result == null)
+                return Json(new { msg = "Maintenance type is already assigned to this asset.", type = "Error" }, JsonRequestBehavior.AllowGet);
+            else
+                return Json("");
         }
 
         [HttpPost]

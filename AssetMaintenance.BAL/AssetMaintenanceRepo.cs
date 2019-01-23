@@ -53,16 +53,20 @@ namespace AssetMaintenance.BAL
             }
         }
 
-        public bool SaveAssetMaintenance(int assestId, int maintenanceId)
+        public bool? SaveAssetMaintenance(int assestId, int maintenanceId)
         {
             try
             {
-                AssetMaintenaceType obj = new AssetMaintenaceType();
-                obj.AssetId = assestId;
-                obj.MaintenceId = maintenanceId;
-                dbCon.AssetMaintenaceTypes.Add(obj);
-                dbCon.SaveChanges();
-                return true;
+                if (!dbCon.AssetMaintenaceTypes.Any(x => x.AssetId == assestId && x.MaintenceId == maintenanceId))
+                {
+                    AssetMaintenaceType obj = new AssetMaintenaceType();
+                    obj.AssetId = assestId;
+                    obj.MaintenceId = maintenanceId;
+                    dbCon.AssetMaintenaceTypes.Add(obj);
+                    dbCon.SaveChanges();
+                    return true;
+                }
+                return null;
             }
             catch (Exception ex)
             {

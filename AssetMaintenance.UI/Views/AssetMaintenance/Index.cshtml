@@ -133,12 +133,19 @@
                 type: 'POST',
                 url: '@Url.Action("SaveAssestMaintenceType", "AssetMaintenance")',
                 data: { assetId: $("#AssetId").val(), maintenaceId: $("#MaintenanceId").val() },
-                dataType: 'HTML',
-                contentType: 'application/x-www-form-urlencoded',
+                dataType: 'JSON',
+                //contentType: 'application/x-www-form-urlencoded',
                 success: function (data) {
-                    AssetAndMaintenanceTypeAssignmentGrid();
-                    toastr.success(data);
-                    clearControls();
+                    debugger;
+                    if (data.type == "success") {
+                        clearControls();
+                        toastr.success(data.msg);
+
+                        AssetAndMaintenanceTypeAssignmentGrid();
+                    }
+                    else
+                        toastr.error(data.msg);
+                   
                 }
             });
         }
