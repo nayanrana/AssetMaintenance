@@ -26,8 +26,8 @@ namespace AssetMaintenance.BAL
             try
             {
                 FuelRecord_Detail objFuelDetails;
-                dbCon.FuelRecord_Detail.RemoveRange(dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == fuelId).ToList());
-                dbCon.SaveChanges();
+                //dbCon.FuelRecord_Detail.RemoveRange(dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == fuelId).ToList());
+                //dbCon.SaveChanges();
 
                 foreach (var item in lstFuelRecodDto)
                 {
@@ -61,8 +61,8 @@ namespace AssetMaintenance.BAL
         {
             try
             {
-                dbCon.FuelRecord_Detail.RemoveRange(dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == fuelId).ToList());
-                dbCon.SaveChanges();
+                //dbCon.FuelRecord_Detail.RemoveRange(dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == fuelId).ToList());
+                //dbCon.SaveChanges();
                 FuelRecord_Detail objFuelDetails;
                 foreach (var item in lstFuelRecodDto)
                 {
