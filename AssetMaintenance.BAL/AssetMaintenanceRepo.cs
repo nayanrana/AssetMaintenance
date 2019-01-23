@@ -1,9 +1,13 @@
-﻿using AssetMaintenance.DAL;
+﻿
+
+
+using AssetMaintenance.DAL;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using AssetMaintenance.BAL.DTO;
+using AssetMaintenance.Helper;
 
 namespace AssetMaintenance.BAL
 {
@@ -59,10 +63,18 @@ namespace AssetMaintenance.BAL
             {
                 if (!dbCon.AssetMaintenaceTypes.Any(x => x.AssetId == assestId && x.MaintenceId == maintenanceId))
                 {
+                    int statusId = dbCon.GFI_AMM_VehicleMaintStatus.FirstOrDefault(d => d.Description.ToLower() == "to schedule").MaintStatusId;
                     AssetMaintenaceType obj = new AssetMaintenaceType();
                     obj.AssetId = assestId;
                     obj.MaintenceId = maintenanceId;
                     dbCon.AssetMaintenaceTypes.Add(obj);
+
+                    GFI_AMM_VehicleMaintenance gfiMaitenceType = new GFI_AMM_VehicleMaintenance();
+                    gfiMaitenceType.AssetId = assestId;
+                    gfiMaitenceType.MaintTypeId_cbo = maintenanceId;
+                    gfiMaitenceType.MaintStatusId_cbo = statusId;
+                    gfiMaitenceType.CreatedDate = DateTime.Now;
+                    dbCon.GFI_AMM_VehicleMaintenance.Add(gfiMaitenceType);
                     dbCon.SaveChanges();
                     return true;
                 }

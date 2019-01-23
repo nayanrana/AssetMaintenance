@@ -10,8 +10,8 @@ namespace AssetMaintenance.BAL.DTO
         public string Asset { get; set; }
         public string AssetNo { get; set; }
         public string Maintenance { get; set; }
-        public DateTime Reminder { get; set; }
-        public DateTime NextMaintenance { get; set; }
+        public DateTime? Reminder { get; set; }
+        public DateTime? NextMaintenance { get; set; }
         public string Category { get; set; }
         public int? ActualOdometer { get; set; }
         public int? ActualEngineHrs { get; set; }
