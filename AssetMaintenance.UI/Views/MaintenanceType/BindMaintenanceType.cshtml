@@ -198,8 +198,14 @@
                             datatype: "json",
                             data: { id: id },
                             success: function (data) {
-                                swal("Deleted!", "Maintenance Type has been deleted.", "success");
-                                getMaintenanceByStatusList();
+                                debugger;
+                                if (!data) {
+                                    swal("Cancelled", "Your Maintenance Type Is Not Delete Because Maintenance Type Is Assigned.", "error");
+                                }
+                                else {
+                                    swal("Deleted!", "Maintenance Type has been deleted.", "success");
+                                    getMaintenanceByStatusList();
+                                }
                             }
                         });
                         

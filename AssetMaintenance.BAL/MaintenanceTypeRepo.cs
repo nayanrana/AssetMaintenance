@@ -84,12 +84,25 @@ namespace AssetMaintenance.BAL
             return "";
         }
 
-        public string deleteMaintType(int id)
+        public bool deleteMaintType(int id)
         {
-            GFI_AMM_VehicleMaintTypes maintType = dbCon.GFI_AMM_VehicleMaintTypes.SingleOrDefault(c => c.MaintTypeId == id);
-            dbCon.GFI_AMM_VehicleMaintTypes.Remove(maintType);
-            dbCon.SaveChanges();
-            return "Data Deleted successfully.";
+            GFI_AMM_VehicleMaintenance deletemtype = dbCon.GFI_AMM_VehicleMaintenance.Where(c=>c.MaintTypeId_cbo == id).FirstOrDefault();
+            if (deletemtype == null)
+            {
+                dbCon.AssetMaintenaceTypes.RemoveRange(dbCon.AssetMaintenaceTypes.Where(c=>c.MaintenceId == id));
+                dbCon.SaveChanges();
+
+                GFI_AMM_VehicleMaintTypes maintType = dbCon.GFI_AMM_VehicleMaintTypes.SingleOrDefault(c => c.MaintTypeId == id);
+                dbCon.GFI_AMM_VehicleMaintTypes.Remove(maintType);
+                dbCon.SaveChanges();
+            }
+            else
+            {
+                return false;
+            }
+
+           
+            return true;
         }
     }
 }
