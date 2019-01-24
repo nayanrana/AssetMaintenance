@@ -131,9 +131,15 @@
                         tr.append("<td class='text-center' data-title='NextMaintenance'>" + item.RetailPrice + "</td>");
                         tr.append("<td class='text-center' data-title='History'> " + item.Discount + "</td>");
                         tr.append("<td class='text-center' data-title='Edit'> " + item.TotalAmount + "</td>");
-                        tr.append("<td class='text-center' data-title='Edit'> "
-                            + "<div> <a href='/FuelManagement/Index?fuelmanagetid=" + item.Id + "'  data-asset=" + item.id
-                            + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" + "</td>");
+                        debugger;
+                        if (item.Is_PaymentReceiptGenerate == true) {
+                            tr.append("<td class='text-center' data-title='Edit'> "
+                                + "<div> <a href='/FuelManagement/Index?fuelmanagetid=" + item.Id + "'  data-asset=" + item.id
+                                + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" + "</td>");
+                        }
+                        else {
+                            tr.append("<td></td>");
+                        }
                         tr.append("<td class='text-center' data-title='Delete'> "
                             + "<div> <a href='javascript:void(0);' onclick='deleteFuelManagement(" + item.Id + ")' data-asset=" + item.id
                             + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Delete</span></a></div>" + "</td>");

@@ -50,7 +50,7 @@
 
                 <div class="col-md-12">
                     <div class="">
-                        @Html.HiddenFor(model=>model.Id)
+                        @Html.HiddenFor(model => model.Id)
                         <div class="">
                             <div class="row">
 
@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Discount</label>
-                                    @Html.TextBoxFor(model => model.Discount, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Discount", id = "Discount", max = "100"})
+                                    @Html.TextBoxFor(model => model.Discount, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Discount", id = "Discount", max = "100" })
                                     @*<input type="text" id="Discount" class="form-control allownumericwithoutdecimal" name="Discount" placeholder="Discount" max="100">*@
                                 </div>
                                 <div class="form-group col-lg-4">
@@ -128,7 +128,7 @@
                                 <div class="form-group col-lg-12 text-right">
                                     @if (Model.Id != 0)
                                     {
-                                        <button class="btn btn-success" id="btnCreateFuelRecord" type="button" >Save</button>
+                                        <button class="btn btn-success" id="btnCreateFuelRecord" type="button">Save</button>
                                     }
                                     else
                                     {
@@ -157,169 +157,169 @@
             </div>
             Item Details
         </div>
-       
+
         <div class="panel-body">
             <div class="row">
                 <table id="fuelDetailsDiv" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%"></table>
             </div>
-                <div class="row">
-                    <div class="col-lg-12 FuelListedit">
-                        <div class="hpanel">
-                                <div class="panel-body">
-                                    <div class="table-responsive">
-                                        <table id="FuelListedit" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" width="5%">Period</th>
-                                                    <th class="text-center" width="5%">Date</th>
-                                                    <th class="text-center" width="10%">FillingStation</th>
-                                                    <th class="text-center" width="5%">ClaimNumber</th>
-                                                    <th class="text-center" width="10%">VoucherNumber</th>
-                                                    <th class="text-center" width="10%">FuelType  </th>
-                                                    <th class="text-center" width="5%">QuantityLitre</th>
-                                                    <th class="text-center" width="8%">Amount </th>
-                                                    <th class="text-center" width="8%">DiscountAmount </th>
-                                                    <th class="text-center" width="8%">VatAmount </th>
-                                                    <th class="text-center" width="8%">AmountInc </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="myBody"></tbody>
-                                        </table>
-                                    </div>
-                                </div>
+            <div class="row">
+                <div class="col-lg-12 FuelListedit">
+                    <div class="hpanel">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table id="FuelListedit" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" width="5%">Period</th>
+                                            <th class="text-center" width="5%">Date</th>
+                                            <th class="text-center" width="10%">FillingStation</th>
+                                            <th class="text-center" width="5%">ClaimNumber</th>
+                                            <th class="text-center" width="10%">VoucherNumber</th>
+                                            <th class="text-center" width="10%">FuelType  </th>
+                                            <th class="text-center" width="5%">QuantityLitre</th>
+                                            <th class="text-center" width="8%">Amount </th>
+                                            <th class="text-center" width="8%">DiscountAmount </th>
+                                            <th class="text-center" width="8%">VatAmount </th>
+                                            <th class="text-center" width="8%">AmountInc </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myBody"></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>   
-                <br />
-                 <form id="manualcreate">
-                    <div class="col-lg-12 manulaentrydiv">
-                                        <div class="collapse in" id="collapseExample">
-                                            <div class="row">
-                                                <div class="form-group col-lg-2">
-                                                    <label>Period</label>
-                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.Period, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Period", id = "ManualPeriod" })
-                                                </div>
+                </div>
+            </div>
+            <br />
+            <form id="manualcreate">
+                <div class="col-lg-12 manulaentrydiv">
+                    <div class="collapse in" id="collapseExample">
+                        <div class="row">
+                            <div class="form-group col-lg-2">
+                                <label>Period</label>
+                                @Html.TextBoxFor(model => model.fuelRecordManualDto.Period, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Period", id = "ManualPeriod" })
+                            </div>
 
-                                                <div class="form-group col-lg-2">
-                                                    <label>Date</label>
-                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.Date, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Date", id = "ManualDate" })
-                                                </div>
-                                                <div class="form-group col-lg-4">
-                                                    <label>Claim No.</label>
+                            <div class="form-group col-lg-2">
+                                <label>Date</label>
+                                @Html.TextBoxFor(model => model.fuelRecordManualDto.Date, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Date", id = "ManualDate" })
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Claim No.</label>
 
-                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.ClaimNumber, new { @class = "form-control allownumericwithdecimal", placeholder = "Claim No.", id = "ManualClaimNo" })
+                                @Html.TextBoxFor(model => model.fuelRecordManualDto.ClaimNumber, new { @class = "form-control allownumericwithdecimal", placeholder = "Claim No.", id = "ManualClaimNo" })
 
-                                                    @*<input type="text" id="ManualClaimNo" class="form-control allownumericwithdecimal" name="ClaimNo" placeholder="Claim No.">*@
-                                                </div>
-                                                <div class="form-group col-lg-4">
-                                                    <label>Voucher No.</label>
-                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.VoucherNumber, new { @class = "form-control allownumericwithdecimal", placeholder = "Voucher No.", id = "ManualVoucherNo" })
-                                                    @*<input id="ManualVoucherNo" class="form-control allownumericwithdecimal" name="VoucherNo" placeholder="Voucher No.">*@
-                                                </div>
-                                                <div class="form-group col-lg-4">
-                                                    <label>Filling Station</label>
-                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.FillingStation, new { @class = "form-control", placeholder = "Filling Station", id = "ManualFillingStation" })
-                                                    @*<input id="ManualFillingStation" class="form-control" name="FillingStation" placeholder="Filling Station">*@
-                                                </div>
-                                                <div class="form-group col-lg-4">
-                                                    <label>Fuel Type<span class="req">*</span></label>
-                                                    @Html.DropDownListFor(m => m.fuelRecordManualDto.FuelType,
-                                                    new SelectList(new List<SelectListItem>
-                                                        {
-                                                        new SelectListItem { Text = "Petrol", Value = "Petrol"},
-                                                        new SelectListItem { Text = "Diesel", Value = "Diesel"}
-                                                        }, "Value", "Text"),
-                                                        "- Select Avail. Type -",
-                                                        new { @class = "form-control", id = "ManualFuelType"})
-                                                </div>
+                                @*<input type="text" id="ManualClaimNo" class="form-control allownumericwithdecimal" name="ClaimNo" placeholder="Claim No.">*@
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Voucher No.</label>
+                                @Html.TextBoxFor(model => model.fuelRecordManualDto.VoucherNumber, new { @class = "form-control allownumericwithdecimal", placeholder = "Voucher No.", id = "ManualVoucherNo" })
+                                @*<input id="ManualVoucherNo" class="form-control allownumericwithdecimal" name="VoucherNo" placeholder="Voucher No.">*@
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Filling Station</label>
+                                @Html.TextBoxFor(model => model.fuelRecordManualDto.FillingStation, new { @class = "form-control", placeholder = "Filling Station", id = "ManualFillingStation" })
+                                @*<input id="ManualFillingStation" class="form-control" name="FillingStation" placeholder="Filling Station">*@
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Fuel Type<span class="req">*</span></label>
+                                @Html.DropDownListFor(m => m.fuelRecordManualDto.FuelType,
+                                new SelectList(new List<SelectListItem>
+                                    {
+                                    new SelectListItem { Text = "Petrol", Value = "Petrol"},
+                                    new SelectListItem { Text = "Diesel", Value = "Diesel"}
+                                    }, "Value", "Text"),
+                                    "- Select Avail. Type -",
+                                    new { @class = "form-control", id = "ManualFuelType"})
+                            </div>
 
-                                                <div class="form-group col-lg-4">
-                                                    <label>Quantityx Litre<span class="req">*</span></label>
-                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.QuantityLitre, new { @class = "form-control allownumericwithdecimal", placeholder = "Quantity Litre", id = "ManualQuantityLitre" })
-                                                    @*<input type="text" id="ManualQuantityLiter" class="form-control allownumericwithdecimal" name="QuantityLiter" placeholder="Quantity Liter" required>*@
-                                                </div>
-                                                <div class="form-group col-lg-4">
-                                                    <label>Amount(Excl. Vat)</label>
-                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.Amount, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount(Excl. Vat)", id = "ManualAmount" })
-                                                    @*<input type="text" id="ManualAmount" class="form-control allownumericwithdecimal" name="Amount" placeholder="Amount">*@
-                                                </div>
-                                                <div class="form-group col-lg-4">
-                                                    <label>Discount Amount</label>
-                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.DiscountAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Discount Amount", id = "ManualDiscountAmount", max = "100"})
-                                                    @*<input type="text" id="ManualDiscountAmount" class="form-control allownumericwithoutdecimal" name="DiscountAmount" placeholder="Discount Amount" max="100">*@
-                                                </div>
-                                                <div class="form-group col-lg-4">
-                                                    <label>Vat Amount</label>
-                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.VatAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Vat Amount", id = "MaunalVatAmount" })
-                                                    @*<input type="text" id="MaunalVatAmount" class="form-control allownumericwithdecimal" name="VatAmount" placeholder="Vat Amount">*@
-                                                </div>
-                                                <div class="form-group col-lg-4">
-                                                    <label>Amount inc.vat</label>
-                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.AmountInc, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount inc.vat", id = "ManualAmountInc" })
-                                                    @*<input type="text" id="ManualAmountInc" class="form-control allownumericwithdecimal" name="AmountInc" placeholder="Amount inc.vat">*@
-                                                </div>
-                                                <div class="form-group col-lg-12 text-right">
-                                                    <button class="btn btn-success" id="btnCreateFuelManualRecord" onclick="FuelManagementGrid()" type="button">Save</button>
-                                                    <button id="btnCancel" type="reset" class="cancel btn btn-default">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                            <div class="form-group col-lg-4">
+                                <label>Quantityx Litre<span class="req">*</span></label>
+                                @Html.TextBoxFor(model => model.fuelRecordManualDto.QuantityLitre, new { @class = "form-control allownumericwithdecimal", placeholder = "Quantity Litre", id = "ManualQuantityLitre" })
+                                @*<input type="text" id="ManualQuantityLiter" class="form-control allownumericwithdecimal" name="QuantityLiter" placeholder="Quantity Liter" required>*@
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Amount(Excl. Vat)</label>
+                                @Html.TextBoxFor(model => model.fuelRecordManualDto.Amount, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount(Excl. Vat)", id = "ManualAmount" })
+                                @*<input type="text" id="ManualAmount" class="form-control allownumericwithdecimal" name="Amount" placeholder="Amount">*@
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Discount Amount</label>
+                                @Html.TextBoxFor(model => model.fuelRecordManualDto.DiscountAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Discount Amount", id = "ManualDiscountAmount", max = "100" })
+                                @*<input type="text" id="ManualDiscountAmount" class="form-control allownumericwithoutdecimal" name="DiscountAmount" placeholder="Discount Amount" max="100">*@
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Vat Amount</label>
+                                @Html.TextBoxFor(model => model.fuelRecordManualDto.VatAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Vat Amount", id = "MaunalVatAmount" })
+                                @*<input type="text" id="MaunalVatAmount" class="form-control allownumericwithdecimal" name="VatAmount" placeholder="Vat Amount">*@
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>Amount inc.vat</label>
+                                @Html.TextBoxFor(model => model.fuelRecordManualDto.AmountInc, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount inc.vat", id = "ManualAmountInc" })
+                                @*<input type="text" id="ManualAmountInc" class="form-control allownumericwithdecimal" name="AmountInc" placeholder="Amount inc.vat">*@
+                            </div>
+                            <div class="form-group col-lg-12 text-right">
+                                <button class="btn btn-success" id="btnCreateFuelManualRecord" onclick="FuelManagementGrid()" type="button">Save</button>
+                                <button id="btnCancel" type="reset" class="cancel btn btn-default">Cancel</button>
+                            </div>
+                        </div>
                     </div>
-            </form>                   
+
+                </div>
+            </form>
         </div>
 
 
 
-                            <div class="row manulaentrydiv">
-                                <div class="col-lg-12">
-                                    <div class="hpanel">
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <table id="FuelList" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-center" width="5%">Period</th>
-                                                            <th class="text-center" width="5%">Date</th>
-                                                            <th class="text-center" width="10%">FillingStation</th>
-                                                            <th class="text-center" width="5%">ClaimNumber</th>
-                                                            <th class="text-center" width="10%">VoucherNumber</th>
-                                                            <th class="text-center" width="10%">FuelType  </th>
-                                                            <th class="text-center" width="5%">QuantityLitre</th>
-                                                            <th class="text-center" width="8%">Amount </th>
-                                                            <th class="text-center" width="8%">DiscountAmount </th>
-                                                            <th class="text-center" width="8%">VatAmount </th>
-                                                            <th class="text-center" width="8%">AmountInc </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="myBody"></tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <table id="fuelManualDetailsDiv" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%"></table>
+        <div class="row manulaentrydiv">
+            <div class="col-lg-12">
+                <div class="hpanel">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="FuelList" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" width="5%">Period</th>
+                                        <th class="text-center" width="5%">Date</th>
+                                        <th class="text-center" width="10%">FillingStation</th>
+                                        <th class="text-center" width="5%">ClaimNumber</th>
+                                        <th class="text-center" width="10%">VoucherNumber</th>
+                                        <th class="text-center" width="10%">FuelType  </th>
+                                        <th class="text-center" width="5%">QuantityLitre</th>
+                                        <th class="text-center" width="8%">Amount </th>
+                                        <th class="text-center" width="8%">DiscountAmount </th>
+                                        <th class="text-center" width="8%">VatAmount </th>
+                                        <th class="text-center" width="8%">AmountInc </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="myBody"></tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table id="fuelManualDetailsDiv" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%"></table>
+    </div>
+</div>
 
 
-                    @Html.Partial("_ViewUploadFile")
-                    @section Styles {
-                        @Styles.Render("~/bundles/datepicker/css")
-                        @Styles.Render("~/bundles/datatables/css")
+@Html.Partial("_ViewUploadFile")
+@section Styles {
+    @Styles.Render("~/bundles/datepicker/css")
+    @Styles.Render("~/bundles/datatables/css")
 
-                    }
-                    @section Scripts {
-                        @Scripts.Render("~/bundles/validation/js")
-                        @Scripts.Render("~/bundles/datepicker/js")
-                        @Scripts.Render("~/bundles/datatables/js")
-                        @Scripts.Render("~/bundles/datatablesBootstrap/js")
-                        @Scripts.Render("~/bundles/datatablesPlugins/js")
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/validation/js")
+    @Scripts.Render("~/bundles/datepicker/js")
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
 
-                        <script type="text/javascript">
+    <script type="text/javascript">
     toastr.options = {
         "debug": false,
         "newestOnTop": false,
@@ -341,7 +341,7 @@
             else {
                 $('.FuelListedit').hide();
             }
-          
+
           //  getFuelRecordList();
 
             htmlToDataTable();
@@ -390,6 +390,7 @@
                      formData.append('Discount', $("#Discount").val());
                      formData.append('TotalAmount', $("#TotalAmount").val());
                      formData.append('Modeofupload', $("input[name='mode']:checked").val());
+                     formData.append('Is_PaymentReceiptGenerate', isConfirm);
 
                      $.ajax({
                          type: 'POST',
@@ -401,7 +402,7 @@
                          success: function (data) {
                              getFuelRecordList();
                              $($("#createFuelRecordForm input").val(''));
-                             
+
                              toastr.success("Fuel Record inserted successfully.");
                              window.location.href = '/FuelManagement/List';
                              $('.FuelListedit').remove();
@@ -433,7 +434,7 @@
                         tr.append("<td class='text-center' data-title='Edit'> " + item.TotalAmount +"</td>");
                         $("#FuelList tbody").append(tr);
                     });
-                    
+
                 }
             });
         }
@@ -515,7 +516,6 @@
         }
 
         function FuelManagementGrid() {
-            debugger;
             if ($("#manualcreate").valid() == false) {
                 return;
             }
@@ -581,7 +581,7 @@
         $(function () {
             $('.excelform').hide();
             $('.manulaentrydiv').hide();
-            
+
             $("#Excel").click(function () {
                 $('.excelform').hide();
                 $('.manulaentrydiv').hide();
@@ -598,15 +598,15 @@
 
 
 
-                        </script>
+    </script>
 
 
-                        @if (Model.Id != 0)
-                        {
-                            <script>
+    @if (Model.Id != 0)
+    {
+        <script>
 
 
-                                $('.FuelListedit').show();
+          $('.FuelListedit').show();
             $.ajax({
             type: 'Get',
             url: '/FuelManagement/GetFuelDetails?fuelmanagetid=' + @Model.Id,
@@ -639,12 +639,12 @@
                             "deferRender": true,
                         }
                     );
-                    
+
                     //$('.manulaentrydiv').show();
                 }
             });
-          </script>
+        </script>
 
-                        }
+    }
 
-                    }
+}

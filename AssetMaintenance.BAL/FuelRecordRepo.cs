@@ -31,7 +31,8 @@ namespace AssetMaintenance.BAL
                 BatchNo = x.BatchNo,
                 RetailPrice = x.RetailPrice,
                 Discount = x.Discount,
-                TotalAmount = x.TotalAmount
+                TotalAmount = x.TotalAmount,
+                Is_PaymentReceiptGenerate=x.Is_PaymentReceiptGenerate
             });
             return fuelList.ToList();
         }
@@ -44,7 +45,7 @@ namespace AssetMaintenance.BAL
                 ful.FillingStation = fuel.FillingStation;
                 ful.PeriodFrom = fuel.PeriodFrom;
                 ful.PeriodTo = fuel.PeriodTo;
-
+                ful.Is_PaymentReceiptGenerate = fuel.Is_PaymentReceiptGenerate;
                 ful.RegistrationNo = fuel.RegistrationNo;
                 ful.FuelInvoice = fuel.FuelInvoice;
                 ful.BatchNo = fuel.BatchNo;
@@ -107,6 +108,7 @@ namespace AssetMaintenance.BAL
                 fuelmanagerResult.RetailPrice = model.RetailPrice;
                 fuelmanagerResult.Discount = model.Discount;
                 fuelmanagerResult.TotalAmount = model.TotalAmount;
+                fuelmanagerResult.Is_PaymentReceiptGenerate = model.Is_PaymentReceiptGenerate;
 
                 dbCon.SaveChanges();
 
