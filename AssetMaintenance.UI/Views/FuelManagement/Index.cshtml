@@ -89,7 +89,7 @@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Discount</label>
-                                    @Html.TextBoxFor(model => model.Discount, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Discount", id = "Discount" })
+                                    @Html.TextBoxFor(model => model.Discount, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Discount", id = "Discount", max = "100"})
                                     @*<input type="text" id="Discount" class="form-control allownumericwithoutdecimal" name="Discount" placeholder="Discount" max="100">*@
                                 </div>
                                 <div class="form-group col-lg-4">
@@ -116,8 +116,7 @@
                                     <a href="~/Template/Fuel Template.xlsx" download class="btn-link">Download format </a>&nbsp;&nbsp;
 
                                 </div>
-                                <div class="form-group col-lg-2 excelform">
-
+                                <div class="form-group col-lg-3 excelform">
                                     <label>File Upload</label>
                                     <input type="file" id="fileBrowse" />
                                 </div>
@@ -246,7 +245,7 @@
                                                 </div>
                                                 <div class="form-group col-lg-4">
                                                     <label>Discount Amount</label>
-                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.DiscountAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Discount Amount", id = "ManualDiscountAmount" })
+                                                    @Html.TextBoxFor(model => model.fuelRecordManualDto.DiscountAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Discount Amount", id = "ManualDiscountAmount", max = "100"})
                                                     @*<input type="text" id="ManualDiscountAmount" class="form-control allownumericwithoutdecimal" name="DiscountAmount" placeholder="Discount Amount" max="100">*@
                                                 </div>
                                                 <div class="form-group col-lg-4">
@@ -549,7 +548,7 @@
                       $("#FuelList tbody").html("");
                       $.fn.DataTable.isDataTable("#FuelList");
                       $('#FuelList').DataTable().clear().destroy();
-                      $('#btnCreateFuelRecord').prop('enabled', true);
+                      $('#btnCreateFuelRecord').prop('disabled', false);
                       $.each(data.Html, function (i, item) {
                             var tr;
                             tr = $('<tr />');
@@ -571,6 +570,7 @@
                       htmlToDataTable();
                       document.getElementById("manualcreate").reset();
                       $('.FuelListedit').remove();
+                      $('#btnCreateFuelRecord').prop('disabled', false);
                   }
              });
         }
