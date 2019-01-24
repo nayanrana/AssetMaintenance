@@ -22,14 +22,15 @@ namespace AssetMaintenance.DAL
     
         public int Id { get; set; }
         public string FillingStation { get; set; }
-        public Nullable<System.DateTime> PeriodTo { get; set; }
         public Nullable<System.DateTime> PeriodFrom { get; set; }
+        public Nullable<System.DateTime> PeriodTo { get; set; }
         public string RegistrationNo { get; set; }
         public Nullable<decimal> FuelInvoice { get; set; }
         public int BatchNo { get; set; }
         public decimal RetailPrice { get; set; }
         public Nullable<decimal> Discount { get; set; }
         public Nullable<decimal> TotalAmount { get; set; }
+        public Nullable<bool> Is_PaymentReceiptGenerate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FuelRecord_Detail> FuelRecord_Detail { get; set; }
