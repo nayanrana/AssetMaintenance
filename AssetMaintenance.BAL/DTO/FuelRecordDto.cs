@@ -33,7 +33,7 @@ namespace AssetMaintenance.BAL.DTO
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
         public string FillingStation { get; set; }
-        
+        public Int64 Id { get; set; }
         public int ClaimNumber { get; set; }
         public string VoucherNumber { get; set; }
         public string FuelType { get; set; }

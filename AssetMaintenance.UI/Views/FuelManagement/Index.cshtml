@@ -181,6 +181,7 @@
                                             <th class="text-center" width="8%">DiscountAmount </th>
                                             <th class="text-center" width="8%">VatAmount </th>
                                             <th class="text-center" width="8%">AmountInc </th>
+                                            <th class="text-center" width="5%">Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody id="myBody"></tbody>
@@ -194,6 +195,8 @@
             <form id="manualcreate">
                 <div class="col-lg-12 manulaentrydiv">
                     <div class="collapse in" id="collapseExample">
+                        @Html.HiddenFor(model => model.fuelRecordManualDto.Id);
+
                         <div class="row">
                             <div class="form-group col-lg-2">
                                 <label>Period</label>
@@ -605,44 +608,192 @@
     {
         <script>
 
+            function editgridload() {
+                $('.FuelListedit').show();
+                $.ajax({
+                    type: 'Get',
+                    url: '/FuelManagement/GetFuelDetails?fuelmanagetid=' + @Model.Id,
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        $("#FuelListedit tbody").html("");
+                        $.fn.DataTable.isDataTable("#FuelListedit");
+                        $('#FuelListedit').DataTable().clear().destroy();
+                        $.each(data.Html, function (i, item) {
+                            debugger;
+                            var tr;
+                            tr = $('<tr />');
+                            tr.append("<td class='text-center'>" + getFormattedDate(item.Period) + "</td>");
+                            tr.append("<td class='text-center'>" + getFormattedDate(item.Date) + "</td>");
+                            tr.append("<td class='text-center'>" + item.FillingStation + "</td>");
+                            tr.append("<td class='text-center'>" + item.ClaimNumber + "</td>");
+                            tr.append("<td class='text-center'>" + item.VoucherNumber + "</td>");
+                            tr.append("<td class='text-center'>" + item.FuelType + "</td>");
+                            tr.append("<td class='text-center'> " + item.QuantityLitre + "</td>");
+                            tr.append("<td class='text-center'> " + item.Amount + "</td>");
+                            tr.append("<td class='text-center'> " + item.DiscountAmount + "</td>");
+                            tr.append("<td class='text-center'> " + item.VatAmount + "</td>");
+                            tr.append("<td class='text-center'> " + item.AmountInc + "</td>");
+                            tr.append("<td class='text-center' data-title='Edit'> "
+                                + "<div> <a href= 'javascript:void(0);' onclick='gridedit(" + item.Id + ")'  data-asset=" + item.id
+                                + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" + "</td>");
 
-          $('.FuelListedit').show();
-            $.ajax({
-            type: 'Get',
-            url: '/FuelManagement/GetFuelDetails?fuelmanagetid=' + @Model.Id,
-            dataType: 'json',
-            contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    $("#FuelListedit tbody").html("");
-                    $.fn.DataTable.isDataTable("#FuelListedit");
-                    $('#FuelListedit').DataTable().clear().destroy();
-                    $.each(data.Html, function (i, item) {
-                        var tr;
-                        tr = $('<tr />');
-                        tr.append("<td class='text-center'>" + getFormattedDate(item.Period) + "</td>");
-                        tr.append("<td class='text-center'>" + getFormattedDate(item.Date) + "</td>");
-                        tr.append("<td class='text-center'>" + item.FillingStation + "</td>");
-                        tr.append("<td class='text-center'>" + item.ClaimNumber + "</td>");
-                        tr.append("<td class='text-center'>" + item.VoucherNumber + "</td>");
-                        tr.append("<td class='text-center'>" + item.FuelType + "</td>");
-                        tr.append("<td class='text-center'> " + item.QuantityLitre + "</td>");
-                        tr.append("<td class='text-center'> " + item.Amount + "</td>");
-                        tr.append("<td class='text-center'> " + item.DiscountAmount + "</td>");
-                        tr.append("<td class='text-center'> " + item.VatAmount + "</td>");
-                        tr.append("<td class='text-center'> " + item.AmountInc + "</td>");
-                        $("#FuelListedit tbody").append(tr);
-                    });
-                   // htmlToDataTable();
-                    var table = $('#FuelListedit').dataTable(
-                        {
-                            "lengthChange": false,
-                            "deferRender": true,
-                        }
-                    );
+                            $("#FuelListedit tbody").append(tr);
+                        });
+                        // htmlToDataTable();
+                        var table = $('#FuelListedit').dataTable(
+                            {
+                                "lengthChange": false,
+                                "deferRender": true,
+                            }
+                        );
 
-                    //$('.manulaentrydiv').show();
+                        //$('.manualcreate').show();
+                    }
+                });
+            }
+            editgridload();
+            function gridedit(id) {
+
+
+                $.ajax({
+                 type: 'Get',
+                 
+                  cache: false,
+                  contentType: false,
+                    processData: false,
+                    url: '@Url.Action("GetFuelManualDetails", "FuelManagement")?fuelmanagemaualbyid=' + id,
+                  dataType: 'json',
+                    success: function (data) {
+
+                        debugger;
+                      $("#FuelList tbody").html("");
+                      $.fn.DataTable.isDataTable("#FuelList");
+                      $('#FuelList').DataTable().clear().destroy();
+                        $('#btnCreateFuelRecord').prop('disabled', false);
+                        var item = data.Html;
+                         
+                           $("#ManualPeriod").val(getFormattedDate(item.Period));
+                           $("#ManualDate").val(getFormattedDate(item.Date));
+                           $("#ManualClaimNo").val(item.ClaimNumber);
+                           $("#ManualVoucherNo").val(item.VoucherNumber);
+                           $("#ManualFillingStation").val(item.FillingStation);
+                           $("#ManualFuelType").val(item.FuelType);
+                           $("#ManualQuantityLitre").val(item.QuantityLitre);
+                           $("#ManualAmount").val(item.Amount);
+                           $("#ManualDiscountAmount").val(item.DiscountAmount);
+                           $("#MaunalVatAmount").val(item.VatAmount);
+                           $("#ManualAmountInc").val(item.AmountInc);
+                        $('.manulaentrydiv').show();
+                        $('#FuelList').hide();
+                        $("#fuelRecordManualDto_Id").val(item.Id);
+
+                        $('#btnCreateFuelManualRecord').removeAttr('onclick');
+                        $('#btnCreateFuelManualRecord').attr('onClick', 'updatefuelmanagementmanual()');
+                        $('#btnCreateFuelManualRecord').prop('disabled', false);
+                    }
+
+             });
+
+                //alert(id);
+                 
+                @*if ($("#manualcreate").valid() == false) {
+                    return;
                 }
-            });
+
+                // var datastring = $("#manualcreate").serialize();
+                var formData = new FormData();
+                // formData.append("btnCreateFuelManualRecord");
+                formData.append('Period', $("#ManualPeriod").val());
+                formData.append('Date', $("#ManualDate").val());
+                formData.append('ClaimNumber', $("#ManualClaimNo").val());
+
+                formData.append('VoucherNumber', $("#ManualVoucherNo").val());
+                formData.append('FillingStation', $("#ManualFillingStation").val());
+                formData.append('FuelType', $("#ManualFuelType").val());
+                formData.append('QuantityLitre', $("#ManualQuantityLitre").val());
+                formData.append('Amount', $("#ManualAmount").val());
+                formData.append('DiscountAmount', $("#ManualDiscountAmount").val());
+                formData.append('VatAmount', $("#MaunalVatAmount").val());
+                formData.append('AmountInc', $("#ManualAmountInc").val());
+
+                 $.ajax({
+                 type: 'POST',
+                 data: formData,
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+                  url: '@Url.Action("CreateFuelRecordManual", "FuelManagement")',
+                  dataType: 'json',
+                  success: function (data) {
+                      $("#FuelList tbody").html("");
+                      $.fn.DataTable.isDataTable("#FuelList");
+                      $('#FuelList').DataTable().clear().destroy();
+                      $('#btnCreateFuelRecord').prop('disabled', false);
+                      $.each(data.Html, function (i, item) {
+                            var tr;
+                            tr = $('<tr />');
+                            tr.append("<td class='text-center'>" + getFormattedDate(item.Period) + "</td>");
+                          tr.append("<td class='text-center'>" + getFormattedDate(item.Date) + "</td>");
+                          tr.append("<td class='text-center'>" + item.FillingStation + "</td>");
+                            tr.append("<td class='text-center'>" + item.ClaimNumber + "</td>");
+                            tr.append("<td class='text-center'>" + item.VoucherNumber + "</td>");
+                            tr.append("<td class='text-center'>" + item.FuelType + "</td>");
+                            tr.append("<td class='text-center'> " + item.QuantityLitre + "</td>");
+                            tr.append("<td class='text-center'> " + item.Amount + "</td>");
+                            tr.append("<td class='text-center'> " + item.DiscountAmount + "</td>");
+                            tr.append("<td class='text-center'> " + item.VatAmount + "</td>");
+                            tr.append("<td class='text-center'> " + item.AmountInc + "</td>");
+
+                          $("#FuelList tbody").append(tr);
+
+                      });
+                      htmlToDataTable();
+                      document.getElementById("manualcreate").reset();
+                      $('.FuelListedit').remove();
+                      $('#btnCreateFuelRecord').prop('disabled', false);
+                  }
+             });*@   
+            };
+
+            function updatefuelmanagementmanual() {
+
+                var formData = new FormData();
+                
+                formData.append('Period', $("#ManualPeriod").val());
+                formData.append('Date', $("#ManualDate").val());
+                formData.append('ClaimNumber', $("#ManualClaimNo").val());
+                formData.append('VoucherNumber', $("#ManualVoucherNo").val());
+                formData.append('FillingStation', $("#ManualFillingStation").val());
+                formData.append('FuelType', $("#ManualFuelType").val());
+                formData.append('QuantityLitre', $("#ManualQuantityLitre").val());
+                formData.append('Amount', $("#ManualAmount").val());
+                formData.append('DiscountAmount', $("#ManualDiscountAmount").val());
+                formData.append('VatAmount', $("#MaunalVatAmount").val());
+                formData.append('AmountInc', $("#ManualAmountInc").val());
+                formData.append('Id', $("#fuelRecordManualDto_Id").val());
+               
+
+                $.ajax({
+                 type: 'POST',
+                 data: formData,
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+                  url: '@Url.Action("CreateFuelRecordManual", "FuelManagement")',
+                  dataType: 'json',
+                  success: function (data) {
+                     
+                     
+                      toastr.success("Fuel Record Updated successfully.");
+                      editgridload();
+                      document.getElementById("manualcreate").reset();
+                      $('#btnCreateFuelManualRecord').prop('disabled', true);
+                  }
+             });
+            }
+
+           
         </script>
 
     }

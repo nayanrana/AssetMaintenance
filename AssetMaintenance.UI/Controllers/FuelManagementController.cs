@@ -73,6 +73,9 @@ namespace AssetMaintenance.UI.Controllers
             }
         }
 
+       
+
+
         [HttpGet]
         public ActionResult ViewFuelList()
         {
@@ -333,6 +336,30 @@ namespace AssetMaintenance.UI.Controllers
             FuelRecordRepo fulemanagement = new FuelRecordRepo();
             var model = fulemanagement.deleteFuelManagement(id);
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetFuelManualDetails(int fuelmanagemaualbyid)
+        {
+            var obj = new FuelRecord_DetailRepo();
+            return Json(new { msg = "Record added successfully", Html = obj.getFuelDetailsByid(fuelmanagemaualbyid) }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CreateFuelRecordManual(FuelRecordManualDto fuelmanual)
+        {
+            var obj = new FuelRecord_DetailRepo();
+            Int64 statusLst = 0;
+            if (obj.updateFuelRecordManual(fuelmanual))
+            {
+                statusLst = fuelmanual.Id;
+                return Json("Record Update successfully.");
+            }
+            else
+            {
+                return Json("Something went wrong.");
+
+            }
         }
 
         //[HttpPost]
