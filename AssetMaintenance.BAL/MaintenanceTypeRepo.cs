@@ -86,19 +86,20 @@ namespace AssetMaintenance.BAL
 
         public bool deleteMaintType(int id)
         {
-            GFI_AMM_VehicleMaintenance deletemtype = dbCon.GFI_AMM_VehicleMaintenance.Where(c=>c.MaintTypeId_cbo == id).FirstOrDefault();
+            GFI_AMM_VehicleMaintenance deletemtype = dbCon.GFI_AMM_VehicleMaintenance.Where(c=>c.MaintTypeId_cbo == id && c.UpdatedDate == null).FirstOrDefault();
             if (deletemtype == null)
             {
-                dbCon.AssetMaintenaceTypes.RemoveRange(dbCon.AssetMaintenaceTypes.Where(c=>c.MaintenceId == id));
+                return false;
+            }
+            else
+            {
+                dbCon.AssetMaintenaceTypes.RemoveRange(dbCon.AssetMaintenaceTypes.Where(c => c.MaintenceId == id));
                 dbCon.SaveChanges();
 
                 GFI_AMM_VehicleMaintTypes maintType = dbCon.GFI_AMM_VehicleMaintTypes.SingleOrDefault(c => c.MaintTypeId == id);
                 dbCon.GFI_AMM_VehicleMaintTypes.Remove(maintType);
                 dbCon.SaveChanges();
-            }
-            else
-            {
-                return false;
+                
             }
 
            
