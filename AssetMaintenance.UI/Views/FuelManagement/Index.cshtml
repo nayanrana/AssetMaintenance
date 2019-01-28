@@ -160,12 +160,15 @@
 
         <div class="panel-body">
             <div class="row">
-                <table id="fuelDetailsDiv" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%"></table>
+                <table id="fuelDetailsDiv" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
+                    <tbody id="myBody"></tbody>
+                </table>
             </div>
-            <br />
-        </div>
+          
+                <br />
+            </div>
 
-    </div>
+        </div>
 
 </div>
 
@@ -399,7 +402,7 @@
         }
         function CreateItemList(response) {
             var amtTotal = 0, discount = 0, vatTotal = 0, amtVat = 0;
-
+            debugger;
             $.each(response.Html, function (i, item) {
                 var tr;
                 tr = $('<tr />');
@@ -435,10 +438,10 @@
                 }
                 $("#tblUploadedData tbody").append(tr);
             });
-            $("#tblUploadedData #tfootAmtTotal").html(($("#tblUploadedData #tfootAmtTotal").text() == "" ? 0 : parseFloat($("#tblUploadedData #tfootAmtTotal").text())) + amtTotal);
-            $("#tblUploadedData #tfootDiscount").html(($("#tblUploadedData #tfootDiscount").text() == "" ? 0 : parseFloat($("#tblUploadedData #tfootDiscount").text())) + vatTotal);
-            $("#tblUploadedData #tfootVatTotal").html(($("#tblUploadedData #tfootVatTotal").text() == "" ? 0 : parseFloat($("#tblUploadedData #tfootVatTotal").text())) + discount);
-            $("#tblUploadedData #tfootAmtVatTotal").html(($("#tblUploadedData #tfootAmtVatTotal").text() == "" ? 0 : parseFloat($("#tblUploadedData #tfootAmtVatTotal").text())) + amtVat);
+            $("#tblUploadedData #tfootAmtTotal").html(amtTotal);
+            $("#tblUploadedData #tfootDiscount").html(vatTotal);
+            $("#tblUploadedData #tfootVatTotal").html(discount);
+            $("#tblUploadedData #tfootAmtVatTotal").html(amtVat);
         }
 
         $(function () {
@@ -469,8 +472,7 @@
         <script>
 
             function editgridload() {
-
-                $.ajax({
+                debugger;                $.ajax({
                     type: 'Get',
                     url: '/FuelManagement/GetFuelDetails?fuelmanagetid=' + @Model.Id,
                     dataType: 'json',
@@ -478,7 +480,13 @@
                     success: function (data) {
                         CreateItemList(data);
                         $("#fuelDetailsDiv").html('').html($("#tblUploadedData").html());
-                        htmlToDataTable();
+                       // htmlToDataTable();
+                        var table = $('#fuelDetailsDiv').dataTable(
+                            {
+                                "lengthChange": false,
+                                "deferRender": true,
+                            }
+                        );
                     }
                 });
             }
