@@ -127,17 +127,17 @@
                     $.each(data, function (i, item) {
                         var tr;
                         tr = $('<tr />');
-                        tr.append("<td class='text-center' data-title='AssetNo'>" + getFormattedDate(item.PeriodFrom) + "</td>");
-                        tr.append("<td class='text-center' data-title='AssetNo'>" + getFormattedDate(item.PeriodTo) + "</td>");
-                        tr.append("<td class='text-center' data-title='Maintenance'>" + item.ClaimNumber + "</td>");
-                        tr.append("<td class='text-center' data-title='Status'>" + item.VoucherNumber + "</td>");
-                        tr.append("<td class='text-center' data-title='Reminder'>" + item.FillingStation + "</td>");
-                        tr.append("<td class='text-center' data-title='NextMaintenance'>" + item.FuelType + "</td>");
-                        tr.append("<td class='text-center' data-title='History'> " + item.QuantityLitre + "</td>");
-                        tr.append("<td class='text-center' data-title='Edit'> " + item.AmountExclVat + "</td>");
-                        tr.append("<td class='text-center' data-title='Edit'> " + item.DiscountAmount + "</td>");
-                        tr.append("<td class='text-center' data-title='Edit'> " + item.VatAmount + "</td>");
-                        tr.append("<td class='text-center' data-title='Edit'> " + item.AmountIncVat + "</td>");
+                        tr.append("<td class='text-center' data-title='AssetNo'>" + (item.PeriodFrom==null?"-": getFormattedDate(item.PeriodFrom)) + "</td>");
+                        tr.append("<td class='text-center' data-title='AssetNo'>" + (item.PeriodTo == null ? "-" :getFormattedDate(item.PeriodTo)) + "</td>");
+                        tr.append("<td class='text-center' data-title='Maintenance'>" + (item.ClaimNumber == null ? "-" : item.ClaimNumber)+ "</td>");
+                        tr.append("<td class='text-center' data-title='Status'>" + (item.VoucherNumber == null ? "-" : item.VoucherNumber)+ "</td>");
+                        tr.append("<td class='text-center' data-title='Reminder'>" + (item.FillingStation == null ? "-" : item.FillingStation) + "</td>");
+                        tr.append("<td class='text-center' data-title='NextMaintenance'>" + (item.FuelType == null ? "-" : item.FuelType) + "</td>");
+                        tr.append("<td class='text-center' data-title='History'> " + (item.QuantityLitre == null ? "-" : item.QuantityLitre) + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> " + (item.AmountExclVat==null?"-": item.AmountExclVat) + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> " + (item.DiscountAmount == null ? "-" : item.DiscountAmount) + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> " + (item.VatAmount == null ? "-" : item.VatAmount) + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> " + (item.AmountIncVat == null ? "-" : item.AmountIncVat)+ "</td>");
                        
                         if (item.Is_PaymentReceiptGenerate == false) {
                             tr.append("<td class='text-center' data-title='Edit'> "
