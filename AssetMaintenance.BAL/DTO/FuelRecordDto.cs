@@ -13,12 +13,15 @@ namespace AssetMaintenance.BAL.DTO
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> PeriodTo { get; set; }
 
-        public string RegistrationNo { get; set; }
-        public Nullable<decimal> FuelInvoice { get; set; }
-        public int BatchNo { get; set; }
-        public decimal RetailPrice { get; set; }
-        public Nullable<decimal> Discount { get; set; }
-        public Nullable<decimal> TotalAmount { get; set; }
+        public int ClaimNumber { get; set; }
+        public string VoucherNumber { get; set; }
+        public string FuelType { get; set; }
+        public int QuantityLitre { get; set; }
+        public Nullable<decimal> DiscountAmount { get; set; }
+        public Nullable<decimal> AmountExclVat { get; set; }
+        public Nullable<double> VatAmount { get; set; }
+        public Nullable<double> AmountIncVat { get; set; }
+
         public int Modeofupload { get; set; }
         public FuelRecord_DetailDto fuelRecordManualDto { get; set; }
         public bool? Is_PaymentReceiptGenerate { get; set; }

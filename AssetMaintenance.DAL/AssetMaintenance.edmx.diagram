@@ -40,7 +40,7 @@
         <EntityTypeShape EntityType="AssetMaintenanceModel.AssetMaintenaceType" Width="1.5" PointX="12" PointY="0.75" />
         <AssociationConnector Association="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" />
         <AssociationConnector Association="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_FLT_Asset" />
-        <EntityTypeShape EntityType="AssetMaintenanceModel.Fuel_Record" Width="1.5" PointX="16.375" PointY="4.5" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.Fuel_Record" Width="1.5" PointX="16.375" PointY="4.375" />
         <AssociationConnector Association="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" />
       </Diagram>
     </edmx:Diagrams>

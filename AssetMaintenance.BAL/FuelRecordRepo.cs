@@ -26,12 +26,12 @@ namespace AssetMaintenance.BAL
                 FillingStation = x.FillingStation,
                 PeriodFrom = x.PeriodFrom,
                 PeriodTo=x.PeriodTo,
-                RegistrationNo = x.RegistrationNo,
-                FuelInvoice = x.FuelInvoice,
-                BatchNo = x.BatchNo,
-                RetailPrice = x.RetailPrice,
-                Discount = x.Discount,
-                TotalAmount = x.TotalAmount,
+                
+                //FuelInvoice = x.FuelInvoice,
+                //BatchNo = x.BatchNo,
+                //RetailPrice = x.RetailPrice,
+                //Discount = x.Discount,
+                //TotalAmount = x.TotalAmount,
                 Is_PaymentReceiptGenerate=x.Is_PaymentReceiptGenerate
             });
             return fuelList.ToList();
@@ -46,12 +46,12 @@ namespace AssetMaintenance.BAL
                 ful.PeriodFrom = fuel.PeriodFrom;
                 ful.PeriodTo = fuel.PeriodTo;
                 ful.Is_PaymentReceiptGenerate = fuel.Is_PaymentReceiptGenerate;
-                ful.RegistrationNo = fuel.RegistrationNo;
-                ful.FuelInvoice = fuel.FuelInvoice;
-                ful.BatchNo = fuel.BatchNo;
-                ful.RetailPrice = fuel.RetailPrice;
-                ful.Discount = fuel.Discount;
-                ful.TotalAmount = fuel.TotalAmount;
+                //ful.RegistrationNo = fuel.RegistrationNo;
+                //ful.FuelInvoice = fuel.FuelInvoice;
+                //ful.BatchNo = fuel.BatchNo;
+                //ful.RetailPrice = fuel.RetailPrice;
+                //ful.Discount = fuel.Discount;
+                //ful.TotalAmount = fuel.TotalAmount;
                 dbCon.Fuel_Record.Add(ful);
                 dbCon.SaveChanges();
                 return ful.Id;
@@ -75,12 +75,12 @@ namespace AssetMaintenance.BAL
                     FillingStation = x.FillingStation,
                     PeriodFrom = x.PeriodFrom,
                     PeriodTo = x.PeriodTo,
-                    RegistrationNo = x.RegistrationNo,
-                    FuelInvoice = x.FuelInvoice ?? 0,
-                    BatchNo = x.BatchNo,
-                    RetailPrice = x.RetailPrice,
-                    Discount = x.Discount ?? 0,
-                    TotalAmount = x.TotalAmount
+                    //RegistrationNo = x.RegistrationNo,
+                    //FuelInvoice = x.FuelInvoice ?? 0,
+                    //BatchNo = x.BatchNo,
+                    //RetailPrice = x.RetailPrice,
+                    //Discount = x.Discount ?? 0,
+                    //TotalAmount = x.TotalAmount
 
                 }).FirstOrDefault();
                 return fuelmanagerResult;
@@ -99,15 +99,15 @@ namespace AssetMaintenance.BAL
             try
             {
                 var fuelmanagerResult = dbCon.Fuel_Record.Where(x => x.Id == model.Id).FirstOrDefault();
-                fuelmanagerResult.BatchNo = model.BatchNo;
+                //fuelmanagerResult.BatchNo = model.BatchNo;
                 fuelmanagerResult.FillingStation = model.FillingStation;
                 fuelmanagerResult.PeriodFrom = model.PeriodFrom;
                 fuelmanagerResult.PeriodTo = model.PeriodTo;
-                fuelmanagerResult.RegistrationNo = model.RegistrationNo;
-                fuelmanagerResult.FuelInvoice = model.FuelInvoice;
-                fuelmanagerResult.RetailPrice = model.RetailPrice;
-                fuelmanagerResult.Discount = model.Discount;
-                fuelmanagerResult.TotalAmount = model.TotalAmount;
+                //fuelmanagerResult.RegistrationNo = model.RegistrationNo;
+                //fuelmanagerResult.FuelInvoice = model.FuelInvoice;
+                //fuelmanagerResult.RetailPrice = model.RetailPrice;
+                //fuelmanagerResult.Discount = model.Discount;
+                //fuelmanagerResult.TotalAmount = model.TotalAmount;
                 fuelmanagerResult.Is_PaymentReceiptGenerate = model.Is_PaymentReceiptGenerate;
 
                 dbCon.SaveChanges();
@@ -133,5 +133,7 @@ namespace AssetMaintenance.BAL
             dbCon.SaveChanges();
             return "Data Deleted successfully.";
         }
+
+       
     }
 }

@@ -68,34 +68,52 @@
                                     @Html.TextBoxFor(model => model.PeriodTo, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "To", id = "PeriodTo" })
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Registration No.</label>
-                                    @Html.TextBoxFor(model => model.RegistrationNo, new { @class = "form-control", placeholder = "Registration No.", id = "RegistrationNo" })
-                                    @*<input type="text" id="RegistrationNo" class="form-control" name="RegistrationNo" placeholder="Registration No.">*@
+                                    <label>Claim Number</label>
+                                    @Html.TextBoxFor(model => model.ClaimNumber, new { @class = "form-control", placeholder = "ClaimNumber", id = "ClaimNumber" })
+                                    @*<input type="text" id="ClaimNo" class="form-control" name="ClaimNo" placeholder="Claim No.">*@
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Fuel Invoice</label>
-                                    @Html.TextBoxFor(model => model.FuelInvoice, new { @class = "form-control", placeholder = "Fuel Invoice", id = "FuelInvoice" })
-                                    @*<input id="FuelInvoice" class="form-control" name="FuelInvoice" placeholder="Fuel Invoice">*@
+                                    <label>Voucher Number</label>
+                                    @Html.TextBoxFor(model => model.VoucherNumber, new { @class = "form-control", placeholder = "Voucher Number", id = "VoucherNumber" })
+                                    @*<input id="VoucherNo" class="form-control" name="VoucherNo" placeholder="Voucher Number">*@
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Batch No.</label>
-                                    @Html.TextBoxFor(model => model.BatchNo, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Batch No.", id = "BatchNo" })
-                                    @*<input id="BatchNo" class="form-control allownumericwithoutdecimal" name="BatchNo" placeholder="Batch No." required>*@
+                                    <label>Fuel Type<span class="req">*</span></label>
+                                   
+                                    @Html.DropDownListFor(m => m.FuelType,
+                                        new SelectList(new List<SelectListItem>
+                                        {
+                                            new SelectListItem { Text = "Petrol", Value = "Petrol"},
+                                            new SelectListItem { Text = "Diesel", Value = "Diesel"}
+                                            }, "Value", "Text"),
+                                            "- Select Avail. Type -",
+                                            new { @class = "form-control", id = "ManualFuelType", required = "required" })
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Retail Price</label>
-                                    @Html.TextBoxFor(model => model.RetailPrice, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Retail Price", id = "RetailPrice" })
-                                    @*<input type="text" id="RetailPrice" class="form-control allownumericwithdecimal" name="RetailPrice" placeholder="Retail Price" required>*@
+                                    <label>Quantity Litre<span class="req">*</span></label>
+                                    @Html.TextBoxFor(model => model.QuantityLitre, new { @class = "form-control allownumericwithdecimal", placeholder = "Quantity Litre", id = "QuantityLitre", required = "required" })
+                                    @*<input id="QuantityLitre" class="form-control" name="QuantityLitre" placeholder="Quantity Litre">*@
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label>Amount(Excl. Vat)</label>
+                                    @Html.TextBoxFor(model => model.AmountExclVat, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount(Excl. Vat)", id = "AmountExclVat" })
+                                    @*<input id="AmountExcl" class="form-control" name="AmountExcl" placeholder="Amount(Excl. Vat)">*@
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Discount</label>
-                                    @Html.TextBoxFor(model => model.Discount, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Discount", id = "Discount", max = "100" })
+                                    <label>Discount Amount</label>
+                                    @Html.TextBoxFor(model => model.DiscountAmount, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Discount Amount", id = "DiscountAmount", max = "100" })
                                     @*<input type="text" id="Discount" class="form-control allownumericwithoutdecimal" name="Discount" placeholder="Discount" max="100">*@
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Total Amount</label>
-                                    @Html.TextBoxFor(model => model.TotalAmount, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Total Amount", id = "TotalAmount" })
-                                    @*<input type="text" id="TotalAmount" class="form-control allownumericwithdecimal" name="TotalAmount" placeholder="Total Amount">*@
+                                    <label>Vat Amount</label>
+                                    @Html.TextBoxFor(model => model.VatAmount, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Vat Amount", id = "VatAmount" })
+                                    @*<input type="text" id="VatAmount" class="form-control allownumericwithdecimal" name="VatAmount" placeholder="Vat Amount">*@
+                                </div>
+
+                                <div class="form-group col-lg-3">
+                                    <label>Amount inc.vat</label>
+                                    @Html.TextBoxFor(model => model.AmountIncVat, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount inc.vat", id = "AmountIncVat" })
+                                    @*<input type="text" id="Amountinc" class="form-control allownumericwithdecimal" name="Amountinc" placeholder="Amount inc.vat">*@
                                 </div>
 
                                 <div class="form-group col-lg-4">

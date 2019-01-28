@@ -21,13 +21,15 @@
           <Property Name="FillingStation" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PeriodFrom" Type="date" />
           <Property Name="PeriodTo" Type="datetime" />
-          <Property Name="RegistrationNo" Type="nvarchar" MaxLength="50" />
-          <Property Name="FuelInvoice" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="BatchNo" Type="int" Nullable="false" />
-          <Property Name="RetailPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Discount" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ClaimNumber" Type="int" />
+          <Property Name="VoucherNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="FuelType" Type="nvarchar" MaxLength="50" />
+          <Property Name="QuantityLitre" Type="int" />
+          <Property Name="DiscountAmount" Type="float" />
+          <Property Name="AmountExclVat" Type="float" />
           <Property Name="Is_PaymentReceiptGenerate" Type="bit" />
+          <Property Name="VatAmount" Type="float" />
+          <Property Name="AmountIncVat" Type="float" />
         </EntityType>
         <EntityType Name="FuelRecord_Detail">
           <Key>
@@ -1376,13 +1378,15 @@
           <Property Name="FillingStation" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PeriodFrom" Type="DateTime" Precision="0" />
           <Property Name="PeriodTo" Type="DateTime" Precision="3" />
-          <Property Name="RegistrationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FuelInvoice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="BatchNo" Type="Int32" Nullable="false" />
-          <Property Name="RetailPrice" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="Discount" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ClaimNumber" Type="Int32" />
+          <Property Name="VoucherNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FuelType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QuantityLitre" Type="Int32" />
+          <Property Name="DiscountAmount" Type="Double" />
+          <Property Name="AmountExclVat" Type="Double" />
           <Property Name="Is_PaymentReceiptGenerate" Type="Boolean" />
+          <Property Name="VatAmount" Type="Double" />
+          <Property Name="AmountIncVat" Type="Double" />
           <NavigationProperty Name="FuelRecord_Detail" Relationship="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" FromRole="Fuel_Record" ToRole="FuelRecord_Detail" />
         </EntityType>
         <Association Name="FK_FuelRecord_Detail_FuelRecord_Detail">
@@ -1894,13 +1898,15 @@
           <EntitySetMapping Name="Fuel_Record">
             <EntityTypeMapping TypeName="AssetMaintenanceModel.Fuel_Record">
               <MappingFragment StoreEntitySet="Fuel_Record">
+                <ScalarProperty Name="AmountIncVat" ColumnName="AmountIncVat" />
+                <ScalarProperty Name="VatAmount" ColumnName="VatAmount" />
                 <ScalarProperty Name="Is_PaymentReceiptGenerate" ColumnName="Is_PaymentReceiptGenerate" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="RetailPrice" ColumnName="RetailPrice" />
-                <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
-                <ScalarProperty Name="FuelInvoice" ColumnName="FuelInvoice" />
-                <ScalarProperty Name="RegistrationNo" ColumnName="RegistrationNo" />
+                <ScalarProperty Name="AmountExclVat" ColumnName="AmountExclVat" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="QuantityLitre" ColumnName="QuantityLitre" />
+                <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+                <ScalarProperty Name="VoucherNumber" ColumnName="VoucherNumber" />
+                <ScalarProperty Name="ClaimNumber" ColumnName="ClaimNumber" />
                 <ScalarProperty Name="PeriodTo" ColumnName="PeriodTo" />
                 <ScalarProperty Name="PeriodFrom" ColumnName="PeriodFrom" />
                 <ScalarProperty Name="FillingStation" ColumnName="FillingStation" />
