@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Claim Number</label>
-                                    @Html.TextBoxFor(model => model.ClaimNumber, new { @class = "form-control", placeholder = "ClaimNumber", id = "ClaimNumber" })
+                                    @Html.TextBoxFor(model => model.ClaimNumber, new { @class = "form-control allownumericwithoutdecimal", placeholder = "ClaimNumber", id = "ClaimNumber" })
                                     @*<input type="text" id="ClaimNo" class="form-control" name="ClaimNo" placeholder="Claim No.">*@
                                 </div>
                                 <div class="form-group col-lg-4">
@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Quantity Litre<span class="req">*</span></label>
-                                    @Html.TextBoxFor(model => model.QuantityLitre, new { @class = "form-control allownumericwithdecimal", placeholder = "Quantity Litre", id = "QuantityLitre", required = "required" })
+                                    @Html.TextBoxFor(model => model.QuantityLitre, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Quantity Litre", id = "QuantityLitre", required = "required" })
                                     @*<input id="QuantityLitre" class="form-control" name="QuantityLitre" placeholder="Quantity Litre">*@
                                 </div>
                                 <div class="form-group col-lg-3">
@@ -101,12 +101,12 @@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Discount Amount</label>
-                                    @Html.TextBoxFor(model => model.DiscountAmount, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Discount Amount", id = "DiscountAmount", max = "100" })
+                                    @Html.TextBoxFor(model => model.DiscountAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Discount Amount", id = "DiscountAmount", max = "100" })
                                     @*<input type="text" id="Discount" class="form-control allownumericwithoutdecimal" name="Discount" placeholder="Discount" max="100">*@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Vat Amount</label>
-                                    @Html.TextBoxFor(model => model.VatAmount, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Vat Amount", id = "VatAmount" })
+                                    @Html.TextBoxFor(model => model.VatAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Vat Amount", id = "VatAmount" })
                                     @*<input type="text" id="VatAmount" class="form-control allownumericwithdecimal" name="VatAmount" placeholder="Vat Amount">*@
                                 </div>
 
@@ -233,7 +233,6 @@
 
           //  getFuelRecordList();
 
-            htmlToDataTable();
             $("#btnCreateFuelRecord").click(function () {
                 createFuelRecord();
                 $("#createFuelRecordForm").validate({
@@ -264,20 +263,22 @@
                  confirmButtonColor: "#DD6B55",
                  confirmButtonText: "Yes",
                  cancelButtonText: "No",
-                 closeOnConfirm: false,
-                 closeOnCancel: false
+                 closeOnConfirm: true,
+                 closeOnCancel: true,
+                 closeButton: true
              },
                  function (isConfirm) {
                      var formData = new FormData($('#createFuelRecordForm')[0]);
                      formData.append('FillingStation', $("#FillingStation").val());
                      formData.append('PeriodFrom', $("#PeriodFrom").val());
                      formData.append('PeriodTo', $("#PeriodTo").val());
-                     formData.append('RegistrationNo', $("#RegistrationNo").val());
-                     formData.append('FuelInvoice', $("#FuelInvoice").val());
-                     formData.append('BatchNo', $("#BatchNo").val());
-                     formData.append('RetailPrice', $("#RetailPrice").val());
-                     formData.append('Discount', $("#Discount").val());
-                     formData.append('TotalAmount', $("#TotalAmount").val());
+                     formData.append('ClaimNumber', $("#ClaimNumber").val());
+                     formData.append('VoucherNumber', $("#VoucherNumber").val());
+                     formData.append('QuantityLitre', $("#QuantityLitre").val());
+                     formData.append('AmountExclVat', $("#AmountExclVat").val());
+                     formData.append('DiscountAmount', $("#DiscountAmount").val());
+                     formData.append('VatAmount', $("#VatAmount").val());
+                     formData.append('AmountIncVat', $("#AmountIncVat").val());
                      formData.append('Modeofupload', $("input[name='mode']:checked").val());
                      formData.append('Is_PaymentReceiptGenerate', isConfirm);
 
@@ -289,12 +290,17 @@
                          processData: false,
                          url: '@Url.Action("CreateFuelRecord", "FuelManagement")',
                          success: function (data) {
-                             getFuelRecordList();
-                             $($("#createFuelRecordForm input").val(''));
+                             if (data != 'validation') {
+                                 $($("#createFuelRecordForm input").val(''));
 
-                             toastr.success("Fuel Record inserted successfully.");
-                             window.location.href = '/FuelManagement/List';
-                             $('.FuelListedit').remove();
+                                 toastr.success("Fuel Record inserted successfully.");
+                                 window.location.href = '/FuelManagement/List';
+                                 $('.FuelListedit').remove();
+                             }
+                             else {
+                                // swal.close();
+                                 toastr.error("Voucher Number already exists.");
+                             }
                          }
                      });
 
@@ -302,43 +308,8 @@
          }
         }
 
-        function getFuelRecordList() {
-            $.ajax({
-                type: 'Get',
-                url: '@Url.Action("ViewFuelList", "FuelManagement")',
-                dataType: 'json',
-                contentType: "application/json; charset=utf-8",
-                success: function (data)
-                {
-                    $.each(data, function (i, item) {
-                        var tr;
-                        tr = $('<tr />');
-                        tr.append("<td class='text-center' data-title='Asset'>" + item.FillingStation + "</td>");
-                        tr.append("<td class='text-center' data-title='AssetNo'>" + getFormattedDate(item.Period) + "</td>");
-                        tr.append("<td class='text-center' data-title='Maintenance'>" + item.RegistrationNo + "</td>");
-                        tr.append("<td class='text-center' data-title='Status'>" + item.FuelInvoice + "</td>");
-                        tr.append("<td class='text-center' data-title='Reminder'>" + item.BatchNo + "</td>");
-                        tr.append("<td class='text-center' data-title='NextMaintenance'>" + item.RetailPrice+ "</td>");
-                        tr.append("<td class='text-center' data-title='History'> " + item.Discount+ "</td>");
-                        tr.append("<td class='text-center' data-title='Edit'> " + item.TotalAmount + "</td>");
-
-                        $("#FuelList tbody").append(tr);
-                    });
-
-                }
-            });
-        }
-
-        function htmlToDataTable() {
-            var table = $('#FuelList').dataTable(
-                {
-                    "lengthChange": false,
-                    "deferRender": true,
-                }
-            );
-        }
-
-        function UploadFiles() {
+       
+                function UploadFiles() {
 
             if (document.getElementById("fileBrowse").files.length > 0) {
                 var formData = new FormData();
@@ -425,7 +396,6 @@
             var amtTotal = 0, discount = 0, vatTotal = 0, amtVat = 0;
 
            
-            debugger;
             $.each(response.Html, function (i, item) {
                 var tr;
                 tr = $('<tr />');
@@ -538,9 +508,6 @@
         <script>
 
             function editgridload() {
-                debugger;
-               
-
                 $.ajax({
                     type: 'Get',
                     url: '/FuelManagement/GetFuelDetails?fuelmanagetid=' + @Model.Id,
@@ -557,7 +524,6 @@
                         $("#fuelDetailsDiv").html('')
                        
                         $("#fuelDetailsDiv").html($("#tblUploadedData").html());
-                       // htmlToDataTable();
                         var table = $('#fuelDetailsDiv').dataTable(
                             {
                                 "lengthChange": false,

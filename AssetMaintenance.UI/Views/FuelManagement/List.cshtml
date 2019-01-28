@@ -41,15 +41,20 @@
                         <table id="FuelList" class="table table-striped table-bordered table-hover dataTable no-footer " width="100%">
                             <thead>
                                 <tr>
-                                    <th class="text-center" width="15%">Filling Station</th>
                                     <th class="text-center" width="5%">Period From</th>
                                     <th class="text-center" width="5%">Period To</th>
-                                    <th class="text-center" width="10%">RegistrationNo</th>
-                                    <th class="text-center" width="10%">FuelInvoice</th>
-                                    <th class="text-center" width="10%">BatchNo</th>
-                                    <th class="text-center" width="5%">RetailPrice</th>
-                                    <th class="text-center" width="5%">Discount</th>
-                                    <th class="text-center" width="5%">TotalAmount</th>
+
+                                    <th class="text-center" width="10%">Claim Number</th>
+                                    <th class="text-center" width="10%">Voucher Number</th>
+                                    <th class="text-center" width="15%">Filling Station</th>
+                                    <th class="text-center" width="15%">Fuel Type</th>
+
+                                    <th class="text-center" width="10%">Quantity Litres</th>
+                                    <th class="text-center" width="5%">Amount (Excl.Vat)</th>
+                                    <th class="text-center" width="5%">Discount Amount</th>
+                                    <th class="text-center" width="5%">Vat Amount</th>
+                                    <th class="text-center" width="5%">Amount inc.Vat</th>
+
                                     <th class="text-center" width="5%">Edit</th>
                                     <th class="text-center" width="5%">Delete</th>
                                 </tr>
@@ -122,33 +127,32 @@
                     $.each(data, function (i, item) {
                         var tr;
                         tr = $('<tr />');
-                        tr.append("<td class='text-center' data-title='Asset'>" + item.FillingStation + "</td>");
                         tr.append("<td class='text-center' data-title='AssetNo'>" + getFormattedDate(item.PeriodFrom) + "</td>");
                         tr.append("<td class='text-center' data-title='AssetNo'>" + getFormattedDate(item.PeriodTo) + "</td>");
-                        tr.append("<td class='text-center' data-title='Maintenance'>" + item.RegistrationNo + "</td>");
-                        tr.append("<td class='text-center' data-title='Status'>" + item.FuelInvoice + "</td>");
-                        tr.append("<td class='text-center' data-title='Reminder'>" + item.BatchNo + "</td>");
-                        tr.append("<td class='text-center' data-title='NextMaintenance'>" + item.RetailPrice + "</td>");
-                        tr.append("<td class='text-center' data-title='History'> " + item.Discount + "</td>");
-                        tr.append("<td class='text-center' data-title='Edit'> " + item.TotalAmount + "</td>");
+                        tr.append("<td class='text-center' data-title='Maintenance'>" + item.ClaimNumber + "</td>");
+                        tr.append("<td class='text-center' data-title='Status'>" + item.VoucherNumber + "</td>");
+                        tr.append("<td class='text-center' data-title='Reminder'>" + item.FillingStation + "</td>");
+                        tr.append("<td class='text-center' data-title='NextMaintenance'>" + item.FuelType + "</td>");
+                        tr.append("<td class='text-center' data-title='History'> " + item.QuantityLitre + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> " + item.AmountExclVat + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> " + item.DiscountAmount + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> " + item.VatAmount + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> " + item.AmountIncVat + "</td>");
                        
                         if (item.Is_PaymentReceiptGenerate == false) {
                             tr.append("<td class='text-center' data-title='Edit'> "
                                 + "<div> <a href='/FuelManagement/Index?fuelmanagetid=" + item.Id + "'  data-asset=" + item.id
                                 + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit</span></a></div>" + "</td>");
-                        }
-                        else {
-                            tr.append("<td></td>");
-                        }
-                        if (item.Is_PaymentReceiptGenerate == false) {
                             tr.append("<td class='text-center' data-title='Delete'> "
                                 + "<div> <a href='javascript:void(0);' onclick='deleteFuelManagement(" + item.Id + ")' data-asset=" + item.id
                                 + " class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i> &nbsp;Delete</a></div>" + "</td>");
                         }
                         else {
-                            
                             tr.append("<td></td>");
+                            tr.append("<td></td>");
+
                         }
+                        
                         $("#FuelList tbody").append(tr);
                     });
                     htmlToDataTable();

@@ -39,31 +39,38 @@ namespace AssetMaintenance.UI.Controllers
         {
             var obj = new FuelRecordRepo();
             int statusLst = 0;
-            if (fuel.Id > 0)
+            if (!obj.CheckVoucherNumber(fuel))
             {
-                if (obj.updateFuelRecord(fuel))
+                if (fuel.Id > 0)
                 {
-                    statusLst = fuel.Id;
+                    if (obj.updateFuelRecord(fuel))
+                    {
+                        statusLst = fuel.Id;
+                    }
+                }
+                else
+                {
+                    statusLst = obj.InsertFuelRecord(fuel);
+                }
+
+                if (statusLst != 0)
+                {
+
+                    FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
+                    bool result = objDetail.InsertFuelRecordDetail((TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>), statusLst);
+                    TempData.Remove("lstFuelRecod");
+
+                    return Json("Record saved successfully.");
+                }
+                else
+                {
+                    return Json("Something went wrong.");
+
                 }
             }
             else
             {
-                statusLst = obj.InsertFuelRecord(fuel);
-            }
-
-            if (statusLst != 0)
-            {
-
-                FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
-                bool result = objDetail.InsertFuelRecordDetail((TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>), statusLst);
-                TempData.Remove("lstFuelRecod");
-
-                return Json("Record saved successfully.");
-            }
-            else
-            {
-                return Json("Something went wrong.");
-
+                return Json("validation");
             }
         }
 
