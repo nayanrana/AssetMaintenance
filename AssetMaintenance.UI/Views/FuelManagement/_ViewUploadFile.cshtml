@@ -5,7 +5,7 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header padding15">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h5 class="modal-title">
                 Fuel Record Details
@@ -29,6 +29,8 @@
                             <th>Discount (%)</th>
                             <th>Vat Amount</th>
                             <th>Amount inc. vat (Rs)</th>
+                            <th>Edit</th>
+
                         </tr>
                     </thead>
                     <tbody ></tbody>
@@ -39,13 +41,13 @@
                             <td class="text-center" id="tfootDiscount"></td>
                             <td class="text-center" id="tfootVatTotal"></td>
                             <td class="text-center" id="tfootAmtVatTotal"></td>
-
+                            <td></td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer padding15">
             <button type="button" class="btn btn-success" data-dismiss="modal" onclick="ConfirmButton()">Confirm</button>
 
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

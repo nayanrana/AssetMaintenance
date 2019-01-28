@@ -13,11 +13,11 @@ namespace AssetMaintenance.BAL.DTO
         public string Driver { get; set; }
         public string FuelType { get; set; }
         public int Quantities { get; set; }
-        public int ActualMilage { get; set; }
-        public int CurrentMilage { get; set; }
+        public int? ActualMilage { get; set; }
+        public int? CurrentMilage { get; set; }
         public Nullable<double> AmountExVal { get; set; }
         public Nullable<double> Discount { get; set; }
         public Nullable<double> VatAmount { get; set; }
-        public double AmountInVal { get; set; }
+        public double? AmountInVal { get; set; }
     }
 }

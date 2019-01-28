@@ -1,0 +1,96 @@
+﻿@model AssetMaintenance.BAL.DTO.FuelRecord_DetailDto
+
+<div id="modalSaveItemData" class="modal fade bd-example-modal-lg" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header padding15">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title ">
+                    Save Fuel Item Detail
+                </h5>
+            </div>
+            <form id="manualcreate">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Html.HiddenFor(model => model.FuelRecord_DetailId)
+
+                        </div>
+
+
+                        <div class="form-group col-lg-2">
+                            <label>Date</label>
+                            @Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Date", id = "ManualDate" })
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label>Voucher No.</label>
+                            @Html.TextBoxFor(model => model.VoucherNo, new { @class = "form-control" , placeholder = "Voucher No", id = "ManualVoucherNo" })
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label>Registration No</label>
+                            @Html.TextBoxFor(model => model.RegistrationNo, new { @class = "form-control ", placeholder = "Registration No", id = "ManualRegistrationNo" })
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label>Filling Station</label>
+                            @Html.TextBoxFor(model => model.FillingStation, new { @class = "form-control", placeholder = "Filling Station", id = "ManualFillingStation" })
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label>Driver</label>
+                            @Html.TextBoxFor(model => model.Driver, new { @class = "form-control", placeholder = "Driver", id = "ManualDriver" })
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label>Fuel Type<span class="req">*</span></label>
+                            @Html.DropDownListFor(m => m.FuelType,
+                            new SelectList(new List<SelectListItem>
+                                {
+                                new SelectListItem { Text = "Petrol", Value = "Petrol"},
+                                new SelectListItem { Text = "Diesel", Value = "Diesel"}
+                                }, "Value", "Text"),
+                                "- Select Avail. Type -",
+                                new { @class = "form-control", id = "ManualFuelType", required = "required" })
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label>Quantity Litre<span class="req">*</span></label>
+                            @Html.TextBoxFor(model => model.Quantities, new { @class = "form-control allownumericwithdecimal", placeholder = "Quantity Litre", id = "ManualQuantityLitre", required = "required" })
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label>Actual Mileage</label>
+                            @Html.TextBoxFor(model => model.ActualMilage, new { @class = "form-control allownumericwithdecimal",  placeholder = "Actual Mileage", id = "ManualActualMileage" })
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label>Current Mileage</label>
+                            @Html.TextBoxFor(model => model.CurrentMilage, new { @class = "form-control allownumericwithdecimal", placeholder = "Current Mileage", id = "ManualCurrentMileage" })
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label>Amount(Excl. Vat)</label>
+                            @Html.TextBoxFor(model => model.AmountExVal, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount(Excl. Vat)", id = "ManualAmount" })
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label>Discount Amount</label>
+                            @Html.TextBoxFor(model => model.Discount, new { @class = "form-control allownumericwithdecimal", placeholder = "Discount Amount", id = "ManualDiscountAmount", max = "100" })
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label>Vat Amount</label>
+                            @Html.TextBoxFor(model => model.VatAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Vat Amount", id = "MaunalVatAmount" })
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label>Amount inc.vat</label>
+                            @Html.TextBoxFor(model => model.AmountInVal, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount inc.vat", id = "ManualAmountInc" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer  padding15">
+                    <div class="form-group col-lg-12 text-right">
+                        <button class="btn btn-success" id="btnCreateFuelManualRecord" onclick="FuelManagementGrid()" type="button">Save</button>
+                        <button id="btnCancel" type="reset" class="cancel btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

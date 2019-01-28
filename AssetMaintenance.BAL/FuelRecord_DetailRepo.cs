@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AssetMaintenance.BAL
 {
-   public class FuelRecord_DetailRepo
+    public class FuelRecord_DetailRepo
     {
         AssetMaintenanceEntities dbCon;
 
@@ -21,7 +21,7 @@ namespace AssetMaintenance.BAL
         /// </summary>
         /// <param name="lstFuelRecodDto"></param>
         /// <returns></returns>
-        public bool InsertFuelRecordDetail(List<FuelRecord_DetailDto> lstFuelRecodDto,int fuelId)
+        public bool InsertFuelRecordDetail(List<FuelRecord_DetailDto> lstFuelRecodDto, int fuelId)
         {
             try
             {
@@ -35,53 +35,18 @@ namespace AssetMaintenance.BAL
                     objFuelDetails.FuelRecordId = fuelId;
                     objFuelDetails.ActualMilage = item.ActualMilage;
                     objFuelDetails.AmountExVal = item.AmountExVal;
-                    objFuelDetails.AmountInVal = item.AmountInVal;
+                    objFuelDetails.AmountInVal = item.AmountInVal.HasValue ? item.AmountInVal.Value : 0;
                     objFuelDetails.CurrentMilage = item.CurrentMilage;
                     objFuelDetails.Date = item.Date;
                     objFuelDetails.Discount = item.Discount;
                     objFuelDetails.Driver = item.Driver;
                     objFuelDetails.FillingStation = item.FillingStation;
-                   
+
                     objFuelDetails.FuelType = item.FuelType;
                     objFuelDetails.Quantities = item.Quantities;
                     objFuelDetails.VatAmount = item.VatAmount;
                     objFuelDetails.VoucherNo = item.VoucherNo;
-                    objFuelDetails.RegistrationNo = item.RegistrationNo;
-                    dbCon.FuelRecord_Detail.Add(objFuelDetails);
-                }
-                dbCon.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-        public bool InsertFuelRecordDetailManual(List<FuelRecordManualDto> lstFuelRecodDto, int fuelId)
-        {
-            try
-            {
-                //dbCon.FuelRecord_Detail.RemoveRange(dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == fuelId).ToList());
-                //dbCon.SaveChanges();
-                FuelRecord_Detail objFuelDetails;
-                foreach (var item in lstFuelRecodDto)
-                {
-                    objFuelDetails = new FuelRecord_Detail();
-                    objFuelDetails.FuelRecordId = fuelId;
-                  
-                    objFuelDetails.AmountExVal = item.Amount;
-                    objFuelDetails.AmountInVal = item.AmountInc.HasValue?item.AmountInc.Value:0;
-                    
-                    objFuelDetails.Date = item.Date;
-                    objFuelDetails.Discount = item.DiscountAmount;
-                  
-                    objFuelDetails.FillingStation = item.FillingStation;
-
-                    objFuelDetails.FuelType = item.FuelType;
-                    objFuelDetails.Quantities = item.QuantityLitre;
-                    objFuelDetails.VatAmount = item.VatAmount;
-                    objFuelDetails.VoucherNo = item.VoucherNumber;
-                    objFuelDetails.RegistrationNo = "";
+                    objFuelDetails.RegistrationNo = string.IsNullOrEmpty(item.RegistrationNo) ? string.Empty : item.RegistrationNo;
                     dbCon.FuelRecord_Detail.Add(objFuelDetails);
                 }
                 dbCon.SaveChanges();
@@ -93,43 +58,50 @@ namespace AssetMaintenance.BAL
             }
         }
 
-       
-
-        public List<FuelRecordManualDto> getFuelDetails(int fuelid)
+        public List<FuelRecord_DetailDto> getFuelDetails(int fuelid)
         {
-            var fueldetails = dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == fuelid).Select(k => new FuelRecordManualDto
+            var fueldetails = dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == fuelid).Select(k => new FuelRecord_DetailDto
             {
-                  Amount = k.AmountExVal,
-                  AmountInc = k.AmountInVal,
-                  Date = k.Date,
-                  DiscountAmount = k.Discount,
-                  FillingStation = k.FillingStation,
-                  FuelType = k.FuelType,
-                  QuantityLitre = k.Quantities,
-                  VatAmount = k.VatAmount,
-                  VoucherNumber = k.VoucherNo,
-                  Id= k.FuelRecord_DetailId
-                
-
+                AmountExVal = k.AmountExVal,
+                AmountInVal = k.AmountInVal,
+                Date = k.Date,
+                Discount = k.Discount,
+                FillingStation = k.FillingStation,
+                FuelType = k.FuelType,
+                Quantities = k.Quantities,
+                VatAmount = k.VatAmount,
+                VoucherNo = k.VoucherNo,
+                FuelRecord_DetailId = k.FuelRecord_DetailId,
+                RegistrationNo = k.RegistrationNo,
+                ActualMilage = k.ActualMilage,
+                FuelRecordId = k.FuelRecordId,
+                CurrentMilage = k.CurrentMilage,
+                Driver = k.Driver
             }).ToList();
 
             return fueldetails;
         }
-       public FuelRecordManualDto getFuelDetailsByid (Int64 fuleldetailid)
+
+        public FuelRecord_DetailDto getFuelDetailsByid(Int64 fuleldetailid)
         {
-            var fueldetails = dbCon.FuelRecord_Detail.Where(k => k.FuelRecord_DetailId == fuleldetailid).Select(k => new FuelRecordManualDto
+            var fueldetails = dbCon.FuelRecord_Detail.Where(k => k.FuelRecord_DetailId == fuleldetailid).Select(k => new FuelRecord_DetailDto
             {
-               
-                Amount = k.AmountExVal,
-                AmountInc = k.AmountInVal,
+
+                AmountExVal = k.AmountExVal,
+                AmountInVal = k.AmountInVal,
                 Date = k.Date,
-                DiscountAmount = k.Discount,
+                Discount = k.Discount,
                 FillingStation = k.FillingStation,
                 FuelType = k.FuelType,
-                QuantityLitre = k.Quantities,
+                Quantities = k.Quantities,
                 VatAmount = k.VatAmount,
-                VoucherNumber = k.VoucherNo,
-                Id = k.FuelRecord_DetailId
+                VoucherNo = k.VoucherNo,
+                FuelRecord_DetailId = k.FuelRecord_DetailId,
+                RegistrationNo = k.RegistrationNo,
+                ActualMilage = k.ActualMilage,
+                FuelRecordId = k.FuelRecordId,
+                CurrentMilage = k.CurrentMilage,
+                Driver = k.Driver
 
 
             }).FirstOrDefault();
@@ -138,30 +110,35 @@ namespace AssetMaintenance.BAL
 
         }
 
-        public bool updateFuelRecordManual(FuelRecordManualDto fuelmanual)
+        public bool updateFuelRecordManual(FuelRecord_DetailDto fuelmanual)
         {
             try
             {
-                var fuelmanagerResult = dbCon.FuelRecord_Detail.Where(x => x.FuelRecord_DetailId == fuelmanual.Id).FirstOrDefault();
+                var fuelmanagerResult = dbCon.FuelRecord_Detail.Where(x => x.FuelRecord_DetailId == fuelmanual.FuelRecord_DetailId).FirstOrDefault();
                 fuelmanagerResult.FillingStation = fuelmanual.FillingStation;
-                fuelmanagerResult.AmountExVal = fuelmanual.Amount;
-                fuelmanagerResult.AmountInVal = fuelmanual.AmountInc.HasValue ? fuelmanual.AmountInc.Value : 0;
+                fuelmanagerResult.Driver = fuelmanual.Driver;
+                fuelmanagerResult.ActualMilage = fuelmanual.ActualMilage;
+                fuelmanagerResult.CurrentMilage = fuelmanual.CurrentMilage;
+                fuelmanagerResult.RegistrationNo = string.IsNullOrEmpty(fuelmanual.RegistrationNo) ? string.Empty : fuelmanual.RegistrationNo;
+
+                fuelmanagerResult.AmountExVal = fuelmanual.AmountExVal;
+                fuelmanagerResult.AmountInVal = fuelmanual.AmountInVal.HasValue ? fuelmanual.AmountInVal.Value : 0;
                 fuelmanagerResult.Date = fuelmanual.Date;
-                fuelmanagerResult.Discount = fuelmanual.DiscountAmount;
+                fuelmanagerResult.Discount = fuelmanual.Discount;
                 fuelmanagerResult.FuelType = fuelmanual.FuelType;
-                fuelmanagerResult.Quantities = fuelmanual.QuantityLitre;
+                fuelmanagerResult.Quantities = fuelmanual.Quantities;
                 fuelmanagerResult.VatAmount = fuelmanual.VatAmount;
-                fuelmanagerResult.VoucherNo = fuelmanual.VoucherNumber;
+                fuelmanagerResult.VoucherNo = fuelmanual.VoucherNo;
                 dbCon.SaveChanges();
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 return false;
             }
         }
-       
+
     }
 }

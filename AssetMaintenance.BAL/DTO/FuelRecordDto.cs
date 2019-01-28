@@ -20,7 +20,7 @@ namespace AssetMaintenance.BAL.DTO
         public Nullable<decimal> Discount { get; set; }
         public Nullable<decimal> TotalAmount { get; set; }
         public int Modeofupload { get; set; }
-        public FuelRecordManualDto fuelRecordManualDto { get; set; }
+        public FuelRecord_DetailDto fuelRecordManualDto { get; set; }
         public bool? Is_PaymentReceiptGenerate { get; set; }
 
 

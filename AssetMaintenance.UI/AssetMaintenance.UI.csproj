@@ -264,6 +264,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\Custom.css" />
     <Content Include="Content\img\green%402x.png" />
     <Content Include="Content\img\green.png" />
     <Content Include="Content\style.css" />
@@ -2611,6 +2612,7 @@
     <Content Include="Views\AssetMaintenance\Index.cshtml" />
     <Content Include="Views\Maintenance\BindMaintenanceDetail.cshtml" />
     <Content Include="Views\FuelManagement\List.cshtml" />
+    <Content Include="Views\FuelManagement\_SaveItemDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

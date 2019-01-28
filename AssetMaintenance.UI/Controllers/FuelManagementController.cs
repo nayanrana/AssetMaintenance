@@ -17,53 +17,47 @@ namespace AssetMaintenance.UI.Controllers
     {
         public List<FuelRecord_DetailDto> ListFuelRecord = new List<FuelRecord_DetailDto>();
         // GET: FuelManagement
-        public ActionResult Index(int fuelmanagetid=0)
+
+        public ActionResult Index(int fuelmanagetid = 0)
         {
             FuelRecordRepo obj = new FuelRecordRepo();
+            TempData.Clear();
 
-           
             var model = obj.getFuelManagerByID(fuelmanagetid);
+            model.fuelRecordManualDto = new FuelRecord_DetailDto();
+            model.fuelRecordManualDto.Date = DateTime.Now.Date;
             return View(model);
         }
         public ActionResult List()
         {
             return View();
         }
-       
+
 
         [HttpPost]
         public ActionResult CreateFuelRecord(FuelRecordDto fuel)
         {
             var obj = new FuelRecordRepo();
             int statusLst = 0;
-            if (fuel.Id>0)
+            if (fuel.Id > 0)
             {
                 if (obj.updateFuelRecord(fuel))
                 {
                     statusLst = fuel.Id;
                 }
-
             }
             else
             {
                 statusLst = obj.InsertFuelRecord(fuel);
             }
-           
+
             if (statusLst != 0)
             {
-                if (fuel.Modeofupload==0)
-                {
-                    FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
-                    bool result = objDetail.InsertFuelRecordDetail((TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>), statusLst);
-                    TempData.Remove("lstFuelRecod");
-                }
-                else
-                {
-                    FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
-                    bool result = objDetail.InsertFuelRecordDetailManual((TempData.Peek("fuelrecordmanuallist") as List<FuelRecordManualDto>), statusLst);
-                    TempData.Remove("fuelrecordmanuallist");
-                }
-               
+
+                FuelRecord_DetailRepo objDetail = new FuelRecord_DetailRepo();
+                bool result = objDetail.InsertFuelRecordDetail((TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>), statusLst);
+                TempData.Remove("lstFuelRecod");
+
                 return Json("Record saved successfully.");
             }
             else
@@ -72,9 +66,6 @@ namespace AssetMaintenance.UI.Controllers
 
             }
         }
-
-       
-
 
         [HttpGet]
         public ActionResult ViewFuelList()
@@ -89,13 +80,12 @@ namespace AssetMaintenance.UI.Controllers
         {
             ListFuelRecord = new List<FuelRecord_DetailDto>();
             Regex decimalRegex = new Regex(@"^[0-9]*(\.[0-9]{1,2})?$");
+            int id =Convert.ToInt32(((System.Web.HttpRequestWrapper)Request).Form[0]);
             if (Path.GetExtension(Request.Files[0].FileName) == ".xlsx")
             {
                 string validationMsg = string.Empty;
                 int chkInt = 0;
                 double chkDouble;
-                //DateTime chkDate = new DateTime();
-                DateTime chkDate;
 
                 using (var package = new ExcelPackage(Request.Files[0].InputStream))
                 {
@@ -151,7 +141,7 @@ namespace AssetMaintenance.UI.Controllers
                                 //    break;
                                 //}
                                 double d;
-                                if (double.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(),out d))
+                                if (double.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out d))
                                 {
                                     model.Date = DateTime.FromOADate(d);
                                 }
@@ -160,10 +150,6 @@ namespace AssetMaintenance.UI.Controllers
                                     model.Date = Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
                                     //model.Date = DateTime.ParseExact(workSheet.Cells[rowIterator, 1].Value.ToString(), @"dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                                 }
-
-                                
-
-                                
                             }
                             else
                             {
@@ -277,10 +263,25 @@ namespace AssetMaintenance.UI.Controllers
                             ListFuelRecord.Add(model);
 
                         }
-                        TempData["lstFuelRecod"] = ListFuelRecord;
-                        TempData.Keep("lstFuelRecod");
-                        return Json(new { msg = validationMsg, Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
+                        if (id > 0)
+                        {
+                            var obj = new FuelRecord_DetailRepo();
 
+                            obj.InsertFuelRecordDetail(ListFuelRecord,id);
+                            ListFuelRecord = obj.getFuelDetails(id);
+
+                            return Json(new { msg = "Record added successfully", Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
+
+                        }
+                        else
+                        {
+                            if (TempData.ContainsKey("lstFuelRecod"))
+                                ListFuelRecord.AddRange((TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>));
+
+                            TempData["lstFuelRecod"] = ListFuelRecord;
+                            TempData.Keep("lstFuelRecod");
+                            return Json(new { msg = validationMsg, Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
+                        }
                     }
                     else
                         validationMsg = "Excel File can not bt empty.";
@@ -294,33 +295,37 @@ namespace AssetMaintenance.UI.Controllers
             }
         }
 
-        public bool IsDate(Object obj)
-        {
-
-            string strDate = Convert.ToDateTime(obj).ToString();
-            try
-            {
-                DateTime dt = DateTime.Parse(strDate);
-                if (dt != DateTime.MinValue && dt != DateTime.MaxValue)
-                    return true;
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         [HttpPost]
-        public ActionResult CreateFuelManualRecord(FuelRecordManualDto model)
+        public ActionResult CreateFuelManualRecord(FuelRecord_DetailDto model)
         {
-            List<FuelRecordManualDto> lstfuelRecordManuals = new List<FuelRecordManualDto>();
-            if (TempData.ContainsKey("fuelrecordmanuallist"))
-                lstfuelRecordManuals = (TempData.Peek("fuelrecordmanuallist") as List<FuelRecordManualDto>);
+            var obj = new FuelRecord_DetailRepo();
 
-            lstfuelRecordManuals.Add(model);
-            TempData["fuelrecordmanuallist"] = lstfuelRecordManuals;
-            TempData.Keep("fuelrecordmanuallist");
+            List<FuelRecord_DetailDto> lstfuelRecordManuals = new List<FuelRecord_DetailDto>();
+            if (TempData.ContainsKey("lstFuelRecod"))
+                lstfuelRecordManuals = (TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>);
+            if (model.FuelRecord_DetailId > 0)
+            {
+                obj.updateFuelRecordManual(model);
+                lstfuelRecordManuals = obj.getFuelDetails(model.FuelRecordId);
+                return Json(new { msg = "Record added successfully", Html = lstfuelRecordManuals }, JsonRequestBehavior.AllowGet);
+
+            }
+            else if (model.FuelRecordId > 0 && model.FuelRecord_DetailId==0)
+            {
+                List<FuelRecord_DetailDto> lstNewRecords = new List<FuelRecord_DetailDto>();
+                lstNewRecords.Add(model);
+                obj.InsertFuelRecordDetail(lstNewRecords, model.FuelRecordId);
+                lstfuelRecordManuals = obj.getFuelDetails(model.FuelRecordId);
+
+                return Json(new { msg = "Record added successfully", Html = lstfuelRecordManuals }, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                lstfuelRecordManuals.Add(model);
+            }
+            TempData["lstFuelRecod"] = lstfuelRecordManuals;
+            TempData.Keep("lstFuelRecod");
             return Json(new { msg = "Record added successfully", Html = lstfuelRecordManuals }, JsonRequestBehavior.AllowGet);
         }
 
@@ -344,109 +349,5 @@ namespace AssetMaintenance.UI.Controllers
             var obj = new FuelRecord_DetailRepo();
             return Json(new { msg = "Record added successfully", Html = obj.getFuelDetailsByid(fuelmanagemaualbyid) }, JsonRequestBehavior.AllowGet);
         }
-
-        [HttpPost]
-        public ActionResult CreateFuelRecordManual(FuelRecordManualDto fuelmanual)
-        {
-            var obj = new FuelRecord_DetailRepo();
-            Int64 statusLst = 0;
-            if (obj.updateFuelRecordManual(fuelmanual))
-            {
-                statusLst = fuelmanual.Id;
-                return Json("Record Update successfully.");
-            }
-            else
-            {
-                return Json("Something went wrong.");
-
-            }
-        }
-
-        //[HttpPost]
-        //public ActionResult CreateFuelManualRecord()
-        //{
-        //    ListFuelRecord = new List<FuelRecord_DetailDto>();
-        //    string validationMsg = string.Empty;
-        //    int chkInt = 0;
-        //    double chkDouble = 0;
-        //    //DateTime chkDate = new DateTime();
-        //    DateTime chkDate;
-
-        //        var currentSheet = package.Workbook.Worksheets;
-        //        var workSheet = currentSheet.First();
-        //        var noOfCol = workSheet.Dimension.End.Column;
-        //        var noOfRow = workSheet.Dimension.End.Row;
-
-
-
-
-        //        FuelRecordManualDto model = new FuelRecordManualDto();
-        //        if (model.Date != null)
-        //        {
-        //            model.Date = DateTime.ParseExact(workSheet.Cells[1].Value.ToString(), @"d/M/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-        //        }
-        //        else
-        //        {
-        //            validationMsg = "Date is required in excel sheet";
-
-        //        }
-        //        model.VoucherNumber = Convert.ToString(workSheet.Cells[2].Value);
-        //        model.Period= Convert.ToString(workSheet.Cells[3].Value);
-        //        model.FillingStation = Convert.ToString(workSheet.Cells[4].Value);
-        //        model.ClaimNumber = Convert.ToString(workSheet.Cells[ 5].Value);
-
-        //        if (model.FuelType != null)
-        //        {
-        //            model.FuelType = workSheet.Cells[ 6].Value.ToString();
-        //        }
-        //        else
-        //        {
-        //            validationMsg = "Fuel Type is required in excel sheet";
-
-        //        }
-        //        model.QuantityLiter = chkInt;
-        //        model.Amount = chkDouble;
-
-        //        if (workSheet.Cells[ 11].Value != null && int.TryParse(workSheet.Cells[ 11].Value.ToString(), out chkInt))
-        //        {
-        //            if (chkInt > 100)
-        //            {
-        //                validationMsg = "Discount (%) must be less than 100%";
-
-        //            }
-        //            model.DiscountAmount = chkInt;
-        //        }
-        //        else
-        //        {
-        //            validationMsg = "Invalid Number format for Discount (%) in excel sheet.";
-
-        //        }
-        //        if (workSheet.Cells[ 12].Value != null && double.TryParse(workSheet.Cells[ 12].Value.ToString(), out chkDouble) )
-        //        {
-        //            model.VatAmount = chkDouble;
-        //        }
-        //        else
-        //        {
-        //            validationMsg = "Invalid Number format for Vat Amount in excel sheet.";
-
-        //        }
-
-        //        if (workSheet.Cells[ 13].Value != null && double.TryParse(workSheet.Cells[ 13].Value.ToString(), out chkDouble) )
-        //        {
-        //            model.AmountInc = chkDouble;
-        //        }
-        //        else
-        //        {
-        //            validationMsg = "Invalid Number format for Amount inc. vat (Rs) in excel sheet.";
-
-        //        }
-        //        ListFuelRecord.Add(model);
-        //        TempData["lstFuelRecod"] = ListFuelRecord;
-        //        TempData.Keep("lstFuelRecod");
-        //        return Json(new { msg = validationMsg, Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
-
-
-        //    }
-        //}
     }
 }
