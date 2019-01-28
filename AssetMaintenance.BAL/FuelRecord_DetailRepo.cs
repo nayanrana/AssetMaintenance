@@ -140,5 +140,12 @@ namespace AssetMaintenance.BAL
             }
         }
 
+        public object deleteFuelRecord(int id)
+        {
+            FuelRecord_Detail fuelDelete = dbCon.FuelRecord_Detail.SingleOrDefault(c => c.FuelRecord_DetailId == id);
+            dbCon.FuelRecord_Detail.Remove(fuelDelete);
+            dbCon.SaveChanges();
+            return "Data Deleted successfully.";
+        }
     }
 }

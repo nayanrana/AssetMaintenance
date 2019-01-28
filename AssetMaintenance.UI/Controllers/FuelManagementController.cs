@@ -335,6 +335,7 @@ namespace AssetMaintenance.UI.Controllers
             var obj = new FuelRecord_DetailRepo();
             return Json(new { msg = "Record added successfully", Html = obj.getFuelDetails(fuelmanagetid) }, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public ActionResult DeleteFuelManagementByID(int id)
         {
@@ -348,6 +349,14 @@ namespace AssetMaintenance.UI.Controllers
         {
             var obj = new FuelRecord_DetailRepo();
             return Json(new { msg = "Record added successfully", Html = obj.getFuelDetailsByid(fuelmanagemaualbyid) }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteFuelRecordByID(int id)
+        {
+            FuelRecord_DetailRepo fuelrecord = new FuelRecord_DetailRepo();
+            var model = fuelrecord.deleteFuelRecord(id);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }
