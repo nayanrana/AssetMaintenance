@@ -33,6 +33,7 @@ namespace AssetMaintenance.DAL
         public Nullable<bool> Is_PaymentReceiptGenerate { get; set; }
         public Nullable<double> VatAmount { get; set; }
         public Nullable<double> AmountIncVat { get; set; }
+        public Nullable<bool> Is_Excel { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FuelRecord_Detail> FuelRecord_Detail { get; set; }

@@ -57,6 +57,7 @@ namespace AssetMaintenance.BAL
                 ful.QuantityLitre = fuel.QuantityLitre;
                 ful.VatAmount = fuel.VatAmount;
                 ful.VoucherNumber = fuel.VoucherNumber;
+                ful.Is_Excel = fuel.Modeofupload == 0 ? true : false;
 
                 dbCon.Fuel_Record.Add(ful);
                 dbCon.SaveChanges();

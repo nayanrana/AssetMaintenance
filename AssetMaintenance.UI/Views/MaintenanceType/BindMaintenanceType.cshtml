@@ -155,10 +155,10 @@
                       
                         tr.append("<td class='text-center' data-title='Edit'> "
                             + "<div> <a href='/MaintenanceType/Index?maintenanceType=" + item.MaintenanceTypeId + "'  data-asset=" + item.Asset
-                            + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" + "</td>");
+                            + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit</span></a></div>" + "</td>");
                         tr.append("<td class='text-center' data-title='Delete'> "
                             + "<div> <a href='javascript:void(0);' onclick='deleteMaintenanceType(" + item.MaintenanceTypeId+")' data-asset=" + item.Asset
-                            + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Delete</span></a></div>" + "</td>");
+                            + " class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i> &nbsp;Delete</a></div>" + "</td>");
 
                         $("#MaintenanceList tbody").append(tr);
                     });

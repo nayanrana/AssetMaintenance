@@ -46,6 +46,22 @@ namespace AssetMaintenance.BAL
                     objFuelDetails.Quantities = item.Quantities;
                     objFuelDetails.VatAmount = item.VatAmount;
                     objFuelDetails.VoucherNo = item.VoucherNo;
+                    objFuelDetails.PeriodFrom = item.PeriodFrom;
+                    objFuelDetails.PeriodTo = item.PeriodTo;
+                    objFuelDetails.FuelInvoiceNo = item.FuelInvoiceNo;
+                    objFuelDetails.InvoiceDate = item.InvoiceDate;
+                    objFuelDetails.PaymentCertificateNo = item.PaymentCertificateNo;
+                    objFuelDetails.SupplierCodeName = item.SupplierCodeName;
+                    objFuelDetails.DiscountAmountDiesel = item.DiscountAmountDiesel;
+                    objFuelDetails.DiscountAmountGasoline = item.DiscountAmountGasoline;
+                    objFuelDetails.InvoiceDiscountAmount = item.InvoiceDiscountAmount;
+                    objFuelDetails.InvoiceTotalAmount = item.InvoiceTotalAmount;
+                    objFuelDetails.FuelType = "1";
+                    objFuelDetails.InvoiceVatAmount = item.InvoiceVatAmount;
+                    objFuelDetails.AmountDieselLt = item.AmountDieselLt;
+                    objFuelDetails.AmountGasolineLt = item.AmountGasolineLt;
+                    objFuelDetails.ClaimNo = item.ClaimNo;
+
                     objFuelDetails.RegistrationNo = string.IsNullOrEmpty(item.RegistrationNo) ? string.Empty : item.RegistrationNo;
                     dbCon.FuelRecord_Detail.Add(objFuelDetails);
                 }
@@ -76,6 +92,21 @@ namespace AssetMaintenance.BAL
                 ActualMilage = k.ActualMilage,
                 FuelRecordId = k.FuelRecordId,
                 CurrentMilage = k.CurrentMilage,
+                PeriodFrom = k.PeriodFrom,
+                PeriodTo = k.PeriodTo,
+                FuelInvoiceNo = k.FuelInvoiceNo,
+                InvoiceDate=k.InvoiceDate,
+                PaymentCertificateNo = k.PaymentCertificateNo,
+                SupplierCodeName = k.SupplierCodeName,
+                DiscountAmountDiesel = k.DiscountAmountDiesel,
+                DiscountAmountGasoline = k.DiscountAmountGasoline,
+                InvoiceDiscountAmount = k.InvoiceDiscountAmount,
+                InvoiceTotalAmount = k.InvoiceTotalAmount,
+                InvoiceVatAmount = k.InvoiceVatAmount,
+                AmountDieselLt = k.AmountDieselLt,
+                AmountGasolineLt = k.AmountGasolineLt,
+                ClaimNo = k.ClaimNo,
+
                 Driver = k.Driver
             }).ToList();
 
@@ -101,6 +132,20 @@ namespace AssetMaintenance.BAL
                 ActualMilage = k.ActualMilage,
                 FuelRecordId = k.FuelRecordId,
                 CurrentMilage = k.CurrentMilage,
+                PeriodFrom = k.PeriodFrom,
+                PeriodTo = k.PeriodTo,
+                FuelInvoiceNo = k.FuelInvoiceNo,
+                InvoiceDate = k.InvoiceDate,
+                PaymentCertificateNo = k.PaymentCertificateNo,
+                SupplierCodeName = k.SupplierCodeName,
+                DiscountAmountDiesel = k.DiscountAmountDiesel,
+                DiscountAmountGasoline = k.DiscountAmountGasoline,
+                InvoiceDiscountAmount = k.InvoiceDiscountAmount,
+                InvoiceTotalAmount = k.InvoiceTotalAmount,
+                InvoiceVatAmount = k.InvoiceVatAmount,
+                AmountDieselLt = k.AmountDieselLt,
+                AmountGasolineLt = k.AmountGasolineLt,
+                ClaimNo = k.ClaimNo,
                 Driver = k.Driver
 
 
@@ -129,6 +174,22 @@ namespace AssetMaintenance.BAL
                 fuelmanagerResult.Quantities = fuelmanual.Quantities;
                 fuelmanagerResult.VatAmount = fuelmanual.VatAmount;
                 fuelmanagerResult.VoucherNo = fuelmanual.VoucherNo;
+
+                fuelmanagerResult.PeriodFrom = fuelmanual.PeriodFrom;
+                fuelmanagerResult.PeriodTo = fuelmanual.PeriodTo;
+                fuelmanagerResult.FuelInvoiceNo = fuelmanual.FuelInvoiceNo;
+                fuelmanagerResult.InvoiceDate = fuelmanual.InvoiceDate;
+                fuelmanagerResult.PaymentCertificateNo = fuelmanual.PaymentCertificateNo;
+                fuelmanagerResult.SupplierCodeName = fuelmanual.SupplierCodeName;
+                fuelmanagerResult.DiscountAmountDiesel = fuelmanual.DiscountAmountDiesel;
+                fuelmanagerResult.DiscountAmountGasoline = fuelmanual.DiscountAmountGasoline;
+                fuelmanagerResult.InvoiceDiscountAmount = fuelmanual.InvoiceDiscountAmount;
+                fuelmanagerResult.InvoiceTotalAmount = fuelmanual.InvoiceTotalAmount;
+                fuelmanagerResult.InvoiceVatAmount = fuelmanual.InvoiceVatAmount;
+                fuelmanagerResult.AmountDieselLt = fuelmanual.AmountDieselLt;
+                fuelmanagerResult.AmountGasolineLt = fuelmanual.AmountGasolineLt;
+                fuelmanagerResult.ClaimNo = fuelmanual.ClaimNo;
+
                 dbCon.SaveChanges();
 
                 return true;

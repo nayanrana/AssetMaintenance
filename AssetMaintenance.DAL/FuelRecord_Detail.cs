@@ -32,6 +32,20 @@ namespace AssetMaintenance.DAL
         public Nullable<int> CreatedBy { get; set; }
         public long CreatedOn { get; set; }
         public bool Active { get; set; }
+        public Nullable<System.DateTime> PeriodFrom { get; set; }
+        public Nullable<System.DateTime> PeriodTo { get; set; }
+        public string FuelInvoiceNo { get; set; }
+        public Nullable<System.DateTime> InvoiceDate { get; set; }
+        public string PaymentCertificateNo { get; set; }
+        public string SupplierCodeName { get; set; }
+        public Nullable<double> DiscountAmountDiesel { get; set; }
+        public Nullable<double> DiscountAmountGasoline { get; set; }
+        public Nullable<double> InvoiceDiscountAmount { get; set; }
+        public Nullable<double> InvoiceTotalAmount { get; set; }
+        public Nullable<double> InvoiceVatAmount { get; set; }
+        public Nullable<double> AmountDieselLt { get; set; }
+        public Nullable<double> AmountGasolineLt { get; set; }
+        public Nullable<int> ClaimNo { get; set; }
     
         public virtual Fuel_Record Fuel_Record { get; set; }
     }

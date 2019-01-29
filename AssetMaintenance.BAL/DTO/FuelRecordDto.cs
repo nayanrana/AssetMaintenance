@@ -25,7 +25,7 @@ namespace AssetMaintenance.BAL.DTO
         public int Modeofupload { get; set; }
         public FuelRecord_DetailDto fuelRecordManualDto { get; set; }
         public bool? Is_PaymentReceiptGenerate { get; set; }
-
+        public bool? Is_Excel { get; set; }
 
     }
 

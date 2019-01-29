@@ -19,5 +19,19 @@ namespace AssetMaintenance.BAL.DTO
         public Nullable<double> Discount { get; set; }
         public Nullable<double> VatAmount { get; set; }
         public double? AmountInVal { get; set; }
+        public Nullable<System.DateTime> PeriodFrom { get; set; }
+        public Nullable<System.DateTime> PeriodTo { get; set; }
+        public string FuelInvoiceNo { get; set; }
+        public Nullable<System.DateTime> InvoiceDate { get; set; }
+        public string PaymentCertificateNo { get; set; }
+        public string SupplierCodeName { get; set; }
+        public Nullable<double> DiscountAmountDiesel { get; set; }
+        public Nullable<double> DiscountAmountGasoline { get; set; }
+        public Nullable<double> InvoiceDiscountAmount { get; set; }
+        public Nullable<double> InvoiceTotalAmount { get; set; }
+        public Nullable<double> InvoiceVatAmount { get; set; }
+        public Nullable<double> AmountDieselLt { get; set; }
+        public Nullable<double> AmountGasolineLt { get; set; }
+        public Nullable<int> ClaimNo { get; set; }
     }
 }

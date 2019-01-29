@@ -30,6 +30,7 @@
           <Property Name="Is_PaymentReceiptGenerate" Type="bit" />
           <Property Name="VatAmount" Type="float" />
           <Property Name="AmountIncVat" Type="float" />
+          <Property Name="Is_Excel" Type="bit" />
         </EntityType>
         <EntityType Name="FuelRecord_Detail">
           <Key>
@@ -53,6 +54,20 @@
           <Property Name="CreatedBy" Type="int" />
           <Property Name="CreatedOn" Type="bigint" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="PeriodFrom" Type="date" />
+          <Property Name="PeriodTo" Type="datetime" />
+          <Property Name="FuelInvoiceNo" Type="varchar" MaxLength="50" />
+          <Property Name="InvoiceDate" Type="date" />
+          <Property Name="PaymentCertificateNo" Type="varchar" MaxLength="50" />
+          <Property Name="SupplierCodeName" Type="varchar" MaxLength="50" />
+          <Property Name="DiscountAmountDiesel" Type="float" />
+          <Property Name="DiscountAmountGasoline" Type="float" />
+          <Property Name="InvoiceDiscountAmount" Type="float" />
+          <Property Name="InvoiceTotalAmount" Type="float" />
+          <Property Name="InvoiceVatAmount" Type="float" />
+          <Property Name="AmountDieselLt" Type="float" />
+          <Property Name="AmountGasolineLt" Type="float" />
+          <Property Name="ClaimNo" Type="int" />
         </EntityType>
         <EntityType Name="GFI_AMM_AssetExtProVehicles">
           <Key>
@@ -1240,7 +1255,6 @@
             <End Role="GFI_FuelDetail" EntitySet="GFI_FuelDetail" />
             <End Role="GFI_FuelDetail1" EntitySet="GFI_FuelDetail" />
           </AssociationSet>
-          <EntitySet Name="FuelRecord_Detail" EntityType="AssetMaintenanceModel.FuelRecord_Detail" />
           <EntitySet Name="AssetMaintenaceTypes" EntityType="AssetMaintenanceModel.AssetMaintenaceType" />
           <AssociationSet Name="FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" Association="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes">
             <End Role="GFI_AMM_VehicleMaintTypes" EntitySet="GFI_AMM_VehicleMaintTypes" />
@@ -1250,6 +1264,7 @@
             <End Role="GFI_FLT_Asset" EntitySet="GFI_FLT_Asset" />
             <End Role="AssetMaintenaceType" EntitySet="AssetMaintenaceTypes" />
           </AssociationSet>
+          <EntitySet Name="FuelRecord_Detail" EntityType="AssetMaintenanceModel.FuelRecord_Detail" />
           <EntitySet Name="Fuel_Record" EntityType="AssetMaintenanceModel.Fuel_Record" />
           <AssociationSet Name="FK_FuelRecord_Detail_FuelRecord_Detail" Association="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail">
             <End Role="Fuel_Record" EntitySet="Fuel_Record" />
@@ -1312,30 +1327,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="FuelRecord_Detail">
-          <Key>
-            <PropertyRef Name="FuelRecord_DetailId" />
-          </Key>
-          <Property Name="FuelRecord_DetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FuelRecordId" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="VoucherNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RegistrationNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FillingStation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FuelType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Quantities" Type="Int32" Nullable="false" />
-          <Property Name="ActualMilage" Type="Int32" />
-          <Property Name="CurrentMilage" Type="Int32" />
-          <Property Name="AmountExVal" Type="Double" />
-          <Property Name="Discount" Type="Double" />
-          <Property Name="VatAmount" Type="Double" />
-          <Property Name="AmountInVal" Type="Double" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedOn" Type="Int64" Nullable="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Fuel_Record" Relationship="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" FromRole="FuelRecord_Detail" ToRole="Fuel_Record" />
-        </EntityType>
         <EntityType Name="AssetMaintenaceType">
           <Key>
             <PropertyRef Name="AssetMaintenceId" />
@@ -1370,6 +1361,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FuelRecord_Detail">
+          <Key>
+            <PropertyRef Name="FuelRecord_DetailId" />
+          </Key>
+          <Property Name="FuelRecord_DetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FuelRecordId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="VoucherNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RegistrationNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FillingStation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FuelType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantities" Type="Int32" Nullable="false" />
+          <Property Name="ActualMilage" Type="Int32" />
+          <Property Name="CurrentMilage" Type="Int32" />
+          <Property Name="AmountExVal" Type="Double" />
+          <Property Name="Discount" Type="Double" />
+          <Property Name="VatAmount" Type="Double" />
+          <Property Name="AmountInVal" Type="Double" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="Int64" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="PeriodFrom" Type="DateTime" Precision="0" />
+          <Property Name="PeriodTo" Type="DateTime" Precision="3" />
+          <Property Name="FuelInvoiceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Precision="0" />
+          <Property Name="PaymentCertificateNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SupplierCodeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountAmountDiesel" Type="Double" />
+          <Property Name="DiscountAmountGasoline" Type="Double" />
+          <Property Name="InvoiceDiscountAmount" Type="Double" />
+          <Property Name="InvoiceTotalAmount" Type="Double" />
+          <Property Name="InvoiceVatAmount" Type="Double" />
+          <Property Name="AmountDieselLt" Type="Double" />
+          <Property Name="AmountGasolineLt" Type="Double" />
+          <Property Name="ClaimNo" Type="Int32" />
+          <NavigationProperty Name="Fuel_Record" Relationship="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" FromRole="FuelRecord_Detail" ToRole="Fuel_Record" />
+        </EntityType>
         <EntityType Name="Fuel_Record">
           <Key>
             <PropertyRef Name="Id" />
@@ -1387,6 +1416,7 @@
           <Property Name="Is_PaymentReceiptGenerate" Type="Boolean" />
           <Property Name="VatAmount" Type="Double" />
           <Property Name="AmountIncVat" Type="Double" />
+          <Property Name="Is_Excel" Type="Boolean" />
           <NavigationProperty Name="FuelRecord_Detail" Relationship="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" FromRole="Fuel_Record" ToRole="FuelRecord_Detail" />
         </EntityType>
         <Association Name="FK_FuelRecord_Detail_FuelRecord_Detail">
@@ -1862,9 +1892,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AssetMaintenaceTypes">
+            <EntityTypeMapping TypeName="AssetMaintenanceModel.AssetMaintenaceType">
+              <MappingFragment StoreEntitySet="AssetMaintenaceType">
+                <ScalarProperty Name="MaintenceId" ColumnName="MaintenceId" />
+                <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+                <ScalarProperty Name="AssetMaintenceId" ColumnName="AssetMaintenceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="FuelRecord_Detail">
             <EntityTypeMapping TypeName="AssetMaintenanceModel.FuelRecord_Detail">
               <MappingFragment StoreEntitySet="FuelRecord_Detail">
+                <ScalarProperty Name="ClaimNo" ColumnName="ClaimNo" />
+                <ScalarProperty Name="AmountGasolineLt" ColumnName="AmountGasolineLt" />
+                <ScalarProperty Name="AmountDieselLt" ColumnName="AmountDieselLt" />
+                <ScalarProperty Name="InvoiceVatAmount" ColumnName="InvoiceVatAmount" />
+                <ScalarProperty Name="InvoiceTotalAmount" ColumnName="InvoiceTotalAmount" />
+                <ScalarProperty Name="InvoiceDiscountAmount" ColumnName="InvoiceDiscountAmount" />
+                <ScalarProperty Name="DiscountAmountGasoline" ColumnName="DiscountAmountGasoline" />
+                <ScalarProperty Name="DiscountAmountDiesel" ColumnName="DiscountAmountDiesel" />
+                <ScalarProperty Name="SupplierCodeName" ColumnName="SupplierCodeName" />
+                <ScalarProperty Name="PaymentCertificateNo" ColumnName="PaymentCertificateNo" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="FuelInvoiceNo" ColumnName="FuelInvoiceNo" />
+                <ScalarProperty Name="PeriodTo" ColumnName="PeriodTo" />
+                <ScalarProperty Name="PeriodFrom" ColumnName="PeriodFrom" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -1886,18 +1939,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AssetMaintenaceTypes">
-            <EntityTypeMapping TypeName="AssetMaintenanceModel.AssetMaintenaceType">
-              <MappingFragment StoreEntitySet="AssetMaintenaceType">
-                <ScalarProperty Name="MaintenceId" ColumnName="MaintenceId" />
-                <ScalarProperty Name="AssetId" ColumnName="AssetId" />
-                <ScalarProperty Name="AssetMaintenceId" ColumnName="AssetMaintenceId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Fuel_Record">
             <EntityTypeMapping TypeName="AssetMaintenanceModel.Fuel_Record">
               <MappingFragment StoreEntitySet="Fuel_Record">
+                <ScalarProperty Name="Is_Excel" ColumnName="Is_Excel" />
                 <ScalarProperty Name="AmountIncVat" ColumnName="AmountIncVat" />
                 <ScalarProperty Name="VatAmount" ColumnName="VatAmount" />
                 <ScalarProperty Name="Is_PaymentReceiptGenerate" ColumnName="Is_PaymentReceiptGenerate" />
