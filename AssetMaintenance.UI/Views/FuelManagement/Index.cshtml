@@ -192,7 +192,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="table-responsive">
-                     <table id="fuelDetailsExcel" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
+                     <table id="fuelDetailsManual" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
                         <tbody id="myBody"></tbody>
                     </table>
                 </div>
@@ -343,7 +343,7 @@
                             $("#tblUploadedData tbody").html('');
                             debugger;
 
-                            CreateItemListDetail(response,1);
+                            CreateItemListDetail(response, 1);
                             $("#modalViewData").modal('show');
                             $('.FuelListedit').remove();
                         }
@@ -362,8 +362,10 @@
 
         function ConfirmButton() {
             $('#btnCreateFuelRecord').prop('disabled', false);
+           
             $("#fuelDetailsDiv").html('').html($("#tblUploadedData").html());
 
+           
         }
 
         function FuelManagementGrid() {
@@ -553,6 +555,11 @@
             $("#tblUploadedData #tfootDiscount").html(vatTotal);
             $("#tblUploadedData #tfootVatTotal").html(discount);
             $("#tblUploadedData #tfootAmtVatTotal").html(amtVat);
+
+            $('#VatAmount').val(discount)
+            $('#AmountExclVat').val(amtTotal)
+            $('#DiscountAmount').val(vatTotal)
+            $('#AmountIncVat').val(amtVat)
         }
 
         $(function () {
@@ -664,11 +671,12 @@
                     contentType: "application/json; charset=utf-8",
                     
                     success: function (data) {
+
                         if ($('#Is_Excel').val() > 1) {
                             $('.fuelDetailsDiv').show();
-                            $('.fuelDetailsExcel').hide();
+                            $('.fuelDetailsManual').hide();
                             $("#tblUploadedData tbody").empty();
-                            CreateItemList(data);
+                            CreateItemListDetail(data);
                             if ($.fn.DataTable.isDataTable("#fuelDetailsDiv")) {
 
                                 $('#fuelDetailsDiv').DataTable().clear().destroy();
@@ -676,27 +684,38 @@
                             $("#fuelDetailsDiv").html('')
 
                             $("#fuelDetailsDiv").html($("#tblUploadedData").html());
+                            var table = $('#fuelDetailsDiv').dataTable(
+                                {
+                                    "lengthChange": false,
+                                    "deferRender": true,
+                                }
+
+
+                            );
                         }
                         else {
                             $('.fuelDetailsDiv').hide();
-                            $('.fuelDetailsExcel').show();
+                            $('.fuelDetailsManual').show();
                             $("#tblUploadedData tbody").empty();
-                            CreateItemListDetail(data);
-                            if ($.fn.DataTable.isDataTable("#fuelDetailsExcel")) {
+                            CreateItemList(data);
+                            if ($.fn.DataTable.isDataTable("#fuelDetailsManual")) {
 
-                                $('#fuelDetailsExcel').DataTable().clear().destroy();
+                                $('#fuelDetailsManual').DataTable().clear().destroy();
                             }
-                            $("#fuelDetailsExcel").html('')
+                            $("#fuelDetailsManual").html('')
 
-                            $("#fuelDetailsExcel").html($("#tblUploadedData").html());
+                            $("#fuelDetailsManual").html($("#tblUploadedData").html());
+                            var table = $('#fuelDetailsManual').dataTable(
+                                {
+                                    "lengthChange": false,
+                                    "deferRender": true,
+                                }
+
+
+                            );
                         }
                        
-                        var table = $('#fuelDetailsDiv').dataTable(
-                            {
-                                "lengthChange": false,
-                                "deferRender": true,
-                            }
-                        );
+                       
                     }
                 });
             }
