@@ -192,7 +192,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="table-responsive">
-                    <table id="fuelDetailsExcel" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
+                     <table id="fuelDetailsExcel" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
                         <tbody id="myBody"></tbody>
                     </table>
                 </div>
@@ -525,22 +525,18 @@
                     discount = parseFloat(discount) + parseFloat(item.VatAmount);
                 if (item.AmountInVal != undefined)
                     amtVat = parseFloat(amtVat) + parseFloat(item.AmountInVal);
-                if (item.FuelRecordId != 0) {
-                    tr.append("<td class='text-center' data-title='Edit'> "
-                        + "<div> <a href= 'javascript:void(0);' onclick='gridedit(" + item.FuelRecord_DetailId + ")'  data-asset=" + item.FuelRecord_DetailId
-                        + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit </span></a></div>" + "</td>");
-                }
-                else {
-                    tr.append("<td></td>")
-                }
-                if (item.FuelRecordId != 0) {
+               
+                tr.append("<td class='text-center' data-title='Edit'> "
+                    + "<div> <a href= 'javascript:void(0);' onclick='gridedit(" + item.FuelRecord_DetailId + ")'  data-asset=" + item.FuelRecord_DetailId
+                    + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit </span></a></div>" + "</td>");
+                
+               
+         
                     tr.append("<td class='text-center' data-title='Delete'> "
                         + "<div> <a href='javascript:void(0);' onclick='deleteFuelRecord(" + item.FuelRecord_DetailId + ")' data-asset=" + item.FuelRecord_DetailId
                         + " class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i> &nbsp;Delete</a></div>" + "</td>");
-                }
-                else {
-                    tr.append("<td></td>")
-                }
+                
+              
                 $("#tblUploadedData tbody").append(tr);
             });
             $("#tblUploadedData #tfootAmtTotal").html(amtTotal);
@@ -563,7 +559,11 @@
 
                
                 document.getElementById("manualcreate").reset();
-
+                $('#ManualFillingStation').val($('#FillingStation').val())
+                $('#ManualPeriodFrom').val($('#PeriodFrom').val())
+                $('#ManualPeriodTo').val($('#PeriodTo').val())
+                $('#ManualInvoiceDiscountAmount').val($('#DiscountAmount').val())
+                $('#MaunalInvoiceVatAmount').val($('#VatAmount').val())
                 $("#modalSaveItemData").modal('show');
 
             });
@@ -619,8 +619,9 @@
                     contentType: "application/json; charset=utf-8",
                     
                     success: function (data) {
-                        if ($('#Is_Excel').val() > 0) {
+                        if ($('#Is_Excel').val() > 1) {
                             $('.fuelDetailsDiv').show();
+                            $('.fuelDetailsExcel').hide();
                             $("#tblUploadedData tbody").empty();
                             CreateItemList(data);
                             if ($.fn.DataTable.isDataTable("#fuelDetailsDiv")) {
@@ -665,6 +666,7 @@
                     url: '@Url.Action("GetFuelManualDetails", "FuelManagement")?fuelmanagemaualbyid=' + id,
                   dataType: 'json',
                     success: function (data) {
+                        if ($('#Is_Excel').val() > 1) {}
                         document.getElementById("manualcreate").reset();
 
                         var item = data.Html;
@@ -711,6 +713,8 @@
              });
 
             };
+
+           
         </script>
     }
 }
