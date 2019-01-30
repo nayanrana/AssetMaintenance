@@ -343,7 +343,7 @@
                             $("#tblUploadedData tbody").html('');
                             debugger;
 
-                            CreateItemListDetail(response);
+                            CreateItemListDetail(response,1);
                             $("#modalViewData").modal('show');
                             $('.FuelListedit').remove();
                         }
@@ -496,7 +496,7 @@
             $("#tblUploadedData #tfootAmtVatTotal").html(amtVat);
         }
 
-        function CreateItemListDetail(response) {
+        function CreateItemListDetail(response,type=0) {
             var amtTotal = 0, discount = 0, vatTotal = 0, amtVat = 0;
             debugger;
 
@@ -515,7 +515,8 @@
                 tr.append("<td class='text-center'> " +( item.AmountExVal != undefined ? item.AmountExVal : "-")+ "</td>");
                 tr.append("<td class='text-center'> " +( item.Discount != undefined ? item.Discount : "-")+ "</td>");
                 tr.append("<td class='text-center'> " +( item.VatAmount != undefined ? item.VatAmount : "-")+ "</td>");
-                tr.append("<td class='text-center'> " +( item.AmountInVal != undefined ? item.AmountInVal : "-")+ "</td>");
+                tr.append("<td class='text-center'> " + (item.AmountInVal != undefined ? item.AmountInVal : "-") + "</td>");
+               
                 if (item.AmountExVal != undefined)
                     amtTotal = parseFloat(amtTotal) + parseFloat(item.AmountExVal);
                 if (item.Discount != undefined)
@@ -525,16 +526,25 @@
                     discount = parseFloat(discount) + parseFloat(item.VatAmount);
                 if (item.AmountInVal != undefined)
                     amtVat = parseFloat(amtVat) + parseFloat(item.AmountInVal);
-               
-                tr.append("<td class='text-center' data-title='Edit'> "
-                    + "<div> <a href= 'javascript:void(0);' onclick='gridedit(" + item.FuelRecord_DetailId + ")'  data-asset=" + item.FuelRecord_DetailId
-                    + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit </span></a></div>" + "</td>");
-                
-               
-         
+                if (item.FuelRecordId != 0) {
+                    tr.append("<td class='text-center' data-title='Edit'> "
+                        + "<div> <a href= 'javascript:void(0);' onclick='gridedit(" + item.FuelRecord_DetailId + ")'  data-asset=" + item.FuelRecord_DetailId
+                        + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit </span></a></div>" + "</td>");
+
+                }
+                else {
+                    tr.append("<td></td>")
+                }
+                if (type == 1) {
+                    tr.append("<td class='text-center' data-title='Delete'> "
+                        + "<div> <a href='javascript:void(0);' onclick='deleteFuelRecordTempExcel(" + item.FuelRecord_DetailId + ")' data-asset=" + item.FuelRecord_DetailId
+                        + " class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i> &nbsp;Delete</a></div>" + "</td>");
+                } else {
                     tr.append("<td class='text-center' data-title='Delete'> "
                         + "<div> <a href='javascript:void(0);' onclick='deleteFuelRecord(" + item.FuelRecord_DetailId + ")' data-asset=" + item.FuelRecord_DetailId
                         + " class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i> &nbsp;Delete</a></div>" + "</td>");
+                }
+                  
                 
               
                 $("#tblUploadedData tbody").append(tr);
@@ -594,6 +604,41 @@
                             success: function (data) {
                                 swal("Deleted!", "Fuel Record Details has been deleted.", "success");
                                 editgridload();
+                                
+                            }
+                        });
+
+                    } else {
+                        swal("Cancelled", "Your Fuel Record Detail is safe :)", "error");
+                    }
+                });
+        }
+        function deleteFuelRecordTempExcel(id) {
+            swal({
+                title: "Are you sure?",
+                text: "Your will not be able to recover this Fuel Record Details!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: "POST",
+                            ///url: '_ViewMaintanence',
+                            url: '@Url.Action("DeleteExcelTempData", "FuelManagement")',
+                            datatype: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                swal("Deleted!", "Fuel Record Details has been deleted.", "success");
+                                $("#tblUploadedData tbody").html('');
+                                debugger;
+
+                                CreateItemListDetail(data);
                                 
                             }
                         });

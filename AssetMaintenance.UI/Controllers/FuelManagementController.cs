@@ -103,7 +103,7 @@ namespace AssetMaintenance.UI.Controllers
 
                     if (noOfRow >= 2)
                     {
-
+                        int rowid = 1;
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
@@ -151,10 +151,14 @@ namespace AssetMaintenance.UI.Controllers
                                 if (double.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out d))
                                 {
                                     model.Date = DateTime.FromOADate(d);
+                                    model.PeriodFrom = DateTime.FromOADate(d);
+                                    model.PeriodTo = DateTime.FromOADate(d);
                                 }
                                 else
                                 {
                                     model.Date = Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
+                                    model.PeriodFrom = Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
+                                    model.PeriodTo = Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
                                     //model.Date = DateTime.ParseExact(workSheet.Cells[rowIterator, 1].Value.ToString(), @"dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                                 }
                             }
@@ -267,6 +271,15 @@ namespace AssetMaintenance.UI.Controllers
                                 validationMsg = "Invalid Number format for Amount inc. vat (Rs) in excel sheet.";
                                 break;
                             }
+                            if (id == 0)
+                            {
+                                model.FuelRecord_DetailId = rowid;
+                                rowid++;
+
+                                
+                            
+                            }
+                               
                             ListFuelRecord.Add(model);
 
                         }
@@ -364,6 +377,22 @@ namespace AssetMaintenance.UI.Controllers
             FuelRecord_DetailRepo fuelrecord = new FuelRecord_DetailRepo();
             var model = fuelrecord.deleteFuelRecord(id);
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteExcelTempData (int id)
+        {
+            List<FuelRecord_DetailDto> lstfuelRecordManuals = new List<FuelRecord_DetailDto>();
+            if (TempData.ContainsKey("lstFuelRecod"))
+                lstfuelRecordManuals = (TempData.Peek("lstFuelRecod") as List<FuelRecord_DetailDto>);
+            if(lstfuelRecordManuals.Count>0)
+            {
+                lstfuelRecordManuals = lstfuelRecordManuals.Where(d => d.FuelRecord_DetailId != id).ToList();
+                TempData["lstFuelRecod"] = lstfuelRecordManuals;
+                TempData.Keep("lstFuelRecod");
+                return Json(new { msg = "Record added successfully", Html = lstfuelRecordManuals }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(id, JsonRequestBehavior.AllowGet);
         }
     }
 }
