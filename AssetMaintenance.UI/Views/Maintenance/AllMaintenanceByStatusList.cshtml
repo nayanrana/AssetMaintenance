@@ -133,13 +133,13 @@
             $.ajax({
                 type: 'Post',
                 data: JSON.stringify({ maintenanceType: str }),
-                @*'@MaintenanceStatus.OverDue'}),*@
+                //@*'@MaintenanceStatus.OverDue'}),*@
                 url: '@Url.Action("AllMaintenanceByStatusList", "Maintenance")',
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
                 success: function (data)
                 {
-                    @*var Mstatus = @Request.QueryString["maintenanceType"]*@
+                    //@*var Mstatus = @Request.QueryString["maintenanceType"]*@
 
                     $.each(data, function (i, item) {
                         var tr;
@@ -150,12 +150,20 @@
                         tr.append("<td class='text-center' data-title='Status'>" + item.MaintenanceStatus + "</td>");
                         tr.append("<td class='text-center' data-title='Reminder'>" + getFormattedDate(item.Reminder) + "</td>");
                         tr.append("<td class='text-center' data-title='NextMaintenance'>" + getFormattedDate(item.NextMaintenance) + "</td>");
-                        tr.append("<td class='text-center' data-title='History'> " +
-                            "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.AssetID + "," + item.MaintenanceID+")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
+                      
+                            tr.append("<td class='text-center' data-title='History'> " +
+                                "<div> <a href='javascript:void(0)' onclick='maintenanceHistory(this," + item.AssetID + "," + item.MaintenanceID + ")' data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
                             "</td>");
+                        if (item.MaintenanceStatus != "COMPLETED") {
                             tr.append("<td class='text-center' data-title='Edit'> " +
-                                "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "&mainId=" + item.MaintenanceID + "&statusId=" + (str == 0 ? item.MaintenanceID:str) + "'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +
-                            "</td>");
+                                "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "&mainId=" + item.MaintenanceID + "&statusId=" + (str == 0 ? item.MaintenanceID : str) + "'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> Edit</span></a></div>" +
+                                "</td>");
+                        }
+                        else {
+                            tr.append("<td class='text-center' data-title='View'> " +
+                                "<div> <a href='/Maintenance/BindMaintenanceDetail?id=" + item.URI + "&mainId=" + item.MaintenanceID + "&statusId=" + (str == 0 ? item.MaintenanceID : str) + "&disable=true'  data-asset=" + item.Asset + " class='btn btn-xs btn-default'><i class='fa fa-search-plus text-success'></i><span class='bold'> View</span></a></div>" +
+                                "</td>");
+                        }
                         $("#MaintenanceList tbody").append(tr);
                     });
                     htmlToDataTable();

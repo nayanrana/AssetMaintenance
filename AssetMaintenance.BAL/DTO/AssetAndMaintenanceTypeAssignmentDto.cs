@@ -10,5 +10,6 @@ namespace AssetMaintenance.BAL.DTO
         public int MaintenanceTypeId { get; set; }
         public string AssetName { get; set; }
         public string MaintenanceTypeName { get; set; }
+        public int AssetMaintenanceId { get; set; }
     }
 }

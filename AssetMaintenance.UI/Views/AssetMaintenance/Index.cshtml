@@ -1,5 +1,8 @@
-﻿ <script src="~/Scripts/select2.min.js"></script>
+﻿<script src="~/Scripts/select2.min.js"></script>
 <link href="~/Content/css/select2.min.css" rel="stylesheet" />
+<link href="~/Vendor/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
+<script src="~/Vendor/sweetalert/lib/sweet-alert.js"></script>
+
 <div class="normalheader ">
     <div class="hpanel">
         <div class="panel-body">
@@ -37,7 +40,7 @@
                 </div>
                 <div class="form-group col-lg-4">
                     <label>Maintenance Type</label>
-                    @Html.DropDownList("MaintStatusId", new SelectList(ViewBag.MaintenanceType, "Key", "Value"), "-- Select Maintenance Type --",new { @class = "form-control", id = "MaintenanceId" })
+                    @Html.DropDownList("MaintStatusId", new SelectList(ViewBag.MaintenanceType, "Key", "Value"), "-- Select Maintenance Type --", new { @class = "form-control", id = "MaintenanceId" })
 
                 </div>
                 <div>
@@ -107,7 +110,8 @@
                     <thead>
                         <tr>
                             <th class="text-center" width="15%">Asset Name</th>
-                            <th class="text-center" width="8%">Maintenance Type Name</th>
+                            <th class="text-center" width="15%">Maintenance Type Name</th>
+                            <th class="text-center" width="3%">Delete</th>
                         </tr>
                     </thead>
                     <tbody id="myBody"></tbody>
@@ -145,7 +149,7 @@
                     }
                     else
                         toastr.error(data.msg);
-                   
+
                 }
             });
         }
@@ -183,7 +187,9 @@
                                     tr = $('<tr />');
                                     tr.append("<td class='text-center' data-title='Created On'>" + item.AssetName + "</td>");
                                     tr.append("<td class='text-center' data-title='Principal Name'>" + item.MaintenanceTypeName + "</td>");
-
+                                tr.append("<td class='text-center' data-title='Delete'> "
+                                    + "<div> <a href='javascript:void(0);' onclick='deleteAssertMaintenance(" + item.AssetMaintenanceId + ")' data-asset=" + item.AssetId
+                                    + " class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i> &nbsp;Delete</a></div>" + "</td>");
                                     $("#AssetAndMaintenanceTypeList tbody").append(tr);
                             });
                             htmlToDataTable();
@@ -194,7 +200,7 @@
         $(document).ready(function () {
             $('#AssetId').select2();
             $('#MaintenanceId').select2();
-            
+
             $("#MaintenanceId").change(function () {
                  $.ajax({
                         type: 'POST',
@@ -227,6 +233,45 @@
             $("#R2Time").val('');
             $("#R1EngHrs").val('');
             $("#R2EngHrs").val('');
+        }
+
+        function deleteAssertMaintenance(id) {
+            swal({
+                title: "Are you sure?",
+                text: "Your will not be able to recover this Asset Maintenance!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: "POST",
+                            ///url: '_ViewMaintanence',
+                            url: '@Url.Action("DeleteAssertMaintenanceByID", "AssetMaintenance")',
+                            datatype: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                if (!data) {
+                                    swal("Cancelled", "Your Asset Maintenance Is Not Delete Because Asset Maintenance  Is Updated.", "error");
+                                }
+                                else {
+                                    swal("Deleted!", "Assert Maintenance has been deleted.", "success");
+                                    AssetAndMaintenanceTypeAssignmentGrid();
+                                }
+
+
+                            }
+                        });
+
+                    } else {
+                        swal("Cancelled", "Your Asset Maintenance is safe :)", "error");
+                    }
+                });
         }
     </script>
 }

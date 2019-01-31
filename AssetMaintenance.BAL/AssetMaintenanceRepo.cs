@@ -115,11 +115,28 @@ namespace AssetMaintenance.BAL
                                          AssetId = x.AssetId,
                                          MaintenanceTypeId = x.MaintenceId,
                                          AssetName = x.GFI_FLT_Asset.AssetName,
-                                         MaintenanceTypeName = x.GFI_AMM_VehicleMaintTypes.Description
+                                         MaintenanceTypeName = x.GFI_AMM_VehicleMaintTypes.Description,
+                                         AssetMaintenanceId= x.AssetMaintenceId
                                      })
                                      .ToList();
 
             return assetAndMaintenanceTypeAssignmentList;
+        }
+
+        public bool deleteAssertMaintenance(int id)
+        {
+            var assetmaintenance = dbCon.GFI_AMM_VehicleMaintenance.Where(k => k.AssetId == id && k.UpdatedDate == null).FirstOrDefault();
+            if(assetmaintenance == null)
+            {
+                return false;
+            }
+            else
+            {
+                dbCon.AssetMaintenaceTypes.Remove(dbCon.AssetMaintenaceTypes.Where(k => k.AssetMaintenceId == id).ToList().SingleOrDefault());
+                dbCon.SaveChanges();
+               
+            }
+            return true;
         }
     }
 }
