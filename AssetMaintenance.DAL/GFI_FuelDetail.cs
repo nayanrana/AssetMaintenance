@@ -15,6 +15,7 @@ namespace AssetMaintenance.DAL
     public partial class GFI_FuelDetail
     {
         public long FuelId { get; set; }
+        public int SupplierId { get; set; }
         public double Price { get; set; }
         public double Discount { get; set; }
         public System.DateTime Date { get; set; }
@@ -24,7 +25,6 @@ namespace AssetMaintenance.DAL
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public bool Status { get; set; }
     
-        public virtual GFI_FuelDetail GFI_FuelDetail1 { get; set; }
-        public virtual GFI_FuelDetail GFI_FuelDetail2 { get; set; }
+        public virtual Supplier Supplier { get; set; }
     }
 }

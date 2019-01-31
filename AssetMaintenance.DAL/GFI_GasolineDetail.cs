@@ -16,12 +16,15 @@ namespace AssetMaintenance.DAL
     {
         public long Gasolineld { get; set; }
         public double Price { get; set; }
+        public int SupplierId { get; set; }
+        public System.DateTime Date { get; set; }
         public double Discount { get; set; }
         public long CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public Nullable<long> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public bool Status { get; set; }
-        public System.DateTime Date { get; set; }
+    
+        public virtual Supplier Supplier { get; set; }
     }
 }

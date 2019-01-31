@@ -23,7 +23,7 @@
             </div>
             <div class="form-group col-lg-1">
                 <label class="control-label">&nbsp;</label>
-                <button class="form-control btn btn-success" name="Add" onclick="AddFuelDetail('Diesel')">Add</button>
+                <button class="form-control btn btn-success" name="Add" onclick="AddFuelDetail('Diesel')" type="button">Add</button>
             </div>
         </div>
     </div>
@@ -42,16 +42,21 @@
                         <th>
                             Date
                         </th>
+                        <th>
+                            Supplier
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>@item.Price</td>
-                            <td>@item.Discount</td>
-                            <td>@item.PriceDate.ToString("MM/dd/yyyy")</td>
-                        </tr>
+                    <tr>
+                        <td>@item.Price</td>
+                        <td>@item.Discount</td>
+                        <td>@item.PriceDate.ToString("dd/MM/yyyy")</td>
+                        <td>@item.SupplierName</td>
+
+                    </tr>
                     }
                 </tbody>
             </table>

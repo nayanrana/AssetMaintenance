@@ -18,7 +18,7 @@ namespace AssetMaintenance.UI.Controllers.Fuel_Master
             objFuel.FuelList = objFuelPriceRepo.GetFuelDetail();
             objFuel.DieselList = objFuelPriceRepo.GetDisellDetail();
             objFuel.GasoloneList = objFuelPriceRepo.GetGasolineDetail();
-
+            ViewBag.Supplier = objFuelPriceRepo.GetSupplierName();
             return View(objFuel);
         }
 

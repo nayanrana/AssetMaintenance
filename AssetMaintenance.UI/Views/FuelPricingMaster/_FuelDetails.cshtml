@@ -38,16 +38,21 @@
                         <th>
                             Date
                         </th>
+                        <th>
+                            Supplier
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>@item.Price</td>
-                            <td>@item.Discount</td>
-                            <td>@item.PriceDate.ToString("MM/dd/yyyy")</td>
-                        </tr>
+                    <tr>
+                        <td>@item.Price</td>
+                        <td>@item.Discount</td>
+                        <td>@item.PriceDate.ToString("dd/MM/yyyy")</td>
+                        <td>@item.SupplierName</td>
+
+                    </tr>
                     }
                 </tbody>
             </table>

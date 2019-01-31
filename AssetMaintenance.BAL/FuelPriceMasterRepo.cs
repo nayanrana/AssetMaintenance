@@ -22,15 +22,21 @@ namespace AssetMaintenance.BAL
         /// <returns></returns>
         public List<FuelMasterDto> GetFuelDetail()
         {
-            var fuelList = dbCon.GFI_FuelDetail.AsEnumerable().Select(x => new FuelMasterDto
-            {
-                Price = x.Price,
-                Discount = x.Discount,
-                FuelId = x.FuelId,
-                PriceDate = x.Date,
-                CreatedBy = x.CreatedBy,
-            });
-            return fuelList.ToList();
+            var fuelList = (from x in dbCon.GFI_FuelDetail
+                            join sup in dbCon.Suppliers on x.SupplierId equals sup.Id
+                            select new FuelMasterDto
+                            {
+                                Price = x.Price,
+                                Discount = x.Discount,
+                                FuelId = x.FuelId,
+                                PriceDate = x.Date,
+                                CreatedBy = x.CreatedBy,
+                                SupplierId = x.SupplierId,
+                                SupplierName = sup.Name,
+
+                            }).ToList();
+
+            return fuelList;
         }
 
         /// <summary>
@@ -49,6 +55,7 @@ namespace AssetMaintenance.BAL
                 tblGFI_FuelDetail.CreatedBy = objFuelMasterDto.CreatedBy;
                 tblGFI_FuelDetail.CreatedOn = DateTime.Now;
                 tblGFI_FuelDetail.Status = true;
+                tblGFI_FuelDetail.SupplierId = objFuelMasterDto.SupplierId;
                 dbCon.GFI_FuelDetail.Add(tblGFI_FuelDetail);
                 dbCon.SaveChanges();
                 return true;
@@ -65,15 +72,20 @@ namespace AssetMaintenance.BAL
         /// <returns></returns>
         public List<FuelMasterDto> GetDisellDetail()
         {
-            var fuelList = dbCon.GFI_DieselDetail.AsEnumerable().Select(x => new FuelMasterDto
-            {
-                Price = x.Price,
-                Discount = x.Discount,
-                FuelId = x.Dieselld,
-                PriceDate = x.Date,
-                CreatedBy = x.CreatedBy,
-            });
-            return fuelList.ToList();
+            var fuelList = (from x in dbCon.GFI_DieselDetail
+                            join sup in dbCon.Suppliers on x.SupplierId equals sup.Id
+                            select new FuelMasterDto
+                            {
+                                Price = x.Price,
+                                Discount = x.Discount,
+                                FuelId = x.Dieselld,
+                                PriceDate = x.Date,
+                                CreatedBy = x.CreatedBy,
+                                SupplierId = x.SupplierId,
+                                SupplierName = sup.Name,
+
+                            }).ToList();
+            return fuelList;
         }
 
         /// <summary>
@@ -92,6 +104,8 @@ namespace AssetMaintenance.BAL
                 tblGFI_DieselDetail.CreatedBy = objFuelMasterDto.CreatedBy;
                 tblGFI_DieselDetail.CreatedOn = DateTime.Now;
                 tblGFI_DieselDetail.Status = true;
+                tblGFI_DieselDetail.SupplierId = objFuelMasterDto.SupplierId;
+
                 dbCon.GFI_DieselDetail.Add(tblGFI_DieselDetail);
                 dbCon.SaveChanges();
                 return true;
@@ -108,15 +122,20 @@ namespace AssetMaintenance.BAL
         /// <returns></returns>
         public List<FuelMasterDto> GetGasolineDetail()
         {
-            var fuelList = dbCon.GFI_GasolineDetail.AsEnumerable().Select(x => new FuelMasterDto
-            {
-                Price = x.Price,
-                Discount = x.Discount,
-                FuelId = x.Gasolineld,
-                PriceDate = x.Date,
-                CreatedBy = x.CreatedBy,
-            });
-            return fuelList.ToList();
+            var fuelList = (from x in dbCon.GFI_GasolineDetail
+                            join sup in dbCon.Suppliers on x.SupplierId equals sup.Id
+                            select new FuelMasterDto
+                            {
+                                Price = x.Price,
+                                Discount = x.Discount,
+                                FuelId = x.Gasolineld,
+                                PriceDate = x.Date,
+                                CreatedBy = x.CreatedBy,
+                                SupplierId = x.SupplierId,
+                                SupplierName = sup.Name,
+
+                            }).ToList();
+            return fuelList;
         }
 
         /// <summary>
@@ -135,7 +154,10 @@ namespace AssetMaintenance.BAL
                 tblGFI_GasolineDetail.CreatedBy = objFuelMasterDto.CreatedBy;
                 tblGFI_GasolineDetail.CreatedOn = DateTime.Now;
                 tblGFI_GasolineDetail.Status = true;
+                tblGFI_GasolineDetail.SupplierId = objFuelMasterDto.SupplierId;
+
                 dbCon.GFI_GasolineDetail.Add(tblGFI_GasolineDetail);
+
                 dbCon.SaveChanges();
                 return true;
             }
@@ -143,6 +165,19 @@ namespace AssetMaintenance.BAL
             {
                 return false;
             }
+        }
+
+        public List<KeyValuePair<string, int>> GetSupplierName()
+        {
+            List<KeyValuePair<string, int>> lstKeyValue = new List<KeyValuePair<string, int>>();
+
+            lstKeyValue = (dbCon.Suppliers.AsEnumerable().Where(x => x.IsFuel == true).Select(x =>
+                               new KeyValuePair<string, int>
+                               (
+                                  x.Name,
+                                 x.Id
+                               )).ToList());
+            return lstKeyValue;
         }
     }
 }

@@ -26,7 +26,14 @@
     </div>
 </div>
 <div class="content animate-panel">
-    <label>Supplier</label>
+    <div class="row">
+        <div class="form-group col-lg-3">
+            <label class="control-label">Supplier<span class="req">*</span></label>
+            @Html.DropDownList("SupplierId", new SelectList(ViewBag.Supplier, "Value", "Key"), "-- Select Supplier --", new { @class = "form-control", id = "SupplierId", required = "required" })
+        </div>
+
+    </div>
+   
     <div class="row">
         <div class="col-md-12">
             <div class="hpanel hblue">
@@ -130,26 +137,32 @@
                     Price: $("#txt" + type + "Price").val(),
                     Discount: $("#txt" + type + "Discount").val(),
                     PriceDate: $("#txt" + type + "Date").val(),
+                    SupplierId: $("#SupplierId").val(),
                     Type: type
                 }
 
                 if ($("#txt" + type + "Price").val() != "" || $("#txt" + type + "Discount").val() != "" || $("#txt" + type + "Date").val() != "") {
-                    $.ajax({
-                        type: "POST",
-                        dataType: "HTML",
-                        url: "/FuelPricingMaster/AddFuelMaster",
-                        data: { objModel: FuelMasterDto },
-                        contentType: 'application/x-www-form-urlencoded',
-                        success: function (data) {
-                            if (data != "") {
-                                toastr.success("Record added succesfully.");
-                                $("#div" + type + "Detail").html(data);
+                    if ($("#SupplierId").val() != "") {
+                        $.ajax({
+                            type: "POST",
+                            dataType: "HTML",
+                            url: "/FuelPricingMaster/AddFuelMaster",
+                            data: { objModel: FuelMasterDto },
+                            contentType: 'application/x-www-form-urlencoded',
+                            success: function (data) {
+                                if (data != "") {
+                                    toastr.success("Record added succesfully.");
+                                    $("#div" + type + "Detail").html(data);
+                                }
+                            },
+                            error: function () {
+                                alert("Error occured!!")
                             }
-                        },
-                        error: function () {
-                            alert("Error occured!!")
-                        }
-                    });
+                        });
+                    }
+                    else {
+                        toastr.error("Please select supplier to save record.")
+                    }
                 }
             }
         }
