@@ -57,66 +57,69 @@
 
                                 <div class="form-group col-lg-4">
                                     <label>Filling Station</label>
-                                    @Html.TextBoxFor(model => model.FillingStation, new { @class = "form-control", placeholder = "Filling Station", id = "FillingStation", required = "required" })
-                                    @*<input id="FillingStation" class="form-control" name="FillingStation" placeholder="Filling Station">*@
+                                    @Html.TextBoxFor(model => model.FillingStation, new { @class = "form-control", placeholder = "Filling Station", id = "FillingStation" })
                                 </div>
-                                <div class="form-group col-lg-2">
-                                    <label>Period From</label>
-                                    @Html.TextBoxFor(model => model.PeriodFrom, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "From", id = "PeriodFrom" })
+                                <div class="form-group col-lg-4">
+                                    <label>Supplier Code</label>
+                                    @Html.TextBoxFor(model => model.SupplierCode, new { @class = "form-control", placeholder = "Supplier Code", id = "SupplierCode" })
                                 </div>
-                                <div class="form-group col-lg-2">
-                                    <label>Period To</label>
-                                    @Html.TextBoxFor(model => model.PeriodTo, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "To", id = "PeriodTo" })
+                                <div class="form-group col-lg-4">
+                                    <label>Supplier Name</label>
+                                    @Html.TextBoxFor(model => model.SupplierName, new { @class = "form-control", placeholder = "Supplier Name", id = "SupplierName" })
+                                    @*@Html.DropDownList("SupplierId", new SelectList(ViewBag.Supplier, "Value", "Key"), "-- Select Supplier --", new { @class = "form-control", id = "SupplierId", required = "required" })*@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Claim Number</label>
-                                    @Html.TextBoxFor(model => model.ClaimNumber, new { @class = "form-control allownumericwithoutdecimal", placeholder = "ClaimNumber", id = "ClaimNumber" })
-                                    @*<input type="text" id="ClaimNo" class="form-control" name="ClaimNo" placeholder="Claim No.">*@
+                                    @Html.TextBoxFor(model => model.ClaimNumber, new { @class = "form-control allownumericwithoutdecimal", placeholder = "ClaimNumber", id = "ClaimNumber", required = "required" })
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Voucher Number</label>
-                                    @Html.TextBoxFor(model => model.VoucherNumber, new { @class = "form-control", placeholder = "Voucher Number", id = "VoucherNumber" })
-                                    @*<input id="VoucherNo" class="form-control" name="VoucherNo" placeholder="Voucher Number">*@
+                                    <label>Invoice No.</label>
+                                    @Html.TextBoxFor(model => model.InvoiceNo, new { @class = "form-control", placeholder = "Invoice No.", id = "InvoiceNo" })
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Fuel Type<span class="req">*</span></label>
-                                   
-                                    @Html.DropDownListFor(m => m.FuelType,
-                                        new SelectList(new List<SelectListItem>
-                                        {
-                                            new SelectListItem { Text = "Petrol", Value = "Petrol"},
-                                            new SelectListItem { Text = "Diesel", Value = "Diesel"}
-                                            }, "Value", "Text"),
-                                            "- Select Avail. Type -",
-                                            new { @class = "form-control", id = "ManualFuelType", required = "required" })
+                                    <label>Invoice Date</label>
+                                    @Html.TextBoxFor(model => model.InvoiceDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Invoice Date", id = "InvoiceDate" })
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Quantity Litre<span class="req">*</span></label>
-                                    @Html.TextBoxFor(model => model.QuantityLitre, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Quantity Litre", id = "QuantityLitre", required = "required" })
-                                    @*<input id="QuantityLitre" class="form-control" name="QuantityLitre" placeholder="Quantity Litre">*@
+                                    <label>Payment Cert No.</label>
+                                    @Html.TextBoxFor(model => model.PaymentCertNo, new { @class = "form-control", placeholder = "Payment Cert No.", id = "PaymentCertNo" })
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Amount(Excl. Vat)</label>
-                                    @Html.TextBoxFor(model => model.AmountExclVat, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount(Excl. Vat)", id = "AmountExclVat" })
-                                    @*<input id="AmountExcl" class="form-control" name="AmountExcl" placeholder="Amount(Excl. Vat)">*@
+                                    <label>Period</label>
+                                    @Html.TextBoxFor(model => model.Period, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Period", id = "Period" })
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Discount Amount</label>
-                                    @Html.TextBoxFor(model => model.DiscountAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Discount Amount", id = "DiscountAmount", max = "100" })
-                                    @*<input type="text" id="Discount" class="form-control allownumericwithoutdecimal" name="Discount" placeholder="Discount" max="100">*@
+                                    <label>Discount Amount Diesel</label>
+                                    @Html.TextBoxFor(model => model.DiscountAmountDiesel, new { @class = "form-control allownumericwithdecimal", placeholder = "Discount Amount Diesel", id = "DiscountAmountDiesel", max = "100" })
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Vat Amount</label>
-                                    @Html.TextBoxFor(model => model.VatAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Vat Amount", id = "VatAmount" })
-                                    @*<input type="text" id="VatAmount" class="form-control allownumericwithdecimal" name="VatAmount" placeholder="Vat Amount">*@
+                                    <label>Discount Amount Gasoline (%)</label>
+                                    @Html.TextBoxFor(model => model.DiscountAmountGasoline, new { @class = "form-control allownumericwithdecimal", placeholder = "Discount Amount Gasoline (%)", id = "DiscountAmountGasoline", max = "100" })
                                 </div>
-
                                 <div class="form-group col-lg-4">
-                                    <label>Amount inc.vat</label>
-                                    @Html.TextBoxFor(model => model.AmountIncVat, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount inc.vat", id = "AmountIncVat" })
-                                    @*<input type="text" id="Amountinc" class="form-control allownumericwithdecimal" name="Amountinc" placeholder="Amount inc.vat">*@
+                                    <label>Invoice Discount Amount</label>
+                                    @Html.TextBoxFor(model => model.InvoiceDiscountAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Invoice Discount Amount", id = "InvoiceDiscountAmount", max = "100" })
                                 </div>
-
+                                <div class="form-group col-lg-4">
+                                    <label>Registration No.</label>
+                                    @Html.TextBoxFor(model => model.RegistrationNo, new { @class = "form-control", placeholder = "Registration No.", id = "RegistrationNo" })
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>Invoice Total Amount</label>
+                                    @Html.TextBoxFor(model => model.InvoiceTotalAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Invoice Total Amount", id = "InvoiceTotalAmount" })
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>Invoice Vat Amount</label>
+                                    @Html.TextBoxFor(model => model.InvoiceVatAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Invoice Vat Amount", id = "InvoiceVatAmount" })
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>Amount Diesel/Lt</label>
+                                    @Html.TextBoxFor(model => model.AmountDieselLt, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Amount Diesel/Lt", id = "AmountDieselLt" })
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>Amount Gasoline/Lt</label>
+                                    @Html.TextBoxFor(model => model.AmountGasolineLt, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Amount Gasoline/Lt", id = "AmountGasolineLt" })
+                                </div>
                                 <div class="form-group col-lg-8">
                                     <lable><strong>Select Mode</strong></lable>
                                     <div class="radio">
@@ -207,7 +210,7 @@
 
 
 @Html.Partial("_ViewUploadFile")
-@Html.Partial("_SaveItemDetail", Model.fuelRecordManualDto)
+@Html.Partial("_SaveItemDetail",Model.fuelRecordManualDto)
 
 @section Styles {
     @Styles.Render("~/bundles/datepicker/css")
@@ -229,15 +232,37 @@
         "closeButton": true,
         "debug": false,
         "toastClass": "animated fadeInDown",
+
+
     };
 
+        //$("#SupplierId").change(function () {
+        //    $.ajax({
+        //        type: "GET",
+        //        dataType: "JSON",
+        //        url: "/FuelPricingMaster/GetFuelBySupplier",
+        //        data: { id: $(this).val() == "" ? 0 : $(this).val() },
+
+        //        success: function (data) {
+        //            $("#divFuelDetail").html(data.fuelMaster);
+        //            $("#divDieselDetail").html(data.dieselMaster);
+        //            $("#divGasolineDetail").html(data.gasolineMaster);
+        //            $('#txtFuelDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+        //            $('#txtDieselDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+        //            $('#txGasolineDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+        //        },
+        //        error: function () {
+        //            alert("Error occured!!")
+        //        }
+        //    });
+        //});
+
         $(function () {
-            $('#PeriodFrom').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
-            $('#PeriodTo').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+            $('#Period').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+            $('#InvoiceDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
             $('#ManualDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
-            $('#ManualPeriodFrom').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
-            $('#ManualPeriodTo').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
-            $('#ManualInvoiceDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+            $('#ManualDateCreated').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+            
             if ($('#Id').val() > 1) {
                 $('.FuelListedit').show();
             }
@@ -284,15 +309,21 @@
                  function (isConfirm) {
                      var formData = new FormData($('#createFuelRecordForm')[0]);
                      formData.append('FillingStation', $("#FillingStation").val());
-                     formData.append('PeriodFrom', $("#PeriodFrom").val());
-                     formData.append('PeriodTo', $("#PeriodTo").val());
+                     formData.append('SupplierCode', $("#SupplierCode").val());
+                     formData.append('SupplierName', $("#SupplierName").val());
                      formData.append('ClaimNumber', $("#ClaimNumber").val());
-                     formData.append('VoucherNumber', $("#VoucherNumber").val());
-                     formData.append('QuantityLitre', $("#QuantityLitre").val());
-                     formData.append('AmountExclVat', $("#AmountExclVat").val());
-                     formData.append('DiscountAmount', $("#DiscountAmount").val());
-                     formData.append('VatAmount', $("#VatAmount").val());
-                     formData.append('AmountIncVat', $("#AmountIncVat").val());
+                     formData.append('InvoiceNo', $("#InvoiceNo").val());
+                     formData.append('InvoiceDate', $("#InvoiceDate").val());
+                     formData.append('PaymentCertNo', $("#PaymentCertNo").val());
+                     formData.append('Period', $("#Period").val());
+                     formData.append('DiscountAmountDiesel', $("#DiscountAmountDiesel").val());
+                     formData.append('DiscountAmountGasoline', $("#DiscountAmountGasoline").val());
+                     formData.append('InvoiceDiscountAmount', $("#InvoiceDiscountAmount").val());
+                     formData.append('RegistrationNo', $("#RegistrationNo").val());
+                     formData.append('InvoiceTotalAmount', $("#InvoiceTotalAmount").val());
+                     formData.append('InvoiceVatAmount', $("#InvoiceVatAmount").val());
+                     formData.append('AmountDieselLt', $("#AmountDieselLt").val());
+                     formData.append('AmountGasolineLt', $("#AmountGasolineLt").val());
                      formData.append('Modeofupload', $("input[name='mode']:checked").val());
                      formData.append('Is_PaymentReceiptGenerate', isConfirm);
                     
@@ -372,39 +403,41 @@
             debugger;
             if ($("#manualcreate").valid() == true) {
                 var formData = new FormData();
-             
-                //formData.append('Driver', $("#ManualDriver").val());
-                //formData.append('ActualMilage', $("#ManualActualMileage").val());
-                //formData.append('CurrentMilage', $("#ManualCurrentMileage").val());
 
-                //formData.append('Date', $("#ManualDate").val());
-                //formData.append('VoucherNo', $("#ManualVoucherNo").val());
-                formData.append('FillingStation', $("#ManualFillingStation").val());
-                //formData.append('FuelType', $("#ManualFuelType").val());
-                //formData.append('Quantities', $("#ManualQuantityLitre").val());
-                //formData.append('AmountExVal', $("#ManualAmount").val());
-                //formData.append('Discount', $("#ManualDiscountAmount").val());
-                //formData.append('VatAmount', $("#MaunalVatAmount").val());
-                //formData.append('AmountInVal', $("#ManualAmountInc").val());
-
-                formData.append('PeriodFrom', $("#ManualPeriodFrom").val());
-                formData.append('PeriodTo', $("#ManualPeriodTo").val());
+                formData.append('Date', $("#ManualDate").val());
+                formData.append('DateCreated', $("#ManualDateCreated").val());
+                formData.append('VoucherNumber', $("#ManualVoucherNumber").val());
+                formData.append('CostCentreLocation', $("#ManualCostCentreLocation").val());
                 formData.append('RegistrationNo', $("#ManualRegistrationNo").val());
-                formData.append('FuelInvoiceNo', $("#ManualFuelInvoiceNo").val());
-                formData.append('InvoiceDate', $("#ManualInvoiceDate").val());
-                formData.append('PaymentCertificateNo', $("#ManualPaymentCertificateNo").val());
-                formData.append('SupplierCodeName', $("#ManualSupplierCodeName").val());
-                formData.append('DiscountAmountDiesel', $("#ManualDiscountAmountDiesel").val());
-                formData.append('DiscountAmountGasoline', $("#ManualDiscountAmountGasoline").val());
-                formData.append('InvoiceDiscountAmount', $("#ManualInvoiceDiscountAmount").val());
-                formData.append('InvoiceTotalAmount', $("#ManualInvoiceTotalAmount").val());
-                formData.append('InvoiceVatAmount', $("#MaunalInvoiceVatAmount").val());
-                formData.append('AmountDieselLt', $("#ManualAmountDieselLt").val());
-                formData.append('AmountGasolineLt', $("#ManualAmountGasolineLt").val());
-                formData.append('ClaimNo', $("#ManualClaimNo").val());
+                formData.append('FillingStation', $("#ManualFillingStation").val());
+                formData.append('Driver', $("#ManualDriver").val());
+                formData.append('FuelType', $("#ManualFuelType").val());
+                formData.append('QuantityLitres', $("#ManualQuantityLitres").val());
+                formData.append('ActualMilage', $("#ManualActualMileage").val());
+                formData.append('CurrentMilage', $("#ManualCurrentMileage").val());
+                formData.append('AmountExVal', $("#ManualAmount").val());
+                formData.append('DiscountAmount', $("#ManualDiscountAmount").val());
+                formData.append('VatAmount', $("#MaunalVatAmount").val());
+                formData.append('AmountInVal', $("#ManualAmountInc").val());
+                
+                
+                //formData.append('PeriodFrom', $("#ManualPeriodFrom").val());
+                //formData.append('PeriodTo', $("#ManualPeriodTo").val());
+                //formData.append('FuelInvoiceNo', $("#ManualFuelInvoiceNo").val());
+                //formData.append('InvoiceDate', $("#ManualInvoiceDate").val());
+                //formData.append('PaymentCertificateNo', $("#ManualPaymentCertificateNo").val());
+                //formData.append('SupplierCodeName', $("#ManualSupplierCodeName").val());
+                //formData.append('DiscountAmountDiesel', $("#ManualDiscountAmountDiesel").val());
+                //formData.append('DiscountAmountGasoline', $("#ManualDiscountAmountGasoline").val());
+                //formData.append('InvoiceDiscountAmount', $("#ManualInvoiceDiscountAmount").val());
+                //formData.append('InvoiceTotalAmount', $("#ManualInvoiceTotalAmount").val());
+                //formData.append('InvoiceVatAmount', $("#MaunalInvoiceVatAmount").val());
+                //formData.append('AmountDieselLt', $("#ManualAmountDieselLt").val());
+                //formData.append('AmountGasolineLt', $("#ManualAmountGasolineLt").val());
+                //formData.append('ClaimNo', $("#ManualClaimNo").val());
 
                 formData.append('FuelRecord_DetailId', $("#FuelRecord_DetailId").val());-
-                    formData.append('FuelRecordId', $("#Id").val());
+                formData.append('FuelRecordId', $("#Id").val());
 
                 
 
@@ -418,7 +451,7 @@
                     dataType: 'json',
                     success: function (data) {
                         $("#tblUploadedData tbody").html('');
-                        CreateItemList(data);
+                        CreateItemListDetail(data);
                         toastr.success(data.msg);
                         $("#fuelDetailsDiv").html('').html($("#tblUploadedData").html());
                         $("#modalSaveItemData").modal('hide');
@@ -429,74 +462,74 @@
                 });
             }
         }
-        function CreateItemList(response) {
-            var amtTotal = 0, discount = 0, vatTotal = 0, amtVat = 0;
-            debugger;
+        //function CreateItemList(response) {
+        //    var amtTotal = 0, discount = 0, vatTotal = 0, amtVat = 0;
+        //    debugger;
            
-            $.each(response.Html, function (i, item) {
-                var tr;
-                tr = $('<tr />');
-                tr.append("<td class='text-center'>" + (item.FillingStation != undefined ? item.FillingStation : "-") + "</td>");
-                tr.append("<td class='text-center'>" + getFormattedDate(item.PeriodFrom) + "</td>");
-                tr.append("<td class='text-center'>" + getFormattedDate(item.PeriodTo) + "</td>");
-                tr.append("<td class='text-center'>" + (item.RegistrationNo != undefined ? item.RegistrationNo : "-") + "</td>");
-                tr.append("<td class='text-center'>" + (item.FuelInvoiceNo != undefined ? item.FuelInvoiceNo : "-") + "</td>");
-                tr.append("<td class='text-center'>" + getFormattedDate(item.InvoiceDate) + "</td>");
-                tr.append("<td class='text-center'>" + (item.PaymentCertificateNo != undefined ? item.PaymentCertificateNo : "-") + "</td>");
-                tr.append("<td class='text-center'>" + (item.SupplierCodeName != undefined ? item.SupplierCodeName : "-") + "</td>");
-                tr.append("<td class='text-center'>" + (item.DiscountAmountDiesel != undefined ? item.DiscountAmountDiesel : "-") + "</td>");
-                tr.append("<td class='text-center'>" + (item.DiscountAmountGasoline != undefined ? item.DiscountAmountGasoline : "-") + "</td>");
-                tr.append("<td class='text-center'>" + (item.InvoiceDiscountAmount != undefined ? item.InvoiceDiscountAmount : "-") + "</td>");
-                tr.append("<td class='text-center'>" + (item.InvoiceTotalAmount != undefined ? item.InvoiceTotalAmount : "-") + "</td>");
-                tr.append("<td class='text-center'>" + (item.InvoiceVatAmount != undefined ? item.InvoiceVatAmount : "-") + "</td>");
-                tr.append("<td class='text-center'>" + (item.AmountDieselLt != undefined ? item.AmountDieselLt : "-") + "</td>");
-                tr.append("<td class='text-center'>" + (item.AmountGasolineLt != undefined ? item.AmountGasolineLt : "-") + "</td>");
-                tr.append("<td class='text-center'>" + (item.ClaimNo != undefined ? item.ClaimNo : "-") + "</td>");
+        //    $.each(response.Html, function (i, item) {
+        //        var tr;
+        //        tr = $('<tr />');
+        //        tr.append("<td class='text-center'>" + (item.FillingStation != undefined ? item.FillingStation : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + getFormattedDate(item.PeriodFrom) + "</td>");
+        //        tr.append("<td class='text-center'>" + getFormattedDate(item.PeriodTo) + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.RegistrationNo != undefined ? item.RegistrationNo : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.FuelInvoiceNo != undefined ? item.FuelInvoiceNo : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + getFormattedDate(item.InvoiceDate) + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.PaymentCertificateNo != undefined ? item.PaymentCertificateNo : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.SupplierCodeName != undefined ? item.SupplierCodeName : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.DiscountAmountDiesel != undefined ? item.DiscountAmountDiesel : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.DiscountAmountGasoline != undefined ? item.DiscountAmountGasoline : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.InvoiceDiscountAmount != undefined ? item.InvoiceDiscountAmount : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.InvoiceTotalAmount != undefined ? item.InvoiceTotalAmount : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.InvoiceVatAmount != undefined ? item.InvoiceVatAmount : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.AmountDieselLt != undefined ? item.AmountDieselLt : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.AmountGasolineLt != undefined ? item.AmountGasolineLt : "-") + "</td>");
+        //        tr.append("<td class='text-center'>" + (item.ClaimNo != undefined ? item.ClaimNo : "-") + "</td>");
 
-                //tr.append("<td class='text-center'>" + (item.VoucherNo != undefined ? item.VoucherNo : "-")  + "</td>");
+        //        //tr.append("<td class='text-center'>" + (item.VoucherNo != undefined ? item.VoucherNo : "-")  + "</td>");
                 
-                //tr.append("<td class='text-center'>" + getFormattedDate(item.Date) + "</td>");
-                //tr.append("<td class='text-center'>" + (item.Driver != undefined ? item.Driver : "-" )+ "</td>");
-                //tr.append("<td class='text-center'>" + (item.FuelType != undefined ? item.FuelType : "-" )+ "</td>");
-                //tr.append("<td class='text-center'> " +( item.Quantities != undefined ? item.Quantities : "-")+ "</td>");
-                //tr.append("<td class='text-center'> " +( item.ActualMilage != undefined ? item.ActualMilage : "-")+ "</td>");
-                //tr.append("<td class='text-center'> " +( item.CurrentMilage != undefined ? item.CurrentMilage : "-")+ "</td>");
-                //tr.append("<td class='text-center'> " +( item.AmountExVal != undefined ? item.AmountExVal : "-")+ "</td>");
-                //tr.append("<td class='text-center'> " +( item.Discount != undefined ? item.Discount : "-")+ "</td>");
-                //tr.append("<td class='text-center'> " +( item.VatAmount != undefined ? item.VatAmount : "-")+ "</td>");
-                //tr.append("<td class='text-center'> " +( item.AmountInVal != undefined ? item.AmountInVal : "-")+ "</td>");
-                if (item.AmountExVal != undefined)
-                    amtTotal = parseFloat(amtTotal) + parseFloat(item.AmountExVal);
-                if (item.Discount != undefined)
+        //        //tr.append("<td class='text-center'>" + getFormattedDate(item.Date) + "</td>");
+        //        //tr.append("<td class='text-center'>" + (item.Driver != undefined ? item.Driver : "-" )+ "</td>");
+        //        //tr.append("<td class='text-center'>" + (item.FuelType != undefined ? item.FuelType : "-" )+ "</td>");
+        //        //tr.append("<td class='text-center'> " +( item.Quantities != undefined ? item.Quantities : "-")+ "</td>");
+        //        //tr.append("<td class='text-center'> " +( item.ActualMilage != undefined ? item.ActualMilage : "-")+ "</td>");
+        //        //tr.append("<td class='text-center'> " +( item.CurrentMilage != undefined ? item.CurrentMilage : "-")+ "</td>");
+        //        //tr.append("<td class='text-center'> " +( item.AmountExVal != undefined ? item.AmountExVal : "-")+ "</td>");
+        //        //tr.append("<td class='text-center'> " +( item.Discount != undefined ? item.Discount : "-")+ "</td>");
+        //        //tr.append("<td class='text-center'> " +( item.VatAmount != undefined ? item.VatAmount : "-")+ "</td>");
+        //        //tr.append("<td class='text-center'> " +( item.AmountInVal != undefined ? item.AmountInVal : "-")+ "</td>");
+        //        if (item.AmountExVal != undefined)
+        //            amtTotal = parseFloat(amtTotal) + parseFloat(item.AmountExVal);
+        //        if (item.Discount != undefined)
 
-                vatTotal = parseFloat(vatTotal) + parseFloat(item.Discount);
-                if (item.VatAmount != undefined)
-                discount = parseFloat(discount) + parseFloat(item.VatAmount);
-                if (item.AmountInVal != undefined)
-                amtVat = parseFloat(amtVat) + parseFloat(item.AmountInVal);
-                if (item.FuelRecordId != 0) {
-                    tr.append("<td class='text-center' data-title='Edit'> "
-                        + "<div> <a href= 'javascript:void(0);' onclick='gridedit(" + item.FuelRecord_DetailId + ")'  data-asset=" + item.FuelRecord_DetailId
-                        + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit </span></a></div>" + "</td>");
-                }
-                else {
-                    tr.append("<td></td>")
-                }
-                if (item.FuelRecordId != 0) {
-                    tr.append("<td class='text-center' data-title='Delete'> "
-                        + "<div> <a href='javascript:void(0);' onclick='deleteFuelRecord(" + item.FuelRecord_DetailId + ")' data-asset=" + item.FuelRecord_DetailId
-                        + " class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i> &nbsp;Delete</a></div>" + "</td>");
-                }
-                else {
-                    tr.append("<td></td>")
-                }
-                $("#tblUploadedData tbody").append(tr);
-            });
-            $("#tblUploadedData #tfootAmtTotal").html(amtTotal);
-            $("#tblUploadedData #tfootDiscount").html(vatTotal);
-            $("#tblUploadedData #tfootVatTotal").html(discount);
-            $("#tblUploadedData #tfootAmtVatTotal").html(amtVat);
-        }
+        //        vatTotal = parseFloat(vatTotal) + parseFloat(item.Discount);
+        //        if (item.VatAmount != undefined)
+        //        discount = parseFloat(discount) + parseFloat(item.VatAmount);
+        //        if (item.AmountInVal != undefined)
+        //        amtVat = parseFloat(amtVat) + parseFloat(item.AmountInVal);
+        //        if (item.FuelRecordId != 0) {
+        //            tr.append("<td class='text-center' data-title='Edit'> "
+        //                + "<div> <a href= 'javascript:void(0);' onclick='gridedit(" + item.FuelRecord_DetailId + ")'  data-asset=" + item.FuelRecord_DetailId
+        //                + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit </span></a></div>" + "</td>");
+        //        }
+        //        else {
+        //            tr.append("<td></td>")
+        //        }
+        //        if (item.FuelRecordId != 0) {
+        //            tr.append("<td class='text-center' data-title='Delete'> "
+        //                + "<div> <a href='javascript:void(0);' onclick='deleteFuelRecord(" + item.FuelRecord_DetailId + ")' data-asset=" + item.FuelRecord_DetailId
+        //                + " class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i> &nbsp;Delete</a></div>" + "</td>");
+        //        }
+        //        else {
+        //            tr.append("<td></td>")
+        //        }
+        //        $("#tblUploadedData tbody").append(tr);
+        //    });
+        //    $("#tblUploadedData #tfootAmtTotal").html(amtTotal);
+        //    $("#tblUploadedData #tfootDiscount").html(vatTotal);
+        //    $("#tblUploadedData #tfootVatTotal").html(discount);
+        //    $("#tblUploadedData #tfootAmtVatTotal").html(amtVat);
+        //}
 
         function CreateItemListDetail(response,type=0) {
             var amtTotal = 0, discount = 0, vatTotal = 0, amtVat = 0;
@@ -506,24 +539,26 @@
                 var tr;
                 tr = $('<tr />');
                 tr.append("<td class='text-center'>" + getFormattedDate(item.Date) + "</td>");
-                tr.append("<td class='text-center'>" + (item.VoucherNo != undefined ? item.VoucherNo : "-") + "</td>");
+                tr.append("<td class='text-center'>" + getFormattedDate(item.DateCreated) + "</td>");
+                tr.append("<td class='text-center'>" + (item.VoucherNumber != undefined ? item.VoucherNumber : "-") + "</td>"); 
+                tr.append("<td class='text-center'>" + (item.CostCentreLocation != undefined ? item.CostCentreLocation : "-") + "</td>"); 
                 tr.append("<td class='text-center'>" + (item.RegistrationNo != undefined ? item.RegistrationNo : "-") + "</td>");
                 tr.append("<td class='text-center'>" + (item.FillingStation != undefined ? item.FillingStation : "-") + "</td>");
                 tr.append("<td class='text-center'>" + (item.Driver != undefined ? item.Driver : "-" )+ "</td>");
                 tr.append("<td class='text-center'>" + (item.FuelType != undefined ? item.FuelType : "-" )+ "</td>");
-                tr.append("<td class='text-center'> " +( item.Quantities != undefined ? item.Quantities : "-")+ "</td>");
+                tr.append("<td class='text-center'> " + (item.QuantityLitres != undefined ? item.QuantityLitres : "-")+ "</td>");
                 tr.append("<td class='text-center'> " +( item.ActualMilage != undefined ? item.ActualMilage : "-")+ "</td>");
                 tr.append("<td class='text-center'> " +( item.CurrentMilage != undefined ? item.CurrentMilage : "-")+ "</td>");
                 tr.append("<td class='text-center'> " +( item.AmountExVal != undefined ? item.AmountExVal : "-")+ "</td>");
-                tr.append("<td class='text-center'> " +( item.Discount != undefined ? item.Discount : "-")+ "</td>");
+                tr.append("<td class='text-center'> " + (item.DiscountAmount != undefined ? item.DiscountAmount : "-")+ "</td>");
                 tr.append("<td class='text-center'> " +( item.VatAmount != undefined ? item.VatAmount : "-")+ "</td>");
                 tr.append("<td class='text-center'> " + (item.AmountInVal != undefined ? item.AmountInVal : "-") + "</td>");
                
                 if (item.AmountExVal != undefined)
                     amtTotal = parseFloat(amtTotal) + parseFloat(item.AmountExVal);
-                if (item.Discount != undefined)
+                if (item.DiscountAmount != undefined)
 
-                    vatTotal = parseFloat(vatTotal) + parseFloat(item.Discount);
+                    vatTotal = parseFloat(vatTotal) + parseFloat(item.DiscountAmount);
                 if (item.VatAmount != undefined)
                     discount = parseFloat(discount) + parseFloat(item.VatAmount);
                 if (item.AmountInVal != undefined)
@@ -697,7 +732,7 @@
                             $('.fuelDetailsDiv').hide();
                             $('.fuelDetailsManual').show();
                             $("#tblUploadedData tbody").empty();
-                            CreateItemList(data);
+                            CreateItemListDetail(data);
                             if ($.fn.DataTable.isDataTable("#fuelDetailsManual")) {
 
                                 $('#fuelDetailsManual').DataTable().clear().destroy();
@@ -735,40 +770,36 @@
 
                         var item = data.Html;
 
-                        //$("#ManualDate").val(getFormattedDate(item.Date));
-                        $("#ManualFillingStation").val(item.FillingStation);
-                        $("#ManualPeriodFrom").val(getFormattedDate(item.PeriodFrom));
-                        $("#ManualPeriodTo").val(getFormattedDate(item.PeriodTo));
+                        $("#ManualDate").val(getFormattedDate(item.Date));
+                        $("#ManualDateCreated").val(getFormattedDate(item.DateCreated));
+                        $("#ManualVoucherNumber").val(item.VoucherNumber);
+                        $("#ManualCostCentreLocation").val(item.CostCentreLocation);
                         $("#ManualRegistrationNo").val(item.RegistrationNo);
-                        $("#ManualFuelInvoiceNo").val(item.FuelInvoiceNo);
-                        $("#ManualInvoiceDate").val(getFormattedDate(item.InvoiceDate));
-                        $("#ManualPaymentCertificateNo").val(item.PaymentCertificateNo);
-                        $("#ManualSupplierCodeName").val(item.SupplierCodeName);
-                        $("#ManualDiscountAmountDiesel").val(item.DiscountAmountDiesel);
-                        $("#ManualDiscountAmountGasoline").val(item.DiscountAmountGasoline);
-                        $("#ManualInvoiceDiscountAmount").val(item.InvoiceDiscountAmount);
-                        $("#ManualInvoiceTotalAmount").val(item.InvoiceTotalAmount);
-                        $("#MaunalInvoiceVatAmount").val(item.InvoiceVatAmount);
-                        $("#ManualAmountDieselLt").val(item.AmountDieselLt);
-                        $("#ManualAmountGasolineLt").val(item.AmountGasolineLt);
-                        $("#ManualClaimNo").val(item.ClaimNo);
+                        $("#ManualFillingStation").val(item.FillingStation);
+                        $("#ManualDriver").val(item.Driver);
+                        $("#ManualFuelType").val(item.FuelType);
+                        $("#ManualQuantityLitres").val(item.QuantityLitres);
+                        $("#ManualActualMileage").val(item.ActualMilage);
+                        $("#ManualCurrentMileage").val(item.CurrentMilage);
+                        $("#ManualAmount").val(item.AmountExVal);
+                        $("#ManualDiscountAmount").val(item.DiscountAmount);
+                        $("#MaunalVatAmount").val(item.VatAmount);
+                        $("#ManualAmountInc").val(item.AmountInVal);
 
-                 
-
-
-
-                        //$("#ManualDriver").val(item.Driver);
-                        //$("#ManualActualMileage").val(item.ActualMilage);
-                        //$("#ManualCurrentMileage").val(item.CurrentMilage);
-
-                        //$("#ManualVoucherNo").val(item.VoucherNo);
-                          
-                           $("#ManualFuelType").val(item.FuelType);
-                        //$("#ManualQuantityLitre").val(item.Quantities);
-                        //$("#ManualAmount").val(item.AmountExVal);
-                        //   $("#ManualDiscountAmount").val(item.Discount);
-                        //   $("#MaunalVatAmount").val(item.VatAmount);
-                        //$("#ManualAmountInc").val(item.AmountInVal);
+                        //$("#ManualPeriodFrom").val(getFormattedDate(item.PeriodFrom));
+                        //$("#ManualPeriodTo").val(getFormattedDate(item.PeriodTo));
+                        //$("#ManualFuelInvoiceNo").val(item.FuelInvoiceNo);
+                        //$("#ManualInvoiceDate").val(getFormattedDate(item.InvoiceDate));
+                        //$("#ManualPaymentCertificateNo").val(item.PaymentCertificateNo);
+                        //$("#ManualSupplierCodeName").val(item.SupplierCodeName);
+                        //$("#ManualDiscountAmountDiesel").val(item.DiscountAmountDiesel);
+                        //$("#ManualDiscountAmountGasoline").val(item.DiscountAmountGasoline);
+                        //$("#ManualInvoiceDiscountAmount").val(item.InvoiceDiscountAmount);
+                        //$("#ManualInvoiceTotalAmount").val(item.InvoiceTotalAmount);
+                        //$("#MaunalInvoiceVatAmount").val(item.InvoiceVatAmount);
+                        //$("#ManualAmountDieselLt").val(item.AmountDieselLt);
+                        //$("#ManualAmountGasolineLt").val(item.AmountGasolineLt);
+                        //$("#ManualClaimNo").val(item.ClaimNo);
                         $("#FuelRecord_DetailId").val(item.FuelRecord_DetailId);
                         $("#modalSaveItemData").modal('show');
 

@@ -22,17 +22,22 @@ namespace AssetMaintenance.DAL
     
         public int Id { get; set; }
         public string FillingStation { get; set; }
-        public Nullable<System.DateTime> PeriodFrom { get; set; }
-        public Nullable<System.DateTime> PeriodTo { get; set; }
+        public Nullable<System.DateTime> Period { get; set; }
+        public string SupplierCode { get; set; }
         public Nullable<int> ClaimNumber { get; set; }
-        public string VoucherNumber { get; set; }
-        public string FuelType { get; set; }
-        public Nullable<int> QuantityLitre { get; set; }
-        public Nullable<double> DiscountAmount { get; set; }
-        public Nullable<double> AmountExclVat { get; set; }
+        public string SupplierName { get; set; }
+        public string InvoiceNo { get; set; }
+        public Nullable<System.DateTime> InvoiceDate { get; set; }
+        public string PaymentCertNo { get; set; }
+        public Nullable<double> DiscountAmountDiesel { get; set; }
+        public Nullable<double> DiscountAmountGasoline { get; set; }
+        public Nullable<double> InvoiceDiscountAmount { get; set; }
+        public string RegistrationNo { get; set; }
+        public Nullable<double> InvoiceTotalAmount { get; set; }
+        public Nullable<double> InvoiceVatAmount { get; set; }
+        public Nullable<double> AmountDieselLt { get; set; }
+        public Nullable<double> AmountGasolineLt { get; set; }
         public Nullable<bool> Is_PaymentReceiptGenerate { get; set; }
-        public Nullable<double> VatAmount { get; set; }
-        public Nullable<double> AmountIncVat { get; set; }
         public Nullable<bool> Is_Excel { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

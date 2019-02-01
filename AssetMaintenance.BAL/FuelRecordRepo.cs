@@ -24,16 +24,21 @@ namespace AssetMaintenance.BAL
             {
                 Id = x.Id,
                 FillingStation = x.FillingStation,
-                PeriodFrom = x.PeriodFrom,
-                PeriodTo = x.PeriodTo,
-                AmountExclVat = x.AmountExclVat,
-                AmountIncVat = x.AmountIncVat,
+                SupplierCode = x.SupplierCode,
+                SupplierName = x.SupplierName,
                 ClaimNumber = x.ClaimNumber,
-                DiscountAmount = x.DiscountAmount,
-                FuelType = x.FuelType,
-                QuantityLitre = x.QuantityLitre,
-                VatAmount = x.VatAmount,
-                VoucherNumber = x.VoucherNumber,
+                InvoiceNo = x.InvoiceNo,
+                InvoiceDate = x.InvoiceDate,
+                PaymentCertNo = x.PaymentCertNo,
+                Period = x.Period,
+                DiscountAmountDiesel = x.DiscountAmountDiesel,
+                DiscountAmountGasoline = x.DiscountAmountGasoline,
+                InvoiceDiscountAmount = x.InvoiceDiscountAmount,
+                RegistrationNo = x.RegistrationNo,
+                InvoiceTotalAmount = x.InvoiceTotalAmount,
+                InvoiceVatAmount = x.InvoiceVatAmount,
+                AmountDieselLt = x.AmountDieselLt,
+                AmountGasolineLt = x.AmountGasolineLt,
                 Is_PaymentReceiptGenerate = x.Is_PaymentReceiptGenerate
             });
             return fuelList.ToList();
@@ -45,18 +50,22 @@ namespace AssetMaintenance.BAL
             {
                 Fuel_Record ful = new Fuel_Record();
                 ful.FillingStation = fuel.FillingStation;
-                ful.PeriodFrom = fuel.PeriodFrom;
-                ful.PeriodTo = fuel.PeriodTo;
-                ful.Is_PaymentReceiptGenerate = fuel.Is_PaymentReceiptGenerate;
-                ful.VoucherNumber = fuel.VoucherNumber;
-                ful.AmountExclVat = fuel.AmountExclVat;
-                ful.AmountIncVat = fuel.AmountIncVat;
+                ful.SupplierCode = fuel.SupplierCode;
+                ful.SupplierName = fuel.SupplierName;
                 ful.ClaimNumber = fuel.ClaimNumber;
-                ful.DiscountAmount = fuel.DiscountAmount;
-                ful.FuelType = fuel.FuelType;
-                ful.QuantityLitre = fuel.QuantityLitre;
-                ful.VatAmount = fuel.VatAmount;
-                ful.VoucherNumber = fuel.VoucherNumber;
+                ful.InvoiceNo = fuel.InvoiceNo;
+                ful.InvoiceDate = fuel.InvoiceDate;
+                ful.PaymentCertNo = fuel.PaymentCertNo;
+                ful.Period = fuel.Period;
+                ful.DiscountAmountDiesel = fuel.DiscountAmountDiesel;
+                ful.DiscountAmountGasoline = fuel.DiscountAmountGasoline;
+                ful.InvoiceDiscountAmount = fuel.InvoiceDiscountAmount;
+                ful.RegistrationNo = fuel.RegistrationNo;
+                ful.InvoiceTotalAmount = fuel.InvoiceTotalAmount;
+                ful.InvoiceVatAmount = fuel.InvoiceVatAmount;
+                ful.AmountDieselLt = fuel.AmountDieselLt;
+                ful.AmountGasolineLt = fuel.AmountGasolineLt;
+                ful.Is_PaymentReceiptGenerate = fuel.Is_PaymentReceiptGenerate;
                 ful.Is_Excel = fuel.Modeofupload == 0 ? true : false;
 
                 dbCon.Fuel_Record.Add(ful);
@@ -80,16 +89,21 @@ namespace AssetMaintenance.BAL
 
                     Id = x.Id,
                     FillingStation = x.FillingStation,
-                    PeriodFrom = x.PeriodFrom,
-                    PeriodTo = x.PeriodTo,
-                    AmountExclVat = x.AmountExclVat,
-                    AmountIncVat = x.AmountIncVat,
+                    SupplierCode = x.SupplierCode,
+                    SupplierName = x.SupplierName,
                     ClaimNumber = x.ClaimNumber,
-                    DiscountAmount = x.DiscountAmount,
-                    FuelType = x.FuelType,
-                    QuantityLitre = x.QuantityLitre,
-                    VatAmount = x.VatAmount,
-                    VoucherNumber = x.VoucherNumber,
+                    InvoiceNo = x.InvoiceNo,
+                    InvoiceDate = x.InvoiceDate,
+                    PaymentCertNo = x.PaymentCertNo,
+                    Period = x.Period,
+                    DiscountAmountDiesel = x.DiscountAmountDiesel,
+                    DiscountAmountGasoline = x.DiscountAmountGasoline,
+                    InvoiceDiscountAmount = x.InvoiceDiscountAmount,
+                    RegistrationNo = x.RegistrationNo,
+                    InvoiceTotalAmount = x.InvoiceTotalAmount,
+                    InvoiceVatAmount = x.InvoiceVatAmount,
+                    AmountDieselLt = x.AmountDieselLt,
+                    AmountGasolineLt = x.AmountGasolineLt,
                     Is_PaymentReceiptGenerate = x.Is_PaymentReceiptGenerate
 
                 }).FirstOrDefault();
@@ -110,19 +124,22 @@ namespace AssetMaintenance.BAL
             {
                 var ful = dbCon.Fuel_Record.Where(x => x.Id == fuel.Id).FirstOrDefault();
                 ful.FillingStation = fuel.FillingStation;
-                ful.PeriodFrom = fuel.PeriodFrom;
-                ful.PeriodTo = fuel.PeriodTo;
-                ful.Is_PaymentReceiptGenerate = fuel.Is_PaymentReceiptGenerate;
-                ful.VoucherNumber = fuel.VoucherNumber;
-                ful.AmountExclVat = fuel.AmountExclVat;
-                ful.AmountIncVat = fuel.AmountIncVat;
+                ful.SupplierCode = fuel.SupplierCode;
+                ful.SupplierName = fuel.SupplierName;
                 ful.ClaimNumber = fuel.ClaimNumber;
-                ful.DiscountAmount = fuel.DiscountAmount;
-                ful.FuelType = fuel.FuelType;
-                ful.QuantityLitre = fuel.QuantityLitre;
-                ful.VatAmount = fuel.VatAmount;
-                ful.VoucherNumber = fuel.VoucherNumber;
-
+                ful.InvoiceNo = fuel.InvoiceNo;
+                ful.InvoiceDate = fuel.InvoiceDate;
+                ful.PaymentCertNo = fuel.PaymentCertNo;
+                ful.Period = fuel.Period;
+                ful.DiscountAmountDiesel = fuel.DiscountAmountDiesel;
+                ful.DiscountAmountGasoline = fuel.DiscountAmountGasoline;
+                ful.InvoiceDiscountAmount = fuel.InvoiceDiscountAmount;
+                ful.RegistrationNo = fuel.RegistrationNo;
+                ful.InvoiceTotalAmount = fuel.InvoiceTotalAmount;
+                ful.InvoiceVatAmount = fuel.InvoiceVatAmount;
+                ful.AmountDieselLt = fuel.AmountDieselLt;
+                ful.AmountGasolineLt = fuel.AmountGasolineLt;
+                ful.Is_PaymentReceiptGenerate = fuel.Is_PaymentReceiptGenerate;
                 dbCon.SaveChanges();
 
                 return true;
@@ -147,10 +164,10 @@ namespace AssetMaintenance.BAL
             return "Data Deleted successfully.";
         }
 
-        public bool CheckVoucherNumber(FuelRecordDto fuel)
-        {
-           return dbCon.Fuel_Record.Any(x => x.VoucherNumber == fuel.VoucherNumber );
-        }
+        //public bool CheckVoucherNumber(FuelRecordDto fuel)
+        //{
+        //   //return dbCon.Fuel_Record.Any(x => x.VoucherNumber == fuel.VoucherNumber );
+        //}
 
     }
 }

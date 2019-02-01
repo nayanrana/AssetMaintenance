@@ -38,30 +38,15 @@ namespace AssetMaintenance.BAL
                     objFuelDetails.AmountInVal = item.AmountInVal.HasValue ? item.AmountInVal.Value : 0;
                     objFuelDetails.CurrentMilage = item.CurrentMilage;
                     objFuelDetails.Date = item.Date;
-                    objFuelDetails.Discount = item.Discount;
+                    objFuelDetails.DateCreated = item.DateCreated;
                     objFuelDetails.Driver = item.Driver;
                     objFuelDetails.FillingStation = item.FillingStation;
-
                     objFuelDetails.FuelType = item.FuelType;
-                    objFuelDetails.Quantities = item.Quantities;
+                    objFuelDetails.QuantityLitres = item.QuantityLitres;
                     objFuelDetails.VatAmount = item.VatAmount;
-                    objFuelDetails.VoucherNo = item.VoucherNo;
-                    objFuelDetails.PeriodFrom = item.PeriodFrom;
-                    objFuelDetails.PeriodTo = item.PeriodTo;
-                    objFuelDetails.FuelInvoiceNo = item.FuelInvoiceNo;
-                    objFuelDetails.InvoiceDate = item.InvoiceDate;
-                    objFuelDetails.PaymentCertificateNo = item.PaymentCertificateNo;
-                    objFuelDetails.SupplierCodeName = item.SupplierCodeName;
-                    objFuelDetails.DiscountAmountDiesel = item.DiscountAmountDiesel;
-                    objFuelDetails.DiscountAmountGasoline = item.DiscountAmountGasoline;
-                    objFuelDetails.InvoiceDiscountAmount = item.InvoiceDiscountAmount;
-                    objFuelDetails.InvoiceTotalAmount = item.InvoiceTotalAmount;
-                    objFuelDetails.FuelType = "1";
-                    objFuelDetails.InvoiceVatAmount = item.InvoiceVatAmount;
-                    objFuelDetails.AmountDieselLt = item.AmountDieselLt;
-                    objFuelDetails.AmountGasolineLt = item.AmountGasolineLt;
-                    objFuelDetails.ClaimNo = item.ClaimNo;
-
+                    objFuelDetails.VoucherNumber = item.VoucherNumber;
+                    objFuelDetails.CostCentreLocation = item.CostCentreLocation;
+                    objFuelDetails.DiscountAmount = item.DiscountAmount;
                     objFuelDetails.RegistrationNo = string.IsNullOrEmpty(item.RegistrationNo) ? string.Empty : item.RegistrationNo;
                     dbCon.FuelRecord_Detail.Add(objFuelDetails);
                 }
@@ -78,36 +63,23 @@ namespace AssetMaintenance.BAL
         {
             var fueldetails = dbCon.FuelRecord_Detail.Where(k => k.FuelRecordId == fuelid).Select(k => new FuelRecord_DetailDto
             {
-                AmountExVal = k.AmountExVal,
-                AmountInVal = k.AmountInVal,
-                Date = k.Date,
-                Discount = k.Discount,
-                FillingStation = k.FillingStation,
-                FuelType = k.FuelType,
-                Quantities = k.Quantities,
-                VatAmount = k.VatAmount,
-                VoucherNo = k.VoucherNo,
                 FuelRecord_DetailId = k.FuelRecord_DetailId,
-                RegistrationNo = k.RegistrationNo,
-                ActualMilage = k.ActualMilage,
                 FuelRecordId = k.FuelRecordId,
+                Date = k.Date,
+                DateCreated = k.DateCreated,
+                VoucherNumber = k.VoucherNumber,
+                CostCentreLocation = k.CostCentreLocation,
+                RegistrationNo = k.RegistrationNo,
+                FillingStation = k.FillingStation,
+                Driver = k.Driver,
+                FuelType = k.FuelType,
+                QuantityLitres = k.QuantityLitres,
+                ActualMilage = k.ActualMilage,
                 CurrentMilage = k.CurrentMilage,
-                PeriodFrom = k.PeriodFrom,
-                PeriodTo = k.PeriodTo,
-                FuelInvoiceNo = k.FuelInvoiceNo,
-                InvoiceDate=k.InvoiceDate,
-                PaymentCertificateNo = k.PaymentCertificateNo,
-                SupplierCodeName = k.SupplierCodeName,
-                DiscountAmountDiesel = k.DiscountAmountDiesel,
-                DiscountAmountGasoline = k.DiscountAmountGasoline,
-                InvoiceDiscountAmount = k.InvoiceDiscountAmount,
-                InvoiceTotalAmount = k.InvoiceTotalAmount,
-                InvoiceVatAmount = k.InvoiceVatAmount,
-                AmountDieselLt = k.AmountDieselLt,
-                AmountGasolineLt = k.AmountGasolineLt,
-                ClaimNo = k.ClaimNo,
-
-                Driver = k.Driver
+                AmountExVal = k.AmountExVal,
+                DiscountAmount = k.DiscountAmount,
+                VatAmount = k.VatAmount,
+                AmountInVal = k.AmountInVal   
             }).ToList();
 
             return fueldetails;
@@ -117,38 +89,23 @@ namespace AssetMaintenance.BAL
         {
             var fueldetails = dbCon.FuelRecord_Detail.Where(k => k.FuelRecord_DetailId == fuleldetailid).Select(k => new FuelRecord_DetailDto
             {
-
-                AmountExVal = k.AmountExVal,
-                AmountInVal = k.AmountInVal,
-                Date = k.Date,
-                Discount = k.Discount,
-                FillingStation = k.FillingStation,
-                FuelType = k.FuelType,
-                Quantities = k.Quantities,
-                VatAmount = k.VatAmount,
-                VoucherNo = k.VoucherNo,
                 FuelRecord_DetailId = k.FuelRecord_DetailId,
-                RegistrationNo = k.RegistrationNo,
-                ActualMilage = k.ActualMilage,
                 FuelRecordId = k.FuelRecordId,
+                Date = k.Date,
+                DateCreated = k.DateCreated,
+                VoucherNumber = k.VoucherNumber,
+                CostCentreLocation = k.CostCentreLocation,
+                RegistrationNo = k.RegistrationNo,
+                FillingStation = k.FillingStation,
+                Driver = k.Driver,
+                FuelType = k.FuelType,
+                QuantityLitres = k.QuantityLitres,
+                ActualMilage = k.ActualMilage,
                 CurrentMilage = k.CurrentMilage,
-                PeriodFrom = k.PeriodFrom,
-                PeriodTo = k.PeriodTo,
-                FuelInvoiceNo = k.FuelInvoiceNo,
-                InvoiceDate = k.InvoiceDate,
-                PaymentCertificateNo = k.PaymentCertificateNo,
-                SupplierCodeName = k.SupplierCodeName,
-                DiscountAmountDiesel = k.DiscountAmountDiesel,
-                DiscountAmountGasoline = k.DiscountAmountGasoline,
-                InvoiceDiscountAmount = k.InvoiceDiscountAmount,
-                InvoiceTotalAmount = k.InvoiceTotalAmount,
-                InvoiceVatAmount = k.InvoiceVatAmount,
-                AmountDieselLt = k.AmountDieselLt,
-                AmountGasolineLt = k.AmountGasolineLt,
-                ClaimNo = k.ClaimNo,
-                Driver = k.Driver
-
-
+                AmountExVal = k.AmountExVal,
+                DiscountAmount = k.DiscountAmount,
+                VatAmount = k.VatAmount,
+                AmountInVal = k.AmountInVal
             }).FirstOrDefault();
 
             return fueldetails;
@@ -166,29 +123,22 @@ namespace AssetMaintenance.BAL
                 fuelmanagerResult.CurrentMilage = fuelmanual.CurrentMilage;
                 fuelmanagerResult.RegistrationNo = string.IsNullOrEmpty(fuelmanual.RegistrationNo) ? string.Empty : fuelmanual.RegistrationNo;
 
-                fuelmanagerResult.AmountExVal = fuelmanual.AmountExVal;
-                fuelmanagerResult.AmountInVal = fuelmanual.AmountInVal.HasValue ? fuelmanual.AmountInVal.Value : 0;
+                
                 fuelmanagerResult.Date = fuelmanual.Date;
-                fuelmanagerResult.Discount = fuelmanual.Discount;
+                fuelmanagerResult.DateCreated = fuelmanual.DateCreated;
+                fuelmanagerResult.VoucherNumber = fuelmanual.VoucherNumber;
+                fuelmanagerResult.CostCentreLocation = fuelmanual.CostCentreLocation;
+                fuelmanagerResult.RegistrationNo = fuelmanual.RegistrationNo;
+                fuelmanagerResult.FillingStation = fuelmanual.FillingStation;
+                fuelmanagerResult.Driver = fuelmanual.Driver;
                 fuelmanagerResult.FuelType = fuelmanual.FuelType;
-                fuelmanagerResult.Quantities = fuelmanual.Quantities;
+                fuelmanagerResult.QuantityLitres = fuelmanual.QuantityLitres;
+                fuelmanagerResult.ActualMilage = fuelmanual.ActualMilage;
+                fuelmanagerResult.CurrentMilage = fuelmanual.CurrentMilage;
+                fuelmanagerResult.AmountExVal = fuelmanual.AmountExVal;
+                fuelmanagerResult.DiscountAmount = fuelmanual.DiscountAmount;
                 fuelmanagerResult.VatAmount = fuelmanual.VatAmount;
-                fuelmanagerResult.VoucherNo = fuelmanual.VoucherNo;
-
-                fuelmanagerResult.PeriodFrom = fuelmanual.PeriodFrom;
-                fuelmanagerResult.PeriodTo = fuelmanual.PeriodTo;
-                fuelmanagerResult.FuelInvoiceNo = fuelmanual.FuelInvoiceNo;
-                fuelmanagerResult.InvoiceDate = fuelmanual.InvoiceDate;
-                fuelmanagerResult.PaymentCertificateNo = fuelmanual.PaymentCertificateNo;
-                fuelmanagerResult.SupplierCodeName = fuelmanual.SupplierCodeName;
-                fuelmanagerResult.DiscountAmountDiesel = fuelmanual.DiscountAmountDiesel;
-                fuelmanagerResult.DiscountAmountGasoline = fuelmanual.DiscountAmountGasoline;
-                fuelmanagerResult.InvoiceDiscountAmount = fuelmanual.InvoiceDiscountAmount;
-                fuelmanagerResult.InvoiceTotalAmount = fuelmanual.InvoiceTotalAmount;
-                fuelmanagerResult.InvoiceVatAmount = fuelmanual.InvoiceVatAmount;
-                fuelmanagerResult.AmountDieselLt = fuelmanual.AmountDieselLt;
-                fuelmanagerResult.AmountGasolineLt = fuelmanual.AmountGasolineLt;
-                fuelmanagerResult.ClaimNo = fuelmanual.ClaimNo;
+                fuelmanagerResult.AmountInVal = fuelmanual.AmountInVal.HasValue ? fuelmanual.AmountInVal.Value : 0;
 
                 dbCon.SaveChanges();
 

@@ -39,8 +39,7 @@ namespace AssetMaintenance.UI.Controllers
         {
             var obj = new FuelRecordRepo();
             int statusLst = 0;
-            if (!obj.CheckVoucherNumber(fuel))
-            {
+           
                 if (fuel.Id > 0)
                 {
                     if (obj.updateFuelRecord(fuel))
@@ -67,11 +66,8 @@ namespace AssetMaintenance.UI.Controllers
                     return Json("Something went wrong.");
 
                 }
-            }
-            else
-            {
-                return Json("validation");
-            }
+           
+           
         }
 
         [HttpGet]
@@ -93,6 +89,7 @@ namespace AssetMaintenance.UI.Controllers
                 string validationMsg = string.Empty;
                 int chkInt = 0;
                 double chkDouble;
+                DateTime chkDate;
 
                 using (var package = new ExcelPackage(Request.Files[0].InputStream))
                 {
@@ -120,6 +117,8 @@ namespace AssetMaintenance.UI.Controllers
                                 && workSheet.Cells[rowIterator, 11].Value == null
                                 && workSheet.Cells[rowIterator, 12].Value == null
                                 && workSheet.Cells[rowIterator, 13].Value == null
+                                && workSheet.Cells[rowIterator, 14].Value == null
+                                && workSheet.Cells[rowIterator, 15].Value == null
                                 )
                             {
                                 continue;
@@ -128,37 +127,37 @@ namespace AssetMaintenance.UI.Controllers
                             if (workSheet.Cells[rowIterator, 1].Value != null)
                             {
 
-                                //if (DateTime.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out chkDate))
-                                //{
-                                //    model.Date = chkDate;
-                                //}
-                                //else
-                                //{
-                                //    validationMsg = "Invalid Date format in excel sheet.";
-                                //    break;
-                                //}
+                                if (DateTime.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out chkDate))
+                                {
+                                    model.Date = chkDate;
+                                }
+                                else
+                                {
+                                    validationMsg = "Invalid Date format in excel sheet.";
+                                    break;
+                                }
 
-                                //if (DateTime.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out chkDate))
-                                //{
-                                //    model.Date = chkDate;
-                                //}
-                                //else
-                                //{
-                                //    validationMsg = "Invalid Date format in excel sheet.";
-                                //    break;
-                                //}
+                                if (DateTime.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out chkDate))
+                                {
+                                    model.Date = chkDate;
+                                }
+                                else
+                                {
+                                    validationMsg = "Invalid Date format in excel sheet.";
+                                    break;
+                                }
                                 double d;
                                 if (double.TryParse(workSheet.Cells[rowIterator, 1].Value.ToString(), out d))
                                 {
                                     model.Date = DateTime.FromOADate(d);
-                                    model.PeriodFrom = DateTime.FromOADate(d);
-                                    model.PeriodTo = DateTime.FromOADate(d);
+                                    //model.Period = DateTime.FromOADate(d);
+                                    //model.PeriodTo = DateTime.FromOADate(d);
                                 }
                                 else
                                 {
                                     model.Date = Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
-                                    model.PeriodFrom = Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
-                                    model.PeriodTo = Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
+                                    //model.PeriodFrom = Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
+                                    //model.PeriodTo = Convert.ToDateTime(workSheet.Cells[rowIterator, 1].Value);
                                     //model.Date = DateTime.ParseExact(workSheet.Cells[rowIterator, 1].Value.ToString(), @"dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                                 }
                             }
@@ -168,9 +167,70 @@ namespace AssetMaintenance.UI.Controllers
                                 break;
                             }
 
+                            if (workSheet.Cells[rowIterator, 2].Value != null)
+                            {
+
+                                if (DateTime.TryParse(workSheet.Cells[rowIterator, 2].Value.ToString(), out chkDate))
+                                {
+                                    model.DateCreated = chkDate;
+                                }
+                                else
+                                {
+                                    validationMsg = "Invalid Created Date format in excel sheet.";
+                                    break;
+                                }
+
+                                if (DateTime.TryParse(workSheet.Cells[rowIterator, 2].Value.ToString(), out chkDate))
+                                {
+                                    model.DateCreated = chkDate;
+                                }
+                                else
+                                {
+                                    validationMsg = "Invalid Created Date format in excel sheet.";
+                                    break;
+                                }
+                                double d;
+                                if (double.TryParse(workSheet.Cells[rowIterator, 2].Value.ToString(), out d))
+                                {
+                                    model.DateCreated = DateTime.FromOADate(d);
+                                   
+                                }
+                                else
+                                {
+                                    model.DateCreated = Convert.ToDateTime(workSheet.Cells[rowIterator, 2].Value);
+                                   
+                                    //model.Date = DateTime.ParseExact(workSheet.Cells[rowIterator, 1].Value.ToString(), @"dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                }
+                            }
+                            else
+                            {
+                                validationMsg = "Created Date is required in excel sheet";
+                                break;
+                            }
+
                             if (workSheet.Cells[rowIterator, 3].Value != null)
                             {
-                                model.RegistrationNo = Convert.ToString(workSheet.Cells[rowIterator, 3].Value);
+                                model.VoucherNumber = Convert.ToString(workSheet.Cells[rowIterator, 3].Value);
+                            }
+                            else
+                            {
+                                validationMsg = "Voucher Number is required in excel sheet";
+                                break;
+                            }
+
+                            if (workSheet.Cells[rowIterator, 4].Value != null)
+                            {
+                                model.CostCentreLocation = Convert.ToString(workSheet.Cells[rowIterator, 4].Value);
+                            }
+                            else
+                            {
+                                validationMsg = "Cost Center Location is required in excel sheet";
+                                break;
+                            }
+
+                            if (workSheet.Cells[rowIterator, 5].Value != null)
+                            {
+                                model.RegistrationNo = Convert.ToString(workSheet.Cells[rowIterator, 5].Value);
                             }
                             else
                             {
@@ -178,25 +238,25 @@ namespace AssetMaintenance.UI.Controllers
                                 break;
                             }
 
-                            model.VoucherNo = Convert.ToString(workSheet.Cells[rowIterator, 2].Value);
+                           
 
-                            model.FillingStation = Convert.ToString(workSheet.Cells[rowIterator, 4].Value);
-                            model.Driver = Convert.ToString(workSheet.Cells[rowIterator, 5].Value);
+                            model.FillingStation = Convert.ToString(workSheet.Cells[rowIterator, 6].Value);
+                            model.Driver = Convert.ToString(workSheet.Cells[rowIterator, 7].Value);
 
-                            if (workSheet.Cells[rowIterator, 6].Value != null)
+                            if (workSheet.Cells[rowIterator, 8].Value != null)
                             {
-                                model.FuelType = workSheet.Cells[rowIterator, 6].Value.ToString();
+                                model.FuelType = workSheet.Cells[rowIterator, 8].Value.ToString();
                             }
                             else
                             {
                                 validationMsg = "Fuel Type is required in excel sheet";
                                 break;
                             }
-                            if (workSheet.Cells[rowIterator, 7].Value != null)
+                            if (workSheet.Cells[rowIterator, 9].Value != null)
                             {
-                                if (int.TryParse(workSheet.Cells[rowIterator, 7].Value.ToString(), out chkInt))
+                                if (int.TryParse(workSheet.Cells[rowIterator, 9].Value.ToString(), out chkInt))
                                 {
-                                    model.Quantities = chkInt;
+                                    model.QuantityLitres = chkInt;
                                 }
                                 else
                                 {
@@ -210,7 +270,7 @@ namespace AssetMaintenance.UI.Controllers
                                 break;
                             }
 
-                            if (workSheet.Cells[rowIterator, 8].Value != null && int.TryParse(workSheet.Cells[rowIterator, 8].Value.ToString(), out chkInt))
+                            if (workSheet.Cells[rowIterator, 10].Value != null && int.TryParse(workSheet.Cells[rowIterator, 10].Value.ToString(), out chkInt))
                             {
                                 model.ActualMilage = chkInt;
                             }
@@ -220,7 +280,7 @@ namespace AssetMaintenance.UI.Controllers
                                 break;
                             }
 
-                            if (workSheet.Cells[rowIterator, 9].Value != null && int.TryParse(workSheet.Cells[rowIterator, 9].Value.ToString(), out chkInt))
+                            if (workSheet.Cells[rowIterator, 11].Value != null && int.TryParse(workSheet.Cells[rowIterator, 11].Value.ToString(), out chkInt))
                             {
                                 model.CurrentMilage = chkInt;
                             }
@@ -229,7 +289,7 @@ namespace AssetMaintenance.UI.Controllers
                                 validationMsg = "Invalid Number format for Current Milage in excel sheet.";
                                 break;
                             }
-                            if (workSheet.Cells[rowIterator, 10].Value != null && double.TryParse(workSheet.Cells[rowIterator, 10].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 10].Value.ToString()))
+                            if (workSheet.Cells[rowIterator, 12].Value != null && double.TryParse(workSheet.Cells[rowIterator, 12].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 12].Value.ToString()))
                             {
                                 model.AmountExVal = chkDouble;
                             }
@@ -239,21 +299,21 @@ namespace AssetMaintenance.UI.Controllers
                                 break;
                             }
 
-                            if (workSheet.Cells[rowIterator, 11].Value != null && int.TryParse(workSheet.Cells[rowIterator, 11].Value.ToString(), out chkInt))
+                            if (workSheet.Cells[rowIterator, 13].Value != null && int.TryParse(workSheet.Cells[rowIterator, 13].Value.ToString(), out chkInt))
                             {
                                 if (chkInt > 100)
                                 {
                                     validationMsg = "Discount (%) must be less than 100%";
                                     break;
                                 }
-                                model.Discount = chkInt;
+                                model.DiscountAmount = chkInt;
                             }
                             else
                             {
                                 validationMsg = "Invalid Number format for Discount (%) in excel sheet.";
                                 break;
                             }
-                            if (workSheet.Cells[rowIterator, 12].Value != null && double.TryParse(workSheet.Cells[rowIterator, 12].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 13].Value.ToString()))
+                            if (workSheet.Cells[rowIterator, 14].Value != null && double.TryParse(workSheet.Cells[rowIterator, 14].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 14].Value.ToString()))
                             {
                                 model.VatAmount = chkDouble;
                             }
@@ -262,7 +322,7 @@ namespace AssetMaintenance.UI.Controllers
                                 validationMsg = "Invalid Number format for Vat Amount in excel sheet.";
                                 break;
                             }
-                            if (workSheet.Cells[rowIterator, 13].Value != null && double.TryParse(workSheet.Cells[rowIterator, 13].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 13].Value.ToString()))
+                            if (workSheet.Cells[rowIterator, 15].Value != null && double.TryParse(workSheet.Cells[rowIterator, 15].Value.ToString(), out chkDouble) && decimalRegex.IsMatch(workSheet.Cells[rowIterator, 15].Value.ToString()))
                             {
                                 model.AmountInVal = chkDouble;
                             }
@@ -275,9 +335,6 @@ namespace AssetMaintenance.UI.Controllers
                             {
                                 model.FuelRecord_DetailId = rowid;
                                 rowid++;
-
-                                
-                            
                             }
                                
                             ListFuelRecord.Add(model);

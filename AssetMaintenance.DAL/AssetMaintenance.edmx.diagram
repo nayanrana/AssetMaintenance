@@ -32,12 +32,9 @@
         <AssociationConnector Association="AssetMaintenanceModel.FK__GFI_AMM_A__Field__36B12243" ManuallyRouted="false" />
         <AssociationConnector Association="AssetMaintenanceModel.FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_Asset" ManuallyRouted="false" />
         <AssociationConnector Association="AssetMaintenanceModel.FK_GFI_AMM_AssetExtProVehicles_GFI_FLT_AssetDataType" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="AssetMaintenanceModel.FuelRecord_Detail" Width="1.5" PointX="18.625" PointY="3.875" />
         <EntityTypeShape EntityType="AssetMaintenanceModel.AssetMaintenaceType" Width="1.5" PointX="12" PointY="0.75" />
         <AssociationConnector Association="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" />
         <AssociationConnector Association="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_FLT_Asset" />
-        <EntityTypeShape EntityType="AssetMaintenanceModel.Fuel_Record" Width="1.5" PointX="16.375" PointY="4.375" />
-        <AssociationConnector Association="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" />
         <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_DieselDetail" Width="1.5" PointX="16.625" PointY="17.25" />
         <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_FuelDetail" Width="1.5" PointX="16.625" PointY="21.125" />
         <EntityTypeShape EntityType="AssetMaintenanceModel.GFI_GasolineDetail" Width="1.5" PointX="16.625" PointY="13.375" />
@@ -45,6 +42,9 @@
         <AssociationConnector Association="AssetMaintenanceModel.FK_GFI_DieselDetail_Supplier" />
         <AssociationConnector Association="AssetMaintenanceModel.FK_GFI_FuelDetail_Supplier" />
         <AssociationConnector Association="AssetMaintenanceModel.FK_GFI_GasolineDetail_Supplier" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.Fuel_Record" Width="1.5" PointX="16.375" PointY="5.125" />
+        <EntityTypeShape EntityType="AssetMaintenanceModel.FuelRecord_Detail" Width="1.5" PointX="18.625" PointY="4.875" />
+        <AssociationConnector Association="AssetMaintenanceModel.FK_FuelRecord_Detail_FuelRecord_Detail" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
