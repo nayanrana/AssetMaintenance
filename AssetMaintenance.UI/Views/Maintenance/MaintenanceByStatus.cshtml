@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Maintenance By Status";
-    var overdueText = Model.Where(x => x.MaintStatusId == 1 && x.MaintStatusId !=5).FirstOrDefault().Description;
+    var overdueText = Model.Where(x => x.MaintStatusId == 1 && x.MaintStatusId != 5).FirstOrDefault().Description;
     var overdueCount = Model.Where(x => x.MaintStatusId == 1 && x.MaintStatusId != 5).FirstOrDefault().NoofStatus;
     var toShceduleText = Model.Where(x => x.MaintStatusId == 2 && x.MaintStatusId != 5).FirstOrDefault().Description;
     var toShceduleCount = Model.Where(x => x.MaintStatusId == 2 && x.MaintStatusId != 5).FirstOrDefault().NoofStatus;
@@ -69,44 +69,48 @@
     <script type="text/javascript">
 
         $(function () {
-
+            var i = 0;
             var data = {
                 labels: ['@overdueText - ' + '@overdueCount', '@toShceduleText - ' + '@toShceduleCount', '@scheduledText - ' + '@scheduledCount', '@expiredText - ' + '@expiredCount'],
-                series: [  
+                series: [
                     {
                         value: @overdueCount,
-                        name: 'Series 1',                        
+                        name: 'Series 1',
                         meta: 1
                     }, {
                         value: @toShceduleCount,
-                        name: 'Series 2',                        
+                        name: 'Series 2',
                         meta: 2
                     }, {
                         value:@scheduledCount,
-                        name: 'Series 3',                        
+                        name: 'Series 3',
                         meta: 3
                     }
                     , {
                         value:@expiredCount,
-                        name: 'Series 4',                        
-                        meta: 7
+                        name: 'Series 4',
+                        meta: 4
                     }
-                ]                
+                ]
             };
 
-            var sum = function (a, b) { return a + b };
 
             new Chartist.Pie('#ct-chart5', data,
                 {
-                    labelInterpolationFnc: function (value) {
-                        //return Math.round(value / data.series.reduce(sum) * 100) + '%';
-                        return value;
+                    labelInterpolationFnc: function (value, idx) {
+                        if (data.series[idx].value != 0) {
+                            return data.labels[idx]
+                        }
+                        //return "";
                     }
-                }, {
-                    chartPadding: 30,
-                    labelOffset: 50,
-                    labelDirection: 'explode'
+                },
+
+                 {
+                    labelDirection: 'explode',
+                   // labelDirection: 'implode'
                 }
+
+
 
             );
 
@@ -136,7 +140,7 @@
 
         });
 
-        $('.ct-perfect-fourth').on('click', '.ct-slice-pie', function () {          
+        $('.ct-perfect-fourth').on('click', '.ct-slice-pie', function () {
             var stat = Chartist.deserialize(this.getAttribute('ct:meta'));
             location.href = "/Maintenance/MaintenanceByStatusList?maintenanceType="+stat;
         });

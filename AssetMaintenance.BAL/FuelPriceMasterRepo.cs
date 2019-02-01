@@ -20,7 +20,7 @@ namespace AssetMaintenance.BAL
         /// Get List of Fuel Details And Fill in MOdel
         /// </summary>
         /// <returns></returns>
-        public List<FuelMasterDto> GetFuelDetail()
+        public List<FuelMasterDto> GetFuelDetail(int Id=0)
         {
             var fuelList = (from x in dbCon.GFI_FuelDetail
                             join sup in dbCon.Suppliers on x.SupplierId equals sup.Id
@@ -34,7 +34,7 @@ namespace AssetMaintenance.BAL
                                 SupplierId = x.SupplierId,
                                 SupplierName = sup.Name,
 
-                            }).ToList();
+                            }).Where(x=>Id==0||x.SupplierId==Id).ToList();
 
             return fuelList;
         }
@@ -70,7 +70,7 @@ namespace AssetMaintenance.BAL
         /// Get List of Fuel Details And Fill in MOdel
         /// </summary>
         /// <returns></returns>
-        public List<FuelMasterDto> GetDisellDetail()
+        public List<FuelMasterDto> GetDisellDetail(int Id=0)
         {
             var fuelList = (from x in dbCon.GFI_DieselDetail
                             join sup in dbCon.Suppliers on x.SupplierId equals sup.Id
@@ -84,7 +84,7 @@ namespace AssetMaintenance.BAL
                                 SupplierId = x.SupplierId,
                                 SupplierName = sup.Name,
 
-                            }).ToList();
+                            }).Where(x => Id == 0 || x.SupplierId == Id).ToList();
             return fuelList;
         }
 
@@ -120,7 +120,7 @@ namespace AssetMaintenance.BAL
         /// Get List of Fuel Details And Fill in MOdel
         /// </summary>
         /// <returns></returns>
-        public List<FuelMasterDto> GetGasolineDetail()
+        public List<FuelMasterDto> GetGasolineDetail(int Id=0)
         {
             var fuelList = (from x in dbCon.GFI_GasolineDetail
                             join sup in dbCon.Suppliers on x.SupplierId equals sup.Id
@@ -134,7 +134,7 @@ namespace AssetMaintenance.BAL
                                 SupplierId = x.SupplierId,
                                 SupplierName = sup.Name,
 
-                            }).ToList();
+                            }).Where(x => Id == 0 || x.SupplierId == Id).ToList();
             return fuelList;
         }
 
