@@ -77,7 +77,7 @@ namespace AssetMaintenance.UI.Controllers
 
             var schduledAndCompletedStatusId = new int[] { 3, 5 };
 
-            if (statusId == 1 || statusId == 2)
+            if (statusId == 1 || statusId == 2 || statusId == 5)
             {
                 ViewBag.lstStatus = statusLst.Where(x => schduledAndCompletedStatusId.Contains(x.MaintStatusId));
             }
@@ -89,6 +89,7 @@ namespace AssetMaintenance.UI.Controllers
             {
                 ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId == 6);
             }
+           
             AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetailbyID(id, mainId);
 
             return View(model);

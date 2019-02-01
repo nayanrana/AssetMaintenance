@@ -42,5 +42,14 @@ namespace AssetMaintenance.UI.Controllers
         {
             return Json(obj.GetAssetAndMaintenanceTypeDetailsByAssetId(assetId),JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult DeleteAssertMaintenanceByID(int id)
+        {
+            AssetMaintenanceRepo assetmaintenance = new AssetMaintenanceRepo();
+            var model = assetmaintenance.deleteAssertMaintenance(id);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
