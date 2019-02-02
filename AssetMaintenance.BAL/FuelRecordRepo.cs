@@ -168,6 +168,17 @@ namespace AssetMaintenance.BAL
         //{
         //   //return dbCon.Fuel_Record.Any(x => x.VoucherNumber == fuel.VoucherNumber );
         //}
+        public List<KeyValuePair<string, int>> GetSupplierName()
+        {
+            List<KeyValuePair<string, int>> lstKeyValue = new List<KeyValuePair<string, int>>();
 
+            lstKeyValue = (dbCon.Suppliers.AsEnumerable().Where(x => x.IsFuel == true).Select(x =>
+                               new KeyValuePair<string, int>
+                               (
+                                  x.Name,
+                                 x.Id
+                               )).ToList());
+            return lstKeyValue;
+        }
     }
 }

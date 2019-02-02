@@ -129,6 +129,9 @@
     <Compile Include="GFI_FLT_RoadSpeedType.cs">
       <DependentUpon>AssetMaintenance.tt</DependentUpon>
     </Compile>
+    <Compile Include="GFI_FLT_VatMaster.cs">
+      <DependentUpon>AssetMaintenance.tt</DependentUpon>
+    </Compile>
     <Compile Include="GFI_FuelDetail.cs">
       <DependentUpon>AssetMaintenance.tt</DependentUpon>
     </Compile>

@@ -251,6 +251,7 @@
     <Compile Include="Controllers\FuelManagementController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\MaintenanceTypeController.cs" />
+    <Compile Include="Controllers\VatMasterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2614,6 +2615,8 @@
     <Content Include="Views\Maintenance\BindMaintenanceDetail.cshtml" />
     <Content Include="Views\FuelManagement\List.cshtml" />
     <Content Include="Views\FuelManagement\_SaveItemDetail.cshtml" />
+    <Content Include="Views\VatMaster\Index.cshtml" />
+    <Content Include="Views\VatMaster\VatList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

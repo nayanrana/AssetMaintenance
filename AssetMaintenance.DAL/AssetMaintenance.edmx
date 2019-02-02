@@ -402,6 +402,15 @@
           <Property Name="RoadG" Type="int" />
           <Property Name="RoadH" Type="int" />
         </EntityType>
+        <EntityType Name="GFI_FLT_VatMaster">
+          <Key>
+            <PropertyRef Name="VatId" />
+          </Key>
+          <Property Name="VatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vat" Type="float" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="GFI_FuelDetail">
           <Key>
             <PropertyRef Name="FuelId" />
@@ -699,6 +708,7 @@
           <EntitySet Name="GFI_FLT_AssetUOM" EntityType="Self.GFI_FLT_AssetUOM" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GFI_FLT_ExtTripInfo" EntityType="Self.GFI_FLT_ExtTripInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GFI_FLT_RoadSpeedType" EntityType="Self.GFI_FLT_RoadSpeedType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GFI_FLT_VatMaster" EntityType="Self.GFI_FLT_VatMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GFI_FuelDetail" EntityType="Self.GFI_FuelDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GFI_GasolineDetail" EntityType="Self.GFI_GasolineDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GFI_SYS_LookUpTypes" EntityType="Self.GFI_SYS_LookUpTypes" Schema="dbo" store:Type="Tables" />
@@ -1332,6 +1342,7 @@
             <End Role="Fuel_Record" EntitySet="Fuel_Record" />
             <End Role="FuelRecord_Detail" EntitySet="FuelRecord_Detail" />
           </AssociationSet>
+          <EntitySet Name="GFI_FLT_VatMaster" EntityType="AssetMaintenanceModel.GFI_FLT_VatMaster" />
           </EntityContainer>
         <EntityType Name="AssetMaintenaceType">
           <Key>
@@ -1541,6 +1552,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="GFI_FLT_VatMaster">
+          <Key>
+            <PropertyRef Name="VatId" />
+          </Key>
+          <Property Name="VatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vat" Type="Double" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2087,6 +2107,16 @@
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="FuelRecordId" ColumnName="FuelRecordId" />
                 <ScalarProperty Name="FuelRecord_DetailId" ColumnName="FuelRecord_DetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GFI_FLT_VatMaster">
+            <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_FLT_VatMaster">
+              <MappingFragment StoreEntitySet="GFI_FLT_VatMaster">
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Vat" ColumnName="Vat" />
+                <ScalarProperty Name="VatId" ColumnName="VatId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

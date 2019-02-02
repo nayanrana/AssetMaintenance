@@ -6,7 +6,7 @@ namespace AssetMaintenance.BAL.DTO
     {
         public long FuelRecord_DetailId { get; set; }
         public int FuelRecordId { get; set; }
-        public System.DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public string VoucherNumber { get; set; }
         public string CostCentreLocation { get; set; }

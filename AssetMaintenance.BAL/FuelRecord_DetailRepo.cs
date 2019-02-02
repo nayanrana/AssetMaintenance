@@ -37,7 +37,7 @@ namespace AssetMaintenance.BAL
                     objFuelDetails.AmountExVal = item.AmountExVal;
                     objFuelDetails.AmountInVal = item.AmountInVal.HasValue ? item.AmountInVal.Value : 0;
                     objFuelDetails.CurrentMilage = item.CurrentMilage;
-                    objFuelDetails.Date = item.Date;
+                    objFuelDetails.Date = item.Date.HasValue ? item.Date.Value : System.DateTime.Now; 
                     objFuelDetails.DateCreated = item.DateCreated;
                     objFuelDetails.Driver = item.Driver;
                     objFuelDetails.FillingStation = item.FillingStation;
@@ -124,7 +124,7 @@ namespace AssetMaintenance.BAL
                 fuelmanagerResult.RegistrationNo = string.IsNullOrEmpty(fuelmanual.RegistrationNo) ? string.Empty : fuelmanual.RegistrationNo;
 
                 
-                fuelmanagerResult.Date = fuelmanual.Date;
+                fuelmanagerResult.Date = fuelmanual.Date.HasValue ? fuelmanual.Date.Value : System.DateTime.Now; 
                 fuelmanagerResult.DateCreated = fuelmanual.DateCreated;
                 fuelmanagerResult.VoucherNumber = fuelmanual.VoucherNumber;
                 fuelmanagerResult.CostCentreLocation = fuelmanual.CostCentreLocation;
