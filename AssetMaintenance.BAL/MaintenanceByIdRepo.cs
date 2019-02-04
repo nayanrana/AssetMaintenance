@@ -76,55 +76,63 @@ namespace AssetMaintenance.BAL
 
         public string insertMaintenance(AssetMaintenanceDetailDto assetMaintenance)
         {
-
-            //JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-            var json_serializer = new JavaScriptSerializer();
-            List<lstPartDetails> routes_list = json_serializer.Deserialize<List<lstPartDetails>>(assetMaintenance.Parts);
-
-            GFI_AMM_VehicleMaintenance maint = dbCon.GFI_AMM_VehicleMaintenance.SingleOrDefault(c => c.URI == assetMaintenance.URI);///new GFI_AMM_VehicleMaintenance();
-            maint.ActualEngineHrs = assetMaintenance.ActualEngineHrs;
-            maint.ActualOdometer = assetMaintenance.ActualOdometer;
-            maint.AdditionalInfo = assetMaintenance.AdditionalInfo== "undefined"?null: assetMaintenance.AdditionalInfo;
-            maint.AssetId = assetMaintenance.AssetId;
-            maint.AssetStatus = assetMaintenance.AssetStatus;
-            maint.CalculatedEngineHrs = assetMaintenance.CalculatedEngineHrs;
-            maint.CalculatedOdometer = assetMaintenance.CalculatedOdometer;
-            maint.Comment = assetMaintenance.Comment;
-            maint.CompanyName = assetMaintenance.CompanyName;
-            maint.CompanyRef = assetMaintenance.CompanyRef;
-            maint.ContactDetails = assetMaintenance.ContactDetails;
-            maint.CoverTypeId_cbo = assetMaintenance.CoverTypeId_cbo;
-            maint.EndDate = assetMaintenance.EndDate;
-            maint.EstimatedValue = assetMaintenance.EstimatedValue;
-            maint.MaintDescription = assetMaintenance.MaintDescription;
-            maint.MaintStatusId_cbo = assetMaintenance.MaintStatusId_cbo;
-            maint.MaintTypeId_cbo = assetMaintenance.MaintTypeId_cbo;
-            maint.PhoneNumber = assetMaintenance.PhoneNumber;
-            maint.StartDate = assetMaintenance.StartDate;            
-            maint.TotalCost = assetMaintenance.TotalCost;
-            maint.VATAmount = assetMaintenance.VATAmount;
-            maint.VATInclInItemsAmt = assetMaintenance.VATInclInItemsAmt== "undefined"?null: assetMaintenance.VATInclInItemsAmt;
-            maint.CreatedDate = DateTime.Now;
-            maint.UpdatedDate = DateTime.Now;
-            ///var mainten= dbCon.GFI_AMM_VehicleMaintenance.Add(maint);
-            dbCon.SaveChanges();
-            foreach (var item in routes_list)
-            //for (int i = 0; i < length; i++)            
+            try
             {
-                GFI_AMM_VehicleMaintItems mainItems = new GFI_AMM_VehicleMaintItems();
-                mainItems.CreatedDate = DateTime.Now;
-                mainItems.Description = item.Description;
-                mainItems.ItemCode = item.ItemCode;
-                mainItems.MaintURI = maint.URI;
-                mainItems.Quantity = item.Quantity;
-                mainItems.UnitCost = item.UnitCost;
-                mainItems.UpdatedDate = item.UpdatedDate;
-                
-                dbCon.GFI_AMM_VehicleMaintItems.Add(mainItems);
+
+
+                //JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+                var json_serializer = new JavaScriptSerializer();
+                List<lstPartDetails> routes_list = json_serializer.Deserialize<List<lstPartDetails>>(assetMaintenance.Parts);
+
+                GFI_AMM_VehicleMaintenance maint = dbCon.GFI_AMM_VehicleMaintenance.SingleOrDefault(c => c.URI == assetMaintenance.URI);///new GFI_AMM_VehicleMaintenance();
+                maint.ActualEngineHrs = assetMaintenance.ActualEngineHrs;
+                maint.ActualOdometer = assetMaintenance.ActualOdometer;
+                maint.AdditionalInfo = assetMaintenance.AdditionalInfo == "undefined" ? null : assetMaintenance.AdditionalInfo;
+                maint.AssetId = assetMaintenance.AssetId;
+                maint.AssetStatus = assetMaintenance.AssetStatus;
+                maint.CalculatedEngineHrs = assetMaintenance.CalculatedEngineHrs;
+                maint.CalculatedOdometer = assetMaintenance.CalculatedOdometer;
+                maint.Comment = assetMaintenance.Comment;
+                maint.CompanyName = assetMaintenance.CompanyName;
+                maint.CompanyRef = assetMaintenance.CompanyRef;
+                maint.ContactDetails = assetMaintenance.ContactDetails;
+                maint.CoverTypeId_cbo = assetMaintenance.CoverTypeId_cbo;
+                maint.EndDate = assetMaintenance.EndDate;
+                maint.EstimatedValue = assetMaintenance.EstimatedValue;
+                maint.MaintDescription = assetMaintenance.MaintDescription;
+                maint.MaintStatusId_cbo = assetMaintenance.MaintStatusId_cbo;
+                maint.MaintTypeId_cbo = assetMaintenance.MaintTypeId_cbo;
+                maint.PhoneNumber = assetMaintenance.PhoneNumber;
+                maint.StartDate = assetMaintenance.StartDate;
+                maint.TotalCost = assetMaintenance.TotalCost;
+                maint.VATAmount = assetMaintenance.VATAmount;
+                maint.VATInclInItemsAmt = assetMaintenance.VATInclInItemsAmt == "undefined" ? null : assetMaintenance.VATInclInItemsAmt;
+                maint.CreatedDate = DateTime.Now;
+                maint.UpdatedDate = DateTime.Now;
+                ///var mainten= dbCon.GFI_AMM_VehicleMaintenance.Add(maint);
                 dbCon.SaveChanges();
+                foreach (var item in routes_list)
+                //for (int i = 0; i < length; i++)            
+                {
+                    GFI_AMM_VehicleMaintItems mainItems = new GFI_AMM_VehicleMaintItems();
+                    mainItems.CreatedDate = DateTime.Now;
+                    mainItems.Description = item.Description;
+                    mainItems.ItemCode = item.ItemCode;
+                    mainItems.MaintURI = maint.URI;
+                    mainItems.Quantity = item.Quantity;
+                    mainItems.UnitCost = item.UnitCost;
+                    mainItems.UpdatedDate = item.UpdatedDate;
+
+                    dbCon.GFI_AMM_VehicleMaintItems.Add(mainItems);
+                    dbCon.SaveChanges();
+                }
+
+                return maint.URI.ToString();
             }
-            
-            return "";
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
         }
     }
 }

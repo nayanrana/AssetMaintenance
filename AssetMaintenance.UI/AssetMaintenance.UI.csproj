@@ -2618,6 +2618,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Uploaded_File\" />
     <Folder Include="Vendor\moment\src\lib\create\" />
     <Folder Include="Vendor\moment\src\lib\duration\" />
     <Folder Include="Vendor\moment\src\lib\format\" />

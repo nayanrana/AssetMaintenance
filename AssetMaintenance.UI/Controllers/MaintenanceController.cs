@@ -2,6 +2,7 @@
 using AssetMaintenance.BAL.DTO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -32,7 +33,7 @@ namespace AssetMaintenance.UI.Controllers
         public ActionResult MaintenanceByStatusList(int maintenanceType)
         {
             var obj = new MaintenanceByStatusListRepo();
-            List<MaintenanceByStatusListDto> model = obj.getMaintenanceByStatusList(maintenanceType);            
+            List<MaintenanceByStatusListDto> model = obj.getMaintenanceByStatusList(maintenanceType);
             //ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId == 1 || x.MaintStatusId == 2 || x.MaintStatusId == 3 ||x.MaintStatusId == 7);            
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -89,9 +90,13 @@ namespace AssetMaintenance.UI.Controllers
             {
                 ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId == 6);
             }
-           
-            AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetailbyID(id, mainId);
 
+            AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetailbyID(id, mainId);
+            var filePaths = Directory.GetFiles(Server.MapPath("/Uploaded_File"))
+                        .Where(f => Path.GetFileNameWithoutExtension(f).ToLower() == model.URI.ToString().ToLower()).Select(f => Path.GetFileName(f));
+                        
+            if (filePaths.Count() > 0)
+                model.FileName = "~/Uploaded_File/" + filePaths.FirstOrDefault();
             return View(model);
         }
 
@@ -100,6 +105,30 @@ namespace AssetMaintenance.UI.Controllers
         {
             var obj = new MaintenanceByIdRepo();
             var statusLst = obj.insertMaintenance(asstMaint);
+            if (string.IsNullOrEmpty(statusLst))
+                return Json("Error occured. Please try again after some time.");
+
+            if (Request.Files.Count > 0)
+            {
+                var uploadFiles = Request.Files[0];
+                //Save File
+                var fileContent = Request.Files[0];
+                if (fileContent != null && fileContent.ContentLength > 0)
+                {
+                    // get a stream
+                    var stream = fileContent.InputStream;
+                    // and optionally write the file to disk
+                    var fileName = statusLst + Path.GetExtension(fileContent.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Uploaded_File"), fileName);
+
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+
+                    fileContent.SaveAs(path);
+                }
+            }
             return Json("Record saved successfully.");
         }
     }

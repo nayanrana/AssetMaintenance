@@ -1,3 +1,8 @@
 ﻿.padding15 {
     padding: 15px !important;
 }
+
+.linkColor {
+    color: #337ab7;
+    text-decoration: none;
+}

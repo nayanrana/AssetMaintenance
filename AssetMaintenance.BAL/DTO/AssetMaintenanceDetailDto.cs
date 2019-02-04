@@ -45,11 +45,14 @@ namespace AssetMaintenance.BAL.DTO
         public Nullable<int> MaintTypeId_cbo { get; set; }
         public List<lstPartDetails> lstParts { get; set; }
         public string Parts { get; set; }
+        public string FileName { get; set; }
 
     }
 
     public class lstPartDetails
     {
+        public int URI { get; set; }
+
         public int MaintURI { get; set; }
         public string ItemCode { get; set; }
         public string Description { get; set; }
