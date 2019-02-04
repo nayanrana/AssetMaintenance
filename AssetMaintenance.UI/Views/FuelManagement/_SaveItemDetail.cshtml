@@ -19,11 +19,11 @@
 
                         </div>
                         <div class="form-group col-lg-2">
-                            <label>Date</label>
+                            <label>Date<span class="req" style="color:red">*</span></label>
                             @Html.TextBoxFor(model => model.Date, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Date", id = "ManualDate", required = "required" })
                         </div>
                         <div class="form-group col-lg-2">
-                            <label>Date Created</label>
+                            <label>Date Created<span class="req" style="color:red">*</span></label>
                             @Html.TextBoxFor(model => model.DateCreated, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Date Created", id = "ManualDateCreated", required = "required" })
                         </div>
                         <div class="form-group col-lg-4">
@@ -35,7 +35,7 @@
                             @Html.TextBoxFor(model => model.CostCentreLocation, new { @class = "form-control", placeholder = "Cost Centre/ Location", id = "ManualCostCentreLocation" })
                         </div>
                         <div class="form-group col-lg-4">
-                            <label>Registration No.</label>
+                            <label>Registration No.<span class="req" style="color:red">*</span></label>
                             @Html.TextBoxFor(model => model.RegistrationNo, new { @class = "form-control ", placeholder = "Registration No.", id = "ManualRegistrationNo", required = "required" })
                         </div>
                         <div class="form-group col-lg-4">
@@ -47,7 +47,7 @@
                             @Html.TextBoxFor(model => model.Driver, new { @class = "form-control", placeholder = "Driver", id = "ManualDriver" })
                         </div>
                         <div class="form-group col-lg-4">
-                            <label>Fuel Type<span class="req">*</span></label>
+                            <label>Fuel Type<span class="req" style="color:red">*</span></label>
                             @Html.DropDownListFor(m => m.FuelType,
                             new SelectList(new List<SelectListItem>
                                 {
@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="form-group col-lg-4">
-                            <label>Quantity Litres<span class="req">*</span></label>
+                            <label>Quantity Litres<span class="req" style="color:red">*</span></label>
                             @Html.TextBoxFor(model => model.QuantityLitres, new { @class = "form-control allownumericwithdecimal", placeholder = "Quantity Litres", id = "ManualQuantityLitres", required = "required" })
                         </div>
                         <div class="form-group col-lg-4">
@@ -71,7 +71,7 @@
                             @Html.TextBoxFor(model => model.CurrentMilage, new { @class = "form-control allownumericwithdecimal", placeholder = "Current Mileage", id = "ManualCurrentMileage" })
                         </div>
                         <div class="form-group col-lg-4">
-                            <label>Amount(Excl. Vat)</label>
+                            <label>Amount(Excl. Vat)<span class="req" style="color:red">*</span></label>
                             @Html.TextBoxFor(model => model.AmountExVal, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount(Excl. Vat)", id = "ManualAmount", required = "required" })
                         </div>
                         <div class="form-group col-lg-4">
@@ -83,7 +83,7 @@
                             @Html.TextBoxFor(model => model.VatAmount, new { @class = "form-control allownumericwithdecimal", placeholder = "Vat Amount", id = "MaunalVatAmount" })
                         </div>
                         <div class="form-group col-lg-4">
-                            <label>Amount inc.vat</label>
+                            <label>Amount inc.vat<span class="req" style="color:red">*</span></label>
                             @Html.TextBoxFor(model => model.AmountInVal, new { @class = "form-control allownumericwithdecimal", placeholder = "Amount inc.vat", id = "ManualAmountInc", required = "required" })
                         </div>
                     </div>

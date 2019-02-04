@@ -1,0 +1,185 @@
+﻿@using AssetMaintenance.Helper
+
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            @*<div id="hbreadcrumb" class="pull-right">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a href="../Maintenance/MaintenanceByStatus">Dashboard</a></li>
+                        <li class="active">
+                            <span>Maintenance Types</span>
+                        </li>
+                    </ol>
+                </div>*@
+            <h2 class="font-light m-b-xs">
+                Vat Master
+            </h2>
+        </div>
+    </div>
+</div>
+
+<div class="content animate-panel">
+    <div class="row" id="MaintenanceListGridDiv">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        <a class="closebox"><i class="fa fa-times"></i></a>
+                    </div>
+                    @*<a href="/MaintenanceType/Index?maintenanceType=0" class="btn btn-success">Add New Maintenance</a>*@
+                    <button id="btnAddVat" class="btn btn-success " type="button"><i class="fa fa-plus-square"></i> <span class="bold" style="padding-left:5px;">Add New Vat</span></button>
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="VatList" class="table table-striped table-bordered table-hover dataTable no-footer " width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" width="15%">Vat</th>
+                                    <th class="text-center" width="15%">Start Date</th>
+                                    <th class="text-center" width="15%">End Date</th>
+                                    <th class="text-center" width="5%">Edit</th>
+                                    <th class="text-center" width="5%">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Styles {
+
+    <style type="text/css">
+        .loader {
+            background: url("../images/Custom/ui-anim_basic_16x16.gif");
+            background-repeat: no-repeat;
+            background-position: right;
+        }
+
+        .modal-content {
+            width: 700px !important;
+        }
+    </style>
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/sweetAlert/css")
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/sweetAlert/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (localStorage.getItem('msg')) {
+                toastr.success(localStorage.getItem('msg'));
+                localStorage.clear();
+            }
+
+            getvatList();
+            $("#btnAddVat").click(function () {
+                location.href = "../VatMaster/Index";
+            });
+
+        });
+
+        function getvatList() {
+            var str = 0;
+
+            $.fn.DataTable.isDataTable("#VatList");
+            $('#VatList').DataTable().clear().destroy();
+
+            $.ajax({
+                type: 'Get',
+                data: '',
+               
+                url: '@Url.Action("ViewVatList", "VatMaster")',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (data)
+                {
+                    @*var Mstatus = @Request.QueryString["maintenanceType"]*@
+
+                    $.each(data, function (i, item) {
+                        var tr;
+                        tr = $('<tr />');
+                        tr.append("<td class='text-center' data-title='Reminder'>" + (item.Vat == null ? "-" : item.Vat) + "</td>");
+                        tr.append("<td class='text-center' data-title='AssetNo'>" + (item.StartDate == null ? "-" : getFormattedDate(item.StartDate)) + "</td>");
+                        tr.append("<td class='text-center' data-title='AssetNo'>" + (item.EndDate == null ? "-" : getFormattedDate(item.EndDate)) + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> "
+                            + "<div> <a href='/VatMaster/Index?VatId=" + item.VatId + "'  data-asset=" + item.VatId
+                                + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit</span></a></div>" + "</td>");
+                        tr.append("<td class='text-center' data-title='Delete'> "
+                            + "<div> <a href='javascript:void(0);' onclick='deleteVatDetail(" + item.VatId + ")' data-asset=" + item.VatId
+                                + " class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i> &nbsp;Delete</a></div>" + "</td>");
+                       
+
+                        $("#VatList tbody").append(tr);
+                    });
+                    htmlToDataTable();
+                }
+            });
+
+        }
+        function htmlToDataTable() {
+            var table = $('#VatList').dataTable(
+                {
+                    "lengthChange": false,
+                    "deferRender": true,
+                    "bDestroy": true
+                }
+            );
+        }
+
+        function deleteVatDetail(id) {
+            swal({
+                title: "Are you sure?",
+                text: "Your will not be able to recover this Vat Detail!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: "POST",
+                            ///url: '_ViewMaintanence',
+                            url: '@Url.Action("DeletevatMasterByID", "VatMaster")',
+                            datatype: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                swal("Deleted!", "Vat Detail has been deleted.", "success");
+                                getvatList();
+                            }
+                        });
+
+                    } else {
+                        swal("Cancelled", "Your Vat Detail is safe :)", "error");
+                    }
+                });
+        }
+
+
+
+
+    </script>
+}
+
+

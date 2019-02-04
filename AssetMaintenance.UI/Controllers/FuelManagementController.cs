@@ -25,7 +25,8 @@ namespace AssetMaintenance.UI.Controllers
 
             var model = obj.getFuelManagerByID(fuelmanagetid);
             model.fuelRecordManualDto = new FuelRecord_DetailDto();
-            model.fuelRecordManualDto.Date = DateTime.Now.Date;
+            model.fuelRecordManualDto.DateCreated = DateTime.Now.Date;
+            ViewBag.Supplier = obj.GetSupplierName();
             return View(model);
         }
         public ActionResult List()

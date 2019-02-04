@@ -1,0 +1,169 @@
+﻿
+@model AssetMaintenance.BAL.DTO.VatMasterDto
+<link href="~/Vendor/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
+
+<script src="~/Vendor/sweetalert/lib/sweet-alert.js"></script>
+<div class="normalheader ">
+    <div class="hpanel">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+
+            <div id="hbreadcrumb" class="pull-right m-t-lg">
+                <ol class="hbreadcrumb breadcrumb">
+                    <li><a href="@Url.Action("Index", "ControlPanel" )">Vat Master</a></li>
+                    <li class="active">
+                        <span>Vat Master</span>
+                    </li>
+                </ol>
+            </div>
+            <h3 class="font-light m-b-xs">
+                @if (Model.VatId != 0)
+                {
+                    <lable>Edit Vat Master</lable>
+                }
+                else
+                {<lable>Add Vat Master</lable>}
+            </h3>
+        </div>
+    </div>
+</div>
+
+<div class="content animate-panel" style="padding-top:30px;" id="InputFormDiv">
+    <div class="hpanel">
+        <div class="panel-heading">
+            <div class="panel-tools">
+                <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+
+            </div>
+            Header Details
+        </div>
+        <div class="panel-body">
+            @Html.HiddenFor(model => model.VatId)
+            @using (Html.BeginForm("", "", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", id = "createVatMasterForm" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="col-md-12">
+                    <div class="">
+
+                        <div class="">
+                            @Html.HiddenFor(model => model.VatId)
+                            <div class="row">
+
+                                <div class="form-group col-lg-4">
+                                    <label>Vat (%)</label>
+                                    @Html.TextBoxFor(model => model.Vat, new { @class = "form-control allownumericwithdecimal", placeholder = "Vat (%)", id = "Vat", max = "100" })
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>Start Date</label>
+                                    @Html.TextBoxFor(model => model.StartDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Start Date", id = "StartDate" })
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>End Date</label>
+                                    @Html.TextBoxFor(model => model.EndDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "End Date", id = "EndDate" })
+                                </div>
+                                <div class="form-group col-lg-12 text-right">
+                                    @if (Model.VatId != 0)
+                                    {
+                                        <button class="btn btn-success" id="btnCreateVatMaster" type="button">Save</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-success" id="btnCreateVatMaster" type="button" >Add</button>
+                                    }
+                                    <button id="btnCancel" type="reset" class="cancel btn btn-default">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*</form>*@
+             }  
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/bundles/datepicker/css")
+    @Styles.Render("~/bundles/datatables/css")
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/validation/js")
+    @Scripts.Render("~/bundles/datepicker/js")
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+
+    <script type="text/javascript">
+    toastr.options = {
+        "debug": false,
+        "newestOnTop": false,
+        "positionClass": "toast-top-center",
+        "closeButton": true,
+        "debug": false,
+        "toastClass": "animated fadeInDown",
+
+
+    };
+
+
+        $(function () {
+            $('#StartDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+            $('#EndDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
+
+            $("#btnCreateVatMaster").click(function () {
+                createVatMaster();
+                $("#createVatMasterForm").validate({
+                    rules: {
+                        Vat: {
+                            required: true
+                        }
+                       
+                    },
+                    submitHandler: function (form) {
+                        createVatMaster();
+                    }
+                });
+
+            });
+        });
+
+        function createVatMaster() {
+           
+            var formData = new FormData($('#createVatMasterForm')[0]);
+            formData.append('Vat', $("#Vat").val());
+            formData.append('StartDate', $("#StartDate").val());
+            formData.append('EndDate', $("#EndDate").val());
+
+            $.ajax({
+                type: 'POST',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                url: '@Url.Action("CreateVatMaster", "VatMaster")',
+                success: function (data) {
+                    if (data != 'validation') {
+                        $($("#createVatMasterForm input").val(''));
+                        toastr.success("Vat Record inserted successfully.");
+                        window.location.href = '/VatMaster/VatList';
+                       
+                    }
+                    else {
+                        // swal.close();
+                        toastr.error("Record Not Inserted.");
+                    }
+                }
+            });
+           
+            
+            
+        }
+
+    </script>
+}

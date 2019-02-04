@@ -64,12 +64,12 @@
                                     @Html.TextBoxFor(model => model.SupplierCode, new { @class = "form-control", placeholder = "Supplier Code", id = "SupplierCode" })
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Supplier Name</label>
-                                    @Html.TextBoxFor(model => model.SupplierName, new { @class = "form-control", placeholder = "Supplier Name", id = "SupplierName" })
-                                    @*@Html.DropDownList("SupplierId", new SelectList(ViewBag.Supplier, "Value", "Key"), "-- Select Supplier --", new { @class = "form-control", id = "SupplierId", required = "required" })*@
+                                    <label>Supplier Name<span class="req" style="color:red">*</span></label>
+                                    @*@Html.TextBoxFor(model => model.SupplierName, new { @class = "form-control", placeholder = "Supplier Name", id = "SupplierName" })*@
+                                    @Html.DropDownList("SupplierId", new SelectList(ViewBag.Supplier, "Value", "Key"), "-- Select Supplier --", new { @class = "form-control", id = "SupplierName", required = "required" })
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label>Claim Number</label>
+                                    <label>Claim Number<span class="req" style="color:red">*</span></label>
                                     @Html.TextBoxFor(model => model.ClaimNumber, new { @class = "form-control allownumericwithoutdecimal", placeholder = "ClaimNumber", id = "ClaimNumber", required = "required" })
                                 </div>
                                 <div class="form-group col-lg-4">
@@ -195,7 +195,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="table-responsive">
-                     <table id="fuelDetailsManual" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
+                    <table id="fuelDetailsManual" class="table table-striped table-bordered table-hover dataTable no-footer" width="100%">
                         <tbody id="myBody"></tbody>
                     </table>
                 </div>
@@ -236,27 +236,7 @@
 
     };
 
-        //$("#SupplierId").change(function () {
-        //    $.ajax({
-        //        type: "GET",
-        //        dataType: "JSON",
-        //        url: "/FuelPricingMaster/GetFuelBySupplier",
-        //        data: { id: $(this).val() == "" ? 0 : $(this).val() },
-
-        //        success: function (data) {
-        //            $("#divFuelDetail").html(data.fuelMaster);
-        //            $("#divDieselDetail").html(data.dieselMaster);
-        //            $("#divGasolineDetail").html(data.gasolineMaster);
-        //            $('#txtFuelDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
-        //            $('#txtDieselDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
-        //            $('#txGasolineDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
-        //        },
-        //        error: function () {
-        //            alert("Error occured!!")
-        //        }
-        //    });
-        //});
-
+       
         $(function () {
             $('#Period').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
             $('#InvoiceDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
@@ -419,27 +399,8 @@
                 formData.append('DiscountAmount', $("#ManualDiscountAmount").val());
                 formData.append('VatAmount', $("#MaunalVatAmount").val());
                 formData.append('AmountInVal', $("#ManualAmountInc").val());
-                
-                
-                //formData.append('PeriodFrom', $("#ManualPeriodFrom").val());
-                //formData.append('PeriodTo', $("#ManualPeriodTo").val());
-                //formData.append('FuelInvoiceNo', $("#ManualFuelInvoiceNo").val());
-                //formData.append('InvoiceDate', $("#ManualInvoiceDate").val());
-                //formData.append('PaymentCertificateNo', $("#ManualPaymentCertificateNo").val());
-                //formData.append('SupplierCodeName', $("#ManualSupplierCodeName").val());
-                //formData.append('DiscountAmountDiesel', $("#ManualDiscountAmountDiesel").val());
-                //formData.append('DiscountAmountGasoline', $("#ManualDiscountAmountGasoline").val());
-                //formData.append('InvoiceDiscountAmount', $("#ManualInvoiceDiscountAmount").val());
-                //formData.append('InvoiceTotalAmount', $("#ManualInvoiceTotalAmount").val());
-                //formData.append('InvoiceVatAmount', $("#MaunalInvoiceVatAmount").val());
-                //formData.append('AmountDieselLt', $("#ManualAmountDieselLt").val());
-                //formData.append('AmountGasolineLt', $("#ManualAmountGasolineLt").val());
-                //formData.append('ClaimNo', $("#ManualClaimNo").val());
-
                 formData.append('FuelRecord_DetailId', $("#FuelRecord_DetailId").val());-
                 formData.append('FuelRecordId', $("#Id").val());
-
-                
 
                 $.ajax({
                     type: 'POST',
@@ -608,14 +569,14 @@
                 $('.excelform').hide();
                 $("#FuelRecord_DetailId").val('0')
                 var d = new Date();
+                
 
                
                 document.getElementById("manualcreate").reset();
                 $('#ManualFillingStation').val($('#FillingStation').val())
-                $('#ManualPeriodFrom').val($('#PeriodFrom').val())
-                $('#ManualPeriodTo').val($('#PeriodTo').val())
-                $('#ManualInvoiceDiscountAmount').val($('#DiscountAmount').val())
-                $('#MaunalInvoiceVatAmount').val($('#VatAmount').val())
+                $('#ManualRegistrationNo').val($('#RegistrationNo').val())
+                $('#ManualDiscountAmount').val($('#InvoiceDiscountAmount').val())
+                $('#MaunalVatAmount').val($('#InvoiceVatAmount').val())
                 $("#modalSaveItemData").modal('show');
 
             });
