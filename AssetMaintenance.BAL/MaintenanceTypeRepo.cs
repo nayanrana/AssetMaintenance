@@ -32,7 +32,8 @@ namespace AssetMaintenance.BAL
                 OccurenceFixedDate = x.OccurrenceFixedDate,
                 IsFixedDateChecked = x.OccurrenceType == 0 ? true : false,
                 IsRecurringChecked = x.OccurrenceType == 1 ? true : false,
-                TimeBasedPeriod=x.OccurrencePeriod_cbo,
+                One_Off = x.One_Off,
+                TimeBasedPeriod =x.OccurrencePeriod_cbo,
             }).FirstOrDefault();
             if (maintenanceResult == null)
                 maintenanceResult = new MaintenanceTypeDto();
@@ -77,6 +78,7 @@ namespace AssetMaintenance.BAL
             maintType.OccurrenceKMTh = maintenanceType.KMBasedAlertThreshold;
             maintType.OccurrencePeriod_cbo = maintenanceType.TimeBasedPeriod;
             maintType.OccurrenceType = maintenanceType.IsFixedDateChecked==true?0:1;
+            maintType.One_Off = maintenanceType.One_Off;
             maintType.UpdatedDate = System.DateTime.Now;
             if (maintenanceType.MaintenanceTypeId == 0)
                 dbCon.GFI_AMM_VehicleMaintTypes.Add(maintType);

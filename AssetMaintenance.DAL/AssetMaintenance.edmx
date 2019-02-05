@@ -211,6 +211,7 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="30" />
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="30" />
+          <Property Name="One_Off" Type="bit" />
         </EntityType>
         <EntityType Name="GFI_AMM_VehicleMaintTypesLink">
           <Key>
@@ -905,29 +906,6 @@
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="GFI_AMM_VehicleMaintTypes">
-          <Key>
-            <PropertyRef Name="MaintTypeId" />
-          </Key>
-          <Property Name="MaintTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaintCatId_cbo" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
-          <Property Name="OccurrenceType" Type="Int32" />
-          <Property Name="OccurrenceFixedDate" Type="DateTime" Precision="3" />
-          <Property Name="OccurrenceFixedDateTh" Type="Int32" />
-          <Property Name="OccurrenceDuration" Type="Int32" />
-          <Property Name="OccurrenceDurationTh" Type="Int32" />
-          <Property Name="OccurrencePeriod_cbo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="OccurrenceKM" Type="Int32" />
-          <Property Name="OccurrenceKMTh" Type="Int32" />
-          <Property Name="OccurrenceEngineHrs" Type="Int32" />
-          <Property Name="OccurrenceEngineHrsTh" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AssetMaintenaceTypes" Relationship="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" FromRole="GFI_AMM_VehicleMaintTypes" ToRole="AssetMaintenaceType" />
-        </EntityType>
         <EntityType Name="GFI_AMM_VehicleMaintTypesLink">
           <Key>
             <PropertyRef Name="URI" />
@@ -1269,7 +1247,6 @@
           <EntitySet Name="GFI_AMM_VehicleMaintenance" EntityType="Self.GFI_AMM_VehicleMaintenance" />
           <EntitySet Name="GFI_AMM_VehicleMaintItems" EntityType="Self.GFI_AMM_VehicleMaintItems" />
           <EntitySet Name="GFI_AMM_VehicleMaintStatus" EntityType="Self.GFI_AMM_VehicleMaintStatus" />
-          <EntitySet Name="GFI_AMM_VehicleMaintTypes" EntityType="Self.GFI_AMM_VehicleMaintTypes" />
           <EntitySet Name="GFI_AMM_VehicleMaintTypesLink" EntityType="Self.GFI_AMM_VehicleMaintTypesLink" />
           <EntitySet Name="GFI_AMM_VehicleTypes" EntityType="Self.GFI_AMM_VehicleTypes" />
           <EntitySet Name="GFI_FLT_Asset" EntityType="Self.GFI_FLT_Asset" />
@@ -1312,10 +1289,6 @@
             <End Role="GFI_AMM_AssetExtProVehicles" EntitySet="GFI_AMM_AssetExtProVehicles" />
           </AssociationSet>
           <EntitySet Name="AssetMaintenaceTypes" EntityType="AssetMaintenanceModel.AssetMaintenaceType" />
-          <AssociationSet Name="FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" Association="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes">
-            <End Role="GFI_AMM_VehicleMaintTypes" EntitySet="GFI_AMM_VehicleMaintTypes" />
-            <End Role="AssetMaintenaceType" EntitySet="AssetMaintenaceTypes" />
-          </AssociationSet>
           <AssociationSet Name="FK_AssetMaintenaceType_GFI_FLT_Asset" Association="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_FLT_Asset">
             <End Role="GFI_FLT_Asset" EntitySet="GFI_FLT_Asset" />
             <End Role="AssetMaintenaceType" EntitySet="AssetMaintenaceTypes" />
@@ -1343,6 +1316,11 @@
             <End Role="FuelRecord_Detail" EntitySet="FuelRecord_Detail" />
           </AssociationSet>
           <EntitySet Name="GFI_FLT_VatMaster" EntityType="AssetMaintenanceModel.GFI_FLT_VatMaster" />
+          <EntitySet Name="GFI_AMM_VehicleMaintTypes" EntityType="AssetMaintenanceModel.GFI_AMM_VehicleMaintTypes" />
+          <AssociationSet Name="FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" Association="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes">
+            <End Role="GFI_AMM_VehicleMaintTypes" EntitySet="GFI_AMM_VehicleMaintTypes" />
+            <End Role="AssetMaintenaceType" EntitySet="AssetMaintenaceTypes" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AssetMaintenaceType">
           <Key>
@@ -1351,21 +1329,9 @@
           <Property Name="AssetMaintenceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssetId" Type="Int32" Nullable="false" />
           <Property Name="MaintenceId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="GFI_AMM_VehicleMaintTypes" Relationship="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" FromRole="AssetMaintenaceType" ToRole="GFI_AMM_VehicleMaintTypes" />
           <NavigationProperty Name="GFI_FLT_Asset" Relationship="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_FLT_Asset" FromRole="AssetMaintenaceType" ToRole="GFI_FLT_Asset" />
+          <NavigationProperty Name="GFI_AMM_VehicleMaintTypes" Relationship="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" FromRole="AssetMaintenaceType" ToRole="GFI_AMM_VehicleMaintTypes" />
         </EntityType>
-        <Association Name="FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes">
-          <End Type="AssetMaintenanceModel.GFI_AMM_VehicleMaintTypes" Role="GFI_AMM_VehicleMaintTypes" Multiplicity="1" />
-          <End Type="AssetMaintenanceModel.AssetMaintenaceType" Role="AssetMaintenaceType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GFI_AMM_VehicleMaintTypes">
-              <PropertyRef Name="MaintTypeId" />
-            </Principal>
-            <Dependent Role="AssetMaintenaceType">
-              <PropertyRef Name="MaintenceId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_AssetMaintenaceType_GFI_FLT_Asset">
           <End Type="AssetMaintenanceModel.GFI_FLT_Asset" Role="GFI_FLT_Asset" Multiplicity="1" />
           <End Type="AssetMaintenanceModel.AssetMaintenaceType" Role="AssetMaintenaceType" Multiplicity="*" />
@@ -1561,6 +1527,42 @@
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="GFI_AMM_VehicleMaintTypes">
+          <Key>
+            <PropertyRef Name="MaintTypeId" />
+          </Key>
+          <Property Name="MaintTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaintCatId_cbo" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="OccurrenceType" Type="Int32" />
+          <Property Name="OccurrenceFixedDate" Type="DateTime" Precision="3" />
+          <Property Name="OccurrenceFixedDateTh" Type="Int32" />
+          <Property Name="OccurrenceDuration" Type="Int32" />
+          <Property Name="OccurrenceDurationTh" Type="Int32" />
+          <Property Name="OccurrencePeriod_cbo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="OccurrenceKM" Type="Int32" />
+          <Property Name="OccurrenceKMTh" Type="Int32" />
+          <Property Name="OccurrenceEngineHrs" Type="Int32" />
+          <Property Name="OccurrenceEngineHrsTh" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="One_Off" Type="Boolean" />
+          <NavigationProperty Name="AssetMaintenaceTypes" Relationship="AssetMaintenanceModel.FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes" FromRole="GFI_AMM_VehicleMaintTypes" ToRole="AssetMaintenaceType" />
+        </EntityType>
+        <Association Name="FK_AssetMaintenaceType_GFI_AMM_VehicleMaintTypes">
+          <End Type="AssetMaintenanceModel.GFI_AMM_VehicleMaintTypes" Role="GFI_AMM_VehicleMaintTypes" Multiplicity="1" />
+          <End Type="AssetMaintenanceModel.AssetMaintenaceType" Role="AssetMaintenaceType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GFI_AMM_VehicleMaintTypes">
+              <PropertyRef Name="MaintTypeId" />
+            </Principal>
+            <Dependent Role="AssetMaintenaceType">
+              <PropertyRef Name="MaintenceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1692,29 +1694,6 @@
                 <ScalarProperty Name="MaintStatusId" ColumnName="MaintStatusId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GFI_AMM_VehicleMaintTypes">
-            <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_AMM_VehicleMaintTypes">
-              <MappingFragment StoreEntitySet="GFI_AMM_VehicleMaintTypes">
-                <ScalarProperty Name="MaintTypeId" ColumnName="MaintTypeId" />
-                <ScalarProperty Name="MaintCatId_cbo" ColumnName="MaintCatId_cbo" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="OccurrenceType" ColumnName="OccurrenceType" />
-                <ScalarProperty Name="OccurrenceFixedDate" ColumnName="OccurrenceFixedDate" />
-                <ScalarProperty Name="OccurrenceFixedDateTh" ColumnName="OccurrenceFixedDateTh" />
-                <ScalarProperty Name="OccurrenceDuration" ColumnName="OccurrenceDuration" />
-                <ScalarProperty Name="OccurrenceDurationTh" ColumnName="OccurrenceDurationTh" />
-                <ScalarProperty Name="OccurrencePeriod_cbo" ColumnName="OccurrencePeriod_cbo" />
-                <ScalarProperty Name="OccurrenceKM" ColumnName="OccurrenceKM" />
-                <ScalarProperty Name="OccurrenceKMTh" ColumnName="OccurrenceKMTh" />
-                <ScalarProperty Name="OccurrenceEngineHrs" ColumnName="OccurrenceEngineHrs" />
-                <ScalarProperty Name="OccurrenceEngineHrsTh" ColumnName="OccurrenceEngineHrsTh" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
@@ -2117,6 +2096,30 @@
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="Vat" ColumnName="Vat" />
                 <ScalarProperty Name="VatId" ColumnName="VatId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GFI_AMM_VehicleMaintTypes">
+            <EntityTypeMapping TypeName="AssetMaintenanceModel.GFI_AMM_VehicleMaintTypes">
+              <MappingFragment StoreEntitySet="GFI_AMM_VehicleMaintTypes">
+                <ScalarProperty Name="One_Off" ColumnName="One_Off" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="OccurrenceEngineHrsTh" ColumnName="OccurrenceEngineHrsTh" />
+                <ScalarProperty Name="OccurrenceEngineHrs" ColumnName="OccurrenceEngineHrs" />
+                <ScalarProperty Name="OccurrenceKMTh" ColumnName="OccurrenceKMTh" />
+                <ScalarProperty Name="OccurrenceKM" ColumnName="OccurrenceKM" />
+                <ScalarProperty Name="OccurrencePeriod_cbo" ColumnName="OccurrencePeriod_cbo" />
+                <ScalarProperty Name="OccurrenceDurationTh" ColumnName="OccurrenceDurationTh" />
+                <ScalarProperty Name="OccurrenceDuration" ColumnName="OccurrenceDuration" />
+                <ScalarProperty Name="OccurrenceFixedDateTh" ColumnName="OccurrenceFixedDateTh" />
+                <ScalarProperty Name="OccurrenceFixedDate" ColumnName="OccurrenceFixedDate" />
+                <ScalarProperty Name="OccurrenceType" ColumnName="OccurrenceType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MaintCatId_cbo" ColumnName="MaintCatId_cbo" />
+                <ScalarProperty Name="MaintTypeId" ColumnName="MaintTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

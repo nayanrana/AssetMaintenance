@@ -22,6 +22,7 @@ namespace AssetMaintenance.BAL.DTO
         public int EngineHrsBasedMaintenanceDue { get; set; }
         public int EngineHrsBasedAlertThreshold { get; set; }
         public List<CategoriesDto> CategoryList { get; set; }
+        public Nullable<bool> One_Off { get; set; }
     }
 }
 
