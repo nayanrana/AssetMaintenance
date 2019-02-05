@@ -57,7 +57,7 @@
                     <div class="panel-body">
                         <h4>Event Occurance</h4>
                         <h5>
-                            <input type="checkbox" name="name" value="" id="chkoneoff" checked="@Model.One_Off" onchange="chkType('one_off')" checked/>
+                            <input type="checkbox" name="name" value="" id="chkoneoff" checked="@Model.One_Off" onchange="chkType('one_off')" />
                             <label>One-Off</label>
                         </h5>
                         <hr />
@@ -236,7 +236,7 @@
                 formData.append('KMBasedAlertThreshold', $("#KMBasedAlertThreshold").val());
 
                 formData.append('IsFixedDateChecked', ($("#chkFixedDate").is(':checked') == true ? true : false));
-                formData.append('One_off', ($("#chkoneoff").is(':checked') == true));
+                formData.append('One_off', ($("#chkoneoff").is(':checked') == true ? true : false));
                 $.ajax({
                     type: 'Post',
                     dataType: 'json',
