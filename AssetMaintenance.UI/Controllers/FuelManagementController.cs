@@ -27,6 +27,8 @@ namespace AssetMaintenance.UI.Controllers
             model.fuelRecordManualDto = new FuelRecord_DetailDto();
             model.fuelRecordManualDto.DateCreated = DateTime.Now.Date;
             ViewBag.Supplier = obj.GetSupplierName();
+            ViewBag.FillingStation = obj.GetFillingStation();
+            ViewBag.RegistrationNo = obj.GetRegistrationNo();
             return View(model);
         }
         public ActionResult List()
@@ -452,5 +454,12 @@ namespace AssetMaintenance.UI.Controllers
             }
             return Json(id, JsonRequestBehavior.AllowGet);
         }
+
+        //[HttpGet]
+        //public ActionResult GetFuelResult()
+        //{
+        //    FuelRecord_DetailRepo fueldetail = new FuelRecord_DetailRepo();
+        //    var model = 
+        //}
     }
 }

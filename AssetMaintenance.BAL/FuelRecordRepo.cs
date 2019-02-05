@@ -180,5 +180,46 @@ namespace AssetMaintenance.BAL
                                )).ToList());
             return lstKeyValue;
         }
+
+        public List<KeyValuePair<int, string>> GetFillingStation()
+        {
+            try
+            {
+                List<KeyValuePair<int, string>> lstKeyValue = new List<KeyValuePair<int, string>>();
+                lstKeyValue = (dbCon.GFI_SYS_LookUpValues.AsEnumerable().Where(c => c.TID == 2).Select(x =>
+                                 new KeyValuePair<int, string>
+                                 (
+                                    x.TID,
+                                     x.Name
+                                 )).ToList());
+                return lstKeyValue;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public List<KeyValuePair<int, string>> GetRegistrationNo()
+        {
+            try
+            {
+                List<KeyValuePair<int, string>> lstKeyValue = new List<KeyValuePair<int, string>>();
+                lstKeyValue = (dbCon.GFI_FLT_Asset.AsEnumerable().Select(x =>
+                               new KeyValuePair<int, string>
+                               (
+                                  x.AssetID,
+                                   x.AssetName
+                               )).ToList());
+                return lstKeyValue;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
+        
 }
