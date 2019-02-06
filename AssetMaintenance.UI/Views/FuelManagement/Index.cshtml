@@ -248,7 +248,7 @@
             $('#ManualDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
             $('#ManualDateCreated').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
             $('.dropdown').select2();
-          
+
             $(function () {
                 $("#ManualDateCreated").datepicker({
                     numberOfMonths: 2,
@@ -694,8 +694,6 @@
                     contentType: "application/json; charset=utf-8",
 
                     success: function (data) {
-
-
                             $('.fuelDetailsDiv').show();
 
                             $("#tblUploadedData tbody").empty();
@@ -712,12 +710,6 @@
                                     "lengthChange": false,
                                     "deferRender": true,
                                 });
-
-
-
-
-
-
                     }
                 });
             }
