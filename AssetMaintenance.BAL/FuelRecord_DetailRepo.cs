@@ -122,8 +122,6 @@ namespace AssetMaintenance.BAL
                 fuelmanagerResult.ActualMilage = fuelmanual.ActualMilage;
                 fuelmanagerResult.CurrentMilage = fuelmanual.CurrentMilage;
                 fuelmanagerResult.RegistrationNo = string.IsNullOrEmpty(fuelmanual.RegistrationNo) ? string.Empty : fuelmanual.RegistrationNo;
-
-                
                 fuelmanagerResult.Date = fuelmanual.Date.HasValue ? fuelmanual.Date.Value : System.DateTime.Now; 
                 fuelmanagerResult.DateCreated = fuelmanual.DateCreated;
                 fuelmanagerResult.VoucherNumber = fuelmanual.VoucherNumber;
@@ -158,5 +156,7 @@ namespace AssetMaintenance.BAL
             dbCon.SaveChanges();
             return "Data Deleted successfully.";
         }
+
+        
     }
 }

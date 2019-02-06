@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AssetMaintenance.BAL.DTO
@@ -32,6 +33,8 @@ namespace AssetMaintenance.BAL.DTO
         public bool? Is_PaymentReceiptGenerate { get; set; }
         public bool? Is_Excel { get; set; }
 
+        
+
     }
 
     public class FuelRecordManualDto
@@ -55,5 +58,15 @@ namespace AssetMaintenance.BAL.DTO
         public Nullable<System.DateTime> DateModified { get; set; }
     }
 
-    
+    public class supllierdetailmodel
+    {
+        public double Price { get; set; }
+        public double Discount { get; set; }
+    }
+
+    public class vatincamoutmodel
+    {
+        public double amount { get; set; }
+        public double vat { get; set; }
+    }
 }

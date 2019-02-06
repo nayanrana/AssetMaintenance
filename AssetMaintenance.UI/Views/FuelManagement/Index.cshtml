@@ -95,6 +95,7 @@
                                 <div class="form-group col-lg-4">
                                     <label>Discount Amount Diesel</label>
                                     @Html.TextBoxFor(model => model.DiscountAmountDiesel, new { @class = "form-control allownumericwithdecimal", placeholder = "Discount Amount Diesel", id = "DiscountAmountDiesel", max = "100" })
+                                    
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Discount Amount Gasoline (%)</label>
@@ -450,74 +451,7 @@
                 });
             }
         }
-        //function CreateItemList(response) {
-        //    var amtTotal = 0, discount = 0, vatTotal = 0, amtVat = 0;
-        //    debugger;
-
-        //    $.each(response.Html, function (i, item) {
-        //        var tr;
-        //        tr = $('<tr />');
-        //        tr.append("<td class='text-center'>" + (item.FillingStation != undefined ? item.FillingStation : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + getFormattedDate(item.PeriodFrom) + "</td>");
-        //        tr.append("<td class='text-center'>" + getFormattedDate(item.PeriodTo) + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.RegistrationNo != undefined ? item.RegistrationNo : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.FuelInvoiceNo != undefined ? item.FuelInvoiceNo : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + getFormattedDate(item.InvoiceDate) + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.PaymentCertificateNo != undefined ? item.PaymentCertificateNo : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.SupplierCodeName != undefined ? item.SupplierCodeName : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.DiscountAmountDiesel != undefined ? item.DiscountAmountDiesel : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.DiscountAmountGasoline != undefined ? item.DiscountAmountGasoline : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.InvoiceDiscountAmount != undefined ? item.InvoiceDiscountAmount : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.InvoiceTotalAmount != undefined ? item.InvoiceTotalAmount : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.InvoiceVatAmount != undefined ? item.InvoiceVatAmount : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.AmountDieselLt != undefined ? item.AmountDieselLt : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.AmountGasolineLt != undefined ? item.AmountGasolineLt : "-") + "</td>");
-        //        tr.append("<td class='text-center'>" + (item.ClaimNo != undefined ? item.ClaimNo : "-") + "</td>");
-
-        //        //tr.append("<td class='text-center'>" + (item.VoucherNo != undefined ? item.VoucherNo : "-")  + "</td>");
-
-        //        //tr.append("<td class='text-center'>" + getFormattedDate(item.Date) + "</td>");
-        //        //tr.append("<td class='text-center'>" + (item.Driver != undefined ? item.Driver : "-" )+ "</td>");
-        //        //tr.append("<td class='text-center'>" + (item.FuelType != undefined ? item.FuelType : "-" )+ "</td>");
-        //        //tr.append("<td class='text-center'> " +( item.Quantities != undefined ? item.Quantities : "-")+ "</td>");
-        //        //tr.append("<td class='text-center'> " +( item.ActualMilage != undefined ? item.ActualMilage : "-")+ "</td>");
-        //        //tr.append("<td class='text-center'> " +( item.CurrentMilage != undefined ? item.CurrentMilage : "-")+ "</td>");
-        //        //tr.append("<td class='text-center'> " +( item.AmountExVal != undefined ? item.AmountExVal : "-")+ "</td>");
-        //        //tr.append("<td class='text-center'> " +( item.Discount != undefined ? item.Discount : "-")+ "</td>");
-        //        //tr.append("<td class='text-center'> " +( item.VatAmount != undefined ? item.VatAmount : "-")+ "</td>");
-        //        //tr.append("<td class='text-center'> " +( item.AmountInVal != undefined ? item.AmountInVal : "-")+ "</td>");
-        //        if (item.AmountExVal != undefined)
-        //            amtTotal = parseFloat(amtTotal) + parseFloat(item.AmountExVal);
-        //        if (item.Discount != undefined)
-
-        //        vatTotal = parseFloat(vatTotal) + parseFloat(item.Discount);
-        //        if (item.VatAmount != undefined)
-        //        discount = parseFloat(discount) + parseFloat(item.VatAmount);
-        //        if (item.AmountInVal != undefined)
-        //        amtVat = parseFloat(amtVat) + parseFloat(item.AmountInVal);
-        //        if (item.FuelRecordId != 0) {
-        //            tr.append("<td class='text-center' data-title='Edit'> "
-        //                + "<div> <a href= 'javascript:void(0);' onclick='gridedit(" + item.FuelRecord_DetailId + ")'  data-asset=" + item.FuelRecord_DetailId
-        //                + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit </span></a></div>" + "</td>");
-        //        }
-        //        else {
-        //            tr.append("<td></td>")
-        //        }
-        //        if (item.FuelRecordId != 0) {
-        //            tr.append("<td class='text-center' data-title='Delete'> "
-        //                + "<div> <a href='javascript:void(0);' onclick='deleteFuelRecord(" + item.FuelRecord_DetailId + ")' data-asset=" + item.FuelRecord_DetailId
-        //                + " class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i> &nbsp;Delete</a></div>" + "</td>");
-        //        }
-        //        else {
-        //            tr.append("<td></td>")
-        //        }
-        //        $("#tblUploadedData tbody").append(tr);
-        //    });
-        //    $("#tblUploadedData #tfootAmtTotal").html(amtTotal);
-        //    $("#tblUploadedData #tfootDiscount").html(vatTotal);
-        //    $("#tblUploadedData #tfootVatTotal").html(discount);
-        //    $("#tblUploadedData #tfootAmtVatTotal").html(amtVat);
-        //}
+       
 
         function CreateItemListDetail(response,type=0) {
             var amtTotal = 0, discount = 0, vatTotal = 0, amtVat = 0;
@@ -582,7 +516,7 @@
             $('#VatAmount').val(discount)
             $('#AmountExclVat').val(amtTotal)
             $('#DiscountAmount').val(vatTotal)
-            $('#AmountIncVat').val(amtVat)
+            $('#InvoiceTotalAmount').val(amtVat)
         }
 
         $(function () {
@@ -602,15 +536,67 @@
                 document.getElementById("manualcreate").reset();
                 $('#ManualFillingStation').val($('#FillingStation').val())
                 $('#ManualRegistrationNo').val($('#RegistrationNo').val())
-                $('#ManualDiscountAmount').val($('#InvoiceDiscountAmount').val())
-                $('#MaunalVatAmount').val($('#InvoiceVatAmount').val())
+                //$('#ManualDiscountAmount').val($('#InvoiceDiscountAmount').val())
+                //$('#MaunalVatAmount').val($('#InvoiceVatAmount').val())
                 $("#modalSaveItemData").modal('show');
 
             });
         });
 
 
+        $('#SupplierName').change(function () {
+            var Id = $(this).val();
+              $.ajax({
+                    type: 'Get',
+                    url: '/FuelManagement/GetFuelResult?id=' + Id,
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+           
+                  success: function (data) {
+                     
 
+                      $.each(data.Html, function () {
+                          if (this.Key === "Diesel") {
+                              $('#AmountDieselLt').val(this.Value.Price);
+                              //$('#DiscountAmountDiesel').val(this.Value.Discount);
+                          }
+
+                          if (this.Key === "Gesoline") {
+                              debugger;
+                              $('#AmountGasolineLt').val(this.Value.Price);
+                              //$('#DiscountAmountGasoline').val(this.Value.Discount);
+                          }
+                      }); 
+                    //var selectedValue = $(this).val();
+                    //$("#DiscountAmountDiesel").val($(this).find("option:selected").attr("Discount"))
+                    
+                    //$('#DiscountAmountDiesel').val();
+                    //$('#AmountDieselLt').val(data)
+                }
+            });
+        });
+
+        @*$(document).ready(function () {
+            debugger
+            $('#SupplierName').change(function () {
+                $.ajax({
+                    type: "get",
+                    url: '@Url.Action("GetFuelResult", "FuelManagement")',
+                    data: { id: $('#SupplierName').val() },
+                    datatype: "json",
+                    traditional: true,
+                    success: function (data) {
+                        var sabcategory = "";
+                        sabcategory = sabcategory ;
+                        for (var i = 0; i < data.length; i++) {
+                            sabcategory = sabcategory + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+                        }
+                        debugger;
+                        // sabcategory = sabcategory + '</select>';
+                        $('#FK_PRODUCTSUBCATEGORYID').html(sabcategory);
+                    }
+                });
+            });*@
         function deleteFuelRecord(id) {
             swal({
                 title: "Are you sure?",
@@ -724,7 +710,7 @@
                     url: '@Url.Action("GetFuelManualDetails", "FuelManagement")?fuelmanagemaualbyid=' + id,
                   dataType: 'json',
                     success: function (data) {
-                        if ($('#Is_Excel').val() > 1) {}
+                        
                         document.getElementById("manualcreate").reset();
 
                         var item = data.Html;

@@ -220,6 +220,63 @@ namespace AssetMaintenance.BAL
                 return null;
             }
         }
+
+        public List<KeyValuePair<string, object>> GetDataBySupllier(int id)
+        {
+            try
+            {
+                List<KeyValuePair<string, object>> lstkeys = new List<KeyValuePair<string, object>>();
+
+                supllierdetailmodel responce = new supllierdetailmodel();
+               
+                     responce = dbCon.GFI_FuelDetail.Where(k => k.SupplierId == id).Select(c => new supllierdetailmodel
+                     {  Price = c.Price,
+                        Discount = c.Discount
+                    }).FirstOrDefault();
+                lstkeys.Add(new KeyValuePair<string, object>("Petrol", responce));
+                      responce = dbCon.GFI_DieselDetail.Where(k => k.SupplierId == id).Select(c => new supllierdetailmodel
+                    {
+                        Price = c.Price,
+                        Discount = c.Discount
+                    }).FirstOrDefault();
+                lstkeys.Add(new KeyValuePair<string, object>("Diesel", responce));
+                responce = dbCon.GFI_GasolineDetail.Where(k => k.SupplierId == id).Select(c => new supllierdetailmodel
+                    {
+                        Price = c.Price,
+                        Discount = c.Discount
+                    }).FirstOrDefault();
+
+                lstkeys.Add(new KeyValuePair<string, object>("Gesoline", responce));
+
+
+                return lstkeys;
+            }
+            catch (Exception ex)
+            {
+                 throw ex;
+            }
+        }
+
+        public double Getvatdetail()
+        {
+            try
+            {
+              
+                //var vatamt = (dbCon.GFI_FLT_VatMaster.Where(vat=> DbFunctions.TruncateTime(vat.StartDate)>= DbFunctions.TruncateTime(System.DateTime.Now) && DbFunctions.TruncateTime(vat.EndDate)< DbFunctions.TruncateTime(System.DateTime.Now)).Select(x =>
+                //              x.Vat
+                //               ).FirstOrDefault());
+
+                var vatamt = 15;
+              return vatamt;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+       
     }
         
 }

@@ -16,6 +16,7 @@ namespace AssetMaintenance.UI.Controllers
     public class FuelManagementController : Controller
     {
         public List<FuelRecord_DetailDto> ListFuelRecord = new List<FuelRecord_DetailDto>();
+        public List<FuelRecordDto> listFuel = new List<FuelRecordDto>();
         // GET: FuelManagement
 
         public ActionResult Index(int fuelmanagetid = 0)
@@ -29,6 +30,7 @@ namespace AssetMaintenance.UI.Controllers
             ViewBag.Supplier = obj.GetSupplierName();
             ViewBag.FillingStation = obj.GetFillingStation();
             ViewBag.RegistrationNo = obj.GetRegistrationNo();
+            ViewBag.vat = obj.Getvatdetail();
             return View(model);
         }
         public ActionResult List()
@@ -455,11 +457,24 @@ namespace AssetMaintenance.UI.Controllers
             return Json(id, JsonRequestBehavior.AllowGet);
         }
 
+
+
         //[HttpGet]
-        //public ActionResult GetFuelResult()
+        //public ActionResult GetFuelResult(FuelRecordDto name)
         //{
-        //    FuelRecord_DetailRepo fueldetail = new FuelRecord_DetailRepo();
-        //    var model = 
+           
+        //    var obj = new FuelRecordRepo();
+ 
+        //    return Json(new { msg = "Record added successfully", Html = obj.GetDataBySupllier(name) }, JsonRequestBehavior.AllowGet);
         //}
+        [HttpGet]
+        public ActionResult GetFuelResult(int id )
+        {
+            var obj = new FuelRecordRepo();
+
+            return Json(new { msg = "Record added successfully", Html = obj.GetDataBySupllier(id) }, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }
