@@ -13,7 +13,7 @@ namespace AssetMaintenance.BAL
         AssetMaintenanceEntities dbCon = new AssetMaintenanceEntities();
         public List<AssetMaintenanceDetailDto> getAssetMaintenanceDetail(int id, int maintId)
         {
-            var result = dbCon.GFI_AMM_VehicleMaintenance.Where(c => c.AssetId == id && c.MaintStatusId_cbo == maintId).OrderByDescending(c => c.URI).Take(5).Select(c => new AssetMaintenanceDetailDto
+            var result = dbCon.GFI_AMM_VehicleMaintenance.Where(c => c.AssetId == id && c.MaintTypeId_cbo == maintId).OrderByDescending(c => c.URI).Take(5).Select(c => new AssetMaintenanceDetailDto
             {
                 URI = c.URI,
                 Asset = dbCon.GFI_FLT_Asset.FirstOrDefault(d => d.AssetID == c.AssetId).AssetName,
@@ -68,7 +68,7 @@ namespace AssetMaintenance.BAL
                 MaintTypeId_cbo = c.MaintTypeId_cbo,
             }).SingleOrDefault();
             if (result != null)
-                result.lstParts = dbCon.GFI_AMM_VehicleMaintItems.Where(s => s.MaintURI == result.URI).Select(s => new lstPartDetails { ItemCode = s.ItemCode, Description = s.Description, Quantity = s.Quantity, UnitCost = s.UnitCost, MaintURI = s.MaintURI }).ToList();
+                result.lstParts = dbCon.GFI_AMM_VehicleMaintItems.Where(s => s.MaintURI == result.URI).Select(s => new lstPartDetails {URI=s.URI, ItemCode = s.ItemCode, Description = s.Description, Quantity = s.Quantity, UnitCost = s.UnitCost, MaintURI = s.MaintURI }).ToList();
             else
                 result = new AssetMaintenanceDetailDto();
             return result;
@@ -81,8 +81,8 @@ namespace AssetMaintenance.BAL
 
 
                 //JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-                var json_serializer = new JavaScriptSerializer();
-                List<lstPartDetails> routes_list = json_serializer.Deserialize<List<lstPartDetails>>(assetMaintenance.Parts);
+                //var json_serializer = new JavaScriptSerializer();
+                //List<lstPartDetails> routes_list = json_serializer.Deserialize<List<lstPartDetails>>(assetMaintenance.Parts);
 
                 GFI_AMM_VehicleMaintenance maint = dbCon.GFI_AMM_VehicleMaintenance.SingleOrDefault(c => c.URI == assetMaintenance.URI);///new GFI_AMM_VehicleMaintenance();
                 maint.ActualEngineHrs = assetMaintenance.ActualEngineHrs;
@@ -111,7 +111,8 @@ namespace AssetMaintenance.BAL
                 maint.UpdatedDate = DateTime.Now;
                 ///var mainten= dbCon.GFI_AMM_VehicleMaintenance.Add(maint);
                 dbCon.SaveChanges();
-                foreach (var item in routes_list)
+                dbCon.GFI_AMM_VehicleMaintItems.RemoveRange(dbCon.GFI_AMM_VehicleMaintItems.Where(x => x.MaintURI == maint.URI).ToList());
+                foreach (var item in assetMaintenance.lstParts)
                 //for (int i = 0; i < length; i++)            
                 {
                     GFI_AMM_VehicleMaintItems mainItems = new GFI_AMM_VehicleMaintItems();

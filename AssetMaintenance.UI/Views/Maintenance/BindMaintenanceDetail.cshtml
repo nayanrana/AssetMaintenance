@@ -1,5 +1,6 @@
 ﻿@model AssetMaintenance.BAL.DTO.AssetMaintenanceDetailDto
 @using AssetMaintenance.Helper
+<link href="~/Vendor/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
 
 <div class="normalheader ">
     <div class="hpanel">
@@ -210,7 +211,7 @@
                                                                 <td><input type="text" name="description" value="" class="form-control" id="txtDesc" /></td>
                                                                 <td><input type="number" name="qty" value="" class="form-control allownumericwithoutdecimal" id="txtQty" min="0" /></td>
                                                                 <td><input type="number" name="cost" value="" class="form-control allownumericwithdecimal" id="txtCost" min="0" /></td>
-                                                                <td colspan="2"><input type="button" name="name" class="btn btn-success" value="Add" onclick="insertItem()" /></td>
+                                                                <td colspan="2"><input type="button" name="name" class="btn btn-success" value="Save" onclick="insertItem()" /></td>
                                                             </tr>
                                                         </thead>
                                                         @if (Model.lstParts != null && Model.lstParts.Count > 0)
@@ -225,13 +226,13 @@
                                                                         <td> @item.UnitCost </td>
                                                                         <td>
                                                                             <div>
-                                                                               @*<a href='javascript:void(0);' onclick="ItemEdit('@item.URI',0,'@item.ItemCode','@item.Description','@item.Quantity','@item.UnitCost')" class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit </span></a>*@ 
+                                                                                <a href='javascript:void(0);' onclick="ItemEdit('@item.URI','@item.ItemCode','@item.Description','@item.Quantity','@item.UnitCost')" class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit </span></a>
                                                                             </div>
                                                                         </td>
 
                                                                         <td>
                                                                             <div>
-                                                                                @*<a href='javascript:void(0);' onclick='ItemEdit(@item.URI,0)' class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i><span class='bold'> &nbsp;Delete </span></a>*@
+                                                                                <a href='javascript:void(0);' onclick='ItemDelete(@item.URI)' class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i><span class='bold'> &nbsp;Delete </span></a>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -296,6 +297,8 @@
     @Scripts.Render("~/bundles/datatablesBootstrap/js")
     @Scripts.Render("~/bundles/datatablesPlugins/js")
     <script src="~/Scripts/Custom/jquery.mask.js"></script>
+    <script src="~/Vendor/sweetalert/lib/sweet-alert.js"></script>
+
     <script type="text/javascript">
         $(function () {
 
@@ -364,7 +367,7 @@
 
 
     var lstItems = []; var tr; var totalCost = 0;
- 
+
     function addMaintenance() {
 
         if ($("#companyForm").valid()) {
@@ -563,16 +566,16 @@
             var cost = $("#txtCost").val();
             ///var tcost = $("#TotalCost").val();
 
-            totalCost = parseFloat(totalCost) + (parseFloat(cost) * parseFloat(qty));
-            $("#VATAmount").val((totalCost * 15) / 100);
+            //totalCost = parseFloat(totalCost) + (parseFloat(cost) * parseFloat(qty));
+            //$("#VATAmount").val((totalCost * 15) / 100);
 
-            //if (parseFloat(tcost)>0 && totalCost > parseFloat(tcost)) {
-            //    toastr.error("Total cost exceed total amount.");
-            //    totalCost = parseFloat(totalCost) - (parseFloat(cost) * parseFloat(qty));
-            //    $("#TotalCost").val(totalCost);
-            //    return;
-            //}
-            $("#TotalCost").val(totalCost);
+            ////if (parseFloat(tcost)>0 && totalCost > parseFloat(tcost)) {
+            ////    toastr.error("Total cost exceed total amount.");
+            ////    totalCost = parseFloat(totalCost) - (parseFloat(cost) * parseFloat(qty));
+            ////    $("#TotalCost").val(totalCost);
+            ////    return;
+            ////}
+            //$("#TotalCost").val(totalCost);
             if (!code && !desc && !qty && !cost) {
                 toastr.error("Fill required data.");
                 return;
@@ -586,110 +589,99 @@
             } if (!cost) {
                 toastr.error("Cost is required."); return;
             }
-            lstItems.push({
-                "ItemCode": code, "Description": desc, "Quantity": qty, "UnitCost": cost, "Index": lstItems.length,"Id":0
+            lstItems={
+                         ItemCode: code, Description: desc, Quantity: qty, UnitCost: cost, URI: $("#hdnId").val()
+                     };
+             $.ajax({
+                type: 'Post',
+                 dataType: 'HTML',
+                 data: { model: lstItems },
+                url: '@Url.Action("InsetCostPart", "Maintenance")',
+                 cache: false,
+                 success: function (data) {
+                     $("#MaintenanceList tbody").html('');
+                     totalCost = 0;
+
+                     $.each(JSON.parse(data), function (i, item) {
+                         tr = $('<tr >');
+                         tr.append("<td class='text-center' data-title='Asset'>" + item.ItemCode+ "</td>");
+                         tr.append("<td class='text-center' data-title='Asset'>" + item.Description+ "</td>");
+                         tr.append("<td class='text-center' data-title='Asset'>" + item.Quantity+ "</td>");
+                         tr.append("<td class='text-center' data-title='Asset'>" + item.UnitCost+ "</td></tr>");
+                         tr.append('<td> <div> <a href="javascript:void(0);" onclick="ItemEdit(\'' + item.URI + '\',\'' + item.ItemCode + '\',\'' + item.Description + '\',\'' + item.Quantity + '\',\'' + item.UnitCost + '\')" class="btn btn-xs btn-default"><i class="fa fa-pencil text-success"></i><span class="bold"> &nbsp;Edit </span></a></div></td>"');
+                         tr.append("<td> <div> <a href='javascript:void(0);' onclick='ItemDelete(" + item.URI +")' class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i><span class='bold'> &nbsp;Delete </span></a></div></td></tr>")
+                         totalCost = parseFloat(totalCost) + (parseFloat(item.UnitCost) * parseFloat(item.Quantity));
+
+                         $("#MaintenanceList").append(tr);
+                     });
+                     $("#VATAmount").val((totalCost * 15) / 100);
+
+                     $("#TotalCost").val(totalCost);
+                     $("#txtCode").val('');
+                     $("#txtDesc").val('');
+                     $("#txtQty").val('');
+                     $("#txtCost").val('');
+                     $("#hdnId").val('');
+
+                }
             });
-             //for (var x = 0; x < lstItems.length; x++) { 
-             //    debugger; 
-             //    var item_id = lstItems[x]['Index']; 
-             //    var item_value = lstItems[x]['Id']; 
-
-             //    if (($("#hdnId").val() != 0 && item_value == $("#hdnId").val()) || $("#hdnarrayIndex").val() == item_id) { 
-
-             //        //$("#txtCode").val(lstItems[x]['code']); 
-             //        //$("#txtDesc").val(lstItems[x]['desc']); 
-             //        //$("#txtQty").val(lstItems[x]['qty']); 
-             //        //$("#txtCost").val(lstItems[x]['cost']); 
-             //        //$("#hdnarrayIndex").val(lstItems[x]['arrayIndex']); 
-             //        //$("#hdnId").val(lstItems[x]['cost']); 
-
-             //        lstItems.pop(x); 
-             //        lstItems.push({ 
-             //            "ItemCode": code, "Description": desc, "Quantity": qty, "UnitCost": cost, "Index": $("#hdnarrayIndex").val(), "Id": $("#hdnId").val() 
-             //        }); 
-             //        //Remove and Add 
-             //    } 
-             //    else if ($("#hdnId").val() = 0) { 
-             //        lstItems.push({ 
-             //            "ItemCode": code, "Description": desc, "Quantity": qty, "UnitCost": cost, "Index": $("#hdnarrayIndex").val(), "Id": $("#hdnId").val() 
-             //        }); 
-             //    } 
-             //    else if ($("#hdnarrayIndex").val() > 0) { 
-             //        lstItems.pop(x); 
-             //        lstItems.push({ 
-             //            "ItemCode": code, "Description": desc, "Quantity": qty, "UnitCost": cost, "Index": $("#hdnarrayIndex").val(), "Id": $("#hdnId").val() 
-             //        }); 
-             //        //Remove and Add in Array 
-             //    } 
-             //} 
-             //debugger; 
-            //for (var i = 0; i < lstItems.length; i++) {
-            tr = $('<tr >');
-            tr.append("<td class='text-center' data-title='Asset'>" + code + "</td>");
-            tr.append("<td class='text-center' data-title='Asset'>" + desc + "</td>");
-            tr.append("<td class='text-center' data-title='Asset'>" + qty + "</td>");
-            tr.append("<td class='text-center' data-title='Asset'>" + cost + "</td></tr>");
-            //tr.append("<td> <div> <a href='javascript:void(0);' onclick='ItemEdit("+'0'," + lstItems.length + "," + code + "," + desc + "," + qty + "," + cost + ")' class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit </span></a></div></td>")
-            //tr.append("<td> <div> <a href='javascript:void(0);' onclick='ItemEdit('0'," + lstItems.length + ")' class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Delete </span></a></div></td></tr>")
-            $("#MaintItemBody").append(tr);
-            //}
-
-            $("#txtCode").val('');
-            $("#txtDesc").val('');
-            $("#txtQty").val('');
-            $("#txtCost").val('');
             //htmlToDataTable();
         }
 
-        function ItemEdit(id, index,code,desc,qty,cost) {
-            debugger;
-            //var code = $("#txtCode").val();
-            //var desc = $("#txtDesc").val();
-            //var qty = $("#txtQty").val();
-            //var cost = $("#txtCost").val();
-            //var arrayIndex = index;
-            //var itemURI = id;
-            //if (lstItems.length == 0) {
+        function ItemEdit(id, code,desc,qty,cost) {
             $("#txtCode").val(code);
             $("#txtDesc").val(desc);
             $("#txtQty").val(qty);
             $("#txtCost").val(cost);
-            $("#hdnarrayIndex").val(index);
+           // $("#hdnarrayIndex").val(index);
             $("#hdnId").val(id);
-            //}
-            //for (var x = 0; x < lstItems.length; x++) {
+        }
 
-            //    var item_id = lstItems[x]['Index'];
-            //    var item_value = lstItems[x]['Id'];
+        function ItemDelete(id) {
+            debugger;
+            swal({
+                title: "Are you sure Want to delete?",
+                text: "Your will not be able to recover.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete!",
+                cancelButtonText: "No, cancel!",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            },
+                function (isConfirm)
+                {
+                    if (isConfirm)
+                    {
+                    $.ajax({
+                        type: 'Post',
+                        dataType: 'HTML',
+                        data: { id: id },
+                        url: '@Url.Action("DeleteCostPart", "Maintenance")',
+                        cache: false,
+                        success: function (data) {
+                            $("#MaintenanceList tbody").html('');
+                            totalCost = 0;
+                            $.each(JSON.parse(data), function (i, item) {
+                                tr = $('<tr >');
+                                tr.append("<td class='text-center' data-title='Asset'>" + item.ItemCode + "</td>");
+                                tr.append("<td class='text-center' data-title='Asset'>" + item.Description + "</td>");
+                                tr.append("<td class='text-center' data-title='Asset'>" + item.Quantity + "</td>");
+                                tr.append("<td class='text-center' data-title='Asset'>" + item.UnitCost + "</td></tr>");
+                                tr.append('<td> <div> <a href="javascript:void(0);" onclick="ItemEdit(\'' + item.URI + '\',\'' + item.ItemCode + '\',\'' + item.Description + '\',\'' + item.Quantity + '\',\'' + item.UnitCost + '\')" class="btn btn-xs btn-default"><i class="fa fa-pencil text-success"></i><span class="bold"> &nbsp;Edit </span></a></div></td>"');
+                                tr.append("<td> <div> <a href='javascript:void(0);' onclick='ItemDelete(" + item.URI + ")' class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i><span class='bold'> &nbsp;Delete </span></a></div></td></tr>")
+                                totalCost = parseFloat(totalCost) + (parseFloat(item.UnitCost) * parseFloat(item.Quantity));
 
-            //    if ((id != 0 && item_value == id) || index == item_id) {
+                                $("#MaintenanceList").append(tr);
+                            });
+                            $("#VATAmount").val((totalCost * 15) / 100);
 
-            //        $("#txtCode").val(lstItems[x]['code']);
-            //        $("#txtDesc").val(lstItems[x]['desc']);
-            //        $("#txtQty").val(lstItems[x]['qty']);
-            //        $("#txtCost").val(lstItems[x]['cost']);
-            //        $("#hdnarrayIndex").val(lstItems[x]['arrayIndex']);
-            //        $("#hdnId").val(lstItems[x]['cost']);
-
-            //        lstItems.pop(x);
-            //        lstItems.push({
-            //            "ItemCode": code, "Description": desc, "Quantity": qty, "UnitCost": cost, "Index": arrayIndex, "Id": id
-            //        });
-            //        //Remove and Add
-            //    }
-            //   else if (id = 0) {
-            //        lstItems.push({
-            //            "ItemCode": code, "Description": desc, "Quantity": qty, "UnitCost": cost, "Index": arrayIndex, "Id": id
-            //        });
-            //    }
-            //    else if (index > 0) {
-            //        lstItems.pop(x);
-            //        lstItems.push({
-            //            "ItemCode": code, "Description": desc, "Quantity": qty, "UnitCost": cost, "Index": arrayIndex, "Id": id
-            //        });
-            //        //Remove and Add in Array
-            //    }
-            //}
+                            $("#TotalCost").val(totalCost);
+                        }
+                                });
+                    }
+                });
         }
 
     </script>

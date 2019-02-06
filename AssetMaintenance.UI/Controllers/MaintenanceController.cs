@@ -77,24 +77,35 @@ namespace AssetMaintenance.UI.Controllers
             var statusLst = new MaintenanceByStatusRepo().getMaintenanceByStatusCount();
 
             var schduledAndCompletedStatusId = new int[] { 3, 5 };
+            AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetailbyID(id, mainId);
 
-            if (statusId == 1 || statusId == 2 || statusId == 5)
+            if(model.Category.ToLower()== "Maintenance".ToLower() || model.Category.ToLower() == "UNPLANNED MAINTENANCE".ToLower())
+            {
+                ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId==2);
+
+            }
+            else if (statusId == 1 || statusId == 2 || statusId == 5)
             {
                 ViewBag.lstStatus = statusLst.Where(x => schduledAndCompletedStatusId.Contains(x.MaintStatusId));
             }
-            if (statusId == 3)
+            else if (statusId == 3)
             {
                 ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId == 5);
             }
-            if (statusId == 7)
+            else if (statusId == 7)
             {
                 ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId == 6);
             }
 
-            AssetMaintenanceDetailDto model = obj.getAssetMaintenanceDetailbyID(id, mainId);
             var filePaths = Directory.GetFiles(Server.MapPath("/Uploaded_File"))
                         .Where(f => Path.GetFileNameWithoutExtension(f).ToLower() == model.URI.ToString().ToLower()).Select(f => Path.GetFileName(f));
-                        
+
+            if(TempData["CostPartDetails"]!=null)
+            TempData.Remove("CostPartDetails");
+
+            TempData["CostPartDetails"] = model.lstParts;
+            TempData.Keep("CostPartDetails");
+
             if (filePaths.Count() > 0)
                 model.FileName = "~/Uploaded_File/" + filePaths.FirstOrDefault();
             return View(model);
@@ -104,6 +115,8 @@ namespace AssetMaintenance.UI.Controllers
         public JsonResult InsertMaintenance(AssetMaintenanceDetailDto asstMaint)
         {
             var obj = new MaintenanceByIdRepo();
+            asstMaint.lstParts = TempData.Peek("CostPartDetails") as List<lstPartDetails>;
+
             var statusLst = obj.insertMaintenance(asstMaint);
             if (string.IsNullOrEmpty(statusLst))
                 return Json("Error occured. Please try again after some time.");
@@ -131,5 +144,53 @@ namespace AssetMaintenance.UI.Controllers
             }
             return Json("Record saved successfully.");
         }
+
+        public JsonResult InsetCostPart(lstPartDetails model)
+        {
+            var lst = TempData.Peek("CostPartDetails") as List<lstPartDetails>;
+            var temp = TempData.Peek("CostPartDetails") as List<lstPartDetails>;
+
+            if (model.URI == 0)
+            {
+                lstPartDetails objModel = new lstPartDetails();
+
+                objModel.ItemCode = model.ItemCode;
+                objModel.Description = model.Description;
+                objModel.Quantity = model.Quantity;
+                objModel.UnitCost = model.UnitCost;
+                objModel.URI = (temp.Count > 0 ? temp.Max(x => x.URI) + 1 : 1);
+                lst.Add(objModel);
+
+            }
+            else
+            {
+                foreach (var item in temp.ToList())
+                {
+                    var objModel = lst.FirstOrDefault(x => x.URI == model.URI);
+                    if (objModel != null)
+                    {
+                        objModel.ItemCode = model.ItemCode;
+                        objModel.Description = model.Description;
+                        objModel.Quantity = model.Quantity;
+                        objModel.UnitCost = model.UnitCost;
+                    }
+                }
+            }
+            TempData["CostPartDetails"] = lst;
+
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DeleteCostPart(int id)
+        {
+            var lst = TempData.Peek("CostPartDetails") as List<lstPartDetails>;
+
+            var objModel = lst.FirstOrDefault(x => x.URI == id);
+            lst.Remove(objModel);
+            TempData["CostPartDetails"] = lst;
+
+            return Json(lst, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
