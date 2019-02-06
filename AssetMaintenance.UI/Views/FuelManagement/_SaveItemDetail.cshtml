@@ -38,12 +38,12 @@
                         <div class="form-group col-lg-4">
                             <label>Registration No.<span class="req" style="color:red">*</span></label>
                             @*@Html.TextBoxFor(model => model.RegistrationNo, new { @class = "form-control ", placeholder = "Registration No.", id = "ManualRegistrationNo", required = "required" })*@
-                            @Html.DropDownListFor(model => model.RegistrationNo, new SelectList(ViewBag.RegistrationNo, "Key", "Value"), "-- Select RegistrationNo --", new { @class = "form-control", id = "ManualRegistrationNo" })
+                            @Html.DropDownListFor(model => model.RegistrationNo, new SelectList(ViewBag.RegistrationNoList, "Key", "Value"), "-- Select RegistrationNo --", new { @class = "form-control", id = "ManualRegistrationNo" })
                         </div>
                         <div class="form-group col-lg-4">
                             <label>Filling Station </label>
                             @*@Html.TextBoxFor(model => model.FillingStation, new { @class = "form-control", placeholder = "Filling Station", id = "ManualFillingStation" })*@
-                            @Html.DropDownListFor(model => model.FillingStation, new SelectList(ViewBag.FillingStation, "Key", "Value"), "-- Select FillingStation --", new { @class = "form-control", id = "ManualFillingStation" })
+                            @Html.DropDownListFor(model => model.FillingStation, new SelectList(ViewBag.FillingStationName, "Key", "Value"), "-- Select FillingStation --", new { @class = "form-control", id = "ManualFillingStation" })
                         </div>
                         <div class="form-group col-lg-4">
                             <label>Driver</label>
@@ -109,8 +109,7 @@
 </div>
 <script>
     $(function () {
-        $("#ManualRegistrationNo").val($("#RegistrationNo").val());
-        $("#ManualFillingStation").val($("#FillingStation").val());
+       
         $("#ManualFuelType").change(function () {
             var supid = $("#SupplierName").val();
             if (supid > 0) {
@@ -155,8 +154,8 @@
         var decimalAmt = Math.round(amt * 100) / 100;
         var decimalvatAmt = Math.round((amount - amt) * 100) / 100;
 
-        $("#ManualAmount").val(decimalAmt);
-        $("#MaunalVatAmount").val(decimalvatAmt);
+        $("#ManualAmount").val(decimalAmt.toFixed(2));
+        $("#MaunalVatAmount").val(decimalvatAmt.toFixed(2));
         //$.ajax({
         //    type: "GET",
         //    url: '/FuelManagement/Getvatdetail',

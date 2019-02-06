@@ -28,8 +28,8 @@ namespace AssetMaintenance.UI.Controllers
             model.fuelRecordManualDto = new FuelRecord_DetailDto();
             model.fuelRecordManualDto.DateCreated = DateTime.Now.Date;
             ViewBag.Supplier = obj.GetSupplierName();
-            ViewBag.FillingStation = obj.GetFillingStation();
-            ViewBag.RegistrationNo = obj.GetRegistrationNo();
+            ViewBag.FillingStationName = obj.GetFillingStation();
+            ViewBag.RegistrationNoList = obj.GetRegistrationNo();
             ViewBag.vat = obj.Getvatdetail();
             return View(model);
         }

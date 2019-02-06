@@ -61,7 +61,7 @@
                                 <div class="form-group col-lg-4">
                                     <label>Filling Station</label>
                                     @*@Html.TextBoxFor(model => model.FillingStation, new { @class = "form-control", placeholder = "Filling Station", id = "FillingStation" })*@
-                                    @Html.DropDownListFor(model => model.FillingStation, new SelectList(ViewBag.FillingStation, "Key", "Value"), "-- Select FillingStation --", new { @class = "form-control", id = "FillingStation" })
+                                    @Html.DropDownListFor(model => model.FillingStation, new SelectList(ViewBag.FillingStationName, "Key", "Value"), "-- Select FillingStation --", new { @class = "form-control", id = "FillingStation" })
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Supplier Code</label>
@@ -108,7 +108,7 @@
                                 <div class="form-group col-lg-4">
                                     <label>Registration No.</label>
                                     @*@Html.TextBoxFor(model => model.RegistrationNo, new { @class = "form-control", placeholder = "Registration No.", id = "RegistrationNo" })*@
-                                    @Html.DropDownListFor(model => model.RegistrationNo, new SelectList(ViewBag.RegistrationNo, "Key", "Value"), "-- Select RegistrationNo --", new { @class = "form-control ", id = "RegistrationNo" })
+                                    @Html.DropDownListFor(model => model.RegistrationNo, new SelectList(ViewBag.RegistrationNoList, "Key", "Value",Model.RegistrationNo), "-- Select RegistrationNo --", new { @class = "form-control ", id = "RegistrationNo" })
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Invoice Total Amount</label>
@@ -249,7 +249,8 @@
             $('#ManualDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
             $('#ManualDateCreated').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
             $('.dropdown').select2();
-
+           // $('#FillingStation').val('@Model.FillingStation')
+            
             $(function () {
                 $("#ManualDateCreated").datepicker({
                     numberOfMonths: 2,
@@ -378,12 +379,25 @@
                     processData: false,
                     success: function (response) {
                         if (response.msg.trim() == "") {
-                            $("#tblUploadedData tbody").html('');
-                            debugger;
+                            //$("#tblUploadedData tbody").html('');
+                            //debugger;
 
                             CreateItemListDetail(response, 1);
-                            $("#modalViewData").modal('show');
-                            $('.FuelListedit').remove();
+                            //$("#modalViewData").modal('show');
+
+                            //$('.FuelListedit').remove();
+                            if ($.fn.DataTable.isDataTable("#fuelDetailsDiv")) {
+
+                                $('#fuelDetailsDiv').DataTable().clear().destroy();
+                            }
+                            $("#fuelDetailsDiv").html('')
+
+                            $("#fuelDetailsDiv").html($("#tblUploadedData").html());
+                            var table = $('#fuelDetailsDiv').dataTable(
+                                {
+                                    "lengthChange": false,
+                                    "deferRender": true,
+                                });
                         }
                         else {
                             toastr.error(response.msg);
@@ -442,7 +456,18 @@
                         $("#tblUploadedData tbody").html('');
                         CreateItemListDetail(data);
                         toastr.success(data.msg);
-                        $("#fuelDetailsDiv").html('').html($("#tblUploadedData").html());
+
+                        if ($.fn.DataTable.isDataTable("#fuelDetailsDiv")) {
+                            $('#fuelDetailsDiv').DataTable().clear().destroy();
+                        }
+                        $("#fuelDetailsDiv").html('')
+
+                        $("#fuelDetailsDiv").html($("#tblUploadedData").html());
+                        var table = $('#fuelDetailsDiv').dataTable(
+                            {
+                                "lengthChange": false,
+                                "deferRender": true,
+                            });
                         $("#modalSaveItemData").modal('hide');
                         $('#btnCreateFuelRecord').prop('disabled', false);
 
@@ -508,15 +533,15 @@
 
                 $("#tblUploadedData tbody").append(tr);
             });
-            $("#tblUploadedData #tfootAmtTotal").html(amtTotal);
-            $("#tblUploadedData #tfootDiscount").html(vatTotal);
-            $("#tblUploadedData #tfootVatTotal").html(discount);
-            $("#tblUploadedData #tfootAmtVatTotal").html(amtVat);
+            $("#tblUploadedData #tfootAmtTotal").html(amtTotal.toFixed(2));
+            $("#tblUploadedData #tfootDiscount").html(vatTotal.toFixed(2));
+            $("#tblUploadedData #tfootVatTotal").html(discount.toFixed(2));
+            $("#tblUploadedData #tfootAmtVatTotal").html(amtVat.toFixed(2));
 
-            $('#VatAmount').val(discount)
-            $('#AmountExclVat').val(amtTotal)
-            $('#DiscountAmount').val(vatTotal)
-            $('#InvoiceTotalAmount').val(amtVat)
+            $('#VatAmount').val(discount.toFixed(2))
+            $('#AmountExclVat').val(amtTotal.toFixed(2))
+            $('#DiscountAmount').val(vatTotal.toFixed(2))
+            $('#InvoiceTotalAmount').val(amtVat.toFixed(2))
         }
 
         $(function () {
@@ -528,7 +553,9 @@
 
             $('#Manual').click(function () {
                 $('.excelform').hide();
-                $("#FuelRecord_DetailId").val('0')
+                $("#FuelRecord_DetailId").val('0');
+                $("#ManualRegistrationNo").val($("#RegistrationNo").val());
+                $("#ManualFillingStation").val($("#FillingStation").val());
                 var d = new Date();
 
 
