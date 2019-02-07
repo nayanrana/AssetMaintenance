@@ -106,6 +106,10 @@ namespace AssetMaintenance.UI.Controllers
                     if (noOfRow >= 2)
                     {
                         int rowid = 1;
+                        FuelRecordRepo objRecord = new FuelRecordRepo();
+
+                        var fillingStation = objRecord.GetFillingStation();
+                        var registationNumber = objRecord.GetRegistrationNo();
 
                         for (int rowIterator = 2; rowIterator <= noOfRow; rowIterator++)
                         {
@@ -236,6 +240,12 @@ namespace AssetMaintenance.UI.Controllers
                             if (workSheet.Cells[rowIterator, 5].Value != null)
                             {
                                 model.RegistrationNo = Convert.ToString(workSheet.Cells[rowIterator, 5].Value);
+                                if(!registationNumber.Any(x=>x.Value.Trim().ToLower()==model.RegistrationNo.Trim().ToLower()))
+                                {
+                                    validationMsg = "Registration No. "+ model.RegistrationNo+" Does not exists in database";
+
+                                    break;
+                                }
                             }
                             else
                             {
@@ -246,6 +256,13 @@ namespace AssetMaintenance.UI.Controllers
                            
 
                             model.FillingStation = Convert.ToString(workSheet.Cells[rowIterator, 6].Value);
+
+                            if (!string.IsNullOrEmpty(model.FillingStation)&&!registationNumber.Any(x => x.Value.Trim().ToLower() == model.RegistrationNo.Trim().ToLower()))
+                            {
+                                validationMsg = "Filling Station " + model.FillingStation + " Does not exists in database";
+
+                                break;
+                            }
                             model.Driver = Convert.ToString(workSheet.Cells[rowIterator, 7].Value);
 
                             if (workSheet.Cells[rowIterator, 8].Value != null)
@@ -345,6 +362,11 @@ namespace AssetMaintenance.UI.Controllers
                             ListFuelRecord.Add(model);
 
                         }
+                        if(!string.IsNullOrEmpty(validationMsg))
+                        {
+                            return Json(new { msg = validationMsg, Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
+
+                        }
                         if (id > 0)
                         {
                             var obj = new FuelRecord_DetailRepo();
@@ -352,7 +374,7 @@ namespace AssetMaintenance.UI.Controllers
                             obj.InsertFuelRecordDetail(ListFuelRecord,id);
                             ListFuelRecord = obj.getFuelDetails(id);
 
-                            return Json(new { msg = "Record added successfully", Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
+                            return Json(new { msg = validationMsg, Html = ListFuelRecord }, JsonRequestBehavior.AllowGet);
 
                         }
                         else

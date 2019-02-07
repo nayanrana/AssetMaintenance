@@ -81,7 +81,7 @@ namespace AssetMaintenance.UI.Controllers
 
             if(model.Category.ToLower()== "Maintenance".ToLower() || model.Category.ToLower() == "UNPLANNED MAINTENANCE".ToLower())
             {
-                ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId==2);
+                ViewBag.lstStatus = statusLst.Where(x => x.MaintStatusId==3);
 
             }
             else if (statusId == 1 || statusId == 2 || statusId == 5)

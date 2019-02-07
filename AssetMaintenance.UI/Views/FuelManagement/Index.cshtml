@@ -95,7 +95,7 @@
                                 <div class="form-group col-lg-4">
                                     <label>Discount Amount Diesel</label>
                                     @Html.TextBoxFor(model => model.DiscountAmountDiesel, new { @class = "form-control allownumericwithdecimal", placeholder = "Discount Amount Diesel", id = "DiscountAmountDiesel", max = "100" })
-                                    
+
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Discount Amount Gasoline (%)</label>
@@ -108,7 +108,7 @@
                                 <div class="form-group col-lg-4">
                                     <label>Registration No.</label>
                                     @*@Html.TextBoxFor(model => model.RegistrationNo, new { @class = "form-control", placeholder = "Registration No.", id = "RegistrationNo" })*@
-                                    @Html.DropDownListFor(model => model.RegistrationNo, new SelectList(ViewBag.RegistrationNoList, "Key", "Value",Model.RegistrationNo), "-- Select RegistrationNo --", new { @class = "form-control ", id = "RegistrationNo" })
+                                    @Html.DropDownListFor(model => model.RegistrationNo, new SelectList(ViewBag.RegistrationNoList, "Key", "Value", Model.RegistrationNo), "-- Select RegistrationNo --", new { @class = "form-control ", id = "RegistrationNo" })
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Invoice Total Amount</label>
@@ -250,7 +250,7 @@
             $('#ManualDateCreated').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
             $('.dropdown').select2();
            // $('#FillingStation').val('@Model.FillingStation')
-            
+
             $(function () {
                 $("#ManualDateCreated").datepicker({
                     numberOfMonths: 2,
@@ -378,6 +378,7 @@
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        debugger;
                         if (response.msg.trim() == "") {
                             //$("#tblUploadedData tbody").html('');
                             //debugger;
@@ -398,6 +399,7 @@
                                     "lengthChange": false,
                                     "deferRender": true,
                                 });
+                            toastr.success("File successfully uploaded.");
                         }
                         else {
                             toastr.error(response.msg);
@@ -476,12 +478,12 @@
                 });
             }
         }
-       
+
 
         function CreateItemListDetail(response,type=0) {
             var amtTotal = 0, discount = 0, vatTotal = 0, amtVat = 0;
             debugger;
-
+            $("#tblUploadedData tbody").html('');
             $.each(response.Html, function (i, item) {
                 var tr;
                 tr = $('<tr />');
@@ -578,9 +580,9 @@
                     url: '/FuelManagement/GetFuelResult?id=' + Id,
                     dataType: 'json',
                     contentType: "application/json; charset=utf-8",
-           
+
                   success: function (data) {
-                     
+
 
                       $.each(data.Html, function () {
                           if (this.Key === "Diesel") {
@@ -597,17 +599,17 @@
                               debugger;
                               $('#ManualCostCentreLocation').val(this.Value.Address);
                           }
-                      }); 
+                      });
                     //var selectedValue = $(this).val();
                     //$("#DiscountAmountDiesel").val($(this).find("option:selected").attr("Discount"))
-                    
+
                     //$('#DiscountAmountDiesel').val();
                     //$('#AmountDieselLt').val(data)
                 }
             });
         });
 
-        
+
         function deleteFuelRecord(id) {
             swal({
                 title: "Are you sure?",
@@ -732,7 +734,7 @@
                     url: '@Url.Action("GetFuelManualDetails", "FuelManagement")?fuelmanagemaualbyid=' + id,
                   dataType: 'json',
                     success: function (data) {
-                        
+
                         document.getElementById("manualcreate").reset();
 
                         var item = data.Html;

@@ -309,22 +309,46 @@
             validationAdvertiseMasterFormValid();
         }else {
             validationAdvertiseMasterFormCommon();
-        }
-            $('#EndDate').datepicker({
-                todayBtn: 1,
+            }
+            if ('@Model.Category.ToLower()' == ("Maintenance").toLowerCase() || '@Model.Category.ToLower()' == ("UNPLANNED MAINTENANCE").toLowerCase()()) {
+
+                $('#EndDate').datepicker({
+                    todayBtn: 1,
+                    defaultDate:'@Model.StartDate',
                     autoclose: true, format: 'dd/mm/yyyy'
-            }).on('changeDate', function (selected) {
-                var maxDate = new Date(selected.date.valueOf());
-                $('#StartDate').datepicker('setEndDate', maxDate);
-            });;
-            $("#StartDate").datepicker({
-                todayBtn: 1,
-                autoclose: true, format: 'dd/mm/yyyy'
-            }).on('changeDate', function (selected) {
-                var minDate = new Date(selected.date.valueOf());
-                $('#EndDate').datepicker('setStartDate', minDate);
-                $('#EndDate').val($("#StartDate").val());
-            });
+                }).on('changeDate', function (selected) {
+                    var maxDate = new Date(selected.date.valueOf());
+                        $('#StartDate').datepicker('setEndDate', maxDate);
+                    }).change(function (selected)
+                    {
+                       // var maxDate = new Date(selected.date.valueOf());
+                        $('#StartDate').datepicker('setEndDate', $("#EndDate").val());
+                    });
+                $("#StartDate").datepicker({
+                    todayBtn: 1,
+                    autoclose: true, format: 'dd/mm/yyyy'
+                }).on('changeDate', function (selected) {
+                    var minDate = new Date(selected.date.valueOf());
+                    $('#EndDate').datepicker('setStartDate', minDate);
+                    $('#EndDate').val($("#StartDate").val());
+                    }).change(function (selected) {
+                        //var minDate = new Date(selected.date.valueOf());
+                        $('#EndDate').datepicker('setStartDate', $("#StartDate").val());
+                        $('#EndDate').val($("#StartDate").val());
+                    });;
+                $('#EndDate').change();
+                $("#StartDate").change();
+            }
+            else {
+                $('#EndDate').datepicker({
+                    todayBtn: 1,
+                    autoclose: true, format: 'dd/mm/yyyy'
+                });
+                $("#StartDate").datepicker({
+                    todayBtn: 1,
+                    autoclose: true, format: 'dd/mm/yyyy'
+                });
+            }
 
         $('#PhoneNumber').mask('(000) 000-0000');
         $('#StartDate').mask('00/00/0000');
