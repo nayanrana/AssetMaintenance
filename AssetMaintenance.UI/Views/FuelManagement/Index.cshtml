@@ -381,7 +381,7 @@
                         if (response.msg.trim() == "") {
                             //$("#tblUploadedData tbody").html('');
                             //debugger;
-
+                            $('#btnCreateFuelRecord').prop('disabled', false);
                             CreateItemListDetail(response, 1);
                             //$("#modalViewData").modal('show');
 
@@ -665,7 +665,7 @@
                                 $("#tblUploadedData tbody").html('');
                                 debugger;
 
-                                CreateItemListDetail(data);
+                                CreateItemListDetail(data,1);
                                 if ($.fn.DataTable.isDataTable("#fuelDetailsDiv")) {
 
                                     $('#fuelDetailsDiv').DataTable().clear().destroy();
