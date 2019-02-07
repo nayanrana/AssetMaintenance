@@ -261,13 +261,18 @@ namespace AssetMaintenance.BAL
         {
             try
             {
-              
-                //var vatamt = (dbCon.GFI_FLT_VatMaster.Where(vat=> DbFunctions.TruncateTime(vat.StartDate)>= DbFunctions.TruncateTime(System.DateTime.Now) && DbFunctions.TruncateTime(vat.EndDate)< DbFunctions.TruncateTime(System.DateTime.Now)).Select(x =>
-                //              x.Vat
-                //               ).FirstOrDefault());
-
-                var vatamt = 15;
-              return vatamt;
+                
+                var vatamt = (dbCon.GFI_FLT_VatMaster.Where(vat=>(   System.DateTime.Now > vat.StartDate  && System.DateTime.Now < vat.EndDate)).FirstOrDefault());
+                if(vatamt == null)
+                {
+                   
+                    return 15;
+                }
+                else
+                {
+                    return vatamt.Vat;
+                }
+                
 
             }
             catch (Exception ex)
