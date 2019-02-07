@@ -248,6 +248,15 @@ namespace AssetMaintenance.BAL
 
                 lstkeys.Add(new KeyValuePair<string, object>("Gesoline", responce));
 
+                responce = dbCon.Suppliers.Where(k => k.Id == id).Select(c => new supllierdetailmodel
+                {
+
+                    Address = c.Address
+                    
+                   
+                }).FirstOrDefault();
+
+                lstkeys.Add(new KeyValuePair<string, object>("Address", responce));
 
                 return lstkeys;
             }

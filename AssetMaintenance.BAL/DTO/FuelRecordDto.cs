@@ -62,6 +62,7 @@ namespace AssetMaintenance.BAL.DTO
     {
         public double Price { get; set; }
         public double Discount { get; set; }
+        public string Address { get; set; }
     }
 
     public class vatincamoutmodel

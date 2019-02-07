@@ -120,11 +120,11 @@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Amount Diesel/Lt</label>
-                                    @Html.TextBoxFor(model => model.AmountDieselLt, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Amount Diesel/Lt", id = "AmountDieselLt" })
+                                    @Html.TextBoxFor(model => model.AmountDieselLt, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Amount Diesel/Lt", id = "AmountDieselLt", disabled = "true" })
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label>Amount Gasoline/Lt</label>
-                                    @Html.TextBoxFor(model => model.AmountGasolineLt, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Amount Gasoline/Lt", id = "AmountGasolineLt" })
+                                    @Html.TextBoxFor(model => model.AmountGasolineLt, new { @class = "form-control allownumericwithoutdecimal", placeholder = "Amount Gasoline/Lt", id = "AmountGasolineLt", disabled = "true" })
                                 </div>
                                 <div class="form-group col-lg-8">
                                     <lable><strong>Select Mode</strong></lable>
@@ -593,6 +593,10 @@
                               $('#AmountGasolineLt').val(this.Value.Price);
                               //$('#DiscountAmountGasoline').val(this.Value.Discount);
                           }
+                          if (this.Key === "Address") {
+                              debugger;
+                              $('#ManualCostCentreLocation').val(this.Value.Address);
+                          }
                       }); 
                     //var selectedValue = $(this).val();
                     //$("#DiscountAmountDiesel").val($(this).find("option:selected").attr("Discount"))
@@ -603,27 +607,7 @@
             });
         });
 
-        @*$(document).ready(function () {
-            debugger
-            $('#SupplierName').change(function () {
-                $.ajax({
-                    type: "get",
-                    url: '@Url.Action("GetFuelResult", "FuelManagement")',
-                    data: { id: $('#SupplierName').val() },
-                    datatype: "json",
-                    traditional: true,
-                    success: function (data) {
-                        var sabcategory = "";
-                        sabcategory = sabcategory ;
-                        for (var i = 0; i < data.length; i++) {
-                            sabcategory = sabcategory + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
-                        }
-                        debugger;
-                        // sabcategory = sabcategory + '</select>';
-                        $('#FK_PRODUCTSUBCATEGORYID').html(sabcategory);
-                    }
-                });
-            });*@
+        
         function deleteFuelRecord(id) {
             swal({
                 title: "Are you sure?",
@@ -682,7 +666,18 @@
                                 debugger;
 
                                 CreateItemListDetail(data);
+                                if ($.fn.DataTable.isDataTable("#fuelDetailsDiv")) {
 
+                                    $('#fuelDetailsDiv').DataTable().clear().destroy();
+                                }
+                                $("#fuelDetailsDiv").html('')
+
+                                $("#fuelDetailsDiv").html($("#tblUploadedData").html());
+                                var table = $('#fuelDetailsDiv').dataTable(
+                                    {
+                                        "lengthChange": false,
+                                        "deferRender": true,
+                                    });
                             }
                         });
 
