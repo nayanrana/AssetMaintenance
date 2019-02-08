@@ -58,5 +58,12 @@ namespace AssetMaintenance.UI.Controllers
             var model = vatbyid.deleteVatDetail(id);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public ActionResult getVatDetailsById(int vatid)
+        {
+            VatMasterRepo obj = new VatMasterRepo();
+            var model = obj.getVatDetailsById(vatid);
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }

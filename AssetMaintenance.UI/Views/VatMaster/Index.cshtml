@@ -1,106 +1,117 @@
-﻿
-@model AssetMaintenance.BAL.DTO.VatMasterDto
+﻿@model AssetMaintenance.BAL.DTO.VatMasterDto
 <link href="~/Vendor/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
-
 <script src="~/Vendor/sweetalert/lib/sweet-alert.js"></script>
-<div class="normalheader ">
-    <div class="hpanel">
-        <div class="panel-body">
-            <a class="small-header-action" href="">
-                <div class="clip-header">
-                    <i class="fa fa-arrow-up"></i>
-                </div>
-            </a>
-
-            <div id="hbreadcrumb" class="pull-right m-t-lg">
-                <ol class="hbreadcrumb breadcrumb">
-                    <li><a href="@Url.Action("Index", "ControlPanel" )">Vat Master</a></li>
-                    <li class="active">
-                        <span>Vat Master</span>
-                    </li>
-                </ol>
+<div id="modalSaveItemData" class="modal fade bd-example-modal-lg" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header padding15">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title font-light m-b-xs">
+                    @if (Model.VatId != 0)
+                     {
+                        <lable>Edit Vat Master</lable>
+                     }
+                     else
+                     {<lable>Add Vat Master</lable>}
+                </h5>
             </div>
-            <h3 class="font-light m-b-xs">
-                @if (Model.VatId != 0)
-                {
-                    <lable>Edit Vat Master</lable>
-                }
-                else
-                {<lable>Add Vat Master</lable>}
-            </h3>
-        </div>
-    </div>
-</div>
-
-<div class="content animate-panel" style="padding-top:30px;" id="InputFormDiv">
-    <div class="hpanel">
-        <div class="panel-heading">
-            <div class="panel-tools">
-                <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-
-            </div>
-            Header Details
-        </div>
-        <div class="panel-body">
-            @Html.HiddenFor(model => model.VatId)
-            @using (Html.BeginForm("", "", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", id = "createVatMasterForm" }))
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="col-md-12">
-                    <div class="">
-
-                        <div class="">
-                            @Html.HiddenFor(model => model.VatId)
-                            <div class="row">
-
-                                <div class="form-group col-lg-4">
-                                    <label>Vat (%)</label>
-                                    @Html.TextBoxFor(model => model.Vat, new { @class = "form-control allownumericwithdecimal", placeholder = "Vat (%)", id = "Vat", max = "100" })
-                                </div>
-                                <div class="form-group col-lg-4">
-                                    <label>Start Date</label>
-                                    @Html.TextBoxFor(model => model.StartDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Start Date", id = "StartDate" })
-                                </div>
-                                <div class="form-group col-lg-4">
-                                    <label>End Date</label>
-                                    @Html.TextBoxFor(model => model.EndDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "End Date", id = "EndDate" })
-                                </div>
-                                <div class="form-group col-lg-12 text-right">
-                                    @if (Model.VatId != 0)
-                                    {
-                                        <button class="btn btn-success" id="btnCreateVatMaster" type="button">Save</button>
-                                    }
-                                    else
-                                    {
-                                        <button class="btn btn-success" id="btnCreateVatMaster" type="button" >Add</button>
-                                    }
-                                    <button id="btnCancel" type="reset" class="cancel btn btn-default">Cancel</button>
+            <div class="modal-body">
+                <div class="content animate-panel" style="padding-top:30px;" id="InputFormDiv">
+                    <div class="hpanel">
+                        @Html.HiddenFor(model => model.VatId)
+                        @using (Html.BeginForm("", "", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", id = "createVatMasterForm" }))
+                         {
+                            @Html.AntiForgeryToken()
+                            <div class="col-md-12">
+                                @Html.HiddenFor(model => model.VatId)
+                                <div class="row">
+                                    <div class="form-group col-lg-4">
+                                        <label>Vat (%)</label>
+                                        @Html.TextBoxFor(model => model.Vat, new { @class = "form-control allownumericwithdecimal", placeholder = "Vat (%)", id = "Vat", max = "100" })
+                                    </div>
+                                    <div class="form-group col-lg-4">
+                                        <label>Start Date</label>
+                                            @Html.TextBoxFor(model => model.StartDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Start Date", id = "StartDate" })
+                                    </div>
+                                    <div class="form-group col-lg-4">
+                                        <label>End Date</label>
+                                            @Html.TextBoxFor(model => model.EndDate, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "End Date", id = "EndDate" })
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            @*</form>*@
+                         }
+                       
                     </div>
+
+
                 </div>
-                @*</form>*@
-             }  
+            </div>
+            <div class="modal-footer  padding15">
+                <div class="form-group col-lg-12 text-right">
+                    @if (Model.VatId != 0)
+                    {
+                        <button class="btn btn-success" id="btnCreateVatMaster" type="button">Save</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-success" id="btnCreateVatMaster" type="button">Add</button>
+                    }
+                    <button id="btnCancel" type="reset" class="cancel btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+            </div>
         </div>
     </div>
+
+<div class="content animate-panel">
+    <div class="row" id="VatMasterListGridDiv">
+        <div class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        <a class="closebox"><i class="fa fa-times"></i></a>
+                    </div>
+                    @*<a href="/MaintenanceType/Index?maintenanceType=0" class="btn btn-success">Add New Maintenance</a>*@
+                    <button id="btnAddVat" class="btn btn-success " type="button"><i class="fa fa-plus-square"></i> <span class="bold" style="padding-left:5px;">Add New Vat</span></button>
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="VatList" class="table table-striped table-bordered table-hover dataTable no-footer " width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" width="15%">Vat</th>
+                                    <th class="text-center" width="15%">Start Date</th>
+                                    <th class="text-center" width="15%">End Date</th>
+                                    <th class="text-center" width="5%">Edit</th>
+                                    <th class="text-center" width="5%">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+        @section Styles {
+            @Styles.Render("~/bundles/datepicker/css")
+            @Styles.Render("~/bundles/datatables/css")
 
-@section Styles {
-    @Styles.Render("~/bundles/datepicker/css")
-    @Styles.Render("~/bundles/datatables/css")
+        }
+        @section Scripts {
+            @Scripts.Render("~/bundles/validation/js")
+            @Scripts.Render("~/bundles/datepicker/js")
+            @Scripts.Render("~/bundles/datatables/js")
+            @Scripts.Render("~/bundles/datatablesBootstrap/js")
+            @Scripts.Render("~/bundles/datatablesPlugins/js")
 
-}
-@section Scripts {
-    @Scripts.Render("~/bundles/validation/js")
-    @Scripts.Render("~/bundles/datepicker/js")
-    @Scripts.Render("~/bundles/datatables/js")
-    @Scripts.Render("~/bundles/datatablesBootstrap/js")
-    @Scripts.Render("~/bundles/datatablesPlugins/js")
-
-    <script type="text/javascript">
-    toastr.options = {
+<script type="text/javascript">
+        toastr.options = {
         "debug": false,
         "newestOnTop": false,
         "positionClass": "toast-top-center",
@@ -123,7 +134,7 @@
                         Vat: {
                             required: true
                         }
-                       
+
                     },
                     submitHandler: function (form) {
                         createVatMaster();
@@ -133,12 +144,14 @@
             });
         });
 
-        function createVatMaster() {
-           
-            var formData = new FormData($('#createVatMasterForm')[0]);
+    function createVatMaster() {
+        debugger;
+            var formData = new FormData();
+            
             formData.append('Vat', $("#Vat").val());
             formData.append('StartDate', $("#StartDate").val());
             formData.append('EndDate', $("#EndDate").val());
+        formData.append('VatId', $("#VatId").val());
 
             $.ajax({
                 type: 'POST',
@@ -148,11 +161,12 @@
                 processData: false,
                 url: '@Url.Action("CreateVatMaster", "VatMaster")',
                 success: function (data) {
+                    
                     if (data != 'validation') {
                         $($("#createVatMasterForm input").val(''));
                         toastr.success("Vat Record inserted successfully.");
-                        window.location.href = '/VatMaster/VatList';
-                       
+                        window.location.href = '/VatMaster/Index';
+
                     }
                     else {
                         // swal.close();
@@ -160,10 +174,125 @@
                     }
                 }
             });
-           
-            
-            
+    }
+    $(document).ready(function () {
+        if (localStorage.getItem('msg')) {
+            toastr.success(localStorage.getItem('msg'));
+            localStorage.clear();
         }
 
-    </script>
-}
+        getvatList();
+        $("#btnAddVat").click(function () {
+            $("#modalSaveItemData").modal('show');
+            //location.href = "../VatMaster/Index";
+        });
+
+    });
+        function getvatList() {
+            var str = 0;
+
+            $.fn.DataTable.isDataTable("#VatList");
+            $('#VatList').DataTable().clear().destroy();
+
+            $.ajax({
+                type: 'Get',
+                data: '',
+
+                url: '@Url.Action("ViewVatList", "VatMaster")',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (data)
+                {
+                    @*var Mstatus = @Request.QueryString["maintenanceType"]*@
+
+                    $.each(data, function (i, item) {
+                        var tr;
+                        tr = $('<tr />');
+
+                        tr.append("<td class='text-center' data-title='Reminder'>" + (item.Vat == null ? "-" : item.Vat) + "</td>");
+                        tr.append("<td class='text-center' data-title='AssetNo'>" + (item.StartDate == null ? "-" : getFormattedDate(item.StartDate)) + "</td>");
+                        tr.append("<td class='text-center' data-title='AssetNo'>" + (item.EndDate == null ? "-" : getFormattedDate(item.EndDate)) + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> "
+                            + "<div> <a href='javascript:void(0);' onclick='getvat(" + item.VatId + ")'  data-asset=" + item.VatId
+                                + " class='btn btn-xs btn-default'><i class='fa fa-pencil text-success'></i><span class='bold'> &nbsp;Edit</span></a></div>" + "</td>");
+                        tr.append("<td class='text-center' data-title='Delete'> "
+                            + "<div> <a href='javascript:void(0);' onclick='deleteVatDetail(" + item.VatId + ")' data-asset=" + item.VatId
+                                + " class='btn btn-xs btn-default'><i class='fa fa-trash text-danger'></i> &nbsp;Delete</a></div>" + "</td>");
+
+
+                        $("#VatList tbody").append(tr);
+                    });
+                    htmlToDataTable();
+                }
+            });
+
+        }
+        function htmlToDataTable() {
+            var table = $('#VatList').dataTable(
+                {
+                    "lengthChange": false,
+                    "deferRender": true,
+                    "bDestroy": true
+                }
+            );
+        }
+
+        function deleteVatDetail(id) {
+            swal({
+                title: "Are you sure?",
+                text: "Your will not be able to recover this Vat Detail!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: "POST",
+                            ///url: '_ViewMaintanence',
+                            url: '@Url.Action("DeletevatMasterByID", "VatMaster")',
+                            datatype: "json",
+                            data: { id: id },
+                            success: function (data) {
+                                swal("Deleted!", "Vat Detail has been deleted.", "success");
+                                getvatList();
+                            }
+                        });
+
+                    } else {
+                        swal("Cancelled", "Your Vat Detail is safe :)", "error");
+                    }
+                });
+        }
+
+        function getvat(id) {
+                $.ajax({
+                 type: 'Get',
+
+                  cache: false,
+                  contentType: false,
+                    processData: false,
+                    url: '@Url.Action("getVatDetailsById", "VatMaster")?vatid=' + id,
+                  dataType: 'json',
+                    success: function (data) {
+                        var item = data;
+                        debugger;
+                        $("#VatId").val(item.VatId);
+                        $("#Vat").val(item.Vat);
+                        $("#StartDate").val(getFormattedDate(item.StartDate));
+                        $("#EndDate").val(getFormattedDate(item.EndDate));
+                        $("#modalSaveItemData").modal('show');
+
+                    }
+
+             });
+
+            };
+
+
+            </script>
+        }
