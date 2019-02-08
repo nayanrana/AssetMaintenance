@@ -39,6 +39,8 @@ namespace AssetMaintenance.BAL
                 InvoiceVatAmount = x.InvoiceVatAmount,
                 AmountDieselLt = x.AmountDieselLt,
                 AmountGasolineLt = x.AmountGasolineLt,
+                DiscountAmountPetrol = x.DiscountAmountPetrol,
+                AmountPetrolLt = x.AmountPetrolLt,
                 Is_PaymentReceiptGenerate = x.Is_PaymentReceiptGenerate
             });
             return fuelList.ToList();
@@ -57,12 +59,14 @@ namespace AssetMaintenance.BAL
                 ful.InvoiceDate = fuel.InvoiceDate;
                 ful.PaymentCertNo = fuel.PaymentCertNo;
                 ful.Period = fuel.Period;
+                ful.DiscountAmountPetrol = fuel.DiscountAmountPetrol;
                 ful.DiscountAmountDiesel = fuel.DiscountAmountDiesel;
                 ful.DiscountAmountGasoline = fuel.DiscountAmountGasoline;
                 ful.InvoiceDiscountAmount = fuel.InvoiceDiscountAmount;
                 ful.RegistrationNo = fuel.RegistrationNo;
                 ful.InvoiceTotalAmount = fuel.InvoiceTotalAmount;
                 ful.InvoiceVatAmount = fuel.InvoiceVatAmount;
+                ful.AmountPetrolLt = fuel.AmountPetrolLt;
                 ful.AmountDieselLt = fuel.AmountDieselLt;
                 ful.AmountGasolineLt = fuel.AmountGasolineLt;
                 ful.Is_PaymentReceiptGenerate = fuel.Is_PaymentReceiptGenerate;
@@ -96,12 +100,14 @@ namespace AssetMaintenance.BAL
                     InvoiceDate = x.InvoiceDate,
                     PaymentCertNo = x.PaymentCertNo,
                     Period = x.Period,
+                    DiscountAmountPetrol = x.DiscountAmountPetrol,
                     DiscountAmountDiesel = x.DiscountAmountDiesel,
                     DiscountAmountGasoline = x.DiscountAmountGasoline,
                     InvoiceDiscountAmount = x.InvoiceDiscountAmount,
                     RegistrationNo = x.RegistrationNo,
                     InvoiceTotalAmount = x.InvoiceTotalAmount,
                     InvoiceVatAmount = x.InvoiceVatAmount,
+                    AmountPetrolLt = x.AmountPetrolLt,
                     AmountDieselLt = x.AmountDieselLt,
                     AmountGasolineLt = x.AmountGasolineLt,
                     Is_PaymentReceiptGenerate = x.Is_PaymentReceiptGenerate
@@ -131,12 +137,14 @@ namespace AssetMaintenance.BAL
                 ful.InvoiceDate = fuel.InvoiceDate;
                 ful.PaymentCertNo = fuel.PaymentCertNo;
                 ful.Period = fuel.Period;
+                ful.DiscountAmountPetrol = fuel.DiscountAmountPetrol;
                 ful.DiscountAmountDiesel = fuel.DiscountAmountDiesel;
                 ful.DiscountAmountGasoline = fuel.DiscountAmountGasoline;
                 ful.InvoiceDiscountAmount = fuel.InvoiceDiscountAmount;
                 ful.RegistrationNo = fuel.RegistrationNo;
                 ful.InvoiceTotalAmount = fuel.InvoiceTotalAmount;
                 ful.InvoiceVatAmount = fuel.InvoiceVatAmount;
+                ful.AmountPetrolLt = fuel.AmountPetrolLt;
                 ful.AmountDieselLt = fuel.AmountDieselLt;
                 ful.AmountGasolineLt = fuel.AmountGasolineLt;
                 ful.Is_PaymentReceiptGenerate = fuel.Is_PaymentReceiptGenerate;

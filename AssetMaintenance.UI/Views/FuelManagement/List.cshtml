@@ -49,12 +49,14 @@
                                     <th class="text-center" width="5%">Invoice Date</th>
                                     <th class="text-center" width="10%">Payment Cert No</th>
                                     <th class="text-center" width="5%">Period</th>
-                                    <th class="text-center" width="10%">Discount Amount Diesel</th>
+                                    <th class="text-center" width="10%">Discount Amount Petrol (%)</th>
+                                    <th class="text-center" width="10%">Discount Amount Diesel (%)</th>
                                     <th class="text-center" width="10%">Discount Amount Gasoline (%)</th>
                                     <th class="text-center" width="10%">Invoice Discount Amount</th>
                                     <th class="text-center" width="5%">Registration No.</th>
                                     <th class="text-center" width="10%">Invoice Total Amount</th>
                                     <th class="text-center" width="10%">Invoice Vat Amount</th>
+                                    <th class="text-center" width="10%">Amount Petrol/Lt</th>
                                     <th class="text-center" width="10%">Amount Diesel/Lt</th>
                                     <th class="text-center" width="10%">Amount Gasoline/Lt</th>
                                     <th class="text-center" width="5%">Edit</th>
@@ -137,12 +139,14 @@
                         tr.append("<td class='text-center' data-title='AssetNo'>" + (item.InvoiceDate == null ? "-" : getFormattedDate(item.InvoiceDate)) + "</td>");
                         tr.append("<td class='text-center' data-title='Maintenance'>" + (item.PaymentCertNo == null ? "-" : item.PaymentCertNo) + "</td>");
                         tr.append("<td class='text-center' data-title='AssetNo'>" + (item.Period == null ? "-" : getFormattedDate(item.Period)) + "</td>");
+                        tr.append("<td class='text-center' data-title='Maintenance'>" + (item.DiscountAmountPetrol == null ? "-" : item.DiscountAmountPetrol) + "</td>");
                         tr.append("<td class='text-center' data-title='Maintenance'>" + (item.DiscountAmountDiesel == null ? "-" : item.DiscountAmountDiesel)+ "</td>");
                         tr.append("<td class='text-center' data-title='History'> " + (item.DiscountAmountGasoline == null ? "-" : item.DiscountAmountGasoline) + "</td>");
                         tr.append("<td class='text-center' data-title='Edit'> " + (item.InvoiceDiscountAmount == null ? "-" : item.InvoiceDiscountAmount) + "</td>");
                         tr.append("<td class='text-center' data-title='Maintenance'>" + (item.RegistrationNo == null ? "-" : item.RegistrationNo) + "</td>");
                         tr.append("<td class='text-center' data-title='Edit'> " + (item.InvoiceTotalAmount == null ? "-" : item.InvoiceTotalAmount) + "</td>");
                         tr.append("<td class='text-center' data-title='Edit'> " + (item.InvoiceVatAmount == null ? "-" : item.InvoiceVatAmount) + "</td>");
+                        tr.append("<td class='text-center' data-title='Edit'> " + (item.AmountPetrolLt == null ? "-" : item.AmountPetrolLt) + "</td>");
                         tr.append("<td class='text-center' data-title='Edit'> " + (item.AmountDieselLt == null ? "-" : item.AmountDieselLt) + "</td>");
                         tr.append("<td class='text-center' data-title='Edit'> " + (item.AmountGasolineLt == null ? "-" : item.AmountGasolineLt) + "</td>");
                        

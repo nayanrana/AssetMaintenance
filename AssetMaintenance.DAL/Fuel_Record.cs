@@ -29,12 +29,14 @@ namespace AssetMaintenance.DAL
         public string InvoiceNo { get; set; }
         public Nullable<System.DateTime> InvoiceDate { get; set; }
         public string PaymentCertNo { get; set; }
+        public Nullable<double> DiscountAmountPetrol { get; set; }
         public Nullable<double> DiscountAmountDiesel { get; set; }
         public Nullable<double> DiscountAmountGasoline { get; set; }
         public Nullable<double> InvoiceDiscountAmount { get; set; }
         public string RegistrationNo { get; set; }
         public Nullable<double> InvoiceTotalAmount { get; set; }
         public Nullable<double> InvoiceVatAmount { get; set; }
+        public Nullable<double> AmountPetrolLt { get; set; }
         public Nullable<double> AmountDieselLt { get; set; }
         public Nullable<double> AmountGasolineLt { get; set; }
         public Nullable<bool> Is_PaymentReceiptGenerate { get; set; }

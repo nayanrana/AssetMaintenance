@@ -19,12 +19,14 @@ namespace AssetMaintenance.BAL.DTO
         public string SupplierName { get; set; }
         public string InvoiceNo { get; set; }
         public string PaymentCertNo { get; set; }
+        public Nullable<double> DiscountAmountPetrol { get; set; }
         public Nullable<double> DiscountAmountDiesel { get; set; }
         public Nullable<double> DiscountAmountGasoline { get; set; }
         public Nullable<double> InvoiceDiscountAmount { get; set; }
         public string RegistrationNo { get; set; }
         public Nullable<double> InvoiceTotalAmount { get; set; }
         public Nullable<double> InvoiceVatAmount { get; set; }
+        public Nullable<double> AmountPetrolLt { get; set; }
         public Nullable<double> AmountDieselLt { get; set; }
         public Nullable<double> AmountGasolineLt { get; set; }
 
@@ -32,7 +34,7 @@ namespace AssetMaintenance.BAL.DTO
         public FuelRecord_DetailDto fuelRecordManualDto { get; set; }
         public bool? Is_PaymentReceiptGenerate { get; set; }
         public bool? Is_Excel { get; set; }
-
+        public string Name { get; set; }
         
 
     }
@@ -65,9 +67,5 @@ namespace AssetMaintenance.BAL.DTO
         public string Address { get; set; }
     }
 
-    public class vatincamoutmodel
-    {
-        public double amount { get; set; }
-        public double vat { get; set; }
-    }
+    
 }

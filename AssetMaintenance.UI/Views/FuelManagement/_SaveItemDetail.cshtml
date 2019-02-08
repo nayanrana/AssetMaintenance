@@ -108,9 +108,12 @@
     </div>
 </div>
 <script>
-    $(function () {
+    $("#ManualQuantityLitres").focus();
+        $(function () {
        
-        $("#ManualFuelType").change(function () {
+            $("#ManualFuelType").change(function () {
+
+                
             var supid = $("#SupplierName").val();
             if (supid > 0) {
                 $.ajax({
@@ -153,11 +156,15 @@
         debugger;
         var vatper = $('#vatper').val();
         var amount = $('#ManualAmountInc').val();
+        var quantity = $('#ManualQuantityLitres').val();
+        amount = amount * quantity;
+        $('#ManualAmountInc').val(amount);
+
         var totalper = 1 + (vatper / 100);
-        var amt = amount / totalper;
+        var amt = amount / totalper  ;
         var decimalAmt = Math.round(amt * 100) / 100;
         var decimalvatAmt = Math.round((amount - amt) * 100) / 100;
-
+        
         $("#ManualAmount").val(decimalAmt.toFixed(2));
         $("#MaunalVatAmount").val(decimalvatAmt.toFixed(2));
         //$.ajax({
