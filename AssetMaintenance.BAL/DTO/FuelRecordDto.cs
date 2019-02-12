@@ -34,8 +34,8 @@ namespace AssetMaintenance.BAL.DTO
         public FuelRecord_DetailDto fuelRecordManualDto { get; set; }
         public bool? Is_PaymentReceiptGenerate { get; set; }
         public bool? Is_Excel { get; set; }
-        public string Name { get; set; }
-        
+        public string NameSupllier { get; set; }
+        public string NameFillingStation { get; set; }
 
     }
 

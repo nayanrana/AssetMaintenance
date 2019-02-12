@@ -110,35 +110,7 @@
             });
 
         });
-        function getName(name) {
-            debugger;
-            if (isNaN(name)) {
-                return name;
-            }
-            else {
-                return 'Engen Beau Bassin';
-            }
-        }
-
-        function getsupplier(name) {
-            debugger;
-            //var a = ["GMS Trading Ltd", "Pro Spares Ltd", "Toto Spare Parts Ltd"];
-            //$.each(name, function (i, item) {
-
-            //});
-            if (isNaN(name)) {
-                return name;
-            }
-            if (isNaN(name)) {
-                return 'GMS Trading Ltd';
-            }
-            if (isNaN(name)) {
-                return 'Pro Spares Ltd';
-            }
-            else {
-                return 'Toto Spare Parts Ltd';
-            }
-        }
+        
 
 
         function getMaintenanceByStatusList() {
@@ -162,11 +134,10 @@
                         var tr;
                         tr = $('<tr />');
                         debugger;
-                        var x = getName(item.FillingStation);
-                        var y = getsupplier(item.SupplierName);
-                        tr.append("<td class='text-center' data-title='Reminder'>" + x + "</td>");
+                        
+                        tr.append("<td class='text-center' data-title='Reminder'>" + (item.NameFillingStation == null ? "-" : item.NameFillingStation) + "</td>");
                         tr.append("<td class='text-center' data-title='Status'>" + (item.SupplierCode == null ? "-" : item.SupplierCode) + "</td>");
-                        tr.append("<td class='text-center' data-title='Status'>" + y + "</td>");
+                        tr.append("<td class='text-center' data-title='Status'>" + (item.NameSupllier == null ? "-" : item.NameSupllier) + "</td>");
                         tr.append("<td class='text-center' data-title='Maintenance'>" + (item.ClaimNumber == null ? "-" : item.ClaimNumber) + "</td>");
                         tr.append("<td class='text-center' data-title='Maintenance'>" + (item.InvoiceNo == null ? "-" : item.InvoiceNo) + "</td>");
                         tr.append("<td class='text-center' data-title='AssetNo'>" + (item.InvoiceDate == null ? "-" : getFormattedDate(item.InvoiceDate)) + "</td>");

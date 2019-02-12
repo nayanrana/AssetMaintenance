@@ -240,11 +240,16 @@ namespace AssetMaintenance.UI.Controllers
                             if (workSheet.Cells[rowIterator, 5].Value != null)
                             {
                                 model.RegistrationNo = Convert.ToString(workSheet.Cells[rowIterator, 5].Value);
-                                if(!registationNumber.Any(x=>x.Value.Trim().ToLower()==model.RegistrationNo.Trim().ToLower()))
+                                if (!registationNumber.Any(x=>x.Value.Trim().ToLower()==model.RegistrationNo.Trim().ToLower()))
                                 {
                                     validationMsg = "Registration No. "+ model.RegistrationNo+" Does not exists in database";
 
                                     break;
+                                }
+                                else
+                                {
+                                    model.RegistrationNo = registationNumber.Where(x => x.Value.Trim().ToLower() == model.RegistrationNo.Trim().ToLower()).FirstOrDefault().Key.ToString();
+
                                 }
                             }
                             else
@@ -257,11 +262,15 @@ namespace AssetMaintenance.UI.Controllers
 
                             model.FillingStation = Convert.ToString(workSheet.Cells[rowIterator, 6].Value);
 
-                            if (!string.IsNullOrEmpty(model.FillingStation)&&!registationNumber.Any(x => x.Value.Trim().ToLower() == model.RegistrationNo.Trim().ToLower()))
+                            if (!string.IsNullOrEmpty(model.FillingStation)&&!fillingStation.Any(x => x.Value.Trim().ToLower() == model.FillingStation.Trim().ToLower()))
                             {
                                 validationMsg = "Filling Station " + model.FillingStation + " Does not exists in database";
 
                                 break;
+                            }
+                            else
+                            {
+                                model.FillingStation = fillingStation.Where(x => x.Value.Trim().ToLower() == model.FillingStation.Trim().ToLower()).FirstOrDefault().Key.ToString();
                             }
                             model.Driver = Convert.ToString(workSheet.Cells[rowIterator, 7].Value);
 

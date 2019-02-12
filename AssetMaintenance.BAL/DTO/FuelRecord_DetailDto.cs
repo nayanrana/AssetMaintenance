@@ -21,6 +21,6 @@ namespace AssetMaintenance.BAL.DTO
         public Nullable<double> DiscountAmount { get; set; }
         public Nullable<double> VatAmount { get; set; }
         public double? AmountInVal { get; set; }
-       
+        public string NameFillingStation { get; set; }
     }
 }

@@ -247,8 +247,8 @@
             $('#ManualDate').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
             $('#ManualDateCreated').datepicker({ autoclose: true, format: 'dd/mm/yyyy' });
             $('.dropdown').select2();
-           // $('#FillingStation').val('@Model.FillingStation')
-
+            // $('#FillingStation').val('@Model.FillingStation')
+            //$('#InvoiceTotalAmount').val() == $("#tblUploadedData #tfootAmtVatTotal").html(amtVat.toFixed(2));
             $(function () {
                 $("#ManualDateCreated").datepicker({
                     numberOfMonths: 2,
@@ -287,6 +287,9 @@
                         },
                         RetailPrice: {
                             required: true
+                        },
+                        InvoiceTotalAmount: {
+                            required: true
                         }
                     },
                     submitHandler: function (form) {
@@ -299,6 +302,11 @@
 
      function createFuelRecord() {
          if ($("#createFuelRecordForm").valid()) {
+             debugger;
+             if ($('#InvoiceTotalAmount').val() != $("#tblUploadedData #tfootAmtVatTotal").html()) {
+                 toastr.error("Total mismatch");
+                 return;
+             };
 
              swal({
                  title: "",
@@ -345,7 +353,7 @@
                          success: function (data) {
                              if (data != 'validation') {
                                  $($("#createFuelRecordForm input").val(''));
-
+                             
                                  toastr.success("Fuel Record inserted successfully.");
                                  window.location.href = '/FuelManagement/List';
                                  $('.FuelListedit').remove();
@@ -485,6 +493,7 @@
             debugger;
             $("#tblUploadedData tbody").html('');
             $.each(response.Html, function (i, item) {
+                debugger;
                 var tr;
                 tr = $('<tr />');
                 tr.append("<td class='text-center'>" + getFormattedDate(item.Date) + "</td>");
@@ -492,7 +501,7 @@
                 tr.append("<td class='text-center'>" + (item.VoucherNumber != undefined ? item.VoucherNumber : "-") + "</td>");
                 tr.append("<td class='text-center'>" + (item.CostCentreLocation != undefined ? item.CostCentreLocation : "-") + "</td>");
                 tr.append("<td class='text-center'>" + (item.RegistrationNo != undefined ? item.RegistrationNo : "-") + "</td>");
-                tr.append("<td class='text-center'>" + (item.FillingStation != undefined ? item.FillingStation : "-") + "</td>");
+                tr.append("<td class='text-center'>" + (item.NameFillingStation != undefined ? item.NameFillingStation : "-") + "</td>");
                 tr.append("<td class='text-center'>" + (item.Driver != undefined ? item.Driver : "-" )+ "</td>");
                 tr.append("<td class='text-center'>" + (item.FuelType != undefined ? item.FuelType : "-" )+ "</td>");
                 tr.append("<td class='text-center'> " + (item.QuantityLitres != undefined ? item.QuantityLitres : "-")+ "</td>");

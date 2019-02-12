@@ -82,6 +82,12 @@ namespace AssetMaintenance.BAL
                 AmountInVal = k.AmountInVal   
             }).ToList();
 
+            foreach (var item in fueldetails)
+            {
+                long fuelstationid = Convert.ToInt64(item.FillingStation);
+                item.NameFillingStation = dbCon.GFI_SYS_LookUpValues.Where(su => su.VID == fuelstationid).FirstOrDefault() != null ? dbCon.GFI_SYS_LookUpValues.Where(su => su.VID == fuelstationid).FirstOrDefault().Name : "";
+            }
+
             return fueldetails;
         }
 
@@ -107,6 +113,8 @@ namespace AssetMaintenance.BAL
                 VatAmount = k.VatAmount,
                 AmountInVal = k.AmountInVal
             }).FirstOrDefault();
+
+            
 
             return fueldetails;
 

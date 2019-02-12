@@ -42,8 +42,16 @@ namespace AssetMaintenance.BAL
                 DiscountAmountPetrol = x.DiscountAmountPetrol,
                 AmountPetrolLt = x.AmountPetrolLt,
                 Is_PaymentReceiptGenerate = x.Is_PaymentReceiptGenerate
-            });
-            return fuelList.ToList();
+            }).ToList();
+            foreach (var item in fuelList)
+            {
+                long supid = Convert.ToInt64(item.SupplierName);
+                item.NameSupllier = dbCon.Suppliers.Where(su => su.Id == supid).FirstOrDefault() != null ? dbCon.Suppliers.Where(su => su.Id == supid).FirstOrDefault().Name : "";
+
+                long fuelid = Convert.ToInt64(item.FillingStation);
+                item.NameFillingStation = dbCon.GFI_SYS_LookUpValues.Where(su => su.VID == fuelid).FirstOrDefault() != null ? dbCon.GFI_SYS_LookUpValues.Where(su => su.VID == fuelid).FirstOrDefault().Name : "";
+            }
+            return fuelList;
         }
 
         public int InsertFuelRecord(FuelRecordDto fuel)
@@ -110,9 +118,10 @@ namespace AssetMaintenance.BAL
                     AmountPetrolLt = x.AmountPetrolLt,
                     AmountDieselLt = x.AmountDieselLt,
                     AmountGasolineLt = x.AmountGasolineLt,
-                    Is_PaymentReceiptGenerate = x.Is_PaymentReceiptGenerate
-
+                    Is_PaymentReceiptGenerate = x.Is_PaymentReceiptGenerate,
+                   
                 }).FirstOrDefault();
+                
                 return fuelmanagerResult;
             }
             else
@@ -179,13 +188,16 @@ namespace AssetMaintenance.BAL
         public List<KeyValuePair<string, int>> GetSupplierName()
         {
             List<KeyValuePair<string, int>> lstKeyValue = new List<KeyValuePair<string, int>>();
-
-            lstKeyValue = (dbCon.Suppliers.AsEnumerable().Where(x => x.IsFuel == true).Select(x =>
+           
+                lstKeyValue = (dbCon.Suppliers.AsEnumerable().Where(x => x.IsFuel == true).Select(x =>
                                new KeyValuePair<string, int>
                                (
                                   x.Name,
-                                 x.Id
+                                  x.Id
+
                                )).ToList());
+            
+            
             return lstKeyValue;
         }
 
@@ -197,7 +209,7 @@ namespace AssetMaintenance.BAL
                 lstKeyValue = (dbCon.GFI_SYS_LookUpValues.AsEnumerable().Where(c => c.TID == 2).Select(x =>
                                  new KeyValuePair<int, string>
                                  (
-                                    x.TID,
+                                    x.VID,
                                      x.Name
                                  )).ToList());
                 return lstKeyValue;
